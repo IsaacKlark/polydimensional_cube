@@ -47,7 +47,6 @@ const Svg = ({ dimension }) => {
         ids += 1;
     }
 
-    let perpendicular = 0;
     let cubesRepeats = 4;
     let square = [0,1,2,3];
 
@@ -78,7 +77,7 @@ const Svg = ({ dimension }) => {
                         vertex2 = 2 + (Math.trunc(index / 4)) * 4;
                     }
 
-                    if (index >= (2 ** dimension) && perpendicular < (2 ** dimension - cubesRepeats)) {
+                    if (index >= (2 ** dimension)) {
                         
                         for (let i = 0; i < square.length; i++) {
                             if (index % cubesRepeats === i) {
