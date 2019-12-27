@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2a3dd65e7f79b8f4317b8a6131146316",
+    "revision": "5281b03eecc5fc6ab669ae5fd81081fe",
     "url": "/polydimensional_cube/index.html"
   },
   {
