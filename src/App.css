@@ -92,3 +92,12 @@ body {
   padding: 4px;
   outline: 0;
 }
+
+.using__mouse-wrap {
+  text-align: center;
+  margin: 10px;
+}
+
+.using__mouse {
+  color: #3c919b;
+}

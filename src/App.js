@@ -8,6 +8,8 @@ import { verticesArray } from './vertices';
 import { anglesArray } from './angles';
 import generateMatrixes from './generateMatrixes';
 
+export let useMouse = false;
+
 
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
@@ -25,9 +27,9 @@ function App() {
   }
 
   const generateDimensions = () => {
-    if (isNaN(number) 
-    || +number < 0 
-    || Math.trunc(+number) - +number !== 0) {
+    if (isNaN(number)
+      || +number < 0
+      || Math.trunc(+number) - +number !== 0) {
       alert('input positive integer number')
     } else {
       const checkboxes = Array.from(
@@ -56,47 +58,67 @@ function App() {
       setCubeWithDimension(+e.target.value);
     }
   }
-  
+
+  const useMouseChange = () => {
+    if (useMouse) {
+      useMouse = false;
+    } else {
+      useMouse = true;
+    }
+  }
+
   return (
-    <div className="App">
-      <button type='button' className="reset" onClick={resetAngles}>
-        Reset angles
+    <>
+      <div className='using__mouse-wrap'>
+        <label className='using__mouse'>
+          <input
+            type='checkbox'
+            name='checkbox'
+            onChange={useMouseChange}
+          />
+          rotate by using mouse
+      </label>
+      </div>
+      <div className="App">
+        <button type='button' className="reset" onClick={resetAngles}>
+          Reset angles
       </button>
-      <input 
-        type="text" 
-        placeholder='input number of dimensions'
-        className="input_dimension"
-        onChange={changeNumber}
-      />
-      <button type='button' 
-        className="generate-button" 
-        onClick={generateDimensions}
-      >
-        Generate dimensions
+        <input
+          type="text"
+          placeholder='input number of dimensions'
+          className="input_dimension"
+          onChange={changeNumber}
+        />
+        <button type='button'
+          className="generate-button"
+          onClick={generateDimensions}
+        >
+          Generate dimensions
       </button>
 
-      <select onChange={ dimensionOfCube } className="select">
-        <option>
-          select dimension of cube
+        <select onChange={dimensionOfCube} className="select">
+          <option>
+            select dimension of cube
         </option>
-        {
-          optionList.map(number => {
-            return (
-            <option key={number} className="option">
-              {number}
-            </option>);
-          })
-        }
-      </select>
-      <CreateCheckboxes 
-        dimensions={ amount } 
-        number={ numberOfDimensions }
-        DimensionOfCube={ cubeWithDimension }
-      />
-      <Svg 
-        dimension={ numberOfDimensions } 
-      />
-    </div>
+          {
+            optionList.map(number => {
+              return (
+                <option key={number} className="option">
+                  {number}
+                </option>);
+            })
+          }
+        </select>
+        <CreateCheckboxes
+          dimensions={amount}
+          number={numberOfDimensions}
+          DimensionOfCube={cubeWithDimension}
+        />
+        <Svg
+          dimension={numberOfDimensions}
+        />
+      </div>
+    </>
   );
 }
 

@@ -4,6 +4,11 @@ import { verticesArray } from './vertices';
 import { anglesArray } from './angles';
 import generateMatrixes from './generateMatrixes';
 
+export let canRotate = false;
+export let mouseX = 0;
+export let mouseY = 0;
+let prevX = 0;
+let prevY = 0;
 
 const Svg = ({ dimension }) => {
 
@@ -17,7 +22,7 @@ const Svg = ({ dimension }) => {
     if (+dimension === 0) {
         return (
             <svg width="600" height="400" className="svg">
-                <circle cx="300" cy="200" r="3" fill="white"/>
+                <circle cx="300" cy="200" r="3" fill="white" />
             </svg>
         );
     }
@@ -26,11 +31,11 @@ const Svg = ({ dimension }) => {
         return (
             <svg width="600" height="400" className="svg">
                 <line
-                    id="line1" 
-                    x1="200" 
+                    id="line1"
+                    x1="200"
                     y1="200"
-                    x2="400" 
-                    y2="200" 
+                    x2="400"
+                    y2="200"
                     stroke="white"
                     className="line"
                 />
@@ -48,10 +53,34 @@ const Svg = ({ dimension }) => {
     }
 
     let cubesRepeats = 4;
-    let square = [0,1,2,3];
+    let square = [0, 1, 2, 3];
+
+    const enableCanRotate = () => {
+        canRotate = true;
+    }
+
+    const disableCanRotate = () => {
+        canRotate = false;
+
+    }
+
+    const mouseMoving = (e) => {
+        mouseX = prevX - e.clientX > 0 ? 1 : -1;
+        mouseY = prevY - e.clientY > 0 ? 1 : -1;
+        prevX = e.clientX;
+        prevY = e.clientY;
+    }
 
     return (
-        <svg width="600" height="400" className="svg">
+        <svg
+            width="600"
+            height="400"
+            className="svg"
+            onMouseDown={enableCanRotate}
+            onMouseUp={disableCanRotate}
+            onMouseMove={mouseMoving}
+            onMouseLeave={disableCanRotate}
+        >
             {
                 lines.map((id, index) => {
                     let vertex1 = 0;
@@ -78,7 +107,7 @@ const Svg = ({ dimension }) => {
                     }
 
                     if (index >= (2 ** dimension)) {
-                        
+
                         for (let i = 0; i < square.length; i++) {
                             if (index % cubesRepeats === i) {
                                 vertex1 = square[i];
@@ -90,12 +119,12 @@ const Svg = ({ dimension }) => {
                                 }
                             }
                         }
-                        
+
                         if (square[0] > (2 ** dimension - 1)) {
                             cubesRepeats *= 2;
                             const twoLength = square.length * 2;
 
-                            for (let i = 0; i < twoLength ; i++) {
+                            for (let i = 0; i < twoLength; i++) {
                                 square[i] = i;
                             }
                         }
@@ -103,10 +132,10 @@ const Svg = ({ dimension }) => {
 
                     return (
                         <line
-                            key={id} 
-                            x1="200" 
-                            y1="200" 
-                            x2="400" 
+                            key={id}
+                            x1="200"
+                            y1="200"
+                            x2="400"
                             y2="200"
                             stroke="white"
                             id={`line${id}`}
