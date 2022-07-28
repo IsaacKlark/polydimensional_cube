@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2ee43f51a271ca5b4e72128ba6429a64",
+    "revision": "b108a3ce6d6546211d52045a03890d07",
     "url": "/polydimensional_cube/index.html"
   },
   {
-    "revision": "b0910cd71983db417d98",
+    "revision": "7849e438ef4997d08534",
     "url": "/polydimensional_cube/static/css/main.9df81f85.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/polydimensional_cube/static/js/2.bddc9350.chunk.js.LICENSE"
   },
   {
-    "revision": "b0910cd71983db417d98",
-    "url": "/polydimensional_cube/static/js/main.01bd4011.chunk.js"
+    "revision": "7849e438ef4997d08534",
+    "url": "/polydimensional_cube/static/js/main.b4a5d2af.chunk.js"
   },
   {
     "revision": "77057ae1584906f3c7c6",
