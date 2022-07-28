@@ -10,7 +10,6 @@ const generateMatrixes = (dimensions, anglesArr) => {
     let sinus2 = dimensions - 2;
     let variants = dimensions * (dimensions - 1) / 2;
     const matrixes = [];
-
     for (let i = 0; i < variants; i++) {
         matrixes.push(Matrix.create(
             initMatrix(

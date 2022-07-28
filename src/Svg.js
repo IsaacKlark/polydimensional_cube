@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import generateCube from './generateCube';
 import { verticesArray } from './vertices';
-import { anglesArray } from './angles';
 import generateMatrixes from './generateMatrixes';
 
 export let canRotate = false;
@@ -10,7 +9,7 @@ export let mouseY = 0;
 let prevX = 0;
 let prevY = 0;
 
-const Svg = ({ dimension }) => {
+const Svg = ({ dimension, anglesArray }) => {
 
     useEffect(() => {
         if (dimension > 1) {
