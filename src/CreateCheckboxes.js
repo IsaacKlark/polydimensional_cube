@@ -50,10 +50,11 @@ const CreateCheckboxes = ({
             copyAnglesArray[index] += 2;
           }
         }
-        setAnglesArray(copyAnglesArray)
-        const matrix = generateMatrixes(number, copyAnglesArray);
-        generateCube(verticesArray, matrix, number);
       });
+
+      setAnglesArray(copyAnglesArray)
+      const matrix = generateMatrixes(number, copyAnglesArray);
+      generateCube(verticesArray, matrix, number);
     }, 50);
 
     if (!activeRotations.length) clearInterval(interval);
