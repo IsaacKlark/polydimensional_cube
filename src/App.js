@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
@@ -6,7 +6,7 @@ import generateCube from "./generateCube";
 import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
 
-export let useMouse = false;
+export let useKeyboard = false;
 
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
@@ -14,6 +14,7 @@ function App() {
   const [cubeWithDimension, setCubeWithDimension] = useState(2);
   const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
+  const screenRef = useRef(null);
 
   let number = numberOfDimensions;
   const changeNumber = (e) => {
@@ -45,7 +46,7 @@ function App() {
 
   const resetAngles = () => {
     const copyAnglesArray = [...anglesArray].map((angle) => 0);
-    
+
     setAnglesArray(copyAnglesArray);
     setActiveRotations([]);
     const matrix = generateMatrixes(numberOfDimensions, copyAnglesArray);
@@ -58,11 +59,11 @@ function App() {
     }
   };
 
-  const useMouseChange = () => {
-    if (useMouse) {
-      useMouse = false;
+  const useKeyboardChange = () => {
+    if (useKeyboard) {
+      useKeyboard = false;
     } else {
-      useMouse = true;
+      useKeyboard = true;
     }
   };
 
@@ -70,11 +71,13 @@ function App() {
     <>
       <div className="using__mouse-wrap">
         <label className="using__mouse">
-          <input type="checkbox" name="checkbox" onChange={useMouseChange} />
-          rotate by using mouse
+          <input type="checkbox" name="checkbox" onChange={useKeyboardChange} />
+          rotate by checking checkboxes and using w/s keys
         </label>
       </div>
-      <div className="App">
+      <div
+        className="App"
+      >
         <button type="button" className="reset" onClick={resetAngles}>
           Reset angles
         </button>
@@ -83,6 +86,9 @@ function App() {
           placeholder="input number of dimensions"
           className="input_dimension"
           onChange={changeNumber}
+          onKeyDown={(e) => {
+            console.log(e);
+          }}
         />
         <button
           type="button"

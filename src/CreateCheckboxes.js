@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import generateMatrixes from "./generateMatrixes";
 import generateCube from "./generateCube";
 import vertices, { verticesArray } from "./vertices";
-import { useMouse } from "./App";
+import { useKeyboard } from "./App";
 import { canRotate, mouseX, mouseY } from "./Svg";
 
 const CreateCheckboxes = ({
@@ -11,9 +11,34 @@ const CreateCheckboxes = ({
   DimensionOfCube,
   anglesArray,
   setAnglesArray,
-  activeRotations, 
-  setActiveRotations
+  activeRotations,
+  setActiveRotations,
 }) => {
+  useEffect(() => {
+    const moveByKeyBoard = (e) => {
+      if (useKeyboard) {
+        let copyAnglesArray = [...anglesArray];
+
+        if (e.key === "w") {
+          activeRotations.forEach((index) => {
+            copyAnglesArray[index] += 2;
+          });
+        }
+
+        if (e.key === "s") {
+          activeRotations.forEach((index) => {
+            copyAnglesArray[index] -= 2;
+          });
+        }
+        setAnglesArray(copyAnglesArray);
+        const matrix = generateMatrixes(number, copyAnglesArray);
+        generateCube(verticesArray, matrix, number);
+      }
+    };
+
+    document.body.addEventListener("keydown", moveByKeyBoard);
+    return () => document.body.removeEventListener("keydown", moveByKeyBoard);
+  }, [anglesArray]);
 
   useEffect(() => {
     const anglesArray = [];
@@ -25,42 +50,35 @@ const CreateCheckboxes = ({
 
   useEffect(() => {
     let copyAnglesArray = [...anglesArray];
-
-    if (copyAnglesArray.length < dimensions) {
-      copyAnglesArray = [];
-      for (let i = 0; i < dimensions; i++) {
-        anglesArray.push(0);
+    if (!useKeyboard) {
+      if (copyAnglesArray.length < dimensions) {
+        copyAnglesArray = [];
+        for (let i = 0; i < dimensions; i++) {
+          anglesArray.push(0);
+        }
       }
     }
 
-    let interval = setInterval(() => {
-      activeRotations.forEach((index) => {
-        if (!useMouse) {
+    const interval = setInterval(() => {
+      if (!useKeyboard) {
+        activeRotations.forEach((index) => {
           copyAnglesArray[index]++;
-        } else if (useMouse && canRotate) {
-          if (mouseX < 0 && !yRotationArray.includes(+index)) {
-            copyAnglesArray[index] -= 2;
-          } else if (mouseX > 0 && !yRotationArray.includes(+index)) {
-            copyAnglesArray[index] += 2;
-          } else if (mouseX === 0 && !yRotationArray.includes(+index)) {
-            copyAnglesArray[index] += copyAnglesArray[index];
-          } else if (mouseY < 0) {
-            copyAnglesArray[index] -= 2;
-          } else if (mouseY > 0) {
-            copyAnglesArray[index] += 2;
-          }
-        }
-      });
+        });
 
-      setAnglesArray(copyAnglesArray)
-      const matrix = generateMatrixes(number, copyAnglesArray);
-      generateCube(verticesArray, matrix, number);
+        setAnglesArray(copyAnglesArray);
+        const matrix = generateMatrixes(number, copyAnglesArray);
+        generateCube(verticesArray, matrix, number);
+      } else {
+        clearInterval(interval);
+      }
     }, 50);
 
     if (!activeRotations.length) clearInterval(interval);
 
-    return () => clearInterval(interval);
-  }, [dimensions, activeRotations]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [dimensions, activeRotations, useKeyboard]);
 
   const numbersOfCehckboxes = new Array(dimensions);
   let subDimensionStart = 2;
