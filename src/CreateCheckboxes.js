@@ -68,16 +68,12 @@ const CreateCheckboxes = ({
         setAnglesArray(copyAnglesArray);
         const matrix = generateMatrixes(number, copyAnglesArray);
         generateCube(verticesArray, matrix, number);
-      } else {
-        clearInterval(interval);
       }
     }, 50);
 
     if (!activeRotations.length) clearInterval(interval);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [dimensions, activeRotations, useKeyboard]);
 
   const numbersOfCehckboxes = new Array(dimensions);
