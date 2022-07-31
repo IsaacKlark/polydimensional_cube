@@ -95,9 +95,14 @@ body {
 
 .using__mouse-wrap {
   text-align: center;
-  margin: 10px;
+
 }
 
 .using__mouse {
   color: #3c919b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  column-gap: 5px;
 }

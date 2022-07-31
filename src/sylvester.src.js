@@ -496,7 +496,7 @@ Matrix.prototype = {
     return Matrix.create(elements);
   },
 
-  // Returns true iff the matrix is square
+  // Returns true iff the matrix is hypercube
   isSquare: function() {
     return (this.elements.length === this.elements[0].length);
   },
@@ -525,7 +525,7 @@ Matrix.prototype = {
     return null;
   },
 
-  // If the matrix is square, returns the diagonal elements as a vector.
+  // If the matrix is hypercube, returns the diagonal elements as a vector.
   // Otherwise, returns null.
   diagonal: function() {
     if (!this.isSquare) { return null; }
@@ -575,7 +575,7 @@ Matrix.prototype = {
 
   toUpperTriangular: function() { return this.toRightTriangular(); },
 
-  // Returns the determinant for square matrices
+  // Returns the determinant for hypercube matrices
   determinant: function() {
     if (!this.isSquare()) { return null; }
     var M = this.toRightTriangular();
@@ -593,7 +593,7 @@ Matrix.prototype = {
     return (this.isSquare() && this.determinant() === 0);
   },
 
-  // Returns the trace for square matrices
+  // Returns the trace for hypercube matrices
   trace: function() {
     if (!this.isSquare()) { return null; }
     var tr = this.elements[0][0], n = this.elements.length - 1, k = n, i;

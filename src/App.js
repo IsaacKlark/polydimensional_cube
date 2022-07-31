@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
-import generateCube from "./generateCube";
+import generateFigure from "./generateFigure";
 import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
 
@@ -14,7 +14,7 @@ function App() {
   const [cubeWithDimension, setCubeWithDimension] = useState(2);
   const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
-  const screenRef = useRef(null);
+  const [figure, setFigure] = useState("hypercube");
 
   let number = numberOfDimensions;
   const changeNumber = (e) => {
@@ -40,7 +40,7 @@ function App() {
       setNumberOfDimensions(number);
       setAmount((number * (number - 1)) / 2);
       setCubeWithDimension(number);
-      document.querySelector(".select").value = "select dimension of cube";
+      document.querySelector(".select").value = `select dimension of ${figure}`;
     }
   };
 
@@ -50,7 +50,7 @@ function App() {
     setAnglesArray(copyAnglesArray);
     setActiveRotations([]);
     const matrix = generateMatrixes(numberOfDimensions, copyAnglesArray);
-    generateCube(verticesArray, matrix, numberOfDimensions);
+    generateFigure(verticesArray, matrix, numberOfDimensions, figure);
   };
 
   const dimensionOfCube = (e) => {
@@ -74,10 +74,19 @@ function App() {
           <input type="checkbox" name="checkbox" onChange={useKeyboardChange} />
           rotate by checking checkboxes and using w/s keys
         </label>
+        <label className="using__mouse">
+          {numberOfDimensions}D
+          <select
+            onChange={(e) => setFigure(e.target.value)}
+            className="select"
+            value={figure}
+          >
+            <option>polytop</option>
+            <option>hypercube</option>
+          </select>
+        </label>
       </div>
-      <div
-        className="App"
-      >
+      <div className="App">
         <button type="button" className="reset" onClick={resetAngles}>
           Reset angles
         </button>
@@ -86,9 +95,7 @@ function App() {
           placeholder="input number of dimensions"
           className="input_dimension"
           onChange={changeNumber}
-          onKeyDown={(e) => {
-            console.log(e);
-          }}
+
         />
         <button
           type="button"
@@ -99,7 +106,7 @@ function App() {
         </button>
 
         <select onChange={dimensionOfCube} className="select">
-          <option>select dimension of cube</option>
+          <option>select dimension of {figure}</option>
           {optionList.map((number) => {
             return (
               <option key={number} className="option">
@@ -116,8 +123,14 @@ function App() {
           setAnglesArray={setAnglesArray}
           activeRotations={activeRotations}
           setActiveRotations={setActiveRotations}
+          figure={figure}
         />
-        <Svg dimension={numberOfDimensions} anglesArray={anglesArray} />
+        <Svg
+          dimension={numberOfDimensions}
+          anglesArray={anglesArray}
+          figure={figure}
+          verticesArray={verticesArray}
+        />
       </div>
     </>
   );

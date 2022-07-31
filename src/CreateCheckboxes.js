@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import generateMatrixes from "./generateMatrixes";
-import generateCube from "./generateCube";
+import generateFigure from "./generateFigure";
 import vertices, { verticesArray } from "./vertices";
 import { useKeyboard } from "./App";
-import { canRotate, mouseX, mouseY } from "./Svg";
 
 const CreateCheckboxes = ({
   dimensions,
@@ -13,6 +12,7 @@ const CreateCheckboxes = ({
   setAnglesArray,
   activeRotations,
   setActiveRotations,
+  figure
 }) => {
   useEffect(() => {
     const moveByKeyBoard = (e) => {
@@ -32,7 +32,7 @@ const CreateCheckboxes = ({
         }
         setAnglesArray(copyAnglesArray);
         const matrix = generateMatrixes(number, copyAnglesArray);
-        generateCube(verticesArray, matrix, number);
+        generateFigure(verticesArray, matrix, number, figure);
       }
     };
 
@@ -67,7 +67,7 @@ const CreateCheckboxes = ({
 
         setAnglesArray(copyAnglesArray);
         const matrix = generateMatrixes(number, copyAnglesArray);
-        generateCube(verticesArray, matrix, number);
+        generateFigure(verticesArray, matrix, number, figure);
       }
     }, 50);
 
@@ -75,6 +75,11 @@ const CreateCheckboxes = ({
 
     return () => clearInterval(interval);
   }, [dimensions, activeRotations, useKeyboard]);
+
+  useEffect(() => {
+    vertices(number, DimensionOfCube, figure);
+
+  }, [figure, number, DimensionOfCube,]);
 
   const numbersOfCehckboxes = new Array(dimensions);
   let subDimensionStart = 2;
@@ -90,7 +95,6 @@ const CreateCheckboxes = ({
     addToYRotationInterval++;
   }
 
-  vertices(number, DimensionOfCube);
 
   for (let i = 0; i < dimensions; i++) {
     if (subDimensionEnd === subDimensionStart) {
