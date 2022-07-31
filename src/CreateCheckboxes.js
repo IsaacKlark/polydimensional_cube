@@ -12,7 +12,8 @@ const CreateCheckboxes = ({
   setAnglesArray,
   activeRotations,
   setActiveRotations,
-  figure
+  figure,
+  transposeRotation,
 }) => {
   useEffect(() => {
     const moveByKeyBoard = (e) => {
@@ -31,7 +32,11 @@ const CreateCheckboxes = ({
           });
         }
         setAnglesArray(copyAnglesArray);
-        const matrix = generateMatrixes(number, copyAnglesArray);
+        const matrix = generateMatrixes(
+          number,
+          copyAnglesArray,
+          transposeRotation
+        );
         generateFigure(verticesArray, matrix, number, figure);
       }
     };
@@ -66,7 +71,11 @@ const CreateCheckboxes = ({
         });
 
         setAnglesArray(copyAnglesArray);
-        const matrix = generateMatrixes(number, copyAnglesArray);
+        const matrix = generateMatrixes(
+          number,
+          copyAnglesArray,
+          transposeRotation
+        );
         generateFigure(verticesArray, matrix, number, figure);
       }
     }, 50);
@@ -78,10 +87,9 @@ const CreateCheckboxes = ({
 
   useEffect(() => {
     vertices(number, DimensionOfFigure, figure);
+  }, [figure, number, DimensionOfFigure]);
 
-  }, [figure, number, DimensionOfFigure,]);
-
-  const numbersOfCehckboxes = new Array(dimensions);
+  const numbersOfCheckboxes = new Array(dimensions);
   let subDimensionStart = 2;
   let subDimensionEnd = 1;
 
@@ -95,18 +103,17 @@ const CreateCheckboxes = ({
     addToYRotationInterval++;
   }
 
-
   for (let i = 0; i < dimensions; i++) {
     if (subDimensionEnd === subDimensionStart) {
       subDimensionStart++;
       subDimensionEnd = 1;
     }
 
-    numbersOfCehckboxes[i] = `${subDimensionStart}-${subDimensionEnd}`;
+    numbersOfCheckboxes[i] = `${subDimensionStart}-${subDimensionEnd}`;
     subDimensionEnd++;
   }
 
-  numbersOfCehckboxes.reverse();
+  numbersOfCheckboxes.reverse();
 
   const changeActiveRotation = (index) => {
     let copyActiveRotations = [...activeRotations];
@@ -121,25 +128,46 @@ const CreateCheckboxes = ({
     setActiveRotations(copyActiveRotations);
   };
 
+  const selectAll = () => {
+    let copyActiveRotations = [];
+
+    if (activeRotations.length < numbersOfCheckboxes.length) {
+      copyActiveRotations = numbersOfCheckboxes.map((item, index) => index);
+    }
+
+    setActiveRotations(copyActiveRotations);
+  };
+
   return (
-    <section className="checkboxes">
-      <div className="angles">angles:</div>
-      {numbersOfCehckboxes.map((field, index) => {
-        return (
-          <label key={index} className="labels">
-            <input
-              key={index + "c"}
-              type="checkbox"
-              name="checkbox"
-              onChange={() => changeActiveRotation(index)}
-              checked={activeRotations.includes(index)}
-              className="checkbox"
-            />
-            {field}
-          </label>
-        );
-      })}
-    </section>
+    <>
+      <label className="using__mouse">
+        <input
+          type="checkbox"
+          name="checkbox"
+          onChange={selectAll}
+          checked={activeRotations.length === numbersOfCheckboxes.length}
+        />
+        <p>Select All</p>
+      </label>
+      <section className="checkboxes">
+        <div className="angles">angles:</div>
+        {numbersOfCheckboxes.map((field, index) => {
+          return (
+            <label key={index} className="labels">
+              <input
+                key={index + "c"}
+                type="checkbox"
+                name="checkbox"
+                onChange={() => changeActiveRotation(index)}
+                checked={activeRotations.includes(index)}
+                className="checkbox"
+              />
+              {field}
+            </label>
+          );
+        })}
+      </section>
+    </>
   );
 };
 

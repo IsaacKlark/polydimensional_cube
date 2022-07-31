@@ -15,6 +15,7 @@ function App() {
   const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
   const [figure, setFigure] = useState("hypercube");
+  const [transposeRotation, setTransposeRotation] = useState(false);
 
   let number = numberOfDimensions;
   const changeNumber = (e) => {
@@ -49,7 +50,11 @@ function App() {
 
     setAnglesArray(copyAnglesArray);
     setActiveRotations([]);
-    const matrix = generateMatrixes(numberOfDimensions, copyAnglesArray);
+    const matrix = generateMatrixes(
+      numberOfDimensions,
+      copyAnglesArray,
+      transposeRotation
+    );
     generateFigure(verticesArray, matrix, numberOfDimensions, figure);
   };
 
@@ -70,10 +75,27 @@ function App() {
   return (
     <>
       <div className="using__mouse-wrap">
-        <label className="using__mouse">
-          <input type="checkbox" name="checkbox" onChange={useKeyboardChange} />
-          rotate by checking checkboxes and using w/s keys
-        </label>
+        <div className="wrapper">
+          <label className="using__mouse">
+            <input
+              type="checkbox"
+              name="checkbox"
+              onChange={useKeyboardChange}
+            />
+            <p>rotate by checking checkboxes and using w/s keys</p>
+          </label>
+
+          <label className="using__mouse">
+            <input
+              type="checkbox"
+              name="checkbox 2"
+              onChange={() => setTransposeRotation(!transposeRotation)}
+              checked={transposeRotation}
+            />
+            <p>transpose rotation</p>
+          </label>
+        </div>
+
         <label className="using__mouse">
           {numberOfDimensions}D
           <select
@@ -96,7 +118,6 @@ function App() {
           placeholder="input number of dimensions"
           className="input_dimension"
           onChange={changeNumber}
-
         />
         <button
           type="button"
@@ -116,6 +137,7 @@ function App() {
             );
           })}
         </select>
+
         <CreateCheckboxes
           dimensions={amount}
           number={numberOfDimensions}
@@ -125,12 +147,14 @@ function App() {
           activeRotations={activeRotations}
           setActiveRotations={setActiveRotations}
           figure={figure}
+          transposeRotation={transposeRotation}
         />
         <Svg
           dimension={numberOfDimensions}
           anglesArray={anglesArray}
           figure={figure}
           dimensionOfFigure={dimensionOfFigure}
+          transposeRotation={transposeRotation}
         />
       </div>
     </>

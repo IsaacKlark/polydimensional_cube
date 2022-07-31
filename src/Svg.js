@@ -13,10 +13,10 @@ export let prevX = 0;
 export let prevY = 0;
 
 
-const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure }) => {
+const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotation }) => {
   useEffect(() => {
     if (dimension > 1) {
-      const matrix = generateMatrixes(dimension, anglesArray);
+      const matrix = generateMatrixes(dimension, anglesArray, transposeRotation);
       generateFigure(verticesArray, matrix, dimension);
     }
   });

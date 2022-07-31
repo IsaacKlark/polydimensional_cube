@@ -105,4 +105,18 @@ body {
   justify-content: center;
   margin: 10px;
   column-gap: 5px;
+
+  
+}
+
+.using__mouse p {
+  font-size: 12px;
+  line-height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
