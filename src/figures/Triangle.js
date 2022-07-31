@@ -1,6 +1,6 @@
 import React from "react";
 
-const Triangle = ({ dimension,  dimensionOfFigure }) => {
+const Triangle = ({ dimensionOfFigure }) => {
   const amountOfLines = ((+dimensionOfFigure + 1) * dimensionOfFigure) / 2;
   let ids = 0;
   const lines = [];

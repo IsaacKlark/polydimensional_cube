@@ -49,7 +49,7 @@ const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure }) => {
   }
 
   if (figure === "polytop") {
-    return <Triangle dimension={dimension} dimensionOfFigure={dimensionOfFigure} />
+    return <Triangle dimensionOfFigure={dimensionOfFigure} />
   }
 };
 

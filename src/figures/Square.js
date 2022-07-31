@@ -1,9 +1,4 @@
 import React from "react";
-let canRotate = false;
-let mouseX = 0;
-let mouseY = 0;
-let prevX = 0;
-let prevY = 0;
 
 const Square = ({ dimension }) => {
   const amountOfLines = 2 ** (dimension - 1) * dimension;
@@ -18,30 +13,11 @@ const Square = ({ dimension }) => {
   let cubesRepeats = 4;
   let hypercube = [0, 1, 2, 3];
 
-  const enableCanRotate = () => {
-    canRotate = true;
-  };
-
-  const disableCanRotate = () => {
-    canRotate = false;
-  };
-
-  const mouseMoving = (e) => {
-    mouseX = prevX - e.clientX > 0 ? 1 : -1;
-    mouseY = prevY - e.clientY > 0 ? 1 : -1;
-    prevX = e.clientX;
-    prevY = e.clientY;
-  };
-
   return (
     <svg
       width="600"
       height="400"
       className="svg"
-      onMouseDown={enableCanRotate}
-      onMouseUp={disableCanRotate}
-      onMouseMove={mouseMoving}
-      onMouseLeave={disableCanRotate}
     >
       {lines.map((id, index) => {
         let vertex1 = 0;
