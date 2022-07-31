@@ -83,6 +83,7 @@ function App() {
           >
             <option>polytop</option>
             <option>hypercube</option>
+            <option>octahedron</option>
           </select>
         </label>
       </div>

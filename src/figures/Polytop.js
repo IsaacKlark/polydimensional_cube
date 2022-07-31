@@ -1,6 +1,6 @@
 import React from "react";
 
-const Triangle = ({ dimensionOfFigure }) => {
+const Polytop = ({ dimensionOfFigure }) => {
   const amountOfLines = ((+dimensionOfFigure + 1) * dimensionOfFigure) / 2;
   let ids = 0;
   const lines = [];
@@ -64,4 +64,4 @@ const Triangle = ({ dimensionOfFigure }) => {
   );
 };
 
-export default Triangle;
+export default Polytop;

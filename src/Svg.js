@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import generateFigure from "./generateFigure";
 import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
-import Square from "./figures/Square";
-import Triangle from "./figures/Triangle";
+import Cube from "./figures/Cube";
+import Polytop from "./figures/Polytop";
+import Octahedron from "./figures/Octahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -45,11 +46,15 @@ const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure }) => {
   }
 
   if (figure === "hypercube") {
-    return <Square dimension={dimension} />;
+    return <Cube dimension={dimension} />;
   }
 
   if (figure === "polytop") {
-    return <Triangle dimensionOfFigure={dimensionOfFigure} />
+    return <Polytop dimensionOfFigure={dimensionOfFigure} />
+  }
+
+  if (figure === "octahedron") {
+    return <Octahedron dimensionOfFigure={dimensionOfFigure} />;
   }
 };
 

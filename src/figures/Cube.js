@@ -1,6 +1,6 @@
 import React from "react";
 
-const Square = ({ dimension }) => {
+const Cube = ({ dimension }) => {
   const amountOfLines = 2 ** (dimension - 1) * dimension;
   let ids = 0;
   const lines = [];
@@ -85,4 +85,4 @@ const Square = ({ dimension }) => {
   );
 };
 
-export default Square;
+export default Cube;
