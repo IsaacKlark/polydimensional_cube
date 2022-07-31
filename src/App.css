@@ -105,8 +105,14 @@ body {
   justify-content: center;
   margin: 10px;
   column-gap: 5px;
+}
 
-  
+.using__mouse:hover, select:hover {
+  cursor: pointer;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .using__mouse p {

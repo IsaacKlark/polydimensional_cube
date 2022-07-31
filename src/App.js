@@ -104,8 +104,8 @@ function App() {
             value={figure}
           >
             <option>polytop</option>
-            <option>hypercube</option>
             <option>octahedron</option>
+            <option>hypercube</option>
           </select>
         </label>
       </div>
