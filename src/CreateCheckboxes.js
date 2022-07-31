@@ -7,7 +7,7 @@ import { useKeyboard } from "./App";
 const CreateCheckboxes = ({
   dimensions,
   number,
-  DimensionOfCube,
+  DimensionOfFigure,
   anglesArray,
   setAnglesArray,
   activeRotations,
@@ -77,9 +77,9 @@ const CreateCheckboxes = ({
   }, [dimensions, activeRotations, useKeyboard]);
 
   useEffect(() => {
-    vertices(number, DimensionOfCube, figure);
+    vertices(number, DimensionOfFigure, figure);
 
-  }, [figure, number, DimensionOfCube,]);
+  }, [figure, number, DimensionOfFigure,]);
 
   const numbersOfCehckboxes = new Array(dimensions);
   let subDimensionStart = 2;

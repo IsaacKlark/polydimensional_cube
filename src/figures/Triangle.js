@@ -1,7 +1,7 @@
 import React from "react";
 
-const Triangle = ({ dimension }) => {
-  const amountOfLines = ((+dimension + 1) * dimension) / 2;
+const Triangle = ({ dimension,  dimensionOfFigure }) => {
+  const amountOfLines = ((+dimensionOfFigure + 1) * dimensionOfFigure) / 2;
   let ids = 0;
   const lines = [];
 
@@ -10,7 +10,7 @@ const Triangle = ({ dimension }) => {
     ids += 1;
   }
 
-  let minsAmount = dimension;
+  let minsAmount = dimensionOfFigure;
   let xDots = [];
   let yDots = [];
   let currentMinX = 0;
@@ -26,7 +26,7 @@ const Triangle = ({ dimension }) => {
       xDots.push(currentMinX);
     }
 
-    if (currentY > dimension - 1) {
+    if (currentY > dimensionOfFigure - 1) {
       currentMinY += 1;
       currentY = currentMinY;
       yDots.push(currentY);

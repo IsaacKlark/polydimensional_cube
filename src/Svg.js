@@ -12,7 +12,7 @@ export let prevX = 0;
 export let prevY = 0;
 
 
-const Svg = ({ dimension, anglesArray, figure }) => {
+const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure }) => {
   useEffect(() => {
     if (dimension > 1) {
       const matrix = generateMatrixes(dimension, anglesArray);
@@ -49,7 +49,7 @@ const Svg = ({ dimension, anglesArray, figure }) => {
   }
 
   if (figure === "polytop") {
-    return <Triangle dimension={dimension} />
+    return <Triangle dimension={dimension} dimensionOfFigure={dimensionOfFigure} />
   }
 };
 

@@ -11,7 +11,7 @@ export let useKeyboard = false;
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
   const [amount, setAmount] = useState(1);
-  const [cubeWithDimension, setCubeWithDimension] = useState(2);
+  const [dimensionOfFigure, setDimensionOfFigure] = useState(2);
   const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
   const [figure, setFigure] = useState("hypercube");
@@ -39,7 +39,7 @@ function App() {
       setActiveRotations([]);
       setNumberOfDimensions(number);
       setAmount((number * (number - 1)) / 2);
-      setCubeWithDimension(number);
+      setDimensionOfFigure(number);
       document.querySelector(".select").value = `select dimension of ${figure}`;
     }
   };
@@ -55,7 +55,7 @@ function App() {
 
   const dimensionOfCube = (e) => {
     if (!isNaN(e.target.value)) {
-      setCubeWithDimension(+e.target.value);
+      setDimensionOfFigure(+e.target.value);
     }
   };
 
@@ -118,7 +118,7 @@ function App() {
         <CreateCheckboxes
           dimensions={amount}
           number={numberOfDimensions}
-          DimensionOfCube={cubeWithDimension}
+          DimensionOfFigure={dimensionOfFigure}
           anglesArray={anglesArray}
           setAnglesArray={setAnglesArray}
           activeRotations={activeRotations}
@@ -129,7 +129,7 @@ function App() {
           dimension={numberOfDimensions}
           anglesArray={anglesArray}
           figure={figure}
-          verticesArray={verticesArray}
+          dimensionOfFigure={dimensionOfFigure}
         />
       </div>
     </>
