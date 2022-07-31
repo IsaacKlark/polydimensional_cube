@@ -89,7 +89,7 @@ function App() {
             <input
               type="checkbox"
               name="checkbox 2"
-              onChange={() => setTransposeRotation(!transposeRotation)}
+              onChange={() => {setActiveRotations([]); setTransposeRotation(!transposeRotation)}}
               checked={transposeRotation}
             />
             <p>transpose rotation</p>
