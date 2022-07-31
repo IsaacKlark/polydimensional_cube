@@ -49,7 +49,7 @@ const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotat
     return <Cube dimension={dimension} />;
   }
 
-  if (figure === "polytop") {
+  if (figure === "symplex") {
     return <Polytop dimensionOfFigure={dimensionOfFigure} />
   }
 

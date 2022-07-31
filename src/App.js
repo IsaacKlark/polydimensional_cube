@@ -103,7 +103,7 @@ function App() {
             className="select"
             value={figure}
           >
-            <option>polytop</option>
+            <option>symplex</option>
             <option>octahedron</option>
             <option>hypercube</option>
           </select>

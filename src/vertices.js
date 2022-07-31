@@ -124,7 +124,7 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
     cubeVertices(dimensions, DimensionOfFigure);
   }
 
-  if (figure === "polytop") {
+  if (figure === "symplex") {
     polytopVertices(dimensions, DimensionOfFigure);
   }
 
