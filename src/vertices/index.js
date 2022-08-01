@@ -9,7 +9,7 @@ const setVerticesArray = (result) => {
 }
 
 const vertices = (dimensions, DimensionOfFigure, figure) => {
-  if (figure === "hypercube") {
+  if (figure === "cube") {
     cubeVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 

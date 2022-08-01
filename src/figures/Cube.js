@@ -11,7 +11,7 @@ const Cube = ({ dimension }) => {
   }
 
   let cubesRepeats = 4;
-  let hypercube = [0, 1, 2, 3];
+  let cube = [0, 1, 2, 3];
 
   return (
     <svg
@@ -44,24 +44,24 @@ const Cube = ({ dimension }) => {
         }
 
         if (index >= 2 ** dimension) {
-          for (let i = 0; i < hypercube.length; i++) {
+          for (let i = 0; i < cube.length; i++) {
             if (index % cubesRepeats === i) {
-              vertex1 = hypercube[i];
-              vertex2 = hypercube[i] + cubesRepeats;
+              vertex1 = cube[i];
+              vertex2 = cube[i] + cubesRepeats;
 
               if (index % cubesRepeats === cubesRepeats - 1) {
                 const doubleRepeats = cubesRepeats * 2;
-                hypercube = hypercube.map((dot) => dot + doubleRepeats);
+                cube = cube.map((dot) => dot + doubleRepeats);
               }
             }
           }
 
-          if (hypercube[0] > 2 ** dimension - 1) {
+          if (cube[0] > 2 ** dimension - 1) {
             cubesRepeats *= 2;
-            const twoLength = hypercube.length * 2;
+            const twoLength = cube.length * 2;
 
             for (let i = 0; i < twoLength; i++) {
-              hypercube[i] = i;
+              cube[i] = i;
             }
           }
         }

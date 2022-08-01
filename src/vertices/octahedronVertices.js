@@ -47,8 +47,6 @@ const octahedronVertices = (
     verticesArray[index] = vertex;
   });
 
-  console.log(verticesArray)
-
   setVerticesArray(verticesArray);
 };
 

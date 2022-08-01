@@ -14,7 +14,7 @@ function App() {
   const [dimensionOfFigure, setDimensionOfFigure] = useState(2);
   const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
-  const [figure, setFigure] = useState("hypercube");
+  const [figure, setFigure] = useState("cube");
   const [transposeRotation, setTransposeRotation] = useState(false);
 
   let number = numberOfDimensions;
@@ -60,7 +60,6 @@ function App() {
 
   const dimensionOfCube = (e) => {
     if (!isNaN(e.target.value)) {
-      console.log(figure)
       vertices(numberOfDimensions, +e.target.value, figure);
       setDimensionOfFigure(+e.target.value);
     }
@@ -113,7 +112,7 @@ function App() {
           >
             <option>symplex</option>
             <option>octahedron</option>
-            <option>hypercube</option>
+            <option>cube</option>
             <option>24-cell-analog</option>
           </select>
         </label>

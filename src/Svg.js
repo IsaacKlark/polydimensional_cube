@@ -46,7 +46,7 @@ const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotat
     );
   }
 
-  if (figure === "hypercube") {
+  if (figure === "cube") {
     return <Cube dimension={dimension} />;
   }
 
