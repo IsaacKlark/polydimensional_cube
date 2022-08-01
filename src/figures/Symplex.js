@@ -1,6 +1,6 @@
 import React from "react";
 
-const Polytop = ({ dimensionOfFigure }) => {
+const Symplex = ({ dimensionOfFigure }) => {
   const amountOfLines = ((+dimensionOfFigure + 1) * dimensionOfFigure) / 2;
   let ids = 0;
   const lines = [];
@@ -64,4 +64,4 @@ const Polytop = ({ dimensionOfFigure }) => {
   );
 };
 
-export default Polytop;
+export default Symplex;

@@ -5,7 +5,7 @@ import Svg from "./Svg";
 import generateFigure from "./generateFigure";
 import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
-
+import vertices from "./vertices";
 export let useKeyboard = false;
 
 function App() {
@@ -60,6 +60,8 @@ function App() {
 
   const dimensionOfCube = (e) => {
     if (!isNaN(e.target.value)) {
+      console.log(figure)
+      vertices(numberOfDimensions, +e.target.value, figure);
       setDimensionOfFigure(+e.target.value);
     }
   };
@@ -89,7 +91,10 @@ function App() {
             <input
               type="checkbox"
               name="checkbox 2"
-              onChange={() => {setActiveRotations([]); setTransposeRotation(!transposeRotation)}}
+              onChange={() => {
+                setActiveRotations([]);
+                setTransposeRotation(!transposeRotation);
+              }}
               checked={transposeRotation}
             />
             <p>transpose rotation</p>
@@ -99,13 +104,17 @@ function App() {
         <label className="using__mouse">
           {numberOfDimensions}D
           <select
-            onChange={(e) => setFigure(e.target.value)}
+            onChange={(e) => {
+              vertices(numberOfDimensions, dimensionOfFigure, e.target.value);
+              setFigure(e.target.value);
+            }}
             className="select"
             value={figure}
           >
             <option>symplex</option>
             <option>octahedron</option>
             <option>hypercube</option>
+            <option>24-cell-analog</option>
           </select>
         </label>
       </div>

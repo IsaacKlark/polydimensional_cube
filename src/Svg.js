@@ -3,8 +3,9 @@ import generateFigure from "./generateFigure";
 import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
 import Cube from "./figures/Cube";
-import Polytop from "./figures/Polytop";
+import Symplex from "./figures/Symplex";
 import Octahedron from "./figures/Octahedron";
+import Cell24Analog from "./figures/Cell24Analog";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -50,11 +51,15 @@ const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotat
   }
 
   if (figure === "symplex") {
-    return <Polytop dimensionOfFigure={dimensionOfFigure} />
+    return <Symplex dimensionOfFigure={dimensionOfFigure} />
   }
 
   if (figure === "octahedron") {
     return <Octahedron dimensionOfFigure={dimensionOfFigure} />;
+  }
+
+  if (figure === "24-cell-analog") {
+    return <Cell24Analog verticesArray={verticesArray} dimensionOfFigure={dimensionOfFigure} />;
   }
 };
 
