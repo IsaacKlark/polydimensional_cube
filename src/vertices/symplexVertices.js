@@ -1,5 +1,5 @@
 const symplexVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
-  const verticesArray = [];
+  let verticesArray = [];
   let firstDot = [];
 
   if (DimensionOfFigure > 2) {
