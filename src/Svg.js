@@ -6,7 +6,7 @@ import Cube from "./figures/Cube";
 import Symplex from "./figures/Symplex";
 import Octahedron from "./figures/Octahedron";
 import Cell24Analog from "./figures/Cell24Analog";
-
+import Cell120Analog from "./figures/Cell120Analog";
 export let canRotate = false;
 export let mouseX = 0;
 export let mouseY = 0;
@@ -60,6 +60,10 @@ const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotat
 
   if (figure === "24-cell-analog") {
     return <Cell24Analog verticesArray={verticesArray} dimensionOfFigure={dimensionOfFigure} />;
+  }
+
+  if (figure === "120-cell-analog") {
+    return <Cell120Analog verticesArray={verticesArray} dimensionOfFigure={dimensionOfFigure} />;
   }
 };
 

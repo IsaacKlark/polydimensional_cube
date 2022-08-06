@@ -22,13 +22,13 @@ const CreateCheckboxes = ({
 
         if (e.key === "w") {
           activeRotations.forEach((index) => {
-            copyAnglesArray[index] += 2;
+            copyAnglesArray[index] += 1;
           });
         }
 
         if (e.key === "s") {
           activeRotations.forEach((index) => {
-            copyAnglesArray[index] -= 2;
+            copyAnglesArray[index] -= 1;
           });
         }
         setAnglesArray(copyAnglesArray);

@@ -55,7 +55,6 @@ const Cell24Analog = ({ verticesArray, dimensionOfFigure }) => {
   let ids = 0;
   const lines = [];
 
-
   for (let i = 0; i < amountOfLines; i++) {
     lines.push(ids);
     ids += 1;

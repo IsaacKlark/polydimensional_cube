@@ -114,6 +114,8 @@ function App() {
             <option>octahedron</option>
             <option>cube</option>
             <option>24-cell-analog</option>
+            <option>120-cell-analog</option>
+
           </select>
         </label>
       </div>
