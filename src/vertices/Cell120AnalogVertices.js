@@ -25,9 +25,9 @@ const Cell120AnaologVertices = (
   const baseGroup5 =
     +copyDimensionOfFigure === 3
       ? [97, 37, 0].map((number) => number / 1.1)
-      : [0, 23, 60, 157].map((number) => number / 1.1);
-  const baseGroup6 = [0, 37, 97, 134].map((number) => number / 1.1);
-  const baseGroup7 = [37, 60, 97, 120].map((number) => number / 1.1);
+      : [157, 60, 23, 0 ].map((number) => number / 1.1);
+  const baseGroup6 = [97, 37, 134, 0].map((number) => number / 1.1);
+  const baseGroup7 = [120, 60, 97, 37 ].map((number) => number / 1.1);
 
   const combinations = (arr, couple) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
@@ -94,11 +94,11 @@ const Cell120AnaologVertices = (
       arrays.forEach((array) => {
         result = [...result, ...combinations(array, couple)];
       });
+    } else {
+      arrays.forEach((array) => {
+        result = [...result, array.map((number) => (number === -0 ? 0 : number))];
+      });
     }
-
-    arrays.forEach((array) => {
-      result = [...result, array.map((number) => (number === -0 ? 0 : number))];
-    });
 
     return result;
   };
