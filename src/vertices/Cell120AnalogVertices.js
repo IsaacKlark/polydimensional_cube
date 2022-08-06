@@ -3,15 +3,31 @@ const Cell120AnaologVertices = (
   DimensionOfFigure,
   setVerticesArray
 ) => {
+  let copyDimensionOfFigure = DimensionOfFigure > 4 ? 4 : DimensionOfFigure;
+  if (DimensionOfFigure > dimensions) copyDimensionOfFigure = dimensions;
   // const fi = (1 + 5 ** (1 / 2)) / 2;
-  const baseGroup1 = +DimensionOfFigure === 3 ? [60, 60, 60].map((number) => number / 1.1) : [0, 0, 120, 120].map((number) => number / 1.1);
-  const baseGroup2 = +DimensionOfFigure === 3 ? [0, 97, 37].map((number) => number / 1.1) : [60, 60, 60, 134].map((number) => number / 1.1);
-  const baseGroup3 = +DimensionOfFigure === 3 ? [0, 97, 37].map((number) => number / 1.1) : [23, 97, 97, 97].map((number) => number / 1.1);
-  const baseGroup4 = +DimensionOfFigure === 3 ? [37, 0, 97].map((number) => number / 1.1) : [37, 37, 37, 157].map((number) => number / 1.1);
-  const baseGroup5 = +DimensionOfFigure === 3 ? [97, 37, 0].map((number) => number / 1.1) : [0, 23, 60, 157].map((number) => number / 1.1);
+  const baseGroup1 =
+    +copyDimensionOfFigure === 3
+      ? [60, 60, 60].map((number) => number / 1.1)
+      : [0, 0, 120, 120].map((number) => number / 1.1);
+  const baseGroup2 =
+    +copyDimensionOfFigure === 3
+      ? [0, 97, 37].map((number) => number / 1.1)
+      : [60, 60, 60, 134].map((number) => number / 1.1);
+  const baseGroup3 =
+    +copyDimensionOfFigure === 3
+      ? [0, 97, 37].map((number) => number / 1.1)
+      : [23, 97, 97, 97].map((number) => number / 1.1);
+  const baseGroup4 =
+    +copyDimensionOfFigure === 3
+      ? [37, 0, 97].map((number) => number / 1.1)
+      : [37, 37, 37, 157].map((number) => number / 1.1);
+  const baseGroup5 =
+    +copyDimensionOfFigure === 3
+      ? [97, 37, 0].map((number) => number / 1.1)
+      : [0, 23, 60, 157].map((number) => number / 1.1);
   const baseGroup6 = [0, 37, 97, 134].map((number) => number / 1.1);
   const baseGroup7 = [37, 60, 97, 120].map((number) => number / 1.1);
-
 
   const combinations = (arr, couple) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
@@ -25,7 +41,7 @@ const Cell120AnaologVertices = (
           const newArr = arr1[i]
             .slice(0, j)
             .concat(beg, arr1[i].slice(j))
-            .slice(0, DimensionOfFigure + 1);
+            .slice(0, copyDimensionOfFigure + 1);
           let inversions = 0;
           for (let i = 0; i < newArr.length; i++) {
             for (let j = i + 1; j < newArr.length; j++) {
@@ -74,7 +90,7 @@ const Cell120AnaologVertices = (
 
     combineMinuses(dimensions);
 
-    if (DimensionOfFigure > 3) {
+    if (copyDimensionOfFigure > 3) {
       arrays.forEach((array) => {
         result = [...result, ...combinations(array, couple)];
       });
@@ -111,46 +127,46 @@ const Cell120AnaologVertices = (
   };
 
   const group1 = arrayToSetAndToArray(
-    +DimensionOfFigure === 3 ? minusToPlus(baseGroup1) : mixAll(baseGroup1)
+    +copyDimensionOfFigure === 3 ? minusToPlus(baseGroup1) : mixAll(baseGroup1)
   );
   const group2 = arrayToSetAndToArray(
-    +DimensionOfFigure === 3 ? minusToPlus(baseGroup2) : mixAll(baseGroup2)
+    +copyDimensionOfFigure === 3 ? minusToPlus(baseGroup2) : mixAll(baseGroup2)
   );
   const group3 = arrayToSetAndToArray(
-    +DimensionOfFigure === 3 ? minusToPlus(baseGroup3) : mixAll(baseGroup3)
+    +copyDimensionOfFigure === 3 ? minusToPlus(baseGroup3) : mixAll(baseGroup3)
   );
   const group4 = arrayToSetAndToArray(
-    +DimensionOfFigure === 3 ? minusToPlus(baseGroup4) : mixAll(baseGroup4)
+    +copyDimensionOfFigure === 3 ? minusToPlus(baseGroup4) : mixAll(baseGroup4)
   );
   const group5 = arrayToSetAndToArray(
-    +DimensionOfFigure === 3
+    +copyDimensionOfFigure === 3
       ? minusToPlus(baseGroup5)
       : mixAll(baseGroup5, true)
   );
   const group6 = arrayToSetAndToArray(mixAll(baseGroup6, true));
   const group7 = arrayToSetAndToArray(mixAll(baseGroup7, true));
 
-  const vertices =
-    +DimensionOfFigure === 3
+  let vertices =
+    +copyDimensionOfFigure === 3
       ? [...group1, ...group2, ...group3, ...group4, ...group5]
-      : [...group1, ...group2, ...group3, ...group4, ...group5, ...group6, ...group7];
+      : [
+          ...group1,
+          ...group2,
+          ...group3,
+          ...group4,
+          ...group5,
+          ...group6,
+          ...group7,
+        ];
 
-  const lines = [];
-
-  for (let i = 0; i < vertices.length; i++) {
-    for (let j = 0; j < vertices.length; j++) {
-      let length = 0;
-
-      for (let k = 0; k < vertices[i].length; k++) {
-        length += (vertices[i][k] - vertices[j][k]) ** 2;
+  if (dimensions > copyDimensionOfFigure) {
+    vertices = vertices.map((arr) => {
+      for (let i = copyDimensionOfFigure + 1; i <= dimensions; i++) {
+        arr.push(0);
       }
-
-      if (+Math.sqrt(length).toFixed(3) === 0.764) {
-        lines.push(`${i}, ${j}`);
-      }
-    }
+      return arr;
+    });
   }
-
   setVerticesArray(vertices);
 };
 
