@@ -153,17 +153,23 @@ const CreateCheckboxes = ({
         <div className="angles">angles:</div>
         {numbersOfCheckboxes.map((field, index) => {
           return (
-            <label key={index} className="labels">
-              <input
-                key={index + "c"}
-                type="checkbox"
-                name="checkbox"
-                onChange={() => changeActiveRotation(index)}
-                checked={activeRotations.includes(index)}
-                className="checkbox"
-              />
-              {field}
-            </label>
+              <label key={index} className="labels">
+                <input
+                  key={index + "c"}
+                  type="checkbox"
+                  name="checkbox"
+                  onChange={() => changeActiveRotation(index)}
+                  checked={activeRotations.includes(index)}
+                  className="checkbox"
+                />
+                {field}
+              <input type="number" value={anglesArray[index] || 0} onChange={(e) => {
+                const copyAnglesArray = [...anglesArray];
+                copyAnglesArray[index] = +e.target.value;
+                setAnglesArray(copyAnglesArray);
+              }}/>
+
+              </label>
           );
         })}
       </section>

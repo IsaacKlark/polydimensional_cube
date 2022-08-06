@@ -2,7 +2,7 @@ import { Matrix } from './sylvester.src';
 
 const generateFigure = (vertices, matrix, dimension) => {
     const verticesOnSvg = vertices.map(vertex => {
-        let perspective = 550;
+        let perspective = 350;
         let coordinates = matrix.multiply(Matrix.create(vertex));
         let x = coordinates.e(1, 1);
         let y = coordinates.e(2, 1);
@@ -12,7 +12,7 @@ const generateFigure = (vertices, matrix, dimension) => {
             y = perspective * y / (coordinates.e(i + 1, 1) + perspective);
             // x =  x;
             // y =  y ;
-            perspective += 100;
+            perspective += 200;
         }
     
 

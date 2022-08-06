@@ -14,7 +14,7 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
           length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
         }
 
-        const needLength = +dimensionOfFigure === 3 ? 74 : 46;
+        const needLength = +dimensionOfFigure === 3 ? 67 : 42;
         test.add(+Math.round(Math.sqrt(length)));
 
         if (+Math.round(Math.sqrt(length)) === needLength) {
@@ -98,7 +98,7 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
         );
       })}
 
-      {verticesArray.map((item, index) => (
+      {/* {verticesArray.map((item, index) => (
         <circle
           onClick={() => {
             console.log(index);
@@ -111,7 +111,7 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
           id={`circle${index}`}
           className="circle"
         />
-      ))}
+      ))} */}
     </svg>
   );
 };

@@ -4,13 +4,13 @@ const Cell120AnaologVertices = (
   setVerticesArray
 ) => {
   // const fi = (1 + 5 ** (1 / 2)) / 2;
-  const baseGroup1 = +DimensionOfFigure === 3 ? [60, 60, 60] : [0, 0, 120, 120];
-  const baseGroup2 = +DimensionOfFigure === 3 ? [0, 97, 37] : [60, 60, 60, 134];
-  const baseGroup3 = +DimensionOfFigure === 3 ? [0, 97, 37] : [23, 97, 97, 97];
-  const baseGroup4 = +DimensionOfFigure === 3 ? [37, 0, 97] : [37, 37, 37, 157];
-  const baseGroup5 = +DimensionOfFigure === 3 ? [97, 37, 0] : [0, 23, 60, 157];
-  const baseGroup6 = [0, 37, 97, 134];
-  const baseGroup7 = [37, 60, 97, 120];
+  const baseGroup1 = +DimensionOfFigure === 3 ? [60, 60, 60].map((number) => number / 1.1) : [0, 0, 120, 120].map((number) => number / 1.1);
+  const baseGroup2 = +DimensionOfFigure === 3 ? [0, 97, 37].map((number) => number / 1.1) : [60, 60, 60, 134].map((number) => number / 1.1);
+  const baseGroup3 = +DimensionOfFigure === 3 ? [0, 97, 37].map((number) => number / 1.1) : [23, 97, 97, 97].map((number) => number / 1.1);
+  const baseGroup4 = +DimensionOfFigure === 3 ? [37, 0, 97].map((number) => number / 1.1) : [37, 37, 37, 157].map((number) => number / 1.1);
+  const baseGroup5 = +DimensionOfFigure === 3 ? [97, 37, 0].map((number) => number / 1.1) : [0, 23, 60, 157].map((number) => number / 1.1);
+  const baseGroup6 = [0, 37, 97, 134].map((number) => number / 1.1);
+  const baseGroup7 = [37, 60, 97, 120].map((number) => number / 1.1);
 
 
   const combinations = (arr, couple) => {
