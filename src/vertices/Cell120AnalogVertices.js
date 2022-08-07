@@ -1,33 +1,23 @@
-const Cell120AnaologVertices = (
+const Cell120AnalogVertices = (
   dimensions,
   DimensionOfFigure,
   setVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 4 ? 4 : DimensionOfFigure;
   if (DimensionOfFigure > dimensions) copyDimensionOfFigure = dimensions;
-  // const fi = (1 + 5 ** (1 / 2)) / 2;
+  const fi = 1.618;
   const baseGroup1 =
-    +copyDimensionOfFigure === 3
-      ? [60, 60, 60].map((number) => number / 1.1)
-      : [0, 0, 120, 120].map((number) => number / 1.1);
+    +copyDimensionOfFigure === 3 ? [60, 60, 60] : [0, 0, 2, 2].map((number) => Math.round(number * 50));
   const baseGroup2 =
-    +copyDimensionOfFigure === 3
-      ? [0, 97, 37].map((number) => number / 1.1)
-      : [60, 60, 60, 134].map((number) => number / 1.1);
+    +copyDimensionOfFigure === 3 ? [0, 97, 37] : [1, 1, 1, 5**(1/2)].map((number) => Math.round(number * 50));
   const baseGroup3 =
-    +copyDimensionOfFigure === 3
-      ? [0, 97, 37].map((number) => number / 1.1)
-      : [23, 97, 97, 97].map((number) => number / 1.1);
+    +copyDimensionOfFigure === 3 ? [0, 97, 37] : [fi**-2, fi, fi, fi].map((number) => Math.round(number * 50));
   const baseGroup4 =
-    +copyDimensionOfFigure === 3
-      ? [37, 0, 97].map((number) => number / 1.1)
-      : [37, 37, 37, 157].map((number) => number / 1.1);
+    +copyDimensionOfFigure === 3 ? [37, 0, 97] : [fi**-1, fi**-1, fi**-1, fi**2].map((number) => Math.round(number * 50));
   const baseGroup5 =
-    +copyDimensionOfFigure === 3
-      ? [97, 37, 0].map((number) => number / 1.1)
-      : [157, 60, 23, 0 ].map((number) => number / 1.1);
-  const baseGroup6 = [97, 37, 134, 0].map((number) => number / 1.1);
-  const baseGroup7 = [120, 60, 97, 37 ].map((number) => number / 1.1);
+    +copyDimensionOfFigure === 3 ? [97, 37, 0] : [0, fi**-2, 1, fi**2].map((number) => Math.round(number * 50));
+  const baseGroup6 = [0, fi**-1, fi, 5**(1/2)].map((number) => Math.round(number * 50));
+  const baseGroup7 = [fi**-1, 1, fi, 2].map((number) => Math.round(number * 50));
 
   const combinations = (arr, couple) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
@@ -96,7 +86,10 @@ const Cell120AnaologVertices = (
       });
     } else {
       arrays.forEach((array) => {
-        result = [...result, array.map((number) => (number === -0 ? 0 : number))];
+        result = [
+          ...result,
+          array.map((number) => (number === -0 ? 0 : number)),
+        ];
       });
     }
 
@@ -141,10 +134,10 @@ const Cell120AnaologVertices = (
   const group5 = arrayToSetAndToArray(
     +copyDimensionOfFigure === 3
       ? minusToPlus(baseGroup5)
-      : mixAll(baseGroup5, true)
+      : mixAll(baseGroup5)
   );
   const group6 = arrayToSetAndToArray(mixAll(baseGroup6, true));
-  const group7 = arrayToSetAndToArray(mixAll(baseGroup7, true));
+  const group7 = arrayToSetAndToArray(mixAll(baseGroup7));
 
   let vertices =
     +copyDimensionOfFigure === 3
@@ -170,4 +163,4 @@ const Cell120AnaologVertices = (
   setVerticesArray(vertices);
 };
 
-export default Cell120AnaologVertices;
+export default Cell120AnalogVertices;

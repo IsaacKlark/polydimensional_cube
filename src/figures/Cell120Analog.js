@@ -3,67 +3,87 @@ import React from "react";
 const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
   console.log("vertices length", verticesArray.length);
   const linesSet = new Set();
-  let test = new Set();
-
+  const test = [];
   for (let i = 0; i < verticesArray.length; i++) {
     for (let j = i; j < verticesArray.length; j++) {
       if (i !== j) {
-        let length = 0;
+        let differences2 = [0, 31, 19, 12];
+        let allDifference19 = true;
+        let case3Access = true;
+        let differences3 = [69, 19, 19, 19];
 
         for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+          let difference =
+            ((verticesArray[j][k] - verticesArray[i][k]) ** 2) ** (1 / 2);
+          if (difference !== 19 && difference !== 20) allDifference19 = false;
+          const index = differences2.indexOf(difference);
+          if (index === -1) break;
+          differences2.splice(index, 1);
         }
 
-        const needLength = +dimensionOfFigure === 3 ? 67 : 42;
-        test.add(+Math.round(Math.sqrt(length)));
+        for (let k = 0; k < dimensionOfFigure; k++) {
+          let difference =
+            ((verticesArray[j][k] - verticesArray[i][k]) ** 2) ** (1 / 2);
+          const index = differences3.indexOf(difference);
+          if (index === -1) break;
+          differences3.splice(index, 1);
+        }
 
-        if (+Math.round(Math.sqrt(length)) === needLength) {
+        if (allDifference19) {
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            let difference =
+              ((verticesArray[j][k] - verticesArray[i][k]) ** 2) ** (1 / 2);
+            if (difference !== 19 && difference !== 20) {
+              allDifference19 = false;
+              break;
+            }
+          }
+        }
+
+        let repeats = 0;
+        for (let k = 0; k < dimensionOfFigure; k++) {
+          let difference =
+            ((verticesArray[j][k] - verticesArray[i][k]) ** 2) ** (1 / 2);
+          if (difference === 0) {
+            repeats++;
+          } else if (difference !== 38) {
+            case3Access = false;
+            break;
+          }
+        }
+
+        if (repeats !== 3) case3Access = false;
+
+        if (!differences3.length) {
+          test.push(`${i}, ${j}`);
+        }
+    
+
+        if (allDifference19 || !differences2.length || case3Access) {
           linesSet.add(`${i}, ${j}`);
         }
       }
     }
   }
 
-  // let length = 0;
-
-  // for (let i = 0; i < 4; i++) {
-  //   length += (verticesArray[265][i] - verticesArray[301][i]) ** 2;
+  // for (let i = 0; i < test.length; i++) {
+  //   if (i % 7 === 0) linesSet.add(test[i]);
   // }
 
-  // console.log("length", Math.round(Math.sqrt(length)))
+  // linesSet.add(test[0])
+  // let control = false;
+  // document.body.addEventListener("keydown", (e) => {
+  //   if (e.key === "Control") control = true;
+  // })
 
+  // document.body.addEventListener("keyup", (e) => {
+  //   if (e.key === "Control") control = false;
+  // })
+
+  console.log(test);
   const linesArray = Array.from(linesSet).map((item) => item.split(","));
   console.log("lines length", linesArray.length);
-  console.log(
-    "test",
-    Array.from(test).sort((a, b) => a - b)
-  );
-  // console.log(linesArray.length)
-  // const vars = Array.from(test).sort((a, b) => a-b)
-  // const find = [];
-  // const lengths = new Set();
-  // vars.forEach(item => {
-  //   const linesSet = new Set();
-  //   for (let i = 0; i < verticesArray.length; i++) {
-  //     for (let j = i; j < verticesArray.length; j++) {
-  //       let length = 0;
 
-  //       for (let k = 0; k < verticesArray[i].length; k++) {
-  //           length += (verticesArray[i][k] - verticesArray[j][k])**2;
-  //       }
-
-  //       if (Math.round(Math.sqrt(length)) === +item) {
-  //         linesSet.add(`${i}, ${j}`)
-  //       }
-  //     }
-  //   }
-  //   lengths.add(Array.from(linesSet).length);
-  //   if (Array.from(linesSet).length === 72) {
-  //     find.push({length: Array.from(linesSet).length, item})
-  //   };
-  // })
-  // console.log("lengths", Array.from(lengths).sort((a, b) => a - b));
-  // console.log("find", find);
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
@@ -94,14 +114,20 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
             className="line"
             vertex1={vertex1}
             vertex2={vertex2}
+            // onMouseOver={(e) => {
+            //   e.preventDefault();
+            //   if (control) {
+            //     e.target.style.display = "none"
+            //   }
+            // }}
           />
         );
       })}
 
-      {/* {verticesArray.map((item, index) => (
+      {verticesArray.map((item, index) => (
         <circle
           onClick={() => {
-            console.log(index);
+            console.log(verticesArray[index], index);
           }}
           key={index}
           cx="300"
@@ -110,8 +136,12 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
           fill="white"
           id={`circle${index}`}
           className="circle"
+          onContextMenu={(e) => {
+            e.preventDefault();
+            e.target.style.display = "none"
+          }}
         />
-      ))} */}
+      ))}
     </svg>
   );
 };

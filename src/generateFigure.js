@@ -8,8 +8,8 @@ const generateFigure = (vertices, matrix, dimension) => {
         let y = coordinates.e(2, 1);
 
         for (let i = 2; i < dimension; i++) {
-            // x = perspective * x / (coordinates.e(i + 1, 1) + perspective);
-            // y = perspective * y / (coordinates.e(i + 1, 1) + perspective);
+            x = perspective * x / (coordinates.e(i + 1, 1) + perspective);
+            y = perspective * y / (coordinates.e(i + 1, 1) + perspective);
             // x =  x;
             // y =  y ;
             perspective += 200;
