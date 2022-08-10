@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import generateMatrixes from "./generateMatrixes";
 import generateFigure from "./generateFigure";
 import vertices, { verticesArray } from "./vertices";
