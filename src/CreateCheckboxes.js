@@ -81,7 +81,11 @@ const CreateCheckboxes = ({
     const interval = setInterval(() => {
       if (!useKeyboard) {
         activeRotations.forEach((index) => {
-          copyAnglesArray[index]++;
+          if (copyAnglesArray[index] < 359) {
+            copyAnglesArray[index]++;
+          } else {
+            copyAnglesArray[index] = 0;
+          }
         });
 
         setAnglesArray(copyAnglesArray);
