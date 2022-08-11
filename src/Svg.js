@@ -14,11 +14,11 @@ export let prevX = 0;
 export let prevY = 0;
 
 
-const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotation }) => {
+const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotation, orthography }) => {
   useEffect(() => {
     if (dimension > 1) {
       const matrix = generateMatrixes(dimension, anglesArray, transposeRotation);
-      generateFigure(verticesArray, matrix, dimension);
+      generateFigure(verticesArray, matrix, dimension, orthography);
     }
   });
 

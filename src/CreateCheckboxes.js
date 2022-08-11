@@ -14,6 +14,7 @@ const CreateCheckboxes = ({
   setActiveRotations,
   figure,
   transposeRotation,
+  orthography
 }) => {
   useEffect(() => {
     const moveByKeyBoard = (e) => {
@@ -45,13 +46,13 @@ const CreateCheckboxes = ({
           copyAnglesArray,
           transposeRotation
         );
-        generateFigure(verticesArray, matrix, number, figure);
+        generateFigure(verticesArray, matrix, number, figure, orthography);
       }
     };
 
     document.body.addEventListener("keydown", moveByKeyBoard);
     return () => document.body.removeEventListener("keydown", moveByKeyBoard);
-  }, [anglesArray]);
+  }, [anglesArray, orthography]);
 
   useEffect(() => {
     const anglesArray = [];
@@ -84,14 +85,14 @@ const CreateCheckboxes = ({
           copyAnglesArray,
           transposeRotation
         );
-        generateFigure(verticesArray, matrix, number, figure);
+        generateFigure(verticesArray, matrix, number, figure, orthography);
       }
     }, 50);
 
     if (!activeRotations.length) clearInterval(interval);
 
     return () => clearInterval(interval);
-  }, [dimensions, activeRotations, useKeyboard]);
+  }, [dimensions, activeRotations, useKeyboard, orthography]);
 
   useEffect(() => {
     vertices(number, DimensionOfFigure, figure);

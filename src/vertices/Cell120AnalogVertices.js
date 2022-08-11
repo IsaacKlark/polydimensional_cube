@@ -4,7 +4,7 @@ const Cell120AnalogVertices = (
   setVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 4 ? 4 : DimensionOfFigure;
-  if (DimensionOfFigure > dimensions) copyDimensionOfFigure = dimensions;
+  if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
   const fi = 1.618;
   const baseGroup1 =
     +copyDimensionOfFigure === 3
@@ -80,28 +80,24 @@ const Cell120AnalogVertices = (
     const arrays = [arr];
 
     const combineMinuses = (dimensions) => {
-      let code = "";
-      const arr2 = [];
-      for (let i = 0; i < dimensions; i++) {
-        code += `for(let i${i}=-1;i${i}<=1;i${i}+=2) {`;
-        arr2.push("i" + i);
-      }
-      code += `
+      for(let i1=-1;i1<=1;i1+=2) {
+        for(let i2=-1;i2<=1;i2+=2) {
+          for(let i3=-1;i3<=1;i3+=2) {
+            for(let i4=-1;i4<=1;i4+=2) {
         const copyArray = [...arr];
+        const multiplyArray = [i1, i2, i3, i4]; 
 
-        const multiplyArray = [${arr2.join(",")}].map((item) => +item); 
-          for (let i = 0; i < arr.length; i++) {
-            copyArray[i] = +copyArray[i] * multiplyArray[i];
+        for (let i = 0; i < arr.length; i++) {
+          copyArray[i] = +copyArray[i] * multiplyArray[i];
+        }
+      arrays.push(copyArray)
+            }
           }
-        arrays.push(copyArray)
-      `;
-      for (let i = 0; i < dimensions; i++) {
-        code += `};`;
+        }
       }
-      eval(code);
     };
 
-    combineMinuses(dimensions);
+    combineMinuses(+dimensions);
 
     if (copyDimensionOfFigure > 3) {
       arrays.forEach((array) => {
@@ -146,25 +142,21 @@ const Cell120AnalogVertices = (
     const permutations = combinations(arr, true);
     const result = [];
     for (let i = 0; i < permutations.length; i++) {
-      let code = "";
-      const arr2 = [];
-      for (let i = 0; i < 4; i++) {
-        code += `for(let i${i}=-1;i${i}<=1;i${i}+=2) {`;
-        arr2.push("i" + i);
-      }
-      code += `
+      for(let i1=-1;i1<=1;i1+=2) {
+        for(let i2=-1;i2<=1;i2+=2) {
+          for(let i3=-1;i3<=1;i3+=2) {
+            for(let i4=-1;i4<=1;i4+=2) {
         const copyArray = [...permutations[i]];
+        const multiplyArray = [i1, i2, i3, i4]; 
 
-        const multiplyArray = [${arr2.join(",")}].map((item) => +item); 
-          for (let i = 0; i < arr.length; i++) {
-            copyArray[i] = +copyArray[i] * multiplyArray[i];
+        for (let i = 0; i < arr.length; i++) {
+          copyArray[i] = +copyArray[i] * multiplyArray[i];
+        }
+      result.push(copyArray)
+            }
           }
-        result.push(copyArray)
-      `;
-      for (let i = 0; i < 4; i++) {
-        code += `};`;
+        }
       }
-      eval(code);
     }
 
     const resultSet = new Set();
@@ -216,9 +208,9 @@ const Cell120AnalogVertices = (
     ];
   }
 
-  if (dimensions > copyDimensionOfFigure) {
+  if (+dimensions > +copyDimensionOfFigure) {
     vertices = vertices.map((arr) => {
-      for (let i = copyDimensionOfFigure + 1; i <= dimensions; i++) {
+      for (let i = +copyDimensionOfFigure + 1; i <= +dimensions; i++) {
         arr.push(0);
       }
       return arr;

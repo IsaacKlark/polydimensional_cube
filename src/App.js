@@ -16,6 +16,7 @@ function App() {
   const [activeRotations, setActiveRotations] = useState([]);
   const [figure, setFigure] = useState("cube");
   const [transposeRotation, setTransposeRotation] = useState(false);
+  const [orthography, setOrthography] = useState(false);
 
   let number = numberOfDimensions;
   const changeNumber = (e) => {
@@ -55,7 +56,7 @@ function App() {
       copyAnglesArray,
       transposeRotation
     );
-    generateFigure(verticesArray, matrix, numberOfDimensions, figure);
+    generateFigure(verticesArray, matrix, numberOfDimensions, figure, orthography);
   };
 
   const dimensionOfCube = (e) => {
@@ -98,6 +99,17 @@ function App() {
             />
             <p>transpose rotation</p>
           </label>
+          {/* <label className="using__mouse">
+            <input
+              type="checkbox"
+              name="checkbox 2"
+              onChange={() => {
+                setOrthography(!orthography);
+              }}
+              checked={orthography}
+            />
+            <p>orthography</p>
+          </label> */}
         </div>
 
         <label className="using__mouse">
@@ -158,6 +170,7 @@ function App() {
           setActiveRotations={setActiveRotations}
           figure={figure}
           transposeRotation={transposeRotation}
+          orthography={orthography}
         />
         <Svg
           dimension={numberOfDimensions}
@@ -165,6 +178,7 @@ function App() {
           figure={figure}
           dimensionOfFigure={dimensionOfFigure}
           transposeRotation={transposeRotation}
+          orthography={orthography}
         />
       </div>
     </>

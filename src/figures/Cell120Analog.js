@@ -4,7 +4,7 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
   let linesArray = [];
   const edgeLength = +dimensionOfFigure === 3 ? 100 : Math.round((2 / 1.618 ** 2) * 50);
   
-  if (dimensionOfFigure > 2) {
+  if (+dimensionOfFigure > 2) {
     for (let i = 0; i < verticesArray.length; i++) {
       for (let j = i; j < verticesArray.length; j++) {
         if (i !== j) {
@@ -14,13 +14,13 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
           }
           length = Math.round(length ** (1 / 2));
   
-          if (length === edgeLength || length === edgeLength - 1 || length === edgeLength + 1) {
+          if (length === edgeLength) {
             linesArray.push([i, j]);
           }
         }
       }
     }
-  } else if (dimensionOfFigure === 2) {
+  } else if (+dimensionOfFigure === 2) {
     linesArray = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0]]
   };
   
