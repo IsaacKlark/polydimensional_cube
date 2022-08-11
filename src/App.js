@@ -3,6 +3,7 @@ import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
 import generateFigure from "./generateFigure";
+import generateFigureOrthography from "./generateFigureOrthography";
 import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
@@ -56,7 +57,11 @@ function App() {
       copyAnglesArray,
       transposeRotation
     );
-    generateFigure(verticesArray, matrix, numberOfDimensions, figure, orthography);
+    if (orthography) {
+      generateFigureOrthography(verticesArray, matrix, numberOfDimensions, figure);
+    } else {
+      generateFigure(verticesArray, matrix, numberOfDimensions, figure);
+    }
   };
 
   const dimensionOfCube = (e) => {
@@ -99,7 +104,7 @@ function App() {
             />
             <p>transpose rotation</p>
           </label>
-          {/* <label className="using__mouse">
+          <label className="using__mouse">
             <input
               type="checkbox"
               name="checkbox 2"
@@ -109,7 +114,7 @@ function App() {
               checked={orthography}
             />
             <p>orthography</p>
-          </label> */}
+          </label>
         </div>
 
         <label className="using__mouse">

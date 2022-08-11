@@ -3,6 +3,7 @@ import generateMatrixes from "./generateMatrixes";
 import generateFigure from "./generateFigure";
 import vertices, { verticesArray } from "./vertices";
 import { useKeyboard } from "./App";
+import generateFigureOrthography from "./generateFigureOrthography";
 
 const CreateCheckboxes = ({
   dimensions,
@@ -46,7 +47,11 @@ const CreateCheckboxes = ({
           copyAnglesArray,
           transposeRotation
         );
-        generateFigure(verticesArray, matrix, number, figure, orthography);
+        if (orthography) {
+          generateFigureOrthography(verticesArray, matrix, number, figure);
+        } else {
+          generateFigure(verticesArray, matrix, number, figure);
+        }
       }
     };
 
@@ -85,7 +90,11 @@ const CreateCheckboxes = ({
           copyAnglesArray,
           transposeRotation
         );
-        generateFigure(verticesArray, matrix, number, figure, orthography);
+        if (orthography) {
+          generateFigureOrthography(verticesArray, matrix, number, figure);
+        } else {
+          generateFigure(verticesArray, matrix, number, figure);
+        }
       }
     }, 50);
 

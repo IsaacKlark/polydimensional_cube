@@ -1,3 +1,4 @@
+import generateFigureOrthography from "./generateFigureOrthography";
 import React, { useEffect } from "react";
 import generateFigure from "./generateFigure";
 import { verticesArray } from "./vertices";
@@ -13,12 +14,15 @@ export let mouseY = 0;
 export let prevX = 0;
 export let prevY = 0;
 
-
 const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotation, orthography }) => {
   useEffect(() => {
     if (dimension > 1) {
       const matrix = generateMatrixes(dimension, anglesArray, transposeRotation);
-      generateFigure(verticesArray, matrix, dimension, orthography);
+      if (orthography) {
+        generateFigureOrthography(verticesArray, matrix, dimension, orthography);
+      } else {
+        generateFigure(verticesArray, matrix, dimension, orthography);
+      }
     }
   });
 
