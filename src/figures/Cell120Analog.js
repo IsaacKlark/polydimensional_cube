@@ -14,7 +14,7 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
           }
           length = Math.round(length ** (1 / 2));
   
-          if (length === edgeLength) {
+          if (length === edgeLength || length === edgeLength - 1 || length === edgeLength + 1) {
             linesArray.push([i, j]);
           }
         }
