@@ -1,9 +1,15 @@
 import React from "react";
 
-const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
+const Cell120Analog = ({
+  verticesArray,
+  dimensionOfFigure,
+  displayEdges,
+  displayVertices,
+}) => {
   let linesArray = [];
-  const edgeLength = +dimensionOfFigure === 3 ? 100 : Math.round((2 / 1.618 ** 2) * 50);
-  
+  const edgeLength =
+    +dimensionOfFigure === 3 ? 100 : Math.round((2 / 1.618 ** 2) * 50);
+
   if (+dimensionOfFigure > 2) {
     for (let i = 0; i < verticesArray.length; i++) {
       for (let j = i; j < verticesArray.length; j++) {
@@ -13,7 +19,7 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
             length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
           }
           length = Math.round(length ** (1 / 2));
-  
+
           if (length === edgeLength) {
             linesArray.push([i, j]);
           }
@@ -21,9 +27,15 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
       }
     }
   } else if (+dimensionOfFigure === 2) {
-    linesArray = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0]]
-  };
-  
+    linesArray = [
+      [0, 1],
+      [1, 2],
+      [2, 3],
+      [3, 4],
+      [4, 0],
+    ];
+  }
+
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
@@ -35,12 +47,13 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
 
   return (
     <svg width="600" height="400" className="svg">
-      {lines.map((id, index) => {
-        let vertex1 = 0;
-        let vertex2 = 0;
+      {displayEdges &&
+        lines.map((id, index) => {
+          let vertex1 = 0;
+          let vertex2 = 0;
 
-        vertex1 = linesArray[index][0];
-        vertex2 = linesArray[index][1];
+          vertex1 = linesArray[index][0];
+          vertex2 = linesArray[index][1];
           return (
             <line
               key={id}
@@ -55,26 +68,28 @@ const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
               vertex2={vertex2}
             />
           );
-      })}
+        })}
 
-      {/* {verticesArray.map((item, index) => (
-        <circle
-          onClick={() => {
-            console.log(verticesArray[index], index);
-          }}
-          key={index}
-          cx="300"
-          cy="200"
-          r="2"
-          fill="white"
-          id={`circle${index}`}
-          className="circle"
-          onContextMenu={(e) => {
-            e.preventDefault();
-            e.target.style.display = "none";
-          }}
-        />
-      ))} */}
+      {displayVertices
+        ? verticesArray.map((item, index) => (
+            <circle
+              onClick={() => {
+                console.log(verticesArray[index], index);
+              }}
+              key={index}
+              cx="300"
+              cy="200"
+              r="2"
+              fill="white"
+              id={`circle${index}`}
+              className="circle"
+              onContextMenu={(e) => {
+                e.preventDefault();
+                e.target.style.display = "none";
+              }}
+            />
+          ))
+        : null}
     </svg>
   );
 };

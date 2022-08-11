@@ -2,10 +2,10 @@ import { Matrix } from "./sylvester.src";
 
 const generateFigureOrthography = (vertices, matrix, dimension) => {
   const verticesOnSvg = vertices.map((vertex) => {
-    let perspective = 350;
     let coordinates = matrix.multiply(Matrix.create(vertex));
     let x = coordinates.e(1, 1);
     let y = coordinates.e(2, 1);
+
     return { x, y };
   });
 

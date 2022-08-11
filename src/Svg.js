@@ -14,12 +14,30 @@ export let mouseY = 0;
 export let prevX = 0;
 export let prevY = 0;
 
-const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotation, orthography }) => {
+const Svg = ({
+  dimension,
+  anglesArray,
+  figure,
+  dimensionOfFigure,
+  transposeRotation,
+  orthography,
+  displayEdges,
+  displayVertices,
+}) => {
   useEffect(() => {
     if (dimension > 1) {
-      const matrix = generateMatrixes(dimension, anglesArray, transposeRotation);
+      const matrix = generateMatrixes(
+        dimension,
+        anglesArray,
+        transposeRotation
+      );
       if (orthography) {
-        generateFigureOrthography(verticesArray, matrix, dimension, orthography);
+        generateFigureOrthography(
+          verticesArray,
+          matrix,
+          dimension,
+          orthography
+        );
       } else {
         generateFigure(verticesArray, matrix, dimension, orthography);
       }
@@ -51,23 +69,58 @@ const Svg = ({ dimension, anglesArray, figure, dimensionOfFigure, transposeRotat
   }
 
   if (figure === "cube") {
-    return <Cube dimension={dimension} />;
+    return (
+      <Cube
+        dimension={dimension}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        verticesArray={verticesArray}
+      />
+    );
   }
 
   if (figure === "symplex") {
-    return <Symplex dimensionOfFigure={dimensionOfFigure} />
+    return (
+      <Symplex
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        verticesArray={verticesArray}
+      />
+    );
   }
 
   if (figure === "octahedron") {
-    return <Octahedron dimensionOfFigure={dimensionOfFigure} />;
+    return (
+      <Octahedron
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        verticesArray={verticesArray}
+      />
+    );
   }
 
   if (figure === "24-cell-analog") {
-    return <Cell24Analog verticesArray={verticesArray} dimensionOfFigure={dimensionOfFigure} />;
+    return (
+      <Cell24Analog
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
   }
 
   if (figure === "120-cell-analog") {
-    return <Cell120Analog verticesArray={verticesArray} dimensionOfFigure={dimensionOfFigure} />;
+    return (
+      <Cell120Analog
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
   }
 };
 

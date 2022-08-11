@@ -18,9 +18,10 @@ const generateFigure = (vertices, matrix, dimension) => {
   });
 
   const setCoordinatesToLines = Array.from(document.querySelectorAll(".line"));
-  const setCoordinatesToCircles = Array.from(
+  const coordinatesToCircles = Array.from(
     document.querySelectorAll(".circle")
   );
+
   setCoordinatesToLines.map((line) => {
     const index1 = line.getAttribute("vertex1");
     const index2 = line.getAttribute("vertex2");
@@ -33,7 +34,7 @@ const generateFigure = (vertices, matrix, dimension) => {
     return 0;
   });
 
-  setCoordinatesToCircles.map((line, index) => {
+  coordinatesToCircles.map((line, index) => {
     line.setAttribute("cx", 300 + verticesOnSvg[index]?.x);
     line.setAttribute("cy", 200 + verticesOnSvg[index]?.y);
 

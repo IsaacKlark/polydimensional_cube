@@ -18,6 +18,8 @@ function App() {
   const [figure, setFigure] = useState("cube");
   const [transposeRotation, setTransposeRotation] = useState(false);
   const [orthography, setOrthography] = useState(false);
+  const [displayVertices, setDisplayVertices] = useState(false);
+  const [displayEdges, setDisplayEdges] = useState(true);
 
   let number = numberOfDimensions;
   const changeNumber = (e) => {
@@ -58,7 +60,12 @@ function App() {
       transposeRotation
     );
     if (orthography) {
-      generateFigureOrthography(verticesArray, matrix, numberOfDimensions, figure);
+      generateFigureOrthography(
+        verticesArray,
+        matrix,
+        numberOfDimensions,
+        figure
+      );
     } else {
       generateFigure(verticesArray, matrix, numberOfDimensions, figure);
     }
@@ -107,13 +114,37 @@ function App() {
           <label className="using__mouse">
             <input
               type="checkbox"
-              name="checkbox 2"
+              name="checkbox 3"
               onChange={() => {
                 setOrthography(!orthography);
               }}
               checked={orthography}
             />
             <p>orthography</p>
+          </label>
+        </div>
+        <div className="wrapper">
+          <label className="using__mouse">
+            <input
+              type="checkbox"
+              name="checkbox 4"
+              onChange={() => {
+                setDisplayVertices(!displayVertices);
+              }}
+              checked={displayVertices}
+            />
+            <p>display vertices</p>
+          </label>
+          <label className="using__mouse">
+            <input
+              type="checkbox"
+              name="checkbox 5"
+              onChange={() => {
+                setDisplayEdges(!displayEdges);
+              }}
+              checked={displayEdges}
+            />
+            <p>display edges</p>
           </label>
         </div>
 
@@ -132,7 +163,6 @@ function App() {
             <option>cube</option>
             <option>24-cell-analog</option>
             <option>120-cell-analog</option>
-
           </select>
         </label>
       </div>
@@ -184,6 +214,8 @@ function App() {
           dimensionOfFigure={dimensionOfFigure}
           transposeRotation={transposeRotation}
           orthography={orthography}
+          displayEdges={displayEdges}
+          displayVertices={displayVertices}
         />
       </div>
     </>

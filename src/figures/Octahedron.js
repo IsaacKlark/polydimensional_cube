@@ -1,6 +1,11 @@
 import React from "react";
 
-const Octahedron = ({ dimensionOfFigure }) => {
+const Octahedron = ({
+  dimensionOfFigure,
+  displayEdges,
+  displayVertices,
+  verticesArray,
+}) => {
   const amountOfLines = dimensionOfFigure * (dimensionOfFigure - 1) * 2;
   let ids = 0;
   const lines = [];
@@ -47,28 +52,51 @@ const Octahedron = ({ dimensionOfFigure }) => {
 
   return (
     <svg width="600" height="400" className="svg">
-      {lines.map((id, index) => {
-        let vertex1 = 0;
-        let vertex2 = 0;
+      {displayEdges
+        ? lines.map((id, index) => {
+            let vertex1 = 0;
+            let vertex2 = 0;
 
-        vertex1 = xDots[index];
-        vertex2 = yDots[index];
+            vertex1 = xDots[index];
+            vertex2 = yDots[index];
 
-        return (
-          <line
-            key={id}
-            x1="200"
-            y1="200"
-            x2="400"
-            y2="200"
-            stroke="white"
-            id={`line${id}`}
-            className="line"
-            vertex1={vertex1}
-            vertex2={vertex2}
-          />
-        );
-      })}
+            return (
+              <line
+                key={id}
+                x1="200"
+                y1="200"
+                x2="400"
+                y2="200"
+                stroke="white"
+                id={`line${id}`}
+                className="line"
+                vertex1={vertex1}
+                vertex2={vertex2}
+              />
+            );
+          })
+        : null}
+
+      {displayVertices
+        ? verticesArray.map((item, index) => (
+            <circle
+              onClick={() => {
+                console.log(verticesArray[index], index);
+              }}
+              key={index}
+              cx="300"
+              cy="200"
+              r="2"
+              fill="white"
+              id={`circle${index}`}
+              className="circle"
+              onContextMenu={(e) => {
+                e.preventDefault();
+                e.target.style.display = "none";
+              }}
+            />
+          ))
+        : null}
     </svg>
   );
 };
