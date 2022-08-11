@@ -1,24 +1,29 @@
 import React from "react";
 
 const Cell120Analog = ({ verticesArray, dimensionOfFigure }) => {
-  const linesArray = [];
-  const edgeLength = Math.round((2 / 1.618 ** 2) * 50);
+  let linesArray = [];
+  const edgeLength = +dimensionOfFigure === 3 ? 100 : Math.round((2 / 1.618 ** 2) * 50);
   
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        if (length === edgeLength) {
-          linesArray.push([i, j]);
+  if (dimensionOfFigure > 2) {
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+          }
+          length = Math.round(length ** (1 / 2));
+  
+          if (length === edgeLength) {
+            linesArray.push([i, j]);
+          }
         }
       }
     }
-  }
-
+  } else if (dimensionOfFigure === 2) {
+    linesArray = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0]]
+  };
+  
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];

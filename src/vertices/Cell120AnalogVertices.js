@@ -7,17 +7,41 @@ const Cell120AnalogVertices = (
   if (DimensionOfFigure > dimensions) copyDimensionOfFigure = dimensions;
   const fi = 1.618;
   const baseGroup1 =
-    +copyDimensionOfFigure === 3 ? [60, 60, 60] : [2, 2, 0, 0].map((number) => Math.round(number * 50));
+    +copyDimensionOfFigure === 3
+      ? [fi, fi, fi].map((number) => Math.round(number * 50))
+      : [2, 2, 0, 0].map((number) => Math.round(number * 50));
   const baseGroup2 =
-    +copyDimensionOfFigure === 3 ? [0, 97, 37] : [5**(1/2), 1, 1, 1].map((number) => Math.round(number * 50));
+    +copyDimensionOfFigure === 3
+      ? [0, fi**2, 1].map((number) => Math.round(number * 50))
+      : [5 ** (1 / 2), 1, 1, 1].map((number) => Math.round(number * 50));
   const baseGroup3 =
-    +copyDimensionOfFigure === 3 ? [0, 97, 37] : [fi, fi, fi, fi**-2].map((number) => Math.round(number * 50));
+    +copyDimensionOfFigure === 3
+      ? [fi**2, 1, 0].map((number) => Math.round(number * 50))
+      : [fi, fi, fi, fi ** -2].map((number) => Math.round(number * 50));
   const baseGroup4 =
-    +copyDimensionOfFigure === 3 ? [37, 0, 97] : [fi**2, fi**-1, fi**-1, fi**-1].map((number) => Math.round(number * 50));
+    +copyDimensionOfFigure === 3
+      ? [1, 0, fi**2].map((number) => Math.round(number * 50))
+      : [fi ** 2, fi ** -1, fi ** -1, fi ** -1].map((number) =>
+          Math.round(number * 50)
+        );
   const baseGroup5 =
-    +copyDimensionOfFigure === 3 ? [97, 37, 0] : [fi**2, fi**-2, 1, 0].map((number) => Math.round(number * 50));
-  const baseGroup6 = [5**(1/2), fi**-1, fi, 0].map((number) => Math.round(number * 50));
-  const baseGroup7 = [2, 1, fi, fi**-1].map((number) => Math.round(number * 50));
+    +copyDimensionOfFigure === 3
+      ? [97, 37, 0]
+      : [fi ** 2, fi ** -2, 1, 0].map((number) => Math.round(number * 50));
+  const baseGroup6 = [5 ** (1 / 2), fi ** -1, fi, 0].map((number) =>
+    Math.round(number * 50)
+  );
+  const baseGroup7 = [2, 1, fi, fi ** -1].map((number) =>
+    Math.round(number * 50)
+  );
+
+  const vertices2D = [];
+  let angle = 0;
+  for (let i = 0; i < 5; i++) {
+    const radAngle = angle * 0.0175;
+    vertices2D.push([100*Math.sin(radAngle), -100*Math.cos(radAngle)])
+    angle += 72;
+  }
 
   const combinations = (arr, couple) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
@@ -145,10 +169,10 @@ const Cell120AnalogVertices = (
 
     const resultSet = new Set();
     result.forEach((el) => {
-      resultSet.add(JSON.stringify(el))
+      resultSet.add(JSON.stringify(el));
     });
     return Array.from(resultSet).map((el) => JSON.parse(el));
-  }
+  };
 
   const group1 = arrayToSetAndToArray(
     +copyDimensionOfFigure === 3 ? minusToPlus(baseGroup1) : mixAll(baseGroup1)
@@ -170,20 +194,27 @@ const Cell120AnalogVertices = (
   const group6 = arrayToSetAndToArray(especialCombinations(baseGroup6));
   const group7 = arrayToSetAndToArray(especialCombinations(baseGroup7));
 
+  let vertices = [];
 
+  if (+copyDimensionOfFigure === 2) {
+    vertices = vertices2D;
+  }
 
-  let vertices =
-    +copyDimensionOfFigure === 3
-      ? [...group1, ...group2, ...group3, ...group4, ...group5]
-      : [
-          ...group1,
-          ...group2,
-          ...group3,
-          ...group4,
-          ...group5,
-          ...group6,
-          ...group7,
-        ];
+  if (+copyDimensionOfFigure === 3) {
+    vertices = [...group1, ...group2, ...group3, ...group4];
+  }
+
+  if (+copyDimensionOfFigure > 3) {
+    vertices = [
+      ...group1,
+      ...group2,
+      ...group3,
+      ...group4,
+      ...group5,
+      ...group6,
+      ...group7,
+    ];
+  }
 
   if (dimensions > copyDimensionOfFigure) {
     vertices = vertices.map((arr) => {
