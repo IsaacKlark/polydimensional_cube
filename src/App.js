@@ -163,6 +163,7 @@ function App() {
             <option>cube</option>
             <option>24-cell-analog</option>
             <option>120-cell-analog</option>
+            <option>600-cell-analog</option>
           </select>
         </label>
       </div>

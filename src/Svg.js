@@ -8,6 +8,8 @@ import Symplex from "./figures/Symplex";
 import Octahedron from "./figures/Octahedron";
 import Cell24Analog from "./figures/Cell24Analog";
 import Cell120Analog from "./figures/Cell120Analog";
+import Cell600Analog from "./figures/Cell600Analog";
+
 export let canRotate = false;
 export let mouseX = 0;
 export let mouseY = 0;
@@ -115,6 +117,17 @@ const Svg = ({
   if (figure === "120-cell-analog") {
     return (
       <Cell120Analog
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "600-cell-analog") {
+    return (
+      <Cell600Analog
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
