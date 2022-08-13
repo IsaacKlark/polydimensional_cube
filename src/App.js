@@ -13,6 +13,7 @@ export let useKeyboard = false;
 //cantellated tesseract
 //truncated tesseract
 //Rectified Tesseract
+//Cantitruncated Tesseract
 const specific3D = [
   "3D Icosahedron",
   "3D Truncated Tetrahedron",
@@ -29,6 +30,7 @@ const baseFigures = [
   "Rhombicuboctahedron",
   "Truncated Octahedron",
   "Cuboctahedron",
+  "Great Rhombicuboctahedron"
 ];
 
 function App() {

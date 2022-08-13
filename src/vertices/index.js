@@ -10,6 +10,7 @@ import CuboctahedronVertices from "./CuboctahedronVertices";
 import TruncatedOctahedronVertices from "./TruncatedOctahedronVertices";
 import RhombicuboctahedronVertices from "./RhombicuboctahedronVertices";
 import TruncatedCubeVertices from "./TruncatedCubeVertices";
+import GreatRhombicuboctahedronVertices from "./GreatRhombicuboctahedronVertices";
 
 export let verticesArray = [];
 
@@ -64,6 +65,10 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
 
   if (figure === "Truncated Cube") {
     TruncatedCubeVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "Great Rhombicuboctahedron") {
+    GreatRhombicuboctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 
