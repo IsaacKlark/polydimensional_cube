@@ -14,6 +14,7 @@ const specific3D = [
   "3D Truncated Tetrahedron",
   "3D Cuboctahedron",
   "3D Truncated Octahedron",
+  "3D Rhombicuboctahedron",
 ];
 
 function App() {

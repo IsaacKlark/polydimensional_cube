@@ -13,6 +13,7 @@ import Icosahedron from "./figures/Icosahedron";
 import TruncatedTetrahedron from "./figures/TruncatedTetrahedron";
 import Cuboctahedron from "./figures/Cuboctahedron";
 import TruncatedOctahedron from "./figures/TruncatedOctahedron";
+import Rhombicuboctahedron from "./figures/Rhombicuboctahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -175,6 +176,17 @@ const Svg = ({
   if (figure === "3D Truncated Octahedron") {
     return (
       <TruncatedOctahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "3D Rhombicuboctahedron") {
+    return (
+      <Rhombicuboctahedron
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
