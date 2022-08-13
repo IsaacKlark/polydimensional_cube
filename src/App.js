@@ -9,7 +9,12 @@ import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
 export let useKeyboard = false;
 
-const specific3D = ["3D Icosahedron", "3D Truncated Tetrahedron", "3D Cuboctahedron"];
+const specific3D = [
+  "3D Icosahedron",
+  "3D Truncated Tetrahedron",
+  "3D Cuboctahedron",
+  "3D Truncated Octahedron",
+];
 
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
@@ -26,7 +31,7 @@ function App() {
 
   useEffect(() => {
     if (+dimensionOfFigure === 2 && specific3D.includes(figure)) {
-      setFigure("cube")
+      setFigure("cube");
     }
   }, [dimensionOfFigure, figure]);
 
@@ -69,13 +74,14 @@ function App() {
       transposeRotation
     );
     if (orthography) {
-      generateFigureOrthography(
+      generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
+    } else {
+      generateFigure(
         verticesArray,
         matrix,
+        numberOfDimensions,
         dimensionOfFigure
       );
-    } else {
-      generateFigure(verticesArray, matrix, numberOfDimensions, dimensionOfFigure);
     }
   };
 

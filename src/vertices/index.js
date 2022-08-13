@@ -7,6 +7,7 @@ import Cell600AnalogVertices from "./Cell600AnalogVertices";
 import IcosahedronVertices from "./IcosahedronVertices";
 import TruncatedTetrahedronVertices from "./TruncatedTetrahedronVertices";
 import CuboctahedronVertices from "./CuboctahedronVertices";
+import TruncatedOctahedronVertices from "./TruncatedOctahedronVertices";
 
 export let verticesArray = [];
 
@@ -49,6 +50,10 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
 
   if (figure === "3D Cuboctahedron") {
     CuboctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "3D Truncated Octahedron") {
+    TruncatedOctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 
