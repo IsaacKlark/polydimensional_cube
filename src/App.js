@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
@@ -8,6 +8,8 @@ import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
 export let useKeyboard = false;
+
+const specific3D = ["3D Icosahedron"];
 
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
@@ -20,6 +22,13 @@ function App() {
   const [orthography, setOrthography] = useState(false);
   const [displayVertices, setDisplayVertices] = useState(false);
   const [displayEdges, setDisplayEdges] = useState(true);
+  const [displaySpecific3D, setDisplaySpecific3D] = useState(true);
+
+  useEffect(() => {
+    if (+dimensionOfFigure === 2 && specific3D.includes(figure)) {
+      setFigure("cube")
+    }
+  }, [dimensionOfFigure, figure]);
 
   let number = numberOfDimensions;
   const changeNumber = (e) => {
@@ -64,10 +73,10 @@ function App() {
         verticesArray,
         matrix,
         numberOfDimensions,
-        figure
+        dimensionOfFigure
       );
     } else {
-      generateFigure(verticesArray, matrix, numberOfDimensions, figure);
+      generateFigure(verticesArray, matrix, numberOfDimensions, dimensionOfFigure);
     }
   };
 
@@ -148,24 +157,45 @@ function App() {
           </label>
         </div>
 
-        <label className="using__mouse">
-          {numberOfDimensions}D
-          <select
-            onChange={(e) => {
-              vertices(numberOfDimensions, dimensionOfFigure, e.target.value);
-              setFigure(e.target.value);
-            }}
-            className="select"
-            value={figure}
-          >
-            <option>symplex</option>
-            <option>octahedron</option>
-            <option>cube</option>
-            <option>24-cell-analog</option>
-            <option>120-cell-analog</option>
-            <option>600-cell-analog</option>
-          </select>
-        </label>
+        <div className="wrapper">
+          <label className="using__mouse">
+            {numberOfDimensions}D
+            <select
+              onChange={(e) => {
+                vertices(numberOfDimensions, dimensionOfFigure, e.target.value);
+                setFigure(e.target.value);
+              }}
+              className="select"
+              value={figure}
+            >
+              <option>symplex</option>
+              <option>octahedron</option>
+              <option>cube</option>
+              <option>24-cell-analog</option>
+              <option>120-cell-analog</option>
+              <option>600-cell-analog</option>
+              {displaySpecific3D && +numberOfDimensions >= 3
+                ? specific3D.map((figure) => (
+                    <option key={figure}>{figure}</option>
+                  ))
+                : null}
+            </select>
+          </label>
+
+          {numberOfDimensions >= 3 ? (
+            <label className="using__mouse">
+              <input
+                type="checkbox"
+                name="specific 3D"
+                onChange={() => {
+                  setDisplaySpecific3D(!displaySpecific3D);
+                }}
+                checked={displaySpecific3D}
+              />
+              <p>display specific 3D figures</p>
+            </label>
+          ) : null}
+        </div>
       </div>
       <div className="App">
         <button type="button" className="reset" onClick={resetAngles}>
@@ -207,6 +237,7 @@ function App() {
           figure={figure}
           transposeRotation={transposeRotation}
           orthography={orthography}
+          dimensionOfFigure={dimensionOfFigure}
         />
         <Svg
           dimension={numberOfDimensions}

@@ -9,6 +9,7 @@ import Octahedron from "./figures/Octahedron";
 import Cell24Analog from "./figures/Cell24Analog";
 import Cell120Analog from "./figures/Cell120Analog";
 import Cell600Analog from "./figures/Cell600Analog";
+import Icosahedron from "./figures/Icosahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -41,12 +42,12 @@ const Svg = ({
           orthography
         );
       } else {
-        generateFigure(verticesArray, matrix, dimension, orthography);
+        generateFigure(verticesArray, matrix, dimension, dimensionOfFigure);
       }
     }
   });
 
-  if (+dimension === 0) {
+  if (+dimensionOfFigure === 0) {
     return (
       <svg width="600" height="400" className="svg">
         <circle cx="300" cy="200" r="3" fill="white" />
@@ -54,7 +55,7 @@ const Svg = ({
     );
   }
 
-  if (+dimension === 1) {
+  if (+dimensionOfFigure === 1) {
     return (
       <svg width="600" height="400" className="svg">
         <line
@@ -128,6 +129,17 @@ const Svg = ({
   if (figure === "600-cell-analog") {
     return (
       <Cell600Analog
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "3D Icosahedron") {
+    return (
+      <Icosahedron
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

@@ -4,6 +4,7 @@ import symplexVertices from "./symplexVertices";
 import Cell24AnaologVertices from "./Cell24AnalogVertices";
 import Cell120AnalogVertices from "./Cell120AnalogVertices";
 import Cell600AnalogVertices from "./Cell600AnalogVertices";
+import IcosahedronVertices from "./IcosahedronVertices";
 
 export let verticesArray = [];
 
@@ -34,6 +35,10 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
 
   if (figure === "600-cell-analog") {
     Cell600AnalogVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "3D Icosahedron") {
+    IcosahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 

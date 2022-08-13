@@ -43,6 +43,43 @@ const Cell120AnalogVertices = (
     angle += 72;
   }
 
+  const signPermutations = (a) => {
+    let result = [];
+    let fourResults = [];
+    for (let i = 0; i < 1 << a.length; i++) {
+      let num = 1 << (a.length - 1);
+
+      for (let j = 0; j < a.length; j++) {
+        num = num >> 1;
+      }
+
+      num = 1 << (a.length - 1);
+
+      for (let j = 0; j < a.length; j++) {
+        if ((i & num) > 0) {
+          fourResults.push(a[j]);
+        } else {
+          fourResults.push(a[j] * -1);
+        }
+        if (fourResults.length === a.length) {
+          result.push(fourResults);
+          fourResults = [];
+        }
+        num = num >> 1;
+      }
+    }
+
+    return result;
+  };
+
+  const ones = [];
+
+  for (let i = 0; i < DimensionOfFigure; i++) {
+    ones.push(1);
+  };
+
+  const onesWithAllSignPermutations = signPermutations(ones);
+
   const combinations = (arr, couple) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
     if (arr.length > 1) {
@@ -79,25 +116,14 @@ const Cell120AnalogVertices = (
     let result = [];
     const arrays = [arr];
 
-    const combineMinuses = (dimensions) => {
-      for (let i1 = -1; i1 <= 1; i1 += 2) {
-        for (let i2 = -1; i2 <= 1; i2 += 2) {
-          for (let i3 = -1; i3 <= 1; i3 += 2) {
-            for (let i4 = -1; i4 <= 1; i4 += 2) {
-              const copyArray = [...arr];
-              const multiplyArray = [i1, i2, i3, i4];
-
-              for (let i = 0; i < arr.length; i++) {
-                copyArray[i] = +copyArray[i] * multiplyArray[i];
-              }
-              arrays.push(copyArray);
-            }
-          }
-        }
+    onesWithAllSignPermutations.forEach((el) => {
+      const copyArr = [...arr];
+      for(let i = 0; i < copyArr.length; i++) {
+        copyArr[i] *= el[i];
       }
-    };
 
-    combineMinuses(+dimensions);
+      arrays.push(copyArr);
+    })
 
     if (copyDimensionOfFigure > 3) {
       arrays.forEach((array) => {
@@ -142,22 +168,16 @@ const Cell120AnalogVertices = (
     const permutations = combinations(arr, true);
     const result = [];
     for (let i = 0; i < permutations.length; i++) {
-      for (let i1 = -1; i1 <= 1; i1 += 2) {
-        for (let i2 = -1; i2 <= 1; i2 += 2) {
-          for (let i3 = -1; i3 <= 1; i3 += 2) {
-            for (let i4 = -1; i4 <= 1; i4 += 2) {
-              const copyArray = [...permutations[i]];
-              const multiplyArray = [i1, i2, i3, i4];
-
-              for (let i = 0; i < arr.length; i++) {
-                copyArray[i] = +copyArray[i] * multiplyArray[i];
-              }
-              result.push(copyArray);
-            }
-          }
+      onesWithAllSignPermutations.forEach((el) => {
+        const copyArr = [...permutations[i]];
+        for(let i = 0; i < copyArr.length; i++) {
+          copyArr[i] *= el[i];
         }
-      }
+  
+        result.push(copyArr);
+      })
     }
+
 
     const resultSet = new Set();
     result.forEach((el) => {
