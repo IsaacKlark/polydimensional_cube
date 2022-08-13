@@ -9,6 +9,7 @@ import TruncatedTetrahedronVertices from "./TruncatedTetrahedronVertices";
 import CuboctahedronVertices from "./CuboctahedronVertices";
 import TruncatedOctahedronVertices from "./TruncatedOctahedronVertices";
 import RhombicuboctahedronVertices from "./RhombicuboctahedronVertices";
+import TruncatedCubeVertices from "./TruncatedCubeVertices";
 
 export let verticesArray = [];
 
@@ -17,15 +18,15 @@ const setVerticesArray = (result) => {
 }
 
 const vertices = (dimensions, DimensionOfFigure, figure) => {
-  if (figure === "cube") {
+  if (figure === "Cube") {
     cubeVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 
-  if (figure === "symplex") {
+  if (figure === "Symplex") {
     symplexVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 
-  if (figure === "octahedron") {
+  if (figure === "Octahedron") {
     octahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 
@@ -49,16 +50,20 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
     TruncatedTetrahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 
-  if (figure === "3D Cuboctahedron") {
+  if (figure === "Cuboctahedron") {
     CuboctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 
-  if (figure === "3D Truncated Octahedron") {
+  if (figure === "Truncated Octahedron") {
     TruncatedOctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 
-  if (figure === "3D Rhombicuboctahedron") {
+  if (figure === "Rhombicuboctahedron") {
     RhombicuboctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "Truncated Cube") {
+    TruncatedCubeVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 

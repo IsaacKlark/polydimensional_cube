@@ -3,9 +3,12 @@ const RhombicuboctahedronVertices = (
   DimensionOfFigure,
   setVerticesArray
 ) => {
-  let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
-  if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
-  const baseGroup1 = [1, 1, 1+Math.sqrt(2)].map((number) => number * 40);
+  if (+DimensionOfFigure > +dimensions) DimensionOfFigure = dimensions;
+  const baseGroup1 = [1, 1].map((number) => number * 40);
+
+  for (let i = 0; i < DimensionOfFigure - 2; i++) {
+    baseGroup1.push((1+Math.sqrt(2)) * 40)
+  }
 
   const combinations = (arr, couple) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
@@ -19,7 +22,7 @@ const RhombicuboctahedronVertices = (
           const newArr = arr1[i]
             .slice(0, j)
             .concat(beg, arr1[i].slice(j))
-            .slice(0, copyDimensionOfFigure + 1);
+            .slice(0, DimensionOfFigure + 1);
           let inversions = 0;
           for (let i = 0; i < newArr.length; i++) {
             for (let j = i + 1; j < newArr.length; j++) {
@@ -89,7 +92,7 @@ const RhombicuboctahedronVertices = (
       arrays.push(copyArr);
     })
 
-    if (copyDimensionOfFigure > 3) {
+    if (DimensionOfFigure > 3) {
       arrays.forEach((array) => {
         result = [...result, ...combinations(array, couple)];
       });
@@ -156,9 +159,9 @@ const RhombicuboctahedronVertices = (
 
   vertices = [...group1];
 
-  if (+dimensions > +copyDimensionOfFigure) {
+  if (+dimensions > +DimensionOfFigure) {
     vertices = vertices.map((arr) => {
-      for (let i = +copyDimensionOfFigure + 1; i <= +dimensions; i++) {
+      for (let i = +DimensionOfFigure + 1; i <= +dimensions; i++) {
         arr.push(0);
       }
       return arr;

@@ -9,12 +9,26 @@ import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
 export let useKeyboard = false;
 
+//The Bitruncated Tesseract
+//cantellated tesseract
+//truncated tesseract
+//Rectified Tesseract
 const specific3D = [
   "3D Icosahedron",
   "3D Truncated Tetrahedron",
-  "3D Cuboctahedron",
-  "3D Truncated Octahedron",
-  "3D Rhombicuboctahedron",
+];
+
+const baseFigures = [
+  "Symplex",
+  "Octahedron",
+  "Cube",
+  "24-cell-analog",
+  "120-cell-analog",
+  "600-cell-analog",
+  "Truncated Cube",
+  "Rhombicuboctahedron",
+  "Truncated Octahedron",
+  "Cuboctahedron",
 ];
 
 function App() {
@@ -23,7 +37,7 @@ function App() {
   const [dimensionOfFigure, setDimensionOfFigure] = useState(2);
   const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
-  const [figure, setFigure] = useState("cube");
+  const [figure, setFigure] = useState("Cube");
   const [transposeRotation, setTransposeRotation] = useState(false);
   const [orthography, setOrthography] = useState(false);
   const [displayVertices, setDisplayVertices] = useState(false);
@@ -32,7 +46,7 @@ function App() {
 
   useEffect(() => {
     if (+dimensionOfFigure === 2 && specific3D.includes(figure)) {
-      setFigure("cube");
+      setFigure("Cube");
     }
   }, [dimensionOfFigure, figure]);
 
@@ -174,12 +188,11 @@ function App() {
               className="select"
               value={figure}
             >
-              <option>symplex</option>
-              <option>octahedron</option>
-              <option>cube</option>
-              <option>24-cell-analog</option>
-              <option>120-cell-analog</option>
-              <option>600-cell-analog</option>
+              {
+                baseFigures.map((figure) => (
+                  <option key={figure}>{figure}</option>
+                ))
+              }
               {displaySpecific3D && +numberOfDimensions >= 3
                 ? specific3D.map((figure) => (
                     <option key={figure}>{figure}</option>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const TruncatedOctahedron = ({
+const TruncatedCube = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -83,4 +83,4 @@ const TruncatedOctahedron = ({
   );
 };
 
-export default TruncatedOctahedron;
+export default TruncatedCube;

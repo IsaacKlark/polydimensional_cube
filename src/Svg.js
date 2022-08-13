@@ -14,6 +14,7 @@ import TruncatedTetrahedron from "./figures/TruncatedTetrahedron";
 import Cuboctahedron from "./figures/Cuboctahedron";
 import TruncatedOctahedron from "./figures/TruncatedOctahedron";
 import Rhombicuboctahedron from "./figures/Rhombicuboctahedron";
+import TruncatedCube from "./figures/TruncatedCube";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -74,7 +75,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "cube") {
+  if (figure === "Cube") {
     return (
       <Cube
         dimension={dimension}
@@ -85,7 +86,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "symplex") {
+  if (figure === "Symplex") {
     return (
       <Symplex
         dimensionOfFigure={dimensionOfFigure}
@@ -96,7 +97,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "octahedron") {
+  if (figure === "Octahedron") {
     return (
       <Octahedron
         dimensionOfFigure={dimensionOfFigure}
@@ -162,7 +163,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "3D Cuboctahedron") {
+  if (figure === "Cuboctahedron") {
     return (
       <Cuboctahedron
         verticesArray={verticesArray}
@@ -173,7 +174,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "3D Truncated Octahedron") {
+  if (figure === "Truncated Octahedron") {
     return (
       <TruncatedOctahedron
         verticesArray={verticesArray}
@@ -184,9 +185,20 @@ const Svg = ({
     );
   }
 
-  if (figure === "3D Rhombicuboctahedron") {
+  if (figure === "Rhombicuboctahedron") {
     return (
       <Rhombicuboctahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "Truncated Cube") {
+    return (
+      <TruncatedCube
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
