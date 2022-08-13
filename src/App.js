@@ -9,7 +9,7 @@ import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
 export let useKeyboard = false;
 
-const specific3D = ["3D Icosahedron", "3D Truncated Tetrahedron"];
+const specific3D = ["3D Icosahedron", "3D Truncated Tetrahedron", "3D Cuboctahedron"];
 
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);

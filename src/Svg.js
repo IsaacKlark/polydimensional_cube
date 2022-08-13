@@ -11,6 +11,7 @@ import Cell120Analog from "./figures/Cell120Analog";
 import Cell600Analog from "./figures/Cell600Analog";
 import Icosahedron from "./figures/Icosahedron";
 import TruncatedTetrahedron from "./figures/TruncatedTetrahedron";
+import Cuboctahedron from "./figures/Cuboctahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -151,6 +152,17 @@ const Svg = ({
   if (figure === "3D Truncated Tetrahedron") {
     return (
       <TruncatedTetrahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "3D Cuboctahedron") {
+    return (
+      <Cuboctahedron
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
