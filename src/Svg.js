@@ -10,6 +10,7 @@ import Cell24Analog from "./figures/Cell24Analog";
 import Cell120Analog from "./figures/Cell120Analog";
 import Cell600Analog from "./figures/Cell600Analog";
 import Icosahedron from "./figures/Icosahedron";
+import TruncatedTetrahedron from "./figures/TruncatedTetrahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -38,8 +39,7 @@ const Svg = ({
         generateFigureOrthography(
           verticesArray,
           matrix,
-          dimension,
-          orthography
+          dimensionOfFigure
         );
       } else {
         generateFigure(verticesArray, matrix, dimension, dimensionOfFigure);
@@ -140,6 +140,17 @@ const Svg = ({
   if (figure === "3D Icosahedron") {
     return (
       <Icosahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "3D Truncated Tetrahedron") {
+    return (
+      <TruncatedTetrahedron
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

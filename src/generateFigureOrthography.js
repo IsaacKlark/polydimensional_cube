@@ -1,6 +1,6 @@
 import { Matrix } from "./sylvester.src";
 
-const generateFigureOrthography = (vertices, matrix, dimension, dimensionOfFigure) => {
+const generateFigureOrthography = (vertices, matrix, dimensionOfFigure) => {
   const verticesOnSvg = vertices.map((vertex) => {
     let coordinates = matrix.multiply(Matrix.create(vertex));
     let x = coordinates?.e(1, 1) || 0;

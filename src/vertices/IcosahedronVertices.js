@@ -89,17 +89,6 @@ const IcosahedronVertices = (
 
   vertices = [...group1, ...group2, ...group3];
 
-  const lowDimensionSet = new Set();
-  if (+DimensionOfFigure === 3) {
-    vertices = vertices.forEach((arr) => {
-      lowDimensionSet.add(JSON.stringify(arr.slice(0, DimensionOfFigure)));
-    });
-
-    vertices = Array.from(lowDimensionSet).map((arr) =>
-      JSON.parse(arr).map((el) => +el)
-    );
-  }
-
   if (+dimensions > +copyDimensionOfFigure) {
     vertices = vertices.map((arr) => {
       for (let i = +copyDimensionOfFigure + 1; i <= +dimensions; i++) {

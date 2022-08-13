@@ -49,7 +49,7 @@ const CreateCheckboxes = ({
           transposeRotation
         );
         if (orthography) {
-          generateFigureOrthography(verticesArray, matrix, number, dimensionOfFigure);
+          generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
         } else {
           generateFigure(verticesArray, matrix, number, dimensionOfFigure);
         }
@@ -96,7 +96,7 @@ const CreateCheckboxes = ({
           transposeRotation
         );
         if (orthography) {
-          generateFigureOrthography(verticesArray, matrix, number, dimensionOfFigure);
+          generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
         } else {
           generateFigure(verticesArray, matrix, number, dimensionOfFigure);
         }
