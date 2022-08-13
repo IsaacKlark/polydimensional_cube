@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/polydimensional_cube/precache-manifest.ed73378e27dfec924ec0ad2f09d4b2e8.js"
+  "/polydimensional_cube/precache-manifest.b05cba3a4a8cd6e3958f5a472f1925a1.js"
 );
 
 self.addEventListener('message', (event) => {
