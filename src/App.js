@@ -17,7 +17,8 @@ export let useKeyboard = false;
 const specific3D = [
   "3D Icosahedron",
   "3D Truncated Tetrahedron",
-  "3D Snub Cube"
+  "3D Snub Cube",
+  "3D Icosidodecahedron"
 ];
 
 const baseFigures = [

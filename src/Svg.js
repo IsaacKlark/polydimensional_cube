@@ -17,6 +17,7 @@ import Rhombicuboctahedron from "./figures/Rhombicuboctahedron";
 import TruncatedCube from "./figures/TruncatedCube";
 import GreatRhombicuboctahedron from "./figures/GreatRhombicuboctahedron";
 import SnubCube from "./figures/SnubCube";
+import Icosidodecahedron from "./figures/Icosidodecahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -223,6 +224,17 @@ const Svg = ({
   if (figure === "3D Snub Cube") {
     return (
       <SnubCube
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "3D Icosidodecahedron") {
+    return (
+      <Icosidodecahedron
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
