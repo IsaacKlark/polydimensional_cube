@@ -18,6 +18,7 @@ import TruncatedCube from "./figures/TruncatedCube";
 import GreatRhombicuboctahedron from "./figures/GreatRhombicuboctahedron";
 import SnubCube from "./figures/SnubCube";
 import Icosidodecahedron from "./figures/Icosidodecahedron";
+import TruncatedIcosahedron from "./figures/TruncatedIcosahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -242,6 +243,19 @@ const Svg = ({
       />
     );
   }
+
+  if (figure === "3D Truncated Icosahedron") {
+    return (
+      <TruncatedIcosahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
 };
+
+
 
 export default Svg;

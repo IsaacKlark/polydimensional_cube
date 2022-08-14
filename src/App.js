@@ -18,7 +18,8 @@ const specific3D = [
   "3D Icosahedron",
   "3D Truncated Tetrahedron",
   "3D Snub Cube",
-  "3D Icosidodecahedron"
+  "3D Icosidodecahedron",
+  "3D Truncated Icosahedron"
 ];
 
 const baseFigures = [
