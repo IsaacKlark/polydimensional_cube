@@ -1,16 +1,15 @@
-const RhombicuboctahedronVertices = (
+const SnubCubeVertices = (
   dimensions,
   DimensionOfFigure,
   setVerticesArray
 ) => {
-  if (+DimensionOfFigure > +dimensions) DimensionOfFigure = dimensions;
-  const baseGroup1 = [1, 1].map((number) => number * 40);
+  let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
+  if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
+  const t = 1.839286
 
-  for (let i = 0; i < DimensionOfFigure - 2; i++) {
-    baseGroup1.push((1+Math.sqrt(2)) * 40)
-  }
+  const baseGroup = [t, 1, t**-1].map((number) => number * 60);
 
-  const combinations = (arr, couple) => {
+  const combinations = (arr, couple, odd) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
     if (arr.length > 1) {
       const beg = arr[0];
@@ -22,7 +21,7 @@ const RhombicuboctahedronVertices = (
           const newArr = arr1[i]
             .slice(0, j)
             .concat(beg, arr1[i].slice(j))
-            .slice(0, DimensionOfFigure + 1);
+            .slice(0, copyDimensionOfFigure + 1);
           let inversions = 0;
           for (let i = 0; i < newArr.length; i++) {
             for (let j = i + 1; j < newArr.length; j++) {
@@ -31,6 +30,10 @@ const RhombicuboctahedronVertices = (
           }
           if (couple) {
             if (inversions % 2 === 0) {
+              arr2.push(newArr);
+            }
+          } else if (odd) {
+            if (inversions % 2 !== 0) {
               arr2.push(newArr);
             }
           } else {
@@ -79,49 +82,6 @@ const RhombicuboctahedronVertices = (
 
   const onesWithAllSignPermutations = signPermutations(ones);
 
-  const minusToPlus = (arr, couple) => {
-    let result = [];
-    const arrays = [arr];
-
-    onesWithAllSignPermutations.forEach((el) => {
-      const copyArr = [...arr];
-      for(let i = 0; i < copyArr.length; i++) {
-        copyArr[i] *= el[i];
-      }
-
-      arrays.push(copyArr);
-    })
-
-    if (DimensionOfFigure > 3) {
-      arrays.forEach((array) => {
-        result = [...result, ...combinations(array, couple)];
-      });
-    } else {
-      arrays.forEach((array) => {
-        result = [
-          ...result,
-          array.map((number) => (number === -0 ? 0 : number)),
-        ];
-      });
-    }
-
-    return result;
-  };
-
-  const mixAll = (array, couple) => {
-    let variants = [];
-    combinations(array, false).forEach((array) => {
-      variants = [...variants, ...minusToPlus(array, couple)];
-    });
-
-    const mySet = new Set();
-    variants.forEach((element) => {
-      mySet.add(element.join(","));
-    });
-
-    return Array.from(mySet).map((item) => item.split(","));
-  };
-
   const arrayToSetAndToArray = (array) => {
     const mySet = new Set();
     array.forEach((item) => mySet.add(item.join(",")));
@@ -131,16 +91,57 @@ const RhombicuboctahedronVertices = (
     );
   };
 
-  const group1 = arrayToSetAndToArray(mixAll(baseGroup1));
+  const especialCombinations = (arr, couple, odd) => {
+    const permutations = combinations(arr, couple, odd);
+    const result = [];
+
+    for (let i = 0; i < permutations.length; i++) {
+      onesWithAllSignPermutations.forEach((el) => {
+        const copyArr = [...permutations[i]];
+        for(let i = 0; i < copyArr.length; i++) {
+          copyArr[i] *= el[i];
+        }
+
+        let minuses = 0;
+
+        for (let j = 0; j < copyArr.length; j++) {
+
+          if (copyArr[j] < 0) {
+            minuses++;
+          }
+        }
+        if (couple) {
+          if (minuses % 2 === 0) {
+            result.push(copyArr);
+          }
+        }
+       
+        if (odd) {
+          if (minuses % 2 !== 0) {
+            result.push(copyArr);
+          }
+        }
+      })
+    }
+
+    const resultSet = new Set();
+    result.forEach((el) => {
+      resultSet.add(JSON.stringify(el));
+    });
+    return Array.from(resultSet).map((el) => JSON.parse(el));
+  };
+
+  const group1 = arrayToSetAndToArray(especialCombinations(baseGroup, true, false));
+  const group2 = arrayToSetAndToArray(especialCombinations(baseGroup, false, true));
+
 
   let vertices = [];
 
+  vertices = [...group1, ...group2];
 
-  vertices = [...group1];
-
-  if (+dimensions > +DimensionOfFigure) {
+  if (+dimensions > +copyDimensionOfFigure) {
     vertices = vertices.map((arr) => {
-      for (let i = +DimensionOfFigure + 1; i <= +dimensions; i++) {
+      for (let i = +copyDimensionOfFigure + 1; i <= +dimensions; i++) {
         arr.push(0);
       }
       return arr;
@@ -155,4 +156,4 @@ const RhombicuboctahedronVertices = (
   setVerticesArray(vertices);
 };
 
-export default RhombicuboctahedronVertices;
+export default SnubCubeVertices;

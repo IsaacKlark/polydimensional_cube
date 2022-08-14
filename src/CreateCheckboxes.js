@@ -58,6 +58,7 @@ const CreateCheckboxes = ({
 
     document.body.addEventListener("keydown", moveByKeyBoard);
     return () => document.body.removeEventListener("keydown", moveByKeyBoard);
+    //eslint-disable-next-line
   }, [anglesArray, orthography]);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ const CreateCheckboxes = ({
       anglesArray.push(0);
     }
     setAnglesArray(anglesArray);
+    //eslint-disable-next-line
   }, [dimensions]);
 
   useEffect(() => {
@@ -106,6 +108,8 @@ const CreateCheckboxes = ({
     if (!activeRotations.length) clearInterval(interval);
 
     return () => clearInterval(interval);
+
+    //eslint-disable-next-line
   }, [dimensions, activeRotations, useKeyboard, orthography, dimensionOfFigure]);
 
   useEffect(() => {

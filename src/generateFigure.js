@@ -39,6 +39,8 @@ const generateFigure = (vertices, matrix, dimension, dimensionOfFigure) => {
       line.setAttribute("y1", 200 + verticesOnSvg[+index1]?.y);
       line.setAttribute("y2", 200 + verticesOnSvg[+index2]?.y);
     }
+
+    return null;
   });
 
   coordinatesToCircles.map((line, index) => {

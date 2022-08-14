@@ -16,6 +16,7 @@ import TruncatedOctahedron from "./figures/TruncatedOctahedron";
 import Rhombicuboctahedron from "./figures/Rhombicuboctahedron";
 import TruncatedCube from "./figures/TruncatedCube";
 import GreatRhombicuboctahedron from "./figures/GreatRhombicuboctahedron";
+import SnubCube from "./figures/SnubCube";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -211,6 +212,17 @@ const Svg = ({
   if (figure === "Great Rhombicuboctahedron") {
     return (
       <GreatRhombicuboctahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+  
+  if (figure === "3D Snub Cube") {
+    return (
+      <SnubCube
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

@@ -23,7 +23,8 @@ const Symplex = ({
   let currentY = 0;
 
   for (let i = 0; i < lines.length; i++) {
-    if (xDots.filter((value) => value === currentMinX).length < minsAmount) {
+    let copyCurrentMinx = currentMinX;
+    if (xDots.filter((value) => value === copyCurrentMinx).length < minsAmount) {
       xDots.push(currentMinX);
     } else {
       currentMinX += 1;
