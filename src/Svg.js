@@ -19,6 +19,7 @@ import GreatRhombicuboctahedron from "./figures/GreatRhombicuboctahedron";
 import SnubCube from "./figures/SnubCube";
 import Icosidodecahedron from "./figures/Icosidodecahedron";
 import TruncatedIcosahedron from "./figures/TruncatedIcosahedron";
+import Rhombicosidodecahedron from "./figures/Rhombicosidodecahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -254,6 +255,19 @@ const Svg = ({
       />
     );
   }
+
+  if (figure === "3D Rhombicosidodecahedron") {
+    return (
+      <Rhombicosidodecahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  
 };
 
 
