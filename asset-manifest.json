@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/polydimensional_cube/static/css/main.6dd927b7.chunk.css",
-    "main.js": "/polydimensional_cube/static/js/main.af8ce6ba.chunk.js",
-    "main.js.map": "/polydimensional_cube/static/js/main.af8ce6ba.chunk.js.map",
+    "main.js": "/polydimensional_cube/static/js/main.ba350852.chunk.js",
+    "main.js.map": "/polydimensional_cube/static/js/main.ba350852.chunk.js.map",
     "runtime-main.js": "/polydimensional_cube/static/js/runtime-main.0c2f81e2.js",
     "runtime-main.js.map": "/polydimensional_cube/static/js/runtime-main.0c2f81e2.js.map",
     "static/js/2.b30496e2.chunk.js": "/polydimensional_cube/static/js/2.b30496e2.chunk.js",
     "static/js/2.b30496e2.chunk.js.map": "/polydimensional_cube/static/js/2.b30496e2.chunk.js.map",
     "index.html": "/polydimensional_cube/index.html",
-    "precache-manifest.774c77a01a99f45d0b21e5c4b9f451cd.js": "/polydimensional_cube/precache-manifest.774c77a01a99f45d0b21e5c4b9f451cd.js",
+    "precache-manifest.e01904c586bfd3e63df0958a49486dfb.js": "/polydimensional_cube/precache-manifest.e01904c586bfd3e63df0958a49486dfb.js",
     "service-worker.js": "/polydimensional_cube/service-worker.js",
     "static/css/main.6dd927b7.chunk.css.map": "/polydimensional_cube/static/css/main.6dd927b7.chunk.css.map",
     "static/js/2.b30496e2.chunk.js.LICENSE": "/polydimensional_cube/static/js/2.b30496e2.chunk.js.LICENSE"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0c2f81e2.js",
     "static/js/2.b30496e2.chunk.js",
     "static/css/main.6dd927b7.chunk.css",
-    "static/js/main.af8ce6ba.chunk.js"
+    "static/js/main.ba350852.chunk.js"
   ]
 }
