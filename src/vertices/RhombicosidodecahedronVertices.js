@@ -7,39 +7,15 @@ const RhombicosidodecahedronVertices = (
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
   const fi = 1.618;
 
-  const baseGroup1 = [1, 1, 2*fi + 1].map((number) => number * 25);
-  const baseGroup2 = [fi + 1, fi, 2 * fi].map((number) => number * 25);
-  const baseGroup3 = [fi + 2, 0, fi + 1].map((number) => number * 25);
-
-  const combinations = (arr, couple) => {
-    arr = arr.map((item) => (item === -0 ? 0 : item));
-    if (arr.length > 1) {
-      const beg = arr[0];
-      const arr1 = combinations(arr.slice(1));
-      let l = arr1[0].length;
-      const arr2 = [];
-      for (let i = 0; i < arr1.length; i++)
-        for (let j = 0; j <= l; j++) {
-          const newArr = arr1[i]
-            .slice(0, j)
-            .concat(beg, arr1[i].slice(j))
-            .slice(0, copyDimensionOfFigure + 1);
-          let cyclic = true;
-          for (let i = 0; i < newArr.length; i++) {
-            
-          }
-          if (couple) {
-            if (cyclic) {
-              arr2.push(newArr);
-            }
-          } else {
-            arr2.push(newArr);
-          }
-        }
-
-      return arr2;
-    } else return [arr];
-  };
+  const baseGroup1 = [1, 1, fi ** 3].map((number) => number * 25);
+  const baseGroup2 = [fi ** 3, 1, 1].map((number) => number * 25);
+  const baseGroup3 = [1, fi ** 3, 1].map((number) => number * 25);
+  const baseGroup4 = [fi ** 2, fi, 2 * fi].map((number) => number * 25);
+  const baseGroup5 = [2 * fi, fi ** 2, fi].map((number) => number * 25);
+  const baseGroup6 = [fi, 2 * fi, fi ** 2].map((number) => number * 25);
+  const baseGroup7 = [2 + fi, 0, fi ** 2].map((number) => number * 25);
+  const baseGroup8 = [fi ** 2, 2 + fi, 0].map((number) => number * 25);
+  const baseGroup9 = [0, fi ** 2, 2 + fi].map((number) => number * 25);
 
   const signPermutations = (a) => {
     let result = [];
@@ -77,6 +53,38 @@ const RhombicosidodecahedronVertices = (
   }
 
   const onesWithAllSignPermutations = signPermutations(ones);
+
+  const combinations = (arr, couple) => {
+    arr = arr.map((item) => (item === -0 ? 0 : item));
+    if (arr.length > 1) {
+      const beg = arr[0];
+      const arr1 = combinations(arr.slice(1));
+      let l = arr1[0].length;
+      const arr2 = [];
+      for (let i = 0; i < arr1.length; i++)
+        for (let j = 0; j <= l; j++) {
+          const newArr = arr1[i]
+            .slice(0, j)
+            .concat(beg, arr1[i].slice(j))
+            .slice(0, copyDimensionOfFigure + 1);
+          let inversions = 0;
+          for (let i = 0; i < newArr.length; i++) {
+            for (let j = i + 1; j < newArr.length; j++) {
+              if (newArr[i] > newArr[j]) inversions++;
+            }
+          }
+          if (couple) {
+            if (inversions % 2 === 0) {
+              arr2.push(newArr);
+            }
+          } else {
+            arr2.push(newArr);
+          }
+        }
+
+      return arr2;
+    } else return [arr];
+  };
 
   const minusToPlus = (arr, couple) => {
     let result = [];
@@ -137,7 +145,9 @@ const RhombicosidodecahedronVertices = (
       onesWithAllSignPermutations.forEach((el) => {
         const copyArr = [...permutations[i]];
         for (let i = 0; i < copyArr.length; i++) {
-          copyArr[i] *= el[i];
+          if (copyArr[i] !== 0) {
+            copyArr[i] *= el[i];
+          }
         }
 
         result.push(copyArr);
@@ -151,9 +161,15 @@ const RhombicosidodecahedronVertices = (
     return Array.from(resultSet).map((el) => JSON.parse(el));
   };
 
-  const group1 = arrayToSetAndToArray(especialCombinations(baseGroup1));
-  const group2 = arrayToSetAndToArray(especialCombinations(baseGroup2));
-  const group3 = arrayToSetAndToArray(especialCombinations(baseGroup3));
+  const group1 = arrayToSetAndToArray(minusToPlus(baseGroup1));
+  const group2 = arrayToSetAndToArray(minusToPlus(baseGroup2));
+  const group3 = arrayToSetAndToArray(minusToPlus(baseGroup3));
+  const group4 = arrayToSetAndToArray(minusToPlus(baseGroup4));
+  const group5 = arrayToSetAndToArray(minusToPlus(baseGroup5));
+  const group6 = arrayToSetAndToArray(minusToPlus(baseGroup6));
+  const group7 = arrayToSetAndToArray(minusToPlus(baseGroup7));
+  const group8 = arrayToSetAndToArray(minusToPlus(baseGroup8));
+  const group9 = arrayToSetAndToArray(minusToPlus(baseGroup9));
 
   let vertices = [];
 
@@ -161,6 +177,12 @@ const RhombicosidodecahedronVertices = (
     ...group1,
     ...group2,
     ...group3,
+    ...group4,
+    ...group5,
+    ...group6,
+    ...group7,
+    ...group8,
+    ...group9
   ];
 
   if (+dimensions > +copyDimensionOfFigure) {

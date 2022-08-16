@@ -6,12 +6,8 @@ const Rhombicosidodecahedron = ({
   displayEdges,
   displayVertices,
 }) => {
-
-  console.log(verticesArray);
-
   let linesArray = [];
   const edgeLength = 2 * 25;
-  const test = new Set();
   for (let i = 0; i < verticesArray.length; i++) {
     for (let j = i; j < verticesArray.length; j++) {
       if (i !== j) {
@@ -20,15 +16,12 @@ const Rhombicosidodecahedron = ({
           length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
         }
         length = Math.round(length ** (1 / 2));
-        test.add(length);
         if (length === edgeLength) {
           linesArray.push([i, j]);
         }
       }
     }
   }
-
-  console.log(test);
 
   const amountOfLines = linesArray.length;
   let ids = 0;
