@@ -16,6 +16,7 @@ import IcosidodecahedronVertices from "./IcosidodecahedronVertices";
 import TruncatedIcosahedronVertices from "./TruncatedIcosahedronVertices";
 import RhombicosidodecahedronVertices from "./RhombicosidodecahedronVertices";
 import TruncatedDodecahedronVertices from "./TruncatedDodecahedronVertices";
+import GreatRhombicosidodecahedronVertices from "./GreatRhombicosidodecahedronVertices";
 
 export let verticesArray = [];
 
@@ -96,7 +97,9 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
     RhombicosidodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 
-
+  if (figure === "3D Great Rhombicosidodecahedron") {
+    GreatRhombicosidodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
   
 };
 
