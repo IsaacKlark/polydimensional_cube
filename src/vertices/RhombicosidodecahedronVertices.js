@@ -115,20 +115,6 @@ const RhombicosidodecahedronVertices = (
     return result;
   };
 
-  const mixAll = (array, couple) => {
-    let variants = [];
-    combinations(array, false).forEach((array) => {
-      variants = [...variants, ...minusToPlus(array, couple)];
-    });
-
-    const mySet = new Set();
-    variants.forEach((element) => {
-      mySet.add(element.join(","));
-    });
-
-    return Array.from(mySet).map((item) => item.split(","));
-  };
-
   const arrayToSetAndToArray = (array) => {
     const mySet = new Set();
     array.forEach((item) => mySet.add(item.join(",")));
@@ -136,29 +122,6 @@ const RhombicosidodecahedronVertices = (
     return Array.from(mySet).map((item) =>
       item.split(",").map((item) => +item)
     );
-  };
-
-  const especialCombinations = (arr) => {
-    const permutations = combinations(arr, true);
-    const result = [];
-    for (let i = 0; i < permutations.length; i++) {
-      onesWithAllSignPermutations.forEach((el) => {
-        const copyArr = [...permutations[i]];
-        for (let i = 0; i < copyArr.length; i++) {
-          if (copyArr[i] !== 0) {
-            copyArr[i] *= el[i];
-          }
-        }
-
-        result.push(copyArr);
-      });
-    }
-
-    const resultSet = new Set();
-    result.forEach((el) => {
-      resultSet.add(JSON.stringify(el));
-    });
-    return Array.from(resultSet).map((el) => JSON.parse(el));
   };
 
   const group1 = arrayToSetAndToArray(minusToPlus(baseGroup1));

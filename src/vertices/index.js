@@ -15,6 +15,7 @@ import SnubCubeVertices from "./SnubCubeVertices";
 import IcosidodecahedronVertices from "./IcosidodecahedronVertices";
 import TruncatedIcosahedronVertices from "./TruncatedIcosahedronVertices";
 import RhombicosidodecahedronVertices from "./RhombicosidodecahedronVertices";
+import TruncatedDodecahedronVertices from "./TruncatedDodecahedronVertices";
 
 export let verticesArray = [];
 
@@ -86,10 +87,16 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
   if (figure === "3D Truncated Icosahedron") {
     TruncatedIcosahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
+
+  if (figure === "3D Truncated Dodecahedron") {
+    TruncatedDodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
   
   if (figure === "3D Rhombicosidodecahedron") {
     RhombicosidodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
+
+
   
 };
 
