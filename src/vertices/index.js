@@ -19,6 +19,7 @@ import TruncatedDodecahedronVertices from "./TruncatedDodecahedronVertices";
 import GreatRhombicosidodecahedronVertices from "./GreatRhombicosidodecahedronVertices";
 import SnubDodecahedronVertices from "./SnubDodecahedronVertices";
 import TrianglePrismVertices from "./TrianglePrismVertices";
+import CubinderVertices from "./CubinderVertices";
 
 export let verticesArray = [];
 
@@ -109,6 +110,10 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
 
   if (figure === "Triangle Prism") {
     TrianglePrismVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "Cubinder analog") {
+    CubinderVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 
