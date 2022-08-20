@@ -23,6 +23,7 @@ import Rhombicosidodecahedron from "./figures/Rhombicosidodecahedron";
 import TruncatedDodecahedron from "./figures/TruncatedDodecahedron";
 import GreatRhombicosidodecahedron from "./figures/GreatRhombicosidodecahedron";
 import SnubDodecahedron from "./figures/SnubDodecahedron";
+import TrianglePrism from "./figures/TrianglePrism";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -295,6 +296,17 @@ const Svg = ({
   if (figure === "3D Snub Dodecahedron") {
     return (
       <SnubDodecahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "Triangle Prism") {
+    return (
+      <TrianglePrism
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
