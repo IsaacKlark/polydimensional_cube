@@ -22,7 +22,8 @@ const specific3D = [
   "3D Truncated Icosahedron",
   "3D Rhombicosidodecahedron",
   "3D Truncated Dodecahedron",
-  "3D Great Rhombicosidodecahedron"
+  "3D Great Rhombicosidodecahedron",
+  "3D Snub Dodecahedron"
 ];
 
 const baseFigures = [

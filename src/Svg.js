@@ -22,6 +22,7 @@ import TruncatedIcosahedron from "./figures/TruncatedIcosahedron";
 import Rhombicosidodecahedron from "./figures/Rhombicosidodecahedron";
 import TruncatedDodecahedron from "./figures/TruncatedDodecahedron";
 import GreatRhombicosidodecahedron from "./figures/GreatRhombicosidodecahedron";
+import SnubDodecahedron from "./figures/SnubDodecahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -290,7 +291,17 @@ const Svg = ({
       />
     );
   }
-  
+
+  if (figure === "3D Snub Dodecahedron") {
+    return (
+      <SnubDodecahedron
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
 };
 
 
