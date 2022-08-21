@@ -25,6 +25,7 @@ import GreatRhombicosidodecahedron from "./figures/GreatRhombicosidodecahedron";
 import SnubDodecahedron from "./figures/SnubDodecahedron";
 import TrianglePrism from "./figures/TrianglePrism";
 import Cubinder from "./figures/Cubinder";
+import Sphere from "./figures/Sphere";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -319,6 +320,17 @@ const Svg = ({
   if (figure === "Cubinder analog") {
     return (
       <Cubinder
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "Sphere") {
+    return (
+      <Sphere
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

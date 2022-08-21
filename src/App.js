@@ -39,7 +39,8 @@ const baseFigures = [
   "Cuboctahedron",
   "Great Rhombicuboctahedron",
   "Triangle Prism",
-  "Cubinder analog"
+  "Cubinder analog",
+  "Sphere"
 ];
 
 function App() {

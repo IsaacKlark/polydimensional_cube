@@ -1,31 +1,44 @@
 import React from "react";
 
-const Cubinder = ({
+const Sphere = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
   displayVertices,
 }) => {
   let linesArray = [];
-  const edgeLength = 22;
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        if (length === edgeLength || length === 21 || length === 160) {
-          linesArray.push([i, j]);
-        }
-      }
+  const verticesLength = verticesArray.length;
+  const step = 20;
+
+  for (let i = 0; i < verticesLength; i++) {
+    if (i+1 < verticesLength ) {
+      linesArray.push([i, i + 1]);
+    }
+
+    const step2 = Math.ceil(i / (240))
+    const step3 = Math.ceil(i / (240 * 12))
+
+    if (i % 20 === 0) {
+      linesArray.push([i, i + (step - 1)]);
+    }
+
+    if (i + step < step2 * 240 && dimensionOfFigure > 2) {
+      linesArray.push([i, i + step]);
+    }
+
+    if (i + 240 < step3 * 240 * 12 && i + 240 < verticesArray.length) {
+      linesArray.push([i, i + 240]);
+    }
+
+    if (i + 240 * 12 < verticesArray.length) {
+      linesArray.push([i, i + 240 * 12]);
     }
   }
 
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
+
 
   for (let i = 0; i < amountOfLines; i++) {
     lines.push(ids);
@@ -81,4 +94,4 @@ const Cubinder = ({
   );
 };
 
-export default Cubinder;
+export default Sphere;

@@ -20,6 +20,7 @@ import GreatRhombicosidodecahedronVertices from "./GreatRhombicosidodecahedronVe
 import SnubDodecahedronVertices from "./SnubDodecahedronVertices";
 import TrianglePrismVertices from "./TrianglePrismVertices";
 import CubinderVertices from "./CubinderVertices";
+import SphereVertices from "./SphereVertices";
 
 export let verticesArray = [];
 
@@ -114,6 +115,10 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
 
   if (figure === "Cubinder analog") {
     CubinderVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "Sphere") {
+    SphereVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 
