@@ -4,7 +4,7 @@ const SphereVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
   let angle = 0;
   for (let i = 0; i < 20; i++) {
     const radAngle = angle * 0.0175;
-    basicVertices.push([150 * Math.sin(radAngle), -150 * Math.cos(radAngle)]);
+    basicVertices.push([120 * Math.sin(radAngle), -120 * Math.cos(radAngle)]);
     angle += 18;
   }
 
