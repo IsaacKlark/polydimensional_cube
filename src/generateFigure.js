@@ -11,7 +11,7 @@ const generateFigure = (vertices, matrix, dimension, dimensionOfFigure) => {
       x = (perspective * x) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
       y = (perspective * y) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
 
-      perspective += 200;
+      perspective += 150;
     }
 
     return { x, y };
