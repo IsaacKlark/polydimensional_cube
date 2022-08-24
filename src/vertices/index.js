@@ -21,6 +21,7 @@ import SnubDodecahedronVertices from "./SnubDodecahedronVertices";
 import TrianglePrismVertices from "./TrianglePrismVertices";
 import CubinderVertices from "./CubinderVertices";
 import SphereVertices from "./SphereVertices";
+import CliffordTorusVertices from "./CliffordTorusVertices";
 
 export let verticesArray = [];
 
@@ -119,6 +120,10 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
 
   if (figure === "Sphere") {
     SphereVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "Clifford Torus") {
+    CliffordTorusVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 

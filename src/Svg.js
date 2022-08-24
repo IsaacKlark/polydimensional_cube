@@ -26,6 +26,7 @@ import SnubDodecahedron from "./figures/SnubDodecahedron";
 import TrianglePrism from "./figures/TrianglePrism";
 import Cubinder from "./figures/Cubinder";
 import Sphere from "./figures/Sphere";
+import CliffordTorus from "./figures/CliffordTorus";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -331,6 +332,17 @@ const Svg = ({
   if (figure === "Sphere") {
     return (
       <Sphere
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "Clifford Torus") {
+    return (
+      <CliffordTorus
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

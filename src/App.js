@@ -40,7 +40,8 @@ const baseFigures = [
   "Great Rhombicuboctahedron",
   "Triangle Prism",
   "Cubinder analog",
-  "Sphere"
+  "Sphere",
+  "Clifford Torus"
 ];
 
 function App() {
