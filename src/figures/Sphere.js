@@ -8,30 +8,27 @@ const Sphere = ({
 }) => {
   let linesArray = [];
   const verticesLength = verticesArray.length;
-  const step = 20;
+  const firstDistance = 20;
 
   for (let i = 0; i < verticesLength; i++) {
     if (i+1 < verticesLength ) {
       linesArray.push([i, i + 1]);
     }
 
-    const step2 = Math.ceil(i / (240))
-    const step3 = Math.ceil(i / (240 * 12))
-
     if (i % 20 === 0) {
-      linesArray.push([i, i + (step - 1)]);
+      linesArray.push([i, i + (firstDistance - 1)]);
     }
 
-    if (i + step < step2 * 240 && dimensionOfFigure > 2) {
-      linesArray.push([i, i + step]);
-    }
+    let distance = 20;
 
-    if (i + 240 < step3 * 240 * 12 && i + 240 < verticesArray.length) {
-      linesArray.push([i, i + 240]);
-    }
+    for (let j = 2; j < +dimensionOfFigure; j++) {
+      let step = (Math.ceil(i / (distance * 12)));
 
-    if (i + 240 * 12 < verticesArray.length) {
-      linesArray.push([i, i + 240 * 12]);
+      if (i + distance < step * distance * 12 && i + distance < verticesArray.length) {
+        linesArray.push([i, i + distance]);
+      }
+
+      distance *= 12;
     }
   }
 
