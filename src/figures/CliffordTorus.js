@@ -10,10 +10,6 @@ const CliffordTorus = ({
 
   for (let i = 0; i < verticesArray.length; i++) {
     const step = Math.ceil(i / (21));
-    const step2 = Math.ceil(i / (441));
-    const step3 = Math.ceil(i / (9261));
-
-
  
     if (i === step * 21 - 1) {
       linesArray.push([i, step * 21 - 20]);
