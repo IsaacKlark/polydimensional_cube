@@ -22,6 +22,7 @@ import TrianglePrismVertices from "./TrianglePrismVertices";
 import CubinderVertices from "./CubinderVertices";
 import SphereVertices from "./SphereVertices";
 import CliffordTorusVertices from "./CliffordTorusVertices";
+import TorusVertices from "./TorusVertices";
 
 export let verticesArray = [];
 
@@ -124,6 +125,10 @@ const vertices = (dimensions, DimensionOfFigure, figure) => {
 
   if (figure === "Clifford Torus") {
     CliffordTorusVertices(dimensions, DimensionOfFigure, setVerticesArray);
+  }
+
+  if (figure === "Torus") {
+    TorusVertices(dimensions, DimensionOfFigure, setVerticesArray);
   }
 };
 

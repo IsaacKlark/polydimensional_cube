@@ -27,6 +27,7 @@ import TrianglePrism from "./figures/TrianglePrism";
 import Cubinder from "./figures/Cubinder";
 import Sphere from "./figures/Sphere";
 import CliffordTorus from "./figures/CliffordTorus";
+import Torus from "./figures/Torus";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -343,6 +344,17 @@ const Svg = ({
   if (figure === "Clifford Torus") {
     return (
       <CliffordTorus
+        verticesArray={verticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+      />
+    );
+  }
+
+  if (figure === "Torus") {
+    return (
+      <Torus
         verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

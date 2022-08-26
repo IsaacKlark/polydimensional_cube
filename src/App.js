@@ -41,7 +41,8 @@ const baseFigures = [
   "Triangle Prism",
   "Cubinder analog",
   "Sphere",
-  "Clifford Torus"
+  "Clifford Torus",
+  "Torus"
 ];
 
 function App() {
