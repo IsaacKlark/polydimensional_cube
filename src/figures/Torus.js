@@ -7,24 +7,25 @@ const Torus = ({
   displayVertices,
 }) => {
   let linesArray = [];
-
-  for (let i = 0; i < verticesArray.length; i++) {
-    const step = Math.ceil(i / (16));
- 
-    if (i === step * 16 - 1) {
-      linesArray.push([i, step * 16 - 15]);
-    }
-
-    let distance = 1;
-
-    for (let j = 0; j < Math.ceil(+dimensionOfFigure / 2); j++) {
-      if (i+distance < step * distance * 16 && i + distance < verticesArray.length) {
-        linesArray.push([i, i + distance]);
-      } 
-      distance *= 16;
+  if (displayEdges) {
+    const segments = 16;
+    for (let i = 0; i < verticesArray.length; i++) {
+      const step = Math.ceil(i / (segments));
+   
+      if (i === step * segments - 1) {
+        linesArray.push([i, step * segments - (segments - 1)]);
+      }
+  
+      let distance = 1;
+  
+      for (let j = 0; j < Math.ceil(+dimensionOfFigure / 2); j++) {
+        if (i+distance < step * distance * segments && i + distance < verticesArray.length) {
+          linesArray.push([i, i + distance]);
+        } 
+        distance *= segments;
+      }
     }
   }
-
 
   const amountOfLines = linesArray.length;
   let ids = 0;

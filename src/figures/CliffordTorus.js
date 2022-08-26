@@ -8,20 +8,22 @@ const CliffordTorus = ({
 }) => {
   let linesArray = [];
 
+  const segments = 21;
+
   for (let i = 0; i < verticesArray.length; i++) {
-    const step = Math.ceil(i / (21));
+    const step = Math.ceil(i / (segments));
  
-    if (i === step * 21 - 1) {
-      linesArray.push([i, step * 21 - 20]);
+    if (i === step * segments - 1) {
+      linesArray.push([i, step * segments - (segments - 1)]);
     }
 
     let distance = 1;
 
     for (let j = 0; j < Math.ceil(+dimensionOfFigure / 2); j++) {
-      if (i+distance < step * distance * 21 && i + distance < verticesArray.length) {
+      if (i+distance < step * distance * segments && i + distance < verticesArray.length) {
         linesArray.push([i, i + distance]);
       } 
-      distance *= 21;
+      distance *= segments;
     }
   }
 

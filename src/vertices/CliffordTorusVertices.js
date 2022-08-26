@@ -6,13 +6,15 @@ const CliffordTorusVertices = (
   let basicVertices = [];
 
   let angle = 0;
+  const segments = 21;
+  const segmentAngle = 360 / (segments - 1);
 
-  for (let i = 0; i < 21; i++) {
+  for (let i = 0; i < segments; i++) {
     const radAngle1 = angle * 0.0175;
     basicVertices.push(
       [Math.cos(radAngle1), Math.sin(radAngle1)].map((number) => number * 100)
     );
-    angle += 18;
+    angle += segmentAngle;
   }
 
   for (let i = 2; i < +DimensionOfFigure; i++) {
@@ -23,12 +25,12 @@ const CliffordTorusVertices = (
       basicVertices.forEach((arr) => {
         let angle = 0;
 
-        for (let i = 0; i < 21; i++) {
+        for (let i = 0; i < segments; i++) {
           const copyArr = [...arr];
           const radAngle = angle * 0.0175;
           copyArr.push(100 * Math.cos(radAngle));
           copyArray.push(copyArr);
-          angle += 18;
+          angle += segmentAngle;
         }
       });
 
@@ -40,8 +42,8 @@ const CliffordTorusVertices = (
         const radAngle = angle * 0.0175;
         copyArr.push(100 * Math.sin(radAngle));
         copyArray.push(copyArr);
-        angle += 18;
-        if (angle === 378) {
+        angle += segmentAngle;
+        if (Math.trunc(angle) === Math.trunc(360 + segmentAngle)) {
           angle = 0;
         }
       });
