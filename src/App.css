@@ -170,7 +170,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar {
-  width: 1px; /* ширина для вертикального скролла */
+  width: 0px; /* ширина для вертикального скролла */
   height: 8px; /* высота для горизонтального скролла */
   background-color: #143861;
   border-radius: 9px;

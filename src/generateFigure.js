@@ -23,7 +23,8 @@ const generateFigure = (
 
     return { x, y };
   });
-
+  const width = document.querySelector("svg").clientWidth;
+  const height = document.querySelector("svg").clientHeight;
   const setCoordinatesToLines = Array.from(document.querySelectorAll(".line"));
   const coordinatesToCircles = Array.from(document.querySelectorAll(".circle"));
 
@@ -36,23 +37,23 @@ const generateFigure = (
       : line.getAttribute("vertex2");
 
     if (+dimensionOfFigure === 1) {
-      line.setAttribute("x1", 200);
-      line.setAttribute("x2", 400);
-      line.setAttribute("y1", 200);
-      line.setAttribute("y2", 200);
+      line.setAttribute("x1", height / 2);
+      line.setAttribute("x2", width);
+      line.setAttribute("y1", height / 2);
+      line.setAttribute("y2", height / 2);
     } else {
-      line.setAttribute("x1", 300 + verticesOnSvg[+index1]?.x);
-      line.setAttribute("x2", 300 + verticesOnSvg[+index2]?.x);
-      line.setAttribute("y1", 200 + verticesOnSvg[+index1]?.y);
-      line.setAttribute("y2", 200 + verticesOnSvg[+index2]?.y);
+      line.setAttribute("x1", width / 2 + verticesOnSvg[+index1]?.x);
+      line.setAttribute("x2", width / 2 + verticesOnSvg[+index2]?.x);
+      line.setAttribute("y1", height / 2 + verticesOnSvg[+index1]?.y);
+      line.setAttribute("y2", height / 2 + verticesOnSvg[+index2]?.y);
     }
 
     return null;
   });
 
   coordinatesToCircles.map((line, index) => {
-    line.setAttribute("cx", 300 + verticesOnSvg[index]?.x);
-    line.setAttribute("cy", 200 + verticesOnSvg[index]?.y);
+    line.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
+    line.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);
 
     return 0;
   });
