@@ -416,6 +416,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        segments={segments}
       />
     );
   }

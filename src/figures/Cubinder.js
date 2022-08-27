@@ -8,10 +8,12 @@ const Cubinder = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  segments,
 }) => {
   let linesArray = [];
-  const edgeLength = 22;
   for (let i = 0; i < verticesArray.length; i++) {
+    const step = Math.ceil(i / segments);
+
     for (let j = i; j < verticesArray.length; j++) {
       if (i !== j) {
         let length = 0;
@@ -19,10 +21,27 @@ const Cubinder = ({
           length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
         }
         length = Math.round(length ** (1 / 2));
-        if (length === edgeLength || length === 21 || length === 160) {
+        if (length === 160) {
           linesArray.push([i, j]);
         }
       }
+    }
+
+    for (let j = 0; j < dimensionOfFigure; j++) {
+      if (i === step * segments - 1) {
+        linesArray.push([i, step * segments - segments]);
+      }
+
+      if (
+        i + 1 < step * segments &&
+        i + 1 < verticesArray.length
+      ) {
+        linesArray.push([i, i + 1]);
+      }
+    }
+
+    if (i % segments === 0 && i+1 < verticesArray.length) {
+      linesArray.push([i, i + 1]);
     }
   }
 
