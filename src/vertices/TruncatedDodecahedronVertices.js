@@ -1,7 +1,9 @@
 const TruncatedDodecahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
@@ -76,39 +78,9 @@ const TruncatedDodecahedronVertices = (
 
   for (let i = 0; i < DimensionOfFigure; i++) {
     ones.push(1);
-  };
+  }
 
   const onesWithAllSignPermutations = signPermutations(ones);
-
-  const minusToPlus = (arr, couple) => {
-    let result = [];
-    const arrays = [arr];
-
-    onesWithAllSignPermutations.forEach((el) => {
-      const copyArr = [...arr];
-      for(let i = 0; i < copyArr.length; i++) {
-        copyArr[i] *= el[i];
-      }
-
-      arrays.push(copyArr);
-    })
-
-    if (copyDimensionOfFigure > 3) {
-      arrays.forEach((array) => {
-        result = [...result, ...combinations(array, couple)];
-      });
-    } else {
-      arrays.forEach((array) => {
-        result = [
-          ...result,
-          array.map((number) => (number === -0 ? 0 : number)),
-        ];
-      });
-    }
-
-    return result;
-  };
-
 
   const arrayToSetAndToArray = (array) => {
     const mySet = new Set();
@@ -125,12 +97,12 @@ const TruncatedDodecahedronVertices = (
     for (let i = 0; i < permutations.length; i++) {
       onesWithAllSignPermutations.forEach((el) => {
         const copyArr = [...permutations[i]];
-        for(let i = 0; i < copyArr.length; i++) {
+        for (let i = 0; i < copyArr.length; i++) {
           copyArr[i] *= el[i];
         }
-  
+
         result.push(copyArr);
-      })
+      });
     }
 
     const resultSet = new Set();
@@ -146,11 +118,7 @@ const TruncatedDodecahedronVertices = (
 
   let vertices = [];
 
-  vertices = [
-    ...group1,
-    ...group2,
-    ...group3,
-  ];
+  vertices = [...group1, ...group2, ...group3];
 
   if (+dimensions > +copyDimensionOfFigure) {
     vertices = vertices.map((arr) => {
@@ -164,7 +132,8 @@ const TruncatedDodecahedronVertices = (
   if (+DimensionOfFigure < 3) {
     vertices = vertices.map((el) => el.slice(0, 2));
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

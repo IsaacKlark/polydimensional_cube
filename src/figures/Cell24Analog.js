@@ -5,6 +5,9 @@ const Cell24Analog = ({
   dimensionOfFigure,
   displayEdges,
   displayVertices,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   let check1 = (array1, array2) => {
     for (let i = 0; i < dimensionOfFigure; i++) {
@@ -66,7 +69,14 @@ const Cell24Analog = ({
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
@@ -91,25 +101,26 @@ const Cell24Analog = ({
           );
         })}
 
-      {displayVertices ?
-        verticesArray.map((item, index) => (
-          <circle
-            onClick={() => {
-              console.log(verticesArray[index], index);
-            }}
-            key={index}
-            cx="300"
-            cy="200"
-            r="2"
-            fill="white"
-            id={`circle${index}`}
-            className="circle"
-            onContextMenu={(e) => {
-              e.preventDefault();
-              e.target.style.display = "none";
-            }}
-          />
-        )) : null}
+      {displayVertices
+        ? verticesArray.map((item, index) => (
+            <circle
+              onClick={() => {
+                console.log(verticesArray[index], index);
+              }}
+              key={index}
+              cx="300"
+              cy="200"
+              r="2"
+              fill="white"
+              id={`circle${index}`}
+              className="circle"
+              onContextMenu={(e) => {
+                e.preventDefault();
+                e.target.style.display = "none";
+              }}
+            />
+          ))
+        : null}
     </svg>
   );
 };

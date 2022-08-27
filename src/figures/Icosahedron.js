@@ -5,6 +5,9 @@ const Icosahedron = ({
   dimensionOfFigure,
   displayEdges,
   displayVertices,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   let linesArray = [];
   const edgeLength = 2 * 70;
@@ -35,7 +38,14 @@ const Icosahedron = ({
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

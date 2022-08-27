@@ -1,6 +1,14 @@
 import React from "react";
 
-const Cube = ({ dimension, displayEdges, displayVertices, verticesArray }) => {
+const Cube = ({
+  dimension,
+  displayEdges,
+  displayVertices,
+  verticesArray,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
+}) => {
   const amountOfLines = 2 ** (dimension - 1) * dimension;
   let ids = 0;
   const lines = [];
@@ -14,7 +22,14 @@ const Cube = ({ dimension, displayEdges, displayVertices, verticesArray }) => {
   let cube = [0, 1, 2, 3];
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
@@ -79,25 +94,26 @@ const Cube = ({ dimension, displayEdges, displayVertices, verticesArray }) => {
           );
         })}
 
-      {displayVertices ?
-        verticesArray.map((item, index) => (
-          <circle
-            onClick={() => {
-              console.log(verticesArray[index], index);
-            }}
-            key={index}
-            cx="300"
-            cy="200"
-            r="2"
-            fill="white"
-            id={`circle${index}`}
-            className="circle"
-            onContextMenu={(e) => {
-              e.preventDefault();
-              e.target.style.display = "none";
-            }}
-          />
-        )) : null}
+      {displayVertices
+        ? verticesArray.map((item, index) => (
+            <circle
+              onClick={() => {
+                console.log(verticesArray[index], index);
+              }}
+              key={index}
+              cx="300"
+              cy="200"
+              r="2"
+              fill="white"
+              id={`circle${index}`}
+              className="circle"
+              onContextMenu={(e) => {
+                e.preventDefault();
+                e.target.style.display = "none";
+              }}
+            />
+          ))
+        : null}
     </svg>
   );
 };

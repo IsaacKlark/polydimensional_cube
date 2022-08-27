@@ -1,4 +1,10 @@
-const CubinderVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
+const CubinderVertices = (
+  dimensions,
+  DimensionOfFigure,
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
+) => {
   let basicVertices = [];
   let angle = 0;
   for (let i = 0; i < 20; i++) {
@@ -43,13 +49,12 @@ const CubinderVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
       const prevZ = arr[2];
       copyArr[1] =
         copyArr[1] * Math.cos(radAngle) - copyArr[2] * Math.sin(radAngle);
-      copyArr[2] =
-        prevY * Math.sin(radAngle) + prevZ * Math.cos(radAngle);
+      copyArr[2] = prevY * Math.sin(radAngle) + prevZ * Math.cos(radAngle);
       return copyArr;
     });
-
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

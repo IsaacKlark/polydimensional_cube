@@ -5,6 +5,9 @@ const TrianglePrism = ({
   dimensionOfFigure,
   displayEdges,
   displayVertices,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   let linesArray = [];
   const edgeLength = 138;
@@ -17,7 +20,7 @@ const TrianglePrism = ({
           length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
         }
         length = Math.round(length ** (1 / 2));
-        test.add(length)
+        test.add(length);
         if (length === edgeLength || length === 139) {
           linesArray.push([i, j]);
         }
@@ -35,7 +38,14 @@ const TrianglePrism = ({
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

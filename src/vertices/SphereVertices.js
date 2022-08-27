@@ -1,11 +1,19 @@
-const SphereVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
+const SphereVertices = (
+  dimensions,
+  DimensionOfFigure,
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
+) => {
   let basicVertices = [];
+  const segments = 22;
+  const segmentAngle = 360 / segments;
 
   let angle = 0;
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < segments; i++) {
     const radAngle = angle * 0.0175;
     basicVertices.push([150 * Math.sin(radAngle), -150 * Math.cos(radAngle)]);
-    angle += 18;
+    angle += segmentAngle;
   }
 
   basicVertices = basicVertices.map((arr, index) => {
@@ -23,7 +31,7 @@ const SphereVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
     const currentVertices = [...basicVertices];
     let angle = 0;
 
-    for (let j = 0; j < 11; j++) {
+    for (let j = 0; j < segments / 2 + 1; j++) {
       for (let k = 0; k < currentVertices.length; k++) {
         const radAngle = angle * 0.0175;
 
@@ -38,7 +46,7 @@ const SphereVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
       }
 
       basicVertices = [...basicVertices, ...currentVertices];
-      angle += 18;
+      angle += segmentAngle;
     }
   }
 
@@ -51,6 +59,8 @@ const SphereVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
       return arr;
     });
   }
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

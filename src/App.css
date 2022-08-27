@@ -93,12 +93,12 @@ body {
   outline: 0;
 }
 
-.using__mouse-wrap {
+.checkboxWrapper-wrap {
   text-align: center;
 }
 
-.using__mouse {
-  color: #3c919b;
+.checkboxWrapper {
+  color: #2de9ff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,7 +106,27 @@ body {
   column-gap: 5px;
 }
 
-.using__mouse:hover, select:hover {
+.rangeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 10px;
+  column-gap: 5px;
+}
+
+.rangeDescription {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 3px 10px;
+  column-gap: 5px;
+}
+
+.rangeDescription p:nth-child(1) {
+  color: #fff616;
+}
+
+.checkboxWrapper:hover, select:hover {
   cursor: pointer;
 }
 
@@ -114,7 +134,7 @@ button:hover {
   cursor: pointer;
 }
 
-.using__mouse p {
+.checkboxWrapper p {
   font-size: 12px;
   line-height: 100%;
   margin: 0;
@@ -124,4 +144,34 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.wrapperOfRanges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.rangesWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.rangesWrapper p {
+  font-size: 12px;
+  line-height: 100%;
+  margin: 0;
+  color: #2de9ff;
+}
+
+.rangeValue {
+  align-self: flex-start;
+}
+
+::-webkit-scrollbar {
+  width: 1px; /* ширина для вертикального скролла */
+  height: 8px; /* высота для горизонтального скролла */
+  background-color: #143861;
+  border-radius: 9px;
 }

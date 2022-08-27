@@ -1,11 +1,12 @@
 const octahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale
 ) => {
   const verticesAmount = 2 * DimensionOfFigure;
 
-  const verticesArray = [];
+  let verticesArray = [];
 
   for (let i = 0; i < verticesAmount / 2; i++) {
     const vertex = [];
@@ -46,6 +47,8 @@ const octahedronVertices = (
     }
     verticesArray[index] = vertex;
   });
+
+  verticesArray = verticesArray.map((arr) => arr.map((item) => item * scale));
 
   setVerticesArray(verticesArray);
 };

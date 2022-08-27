@@ -1,13 +1,15 @@
 const SnubCubeVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
-  const t = 1.839286
+  const t = 1.839286;
 
-  const baseGroup = [t, 1, t**-1].map((number) => number * 60);
+  const baseGroup = [t, 1, t ** -1].map((number) => number * 60);
 
   const combinations = (arr, couple, odd) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
@@ -78,7 +80,7 @@ const SnubCubeVertices = (
 
   for (let i = 0; i < DimensionOfFigure; i++) {
     ones.push(1);
-  };
+  }
 
   const onesWithAllSignPermutations = signPermutations(ones);
 
@@ -98,14 +100,13 @@ const SnubCubeVertices = (
     for (let i = 0; i < permutations.length; i++) {
       onesWithAllSignPermutations.forEach((el) => {
         const copyArr = [...permutations[i]];
-        for(let i = 0; i < copyArr.length; i++) {
+        for (let i = 0; i < copyArr.length; i++) {
           copyArr[i] *= el[i];
         }
 
         let minuses = 0;
 
         for (let j = 0; j < copyArr.length; j++) {
-
           if (copyArr[j] < 0) {
             minuses++;
           }
@@ -115,13 +116,13 @@ const SnubCubeVertices = (
             result.push(copyArr);
           }
         }
-       
+
         if (odd) {
           if (minuses % 2 !== 0) {
             result.push(copyArr);
           }
         }
-      })
+      });
     }
 
     const resultSet = new Set();
@@ -131,9 +132,12 @@ const SnubCubeVertices = (
     return Array.from(resultSet).map((el) => JSON.parse(el));
   };
 
-  const group1 = arrayToSetAndToArray(especialCombinations(baseGroup, true, false));
-  const group2 = arrayToSetAndToArray(especialCombinations(baseGroup, false, true));
-
+  const group1 = arrayToSetAndToArray(
+    especialCombinations(baseGroup, true, false)
+  );
+  const group2 = arrayToSetAndToArray(
+    especialCombinations(baseGroup, false, true)
+  );
 
   let vertices = [];
 
@@ -146,12 +150,14 @@ const SnubCubeVertices = (
       }
       return arr;
     });
-
   }
 
   if (+DimensionOfFigure < 3) {
-    vertices = vertices.map((el) => el.slice(0, 2))
+    vertices = vertices.map((el) => el.slice(0, 2));
   }
+
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
 
   setVerticesArray(vertices);
 };

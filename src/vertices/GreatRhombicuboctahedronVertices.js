@@ -1,13 +1,15 @@
 const GreatRhombicuboctahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   if (+DimensionOfFigure > +dimensions) DimensionOfFigure = dimensions;
-  const baseGroup1 = [1, 1+Math.sqrt(2)].map((number) => number * 20);
+  const baseGroup1 = [1, 1 + Math.sqrt(2)].map((number) => number * 20);
 
   for (let i = 0; i < DimensionOfFigure - 2; i++) {
-    baseGroup1.push((1+2*Math.sqrt(2)) * 20);
+    baseGroup1.push((1 + 2 * Math.sqrt(2)) * 20);
   }
 
   const combinations = (arr, couple) => {
@@ -75,7 +77,7 @@ const GreatRhombicuboctahedronVertices = (
 
   for (let i = 0; i < DimensionOfFigure; i++) {
     ones.push(1);
-  };
+  }
 
   const onesWithAllSignPermutations = signPermutations(ones);
 
@@ -85,12 +87,12 @@ const GreatRhombicuboctahedronVertices = (
 
     onesWithAllSignPermutations.forEach((el) => {
       const copyArr = [...arr];
-      for(let i = 0; i < copyArr.length; i++) {
+      for (let i = 0; i < copyArr.length; i++) {
         copyArr[i] *= el[i];
       }
 
       arrays.push(copyArr);
-    })
+    });
 
     if (DimensionOfFigure > 3) {
       arrays.forEach((array) => {
@@ -135,7 +137,6 @@ const GreatRhombicuboctahedronVertices = (
 
   let vertices = [];
 
-
   vertices = [...group1];
 
   if (+dimensions > +DimensionOfFigure) {
@@ -145,13 +146,13 @@ const GreatRhombicuboctahedronVertices = (
       }
       return arr;
     });
-
   }
 
   if (+DimensionOfFigure < 3) {
-    vertices = vertices.map((el) => el.slice(0, 2))
+    vertices = vertices.map((el) => el.slice(0, 2));
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

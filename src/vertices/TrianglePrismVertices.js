@@ -1,7 +1,9 @@
 const TrianglePrismVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let basicVertices = [];
   let angle = 0;
@@ -25,9 +27,9 @@ const TrianglePrismVertices = (
       additionalVertices.push(copyArr2);
     });
 
-    basicVertices = [...basicVertices, ...additionalVertices]
+    basicVertices = [...basicVertices, ...additionalVertices];
   }
- 
+
   let vertices = basicVertices;
 
   if (vertices[0].length < +dimensions) {
@@ -38,7 +40,8 @@ const TrianglePrismVertices = (
       return arr;
     });
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

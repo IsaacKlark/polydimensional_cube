@@ -1,7 +1,9 @@
 const CliffordTorusVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let basicVertices = [];
 
@@ -21,7 +23,6 @@ const CliffordTorusVertices = (
     const copyArray = [];
 
     if (i % 2 === 0) {
-
       basicVertices.forEach((arr) => {
         let angle = 0;
 
@@ -33,7 +34,6 @@ const CliffordTorusVertices = (
           angle += segmentAngle;
         }
       });
-
     } else {
       let angle = 0;
 
@@ -61,6 +61,8 @@ const CliffordTorusVertices = (
       return arr;
     });
   }
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

@@ -1,7 +1,9 @@
 const CuboctahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   if (+DimensionOfFigure > +dimensions) DimensionOfFigure = dimensions;
   const baseGroup1 = [0];
@@ -75,7 +77,7 @@ const CuboctahedronVertices = (
 
   for (let i = 0; i < DimensionOfFigure; i++) {
     ones.push(1);
-  };
+  }
 
   const onesWithAllSignPermutations = signPermutations(ones);
 
@@ -85,12 +87,12 @@ const CuboctahedronVertices = (
 
     onesWithAllSignPermutations.forEach((el) => {
       const copyArr = [...arr];
-      for(let i = 0; i < copyArr.length; i++) {
+      for (let i = 0; i < copyArr.length; i++) {
         copyArr[i] *= el[i];
       }
 
       arrays.push(copyArr);
-    })
+    });
 
     if (DimensionOfFigure > 3) {
       arrays.forEach((array) => {
@@ -135,7 +137,6 @@ const CuboctahedronVertices = (
 
   let vertices = [];
 
-
   vertices = [...group1];
 
   if (+dimensions > +DimensionOfFigure) {
@@ -145,13 +146,13 @@ const CuboctahedronVertices = (
       }
       return arr;
     });
-
   }
 
   if (+DimensionOfFigure < 3) {
-    vertices = vertices.map((el) => el.slice(0, 2))
+    vertices = vertices.map((el) => el.slice(0, 2));
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

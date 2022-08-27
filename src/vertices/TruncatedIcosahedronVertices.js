@@ -1,7 +1,9 @@
 const TruncatedIcosahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
@@ -160,7 +162,8 @@ const TruncatedIcosahedronVertices = (
   if (+DimensionOfFigure < 3) {
     vertices = vertices.map((el) => el.slice(0, 2));
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

@@ -5,6 +5,9 @@ const Cell120Analog = ({
   dimensionOfFigure,
   displayEdges,
   displayVertices,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   let linesArray = [];
   const edgeLength =
@@ -20,7 +23,7 @@ const Cell120Analog = ({
           }
           length = Math.round(length ** (1 / 2));
 
-          if (length === edgeLength) {
+          if (length === edgeLength || length === edgeLength - 1 || length === edgeLength + 1) {
             linesArray.push([i, j]);
           }
         }
@@ -46,7 +49,14 @@ const Cell120Analog = ({
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

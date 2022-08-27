@@ -23,7 +23,7 @@ const specific3D = [
   "3D Rhombicosidodecahedron",
   "3D Truncated Dodecahedron",
   "3D Great Rhombicosidodecahedron",
-  "3D Snub Dodecahedron"
+  "3D Snub Dodecahedron",
 ];
 
 const baseFigures = [
@@ -42,7 +42,7 @@ const baseFigures = [
   "Cubinder analog",
   "Sphere",
   "Clifford Torus",
-  "Torus"
+  "Torus",
 ];
 
 function App() {
@@ -57,6 +57,10 @@ function App() {
   const [displayVertices, setDisplayVertices] = useState(false);
   const [displayEdges, setDisplayEdges] = useState(true);
   const [displaySpecific3D, setDisplaySpecific3D] = useState(true);
+  const [perspective3D, setPerspective3D] = useState(350);
+  const [perspectiveND, setPerspectiveND] = useState(150);
+  const [scale, setScale] = useState(1);
+  const [originalVerticesArray, setOriginalVerticesArray] = useState([]);
 
   useEffect(() => {
     if (+dimensionOfFigure === 2 && specific3D.includes(figure)) {
@@ -109,14 +113,32 @@ function App() {
         verticesArray,
         matrix,
         numberOfDimensions,
-        dimensionOfFigure
+        dimensionOfFigure,
+        perspective3D,
+        perspectiveND
       );
     }
   };
 
+  useEffect(() => {
+    vertices(
+      numberOfDimensions,
+      dimensionOfFigure,
+      figure,
+      scale,
+      setOriginalVerticesArray
+    );
+  }, [scale]);
+
   const dimensionOfCube = (e) => {
     if (!isNaN(e.target.value)) {
-      vertices(numberOfDimensions, +e.target.value, figure);
+      vertices(
+        numberOfDimensions,
+        +e.target.value,
+        figure,
+        scale,
+        setOriginalVerticesArray
+      );
       setDimensionOfFigure(+e.target.value);
     }
   };
@@ -131,9 +153,9 @@ function App() {
 
   return (
     <>
-      <div className="using__mouse-wrap">
+      <div className="checkboxWrapper-wrap">
         <div className="wrapper">
-          <label className="using__mouse">
+          <label className="checkboxWrapper">
             <input
               type="checkbox"
               name="checkbox"
@@ -142,7 +164,7 @@ function App() {
             <p>rotate by checking checkboxes and using w/s keys</p>
           </label>
 
-          <label className="using__mouse">
+          <label className="checkboxWrapper">
             <input
               type="checkbox"
               name="checkbox 2"
@@ -154,7 +176,7 @@ function App() {
             />
             <p>transpose rotation</p>
           </label>
-          <label className="using__mouse">
+          <label className="checkboxWrapper">
             <input
               type="checkbox"
               name="checkbox 3"
@@ -167,7 +189,7 @@ function App() {
           </label>
         </div>
         <div className="wrapper">
-          <label className="using__mouse">
+          <label className="checkboxWrapper">
             <input
               type="checkbox"
               name="checkbox 4"
@@ -178,7 +200,7 @@ function App() {
             />
             <p>display vertices</p>
           </label>
-          <label className="using__mouse">
+          <label className="checkboxWrapper">
             <input
               type="checkbox"
               name="checkbox 5"
@@ -190,23 +212,70 @@ function App() {
             <p>display edges</p>
           </label>
         </div>
+        <div className="wrapperOfRanges">
+          <div className="rangesWrapper">
+            <div>
+              <label className="rangeWrapper">
+                <p>0</p>
+                <input
+                  min={0}
+                  max={800}
+                  step={10}
+                  value={perspective3D}
+                  type="range"
+                  onChange={(e) => setPerspective3D(+e.target.value)}
+                />
+                <p>800</p>
+              </label>
+              <div className="rangeDescription">
+                <p>3D perspective:</p>
+                <p className="rangeValue">{perspective3D}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rangesWrapper">
+            <div>
+              <label className="rangeWrapper">
+                <p>0</p>
+                <input
+                  min={0}
+                  max={2400}
+                  step={10}
+                  value={perspectiveND}
+                  type="range"
+                  onChange={(e) => setPerspectiveND(+e.target.value)}
+                />
+                <p>2400</p>
+              </label>
+              <div className="rangeDescription">
+                <p>ND perspective:</p>
+                <p className="rangeValue">{perspectiveND}</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="wrapper">
-          <label className="using__mouse">
+          <label className="checkboxWrapper">
             {numberOfDimensions}D
             <select
               onChange={(e) => {
-                vertices(numberOfDimensions, dimensionOfFigure, e.target.value);
+                vertices(
+                  numberOfDimensions,
+                  dimensionOfFigure,
+                  e.target.value,
+                  scale,
+                  setOriginalVerticesArray
+                );
                 setFigure(e.target.value);
               }}
               className="select"
               value={figure}
             >
-              {
-                baseFigures.map((figure) => (
-                  <option key={figure}>{figure}</option>
-                ))
-              }
+              {baseFigures.map((figure) => (
+                <option key={figure}>{figure}</option>
+              ))}
               {displaySpecific3D && +numberOfDimensions >= 3
                 ? specific3D.map((figure) => (
                     <option key={figure}>{figure}</option>
@@ -216,7 +285,7 @@ function App() {
           </label>
 
           {numberOfDimensions >= 3 ? (
-            <label className="using__mouse">
+            <label className="checkboxWrapper">
               <input
                 type="checkbox"
                 name="specific 3D"
@@ -271,6 +340,10 @@ function App() {
           transposeRotation={transposeRotation}
           orthography={orthography}
           dimensionOfFigure={dimensionOfFigure}
+          perspective3D={perspective3D}
+          perspectiveND={perspectiveND}
+          scale={scale}
+          setOriginalVerticesArray={setOriginalVerticesArray}
         />
         <Svg
           dimension={numberOfDimensions}
@@ -281,6 +354,11 @@ function App() {
           orthography={orthography}
           displayEdges={displayEdges}
           displayVertices={displayVertices}
+          perspective3D={perspective3D}
+          perspectiveND={perspectiveND}
+          setScale={setScale}
+          scale={scale}
+          originalVerticesArray={originalVerticesArray}
         />
       </div>
     </>

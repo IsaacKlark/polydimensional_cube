@@ -5,6 +5,9 @@ const GreatRhombicosidodecahedron = ({
   dimensionOfFigure,
   displayEdges,
   displayVertices,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   let linesArray = [];
   for (let i = 0; i < verticesArray.length; i++) {
@@ -31,7 +34,14 @@ const GreatRhombicosidodecahedron = ({
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

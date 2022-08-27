@@ -1,7 +1,9 @@
 const Cell120AnalogVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 4 ? 4 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
@@ -236,6 +238,8 @@ const Cell120AnalogVertices = (
       return arr;
     });
   }
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

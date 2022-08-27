@@ -1,7 +1,9 @@
 const TruncatedTetrahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
 
@@ -68,6 +70,8 @@ const TruncatedTetrahedronVertices = (
   if (+DimensionOfFigure < 3) {
     vertices = vertices.map((el) => el.slice(0, 2));
   }
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

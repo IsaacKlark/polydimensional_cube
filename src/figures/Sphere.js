@@ -5,30 +5,36 @@ const Sphere = ({
   dimensionOfFigure,
   displayEdges,
   displayVertices,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   let linesArray = [];
   const verticesLength = verticesArray.length;
-  const firstDistance = 20;
+  const firstDistance = 22;
 
   for (let i = 0; i < verticesLength; i++) {
-    if (i+1 < verticesLength ) {
+    if (i + 1 < verticesLength) {
       linesArray.push([i, i + 1]);
     }
 
-    if (i % 20 === 0) {
+    if (i % firstDistance === 0) {
       linesArray.push([i, i + (firstDistance - 1)]);
     }
 
-    let distance = 20;
+    let distance = firstDistance;
 
     for (let j = 2; j < +dimensionOfFigure; j++) {
-      let step = (Math.ceil(i / (distance * 12)));
+      let step = Math.ceil(i / (distance * (firstDistance / 2 + 2)));
 
-      if (i + distance < step * distance * 12 && i + distance < verticesArray.length) {
+      if (
+        i + distance < step * distance * (firstDistance / 2 + 2) &&
+        i + distance < verticesArray.length
+      ) {
         linesArray.push([i, i + distance]);
       }
 
-      distance *= 12;
+      distance *= firstDistance / 2 + 2;
     }
   }
 
@@ -36,14 +42,20 @@ const Sphere = ({
   let ids = 0;
   const lines = [];
 
-
   for (let i = 0; i < amountOfLines; i++) {
     lines.push(ids);
     ids += 1;
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

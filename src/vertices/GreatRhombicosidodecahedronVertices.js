@@ -1,18 +1,20 @@
 const GreatRhombicosidodecahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
   const fi = 1.618;
 
   const baseGroup1 = [1 / fi, 1 / fi, 3 + fi].map((number) => number * 30);
-  const baseGroup2 = [2 / fi, fi, 1 + (2 * fi)].map((number) => number * 30);
-  const baseGroup3 = [1 / fi, fi ** 2, -1 + (3 * fi)].map(
+  const baseGroup2 = [2 / fi, fi, 1 + 2 * fi].map((number) => number * 30);
+  const baseGroup3 = [1 / fi, fi ** 2, -1 + 3 * fi].map(
     (number) => number * 30
   );
-  const baseGroup4 = [(2 * fi) - 1, 2, 2 + fi].map((number) => number * 30);
+  const baseGroup4 = [2 * fi - 1, 2, 2 + fi].map((number) => number * 30);
   const baseGroup5 = [fi, 3, 2 * fi].map((number) => number * 30);
 
   const combinations = (arr, couple) => {
@@ -179,7 +181,8 @@ const GreatRhombicosidodecahedronVertices = (
   if (+DimensionOfFigure < 3) {
     vertices = vertices.map((el) => el.slice(0, 2));
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

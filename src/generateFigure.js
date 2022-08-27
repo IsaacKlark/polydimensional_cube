@@ -1,8 +1,15 @@
 import { Matrix } from "./sylvester.src";
 
-const generateFigure = (vertices, matrix, dimension, dimensionOfFigure) => {
+const generateFigure = (
+  vertices,
+  matrix,
+  dimension,
+  dimensionOfFigure,
+  perspective3D,
+  perspectiveND
+) => {
   const verticesOnSvg = vertices.map((vertex) => {
-    let perspective = 350;
+    let perspective = perspective3D;
     let coordinates = matrix.multiply(Matrix.create(vertex));
     let x = coordinates?.e(1, 1) || 0;
     let y = coordinates?.e(2, 1) || 0;
@@ -11,7 +18,7 @@ const generateFigure = (vertices, matrix, dimension, dimensionOfFigure) => {
       x = (perspective * x) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
       y = (perspective * y) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
 
-      perspective += 150;
+      perspective += perspectiveND;
     }
 
     return { x, y };

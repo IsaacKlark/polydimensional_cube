@@ -1,7 +1,9 @@
 const SnubDodecahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
@@ -67,7 +69,7 @@ const SnubDodecahedronVertices = (
     [-1.376676486081377, -4.622538682736835, 1.317914253384322],
     [-3.182856237825777, -3.507307969705002, 1.60256574747432],
     [-3.971202674528543, -3.020224624552228, -0.328317734924743],
-  ].map((arr) => arr.map((number) => number * 30))
+  ].map((arr) => arr.map((number) => number * 30));
 
   let vertices = baseGroup1;
 
@@ -83,7 +85,8 @@ const SnubDodecahedronVertices = (
   if (+DimensionOfFigure < 3) {
     vertices = vertices.map((el) => el.slice(0, 2));
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

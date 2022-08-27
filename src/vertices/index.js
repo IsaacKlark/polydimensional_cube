@@ -28,107 +28,239 @@ export let verticesArray = [];
 
 const setVerticesArray = (result) => {
   verticesArray = result;
-}
+};
 
-const vertices = (dimensions, DimensionOfFigure, figure) => {
+const vertices = (
+  dimensions,
+  DimensionOfFigure,
+  figure,
+  scale,
+  setOriginalVerticesArray
+) => {
   if (figure === "Cube") {
-    cubeVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    cubeVertices(dimensions, DimensionOfFigure, setVerticesArray, scale);
   }
 
   if (figure === "Symplex") {
-    symplexVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    symplexVertices(dimensions, DimensionOfFigure, setVerticesArray, scale);
   }
 
   if (figure === "Octahedron") {
-    octahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    octahedronVertices(dimensions, DimensionOfFigure, setVerticesArray, scale);
   }
 
   if (figure === "24-cell-analog") {
-    Cell24AnaologVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    Cell24AnaologVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "120-cell-analog") {
-    Cell120AnalogVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    Cell120AnalogVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "600-cell-analog") {
-    Cell600AnalogVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    Cell600AnalogVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Icosahedron") {
-    IcosahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    IcosahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Truncated Tetrahedron") {
-    TruncatedTetrahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    TruncatedTetrahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Cuboctahedron") {
-    CuboctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    CuboctahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Truncated Octahedron") {
-    TruncatedOctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    TruncatedOctahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Rhombicuboctahedron") {
-    RhombicuboctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    RhombicuboctahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Truncated Cube") {
-    TruncatedCubeVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    TruncatedCubeVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Great Rhombicuboctahedron") {
-    GreatRhombicuboctahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    GreatRhombicuboctahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Snub Cube") {
-    SnubCubeVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    SnubCubeVertices(dimensions, DimensionOfFigure, setVerticesArray, scale, setOriginalVerticesArray);
   }
 
   if (figure === "3D Icosidodecahedron") {
-    IcosidodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    IcosidodecahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Truncated Icosahedron") {
-    TruncatedIcosahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    TruncatedIcosahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Truncated Dodecahedron") {
-    TruncatedDodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    TruncatedDodecahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
-  
+
   if (figure === "3D Rhombicosidodecahedron") {
-    RhombicosidodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    RhombicosidodecahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Great Rhombicosidodecahedron") {
-    GreatRhombicosidodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    GreatRhombicosidodecahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Snub Dodecahedron") {
-    SnubDodecahedronVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    SnubDodecahedronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Triangle Prism") {
-    TrianglePrismVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    TrianglePrismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Cubinder analog") {
-    CubinderVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    CubinderVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Sphere") {
-    SphereVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    SphereVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Clifford Torus") {
-    CliffordTorusVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    CliffordTorusVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "Torus") {
-    TorusVertices(dimensions, DimensionOfFigure, setVerticesArray);
+    TorusVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 };
 

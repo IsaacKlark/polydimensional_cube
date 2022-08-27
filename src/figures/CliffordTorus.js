@@ -5,14 +5,17 @@ const CliffordTorus = ({
   dimensionOfFigure,
   displayEdges,
   displayVertices,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   let linesArray = [];
 
   const segments = 21;
 
   for (let i = 0; i < verticesArray.length; i++) {
-    const step = Math.ceil(i / (segments));
- 
+    const step = Math.ceil(i / segments);
+
     if (i === step * segments - 1) {
       linesArray.push([i, step * segments - (segments - 1)]);
     }
@@ -20,18 +23,19 @@ const CliffordTorus = ({
     let distance = 1;
 
     for (let j = 0; j < Math.ceil(+dimensionOfFigure / 2); j++) {
-      if (i+distance < step * distance * segments && i + distance < verticesArray.length) {
+      if (
+        i + distance < step * distance * segments &&
+        i + distance < verticesArray.length
+      ) {
         linesArray.push([i, i + distance]);
-      } 
+      }
       distance *= segments;
     }
   }
 
-
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
-
 
   for (let i = 0; i < amountOfLines; i++) {
     lines.push(ids);
@@ -39,7 +43,14 @@ const CliffordTorus = ({
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

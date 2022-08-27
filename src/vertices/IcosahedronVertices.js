@@ -1,7 +1,9 @@
 const IcosahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 3 ? 3 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
@@ -43,7 +45,7 @@ const IcosahedronVertices = (
 
   for (let i = 0; i < DimensionOfFigure; i++) {
     ones.push(1);
-  };
+  }
 
   const onesWithAllSignPermutations = signPermutations(ones);
 
@@ -53,18 +55,15 @@ const IcosahedronVertices = (
 
     onesWithAllSignPermutations.forEach((el) => {
       const copyArr = [...arr];
-      for(let i = 0; i < copyArr.length; i++) {
+      for (let i = 0; i < copyArr.length; i++) {
         copyArr[i] *= el[i];
       }
 
       arrays.push(copyArr);
-    })
+    });
 
     arrays.forEach((array) => {
-      result = [
-        ...result,
-        array.map((number) => (number === -0 ? 0 : number)),
-      ];
+      result = [...result, array.map((number) => (number === -0 ? 0 : number))];
     });
 
     return result;
@@ -83,9 +82,7 @@ const IcosahedronVertices = (
   const group2 = arrayToSetAndToArray(minusToPlus(baseGroup2));
   const group3 = arrayToSetAndToArray(minusToPlus(baseGroup3));
 
-
   let vertices = [];
-
 
   vertices = [...group1, ...group2, ...group3];
 
@@ -96,12 +93,14 @@ const IcosahedronVertices = (
       }
       return arr;
     });
-
   }
 
   if (+DimensionOfFigure < 3) {
-    vertices = vertices.map((el) => el.slice(0, 2))
+    vertices = vertices.map((el) => el.slice(0, 2));
   }
+
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
 
   setVerticesArray(vertices);
 };

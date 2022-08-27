@@ -1,7 +1,9 @@
 const TruncatedOctahedronVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   if (+DimensionOfFigure > +dimensions) DimensionOfFigure = dimensions;
   const baseGroup1 = [0, Math.sqrt(2)].map((number) => number * 30);
@@ -148,7 +150,8 @@ const TruncatedOctahedronVertices = (
   if (+DimensionOfFigure < 3) {
     vertices = vertices.map((el) => el.slice(0, 2));
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

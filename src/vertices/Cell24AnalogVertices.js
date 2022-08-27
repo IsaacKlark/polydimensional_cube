@@ -1,11 +1,13 @@
 const Cell24AnaologVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   const verticesAmount = 2 ** DimensionOfFigure;
 
-  const verticesArray = [];
+  let verticesArray = [];
 
   for (let i = 0; i < verticesAmount; i++) {
     const vertex = [];
@@ -63,6 +65,8 @@ const Cell24AnaologVertices = (
     }
     verticesArray[index] = vertex;
   });
+  setOriginalVerticesArray(verticesArray);
+  verticesArray = verticesArray.map((arr) => arr.map((item) => item * scale));
 
   setVerticesArray(verticesArray);
 };

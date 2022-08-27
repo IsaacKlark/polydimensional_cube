@@ -5,6 +5,9 @@ const Symplex = ({
   displayEdges,
   displayVertices,
   verticesArray,
+  onWheel,
+  onMouseOver,
+  onMouseLeave,
 }) => {
   const amountOfLines = ((+dimensionOfFigure + 1) * dimensionOfFigure) / 2;
   let ids = 0;
@@ -24,7 +27,9 @@ const Symplex = ({
 
   for (let i = 0; i < lines.length; i++) {
     let copyCurrentMinx = currentMinX;
-    if (xDots.filter((value) => value === copyCurrentMinx).length < minsAmount) {
+    if (
+      xDots.filter((value) => value === copyCurrentMinx).length < minsAmount
+    ) {
       xDots.push(currentMinX);
     } else {
       currentMinX += 1;
@@ -43,7 +48,14 @@ const Symplex = ({
   }
 
   return (
-    <svg width="600" height="400" className="svg">
+    <svg
+      width="600"
+      height="400"
+      className="svg"
+      onWheel={onWheel}
+      onMouseEnter={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {displayEdges
         ? lines.map((id, index) => {
             let vertex1 = 0;

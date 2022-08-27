@@ -1,7 +1,9 @@
 const Cell600AnalogVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   let copyDimensionOfFigure = DimensionOfFigure > 4 ? 4 : DimensionOfFigure;
   if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
@@ -77,7 +79,7 @@ const Cell600AnalogVertices = (
 
   for (let i = 0; i < DimensionOfFigure; i++) {
     ones.push(1);
-  };
+  }
 
   const onesWithAllSignPermutations = signPermutations(ones);
 
@@ -87,12 +89,12 @@ const Cell600AnalogVertices = (
 
     onesWithAllSignPermutations.forEach((el) => {
       const copyArr = [...arr];
-      for(let i = 0; i < copyArr.length; i++) {
+      for (let i = 0; i < copyArr.length; i++) {
         copyArr[i] *= el[i];
       }
 
       arrays.push(copyArr);
-    })
+    });
 
     if (copyDimensionOfFigure > 3) {
       arrays.forEach((array) => {
@@ -139,12 +141,12 @@ const Cell600AnalogVertices = (
     for (let i = 0; i < permutations.length; i++) {
       onesWithAllSignPermutations.forEach((el) => {
         const copyArr = [...permutations[i]];
-        for(let i = 0; i < copyArr.length; i++) {
+        for (let i = 0; i < copyArr.length; i++) {
           copyArr[i] *= el[i];
         }
-  
+
         result.push(copyArr);
-      })
+      });
     }
 
     const resultSet = new Set();
@@ -231,7 +233,9 @@ const Cell600AnalogVertices = (
       return arr;
     });
   }
-
+  
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

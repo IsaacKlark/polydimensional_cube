@@ -1,4 +1,4 @@
-const symplexVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
+const symplexVertices = (dimensions, DimensionOfFigure, setVerticesArray, scale) => {
   let verticesArray = [];
   let firstDot = [];
 
@@ -47,6 +47,8 @@ const symplexVertices = (dimensions, DimensionOfFigure, setVerticesArray) => {
     }
     verticesArray[index] = vertex;
   });
+
+  verticesArray = verticesArray.map((arr) => arr.map((item) => item * scale));
 
   setVerticesArray(verticesArray);
 };

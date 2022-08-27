@@ -44,6 +44,11 @@ const Svg = ({
   orthography,
   displayEdges,
   displayVertices,
+  perspective3D,
+  perspectiveND,
+  setScale,
+  scale,
+  originalVerticesArray
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -53,20 +58,39 @@ const Svg = ({
         transposeRotation
       );
       if (orthography) {
-        generateFigureOrthography(
+        generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
+      } else {
+        generateFigure(
           verticesArray,
           matrix,
-          dimensionOfFigure
+          dimension,
+          dimensionOfFigure,
+          perspective3D,
+          perspectiveND
         );
-      } else {
-        generateFigure(verticesArray, matrix, dimension, dimensionOfFigure);
       }
     }
   });
 
+  const onWheel = (e) => {
+    if (e.deltaY > 0) {
+      setScale((value) => value - 0.1)
+    } else {
+      setScale((value) => value + 0.1)
+    };
+  }
+
+  const onMouseEnter = () => {
+    document.body.style.overflow = "hidden";
+  }
+
+  const onMouseLeave = () => {
+    document.body.style.overflow = "auto";
+  }
+
   if (+dimensionOfFigure === 0) {
     return (
-      <svg width="600" height="400" className="svg">
+      <svg width="600" height="400" className="svg" onScroll={onWheel}>
         <circle cx="300" cy="200" r="3" fill="white" />
       </svg>
     );
@@ -74,7 +98,7 @@ const Svg = ({
 
   if (+dimensionOfFigure === 1) {
     return (
-      <svg width="600" height="400" className="svg">
+      <svg width="600" height="400" className="svg" onScroll={onWheel}>
         <line
           id="line1"
           x1="200"
@@ -95,6 +119,9 @@ const Svg = ({
         displayEdges={displayEdges}
         displayVertices={displayVertices}
         verticesArray={verticesArray}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -106,6 +133,9 @@ const Svg = ({
         displayEdges={displayEdges}
         displayVertices={displayVertices}
         verticesArray={verticesArray}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -117,6 +147,9 @@ const Svg = ({
         displayEdges={displayEdges}
         displayVertices={displayVertices}
         verticesArray={verticesArray}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -124,10 +157,13 @@ const Svg = ({
   if (figure === "24-cell-analog") {
     return (
       <Cell24Analog
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -135,10 +171,13 @@ const Svg = ({
   if (figure === "120-cell-analog") {
     return (
       <Cell120Analog
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -146,10 +185,13 @@ const Svg = ({
   if (figure === "600-cell-analog") {
     return (
       <Cell600Analog
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -157,10 +199,13 @@ const Svg = ({
   if (figure === "3D Icosahedron") {
     return (
       <Icosahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -168,10 +213,13 @@ const Svg = ({
   if (figure === "3D Truncated Tetrahedron") {
     return (
       <TruncatedTetrahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -179,10 +227,13 @@ const Svg = ({
   if (figure === "Cuboctahedron") {
     return (
       <Cuboctahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -190,10 +241,13 @@ const Svg = ({
   if (figure === "Truncated Octahedron") {
     return (
       <TruncatedOctahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -201,10 +255,13 @@ const Svg = ({
   if (figure === "Rhombicuboctahedron") {
     return (
       <Rhombicuboctahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -212,10 +269,13 @@ const Svg = ({
   if (figure === "Truncated Cube") {
     return (
       <TruncatedCube
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -223,21 +283,27 @@ const Svg = ({
   if (figure === "Great Rhombicuboctahedron") {
     return (
       <GreatRhombicuboctahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
-  
+
   if (figure === "3D Snub Cube") {
     return (
       <SnubCube
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -245,10 +311,13 @@ const Svg = ({
   if (figure === "3D Icosidodecahedron") {
     return (
       <Icosidodecahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -256,10 +325,13 @@ const Svg = ({
   if (figure === "3D Truncated Icosahedron") {
     return (
       <TruncatedIcosahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -267,10 +339,13 @@ const Svg = ({
   if (figure === "3D Rhombicosidodecahedron") {
     return (
       <Rhombicosidodecahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -278,10 +353,13 @@ const Svg = ({
   if (figure === "3D Truncated Dodecahedron") {
     return (
       <TruncatedDodecahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -289,10 +367,13 @@ const Svg = ({
   if (figure === "3D Great Rhombicosidodecahedron") {
     return (
       <GreatRhombicosidodecahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -300,10 +381,13 @@ const Svg = ({
   if (figure === "3D Snub Dodecahedron") {
     return (
       <SnubDodecahedron
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -311,10 +395,13 @@ const Svg = ({
   if (figure === "Triangle Prism") {
     return (
       <TrianglePrism
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -322,10 +409,13 @@ const Svg = ({
   if (figure === "Cubinder analog") {
     return (
       <Cubinder
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -333,10 +423,13 @@ const Svg = ({
   if (figure === "Sphere") {
     return (
       <Sphere
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -344,10 +437,13 @@ const Svg = ({
   if (figure === "Clifford Torus") {
     return (
       <CliffordTorus
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
@@ -355,15 +451,16 @@ const Svg = ({
   if (figure === "Torus") {
     return (
       <Torus
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     );
   }
 };
-
-
 
 export default Svg;

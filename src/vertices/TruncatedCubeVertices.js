@@ -1,15 +1,16 @@
 const TruncatedCubeVertices = (
   dimensions,
   DimensionOfFigure,
-  setVerticesArray
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
 ) => {
   if (+DimensionOfFigure > +dimensions) DimensionOfFigure = dimensions;
   const baseGroup1 = [1].map((number) => number * 30);
 
   for (let i = 0; i < DimensionOfFigure - 1; i++) {
-    baseGroup1.push((1+Math.sqrt(2)) * 30);
+    baseGroup1.push((1 + Math.sqrt(2)) * 30);
   }
-
 
   const combinations = (arr, couple) => {
     arr = arr.map((item) => (item === -0 ? 0 : item));
@@ -76,7 +77,7 @@ const TruncatedCubeVertices = (
 
   for (let i = 0; i < DimensionOfFigure; i++) {
     ones.push(1);
-  };
+  }
 
   const onesWithAllSignPermutations = signPermutations(ones);
 
@@ -86,19 +87,15 @@ const TruncatedCubeVertices = (
 
     onesWithAllSignPermutations.forEach((el) => {
       const copyArr = [...arr];
-      for(let i = 0; i < copyArr.length; i++) {
+      for (let i = 0; i < copyArr.length; i++) {
         copyArr[i] *= el[i];
       }
 
       arrays.push(copyArr);
-    })
+    });
 
-  
     arrays.forEach((array) => {
-      result = [
-        ...result,
-        array.map((number) => (number === -0 ? 0 : number)),
-      ];
+      result = [...result, array.map((number) => (number === -0 ? 0 : number))];
     });
 
     return result;
@@ -131,7 +128,6 @@ const TruncatedCubeVertices = (
 
   let vertices = [];
 
-
   vertices = [...group1];
 
   if (+dimensions > +DimensionOfFigure) {
@@ -141,9 +137,9 @@ const TruncatedCubeVertices = (
       }
       return arr;
     });
-
   }
-
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);
 };
 

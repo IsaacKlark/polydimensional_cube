@@ -16,7 +16,11 @@ const CreateCheckboxes = ({
   figure,
   transposeRotation,
   orthography,
-  dimensionOfFigure
+  dimensionOfFigure,
+  perspective3D,
+  perspectiveND,
+  scale,
+  setOriginalVerticesArray,
 }) => {
   useEffect(() => {
     const moveByKeyBoard = (e) => {
@@ -51,7 +55,14 @@ const CreateCheckboxes = ({
         if (orthography) {
           generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
         } else {
-          generateFigure(verticesArray, matrix, number, dimensionOfFigure);
+          generateFigure(
+            verticesArray,
+            matrix,
+            number,
+            dimensionOfFigure,
+            perspective3D,
+            perspectiveND
+          );
         }
       }
     };
@@ -100,7 +111,14 @@ const CreateCheckboxes = ({
         if (orthography) {
           generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
         } else {
-          generateFigure(verticesArray, matrix, number, dimensionOfFigure);
+          generateFigure(
+            verticesArray,
+            matrix,
+            number,
+            dimensionOfFigure,
+            perspective3D,
+            perspectiveND
+          );
         }
       }
     }, 50);
@@ -110,10 +128,22 @@ const CreateCheckboxes = ({
     return () => clearInterval(interval);
 
     //eslint-disable-next-line
-  }, [dimensions, activeRotations, useKeyboard, orthography, dimensionOfFigure]);
+  }, [
+    dimensions,
+    activeRotations,
+    useKeyboard,
+    orthography,
+    dimensionOfFigure,
+  ]);
 
   useEffect(() => {
-    vertices(number, DimensionOfFigure, figure);
+    vertices(
+      number,
+      DimensionOfFigure,
+      figure,
+      scale,
+      setOriginalVerticesArray
+    );
   }, [figure, number, DimensionOfFigure]);
 
   const numbersOfCheckboxes = new Array(dimensions);
@@ -167,7 +197,7 @@ const CreateCheckboxes = ({
 
   return (
     <>
-      <label className="using__mouse">
+      <label className="checkboxWrapper">
         <input
           type="checkbox"
           name="checkbox"
@@ -180,23 +210,26 @@ const CreateCheckboxes = ({
         <div className="angles">angles:</div>
         {numbersOfCheckboxes.map((field, index) => {
           return (
-              <label key={index} className="labels">
-                <input
-                  key={index + "c"}
-                  type="checkbox"
-                  name="checkbox"
-                  onChange={() => changeActiveRotation(index)}
-                  checked={activeRotations.includes(index)}
-                  className="checkbox"
-                />
-                {field}
-              <input type="number" value={anglesArray[index] || 0} onChange={(e) => {
-                const copyAnglesArray = [...anglesArray];
-                copyAnglesArray[index] = +e.target.value;
-                setAnglesArray(copyAnglesArray);
-              }}/>
-
-              </label>
+            <label key={index} className="labels">
+              <input
+                key={index + "c"}
+                type="checkbox"
+                name="checkbox"
+                onChange={() => changeActiveRotation(index)}
+                checked={activeRotations.includes(index)}
+                className="checkbox"
+              />
+              {field}
+              <input
+                type="number"
+                value={anglesArray[index] || 0}
+                onChange={(e) => {
+                  const copyAnglesArray = [...anglesArray];
+                  copyAnglesArray[index] = +e.target.value;
+                  setAnglesArray(copyAnglesArray);
+                }}
+              />
+            </label>
           );
         })}
       </section>
