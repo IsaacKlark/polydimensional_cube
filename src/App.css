@@ -144,6 +144,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .wrapperOfRanges {
@@ -151,6 +152,7 @@ button:hover {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .rangesWrapper {
