@@ -17,3 +17,10 @@ svg {
   max-width: 1000px;
   height: 500px;
 }
+
+@media (max-width: 600) {
+  svg {
+    width: 100%;
+    height: 400px;;
+  }
+}
