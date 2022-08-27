@@ -12,7 +12,7 @@ const Torus = ({
 }) => {
   let linesArray = [];
   if (displayEdges) {
-    const _segments = +segments || 17;
+    const _segments = +segments + 1 || 17;
     for (let i = 0; i < verticesArray.length; i++) {
       const step = Math.ceil(i / _segments);
 

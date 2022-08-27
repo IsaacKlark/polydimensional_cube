@@ -6,7 +6,7 @@ const TorusVertices = (
   setOriginalVerticesArray,
   segments
 ) => {
-  const _segments = +segments || 17;
+  const _segments = +segments + 1 || 17;
   let basicVertices = [];
 
   let angle = 0;

@@ -6,7 +6,7 @@ const CliffordTorusVertices = (
   setOriginalVerticesArray,
   segments
 ) => {
-  const _segments = +segments || 21;
+  const _segments = +segments + 1 || 21;
   let basicVertices = [];
 
   let angle = 0;
