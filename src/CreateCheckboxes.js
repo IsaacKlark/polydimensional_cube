@@ -21,6 +21,7 @@ const CreateCheckboxes = ({
   perspectiveND,
   scale,
   setOriginalVerticesArray,
+  segments
 }) => {
   useEffect(() => {
     const moveByKeyBoard = (e) => {
@@ -142,7 +143,8 @@ const CreateCheckboxes = ({
       DimensionOfFigure,
       figure,
       scale,
-      setOriginalVerticesArray
+      setOriginalVerticesArray,
+      segments
     );
   }, [figure, number, DimensionOfFigure]);
 

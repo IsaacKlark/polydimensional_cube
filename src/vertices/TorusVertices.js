@@ -3,16 +3,17 @@ const TorusVertices = (
   DimensionOfFigure,
   setVerticesArray,
   scale,
-  setOriginalVerticesArray
+  setOriginalVerticesArray,
+  segments
 ) => {
+  const _segments = +segments || 17;
   let basicVertices = [];
 
   let angle = 0;
-  const segments = 17;
-  const angleChange = 360 / (segments - 1);
+  const angleChange = 360 / (_segments - 1);
 
   if (+DimensionOfFigure === 2) {
-    for (let i = 0; i < segments; i++) {
+    for (let i = 0; i < _segments; i++) {
       const radAngle = angle * 0.0175;
       basicVertices.push([150 * Math.sin(radAngle), -150 * Math.cos(radAngle)]);
       angle += angleChange;
@@ -22,11 +23,11 @@ const TorusVertices = (
   if (+DimensionOfFigure >= 3) {
     let angle1 = 0;
 
-    for (let i = 0; i < segments; i++) {
+    for (let i = 0; i < _segments; i++) {
       const radAngle1 = angle1 * 0.0175;
       let angle2 = 0;
 
-      for (let j = 0; j < segments; j++) {
+      for (let j = 0; j < _segments; j++) {
         const radAngle2 = angle2 * 0.0175;
         basicVertices.push([
           (120 + 50 * Math.cos(radAngle1)) * Math.cos(radAngle2),
@@ -49,7 +50,7 @@ const TorusVertices = (
     });
     let angle = 0;
 
-    for (let j = 0; j < segments; j++) {
+    for (let j = 0; j < _segments; j++) {
       for (let k = 0; k < currentVertices.length; k++) {
         const radAngle = angle * 0.0175;
         const arrLength = basicVertices[k].length;

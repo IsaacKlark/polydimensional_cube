@@ -3,15 +3,16 @@ const CliffordTorusVertices = (
   DimensionOfFigure,
   setVerticesArray,
   scale,
-  setOriginalVerticesArray
+  setOriginalVerticesArray,
+  segments
 ) => {
+  const _segments = +segments || 21;
   let basicVertices = [];
 
   let angle = 0;
-  const segments = 21;
-  const segmentAngle = 360 / (segments - 1);
+  const segmentAngle = 360 / (_segments - 1);
 
-  for (let i = 0; i < segments; i++) {
+  for (let i = 0; i < _segments; i++) {
     const radAngle1 = angle * 0.0175;
     basicVertices.push(
       [Math.cos(radAngle1), Math.sin(radAngle1)].map((number) => number * 100)
@@ -26,7 +27,7 @@ const CliffordTorusVertices = (
       basicVertices.forEach((arr) => {
         let angle = 0;
 
-        for (let i = 0; i < segments; i++) {
+        for (let i = 0; i < _segments; i++) {
           const copyArr = [...arr];
           const radAngle = angle * 0.0175;
           copyArr.push(100 * Math.cos(radAngle));

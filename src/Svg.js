@@ -47,7 +47,7 @@ const Svg = ({
   perspective3D,
   perspectiveND,
   setScale,
-  scale,
+  segments,
   originalVerticesArray
 }) => {
   useEffect(() => {
@@ -430,6 +430,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        segments={segments}
       />
     );
   }
@@ -444,6 +445,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        segments={segments}
       />
     );
   }
@@ -458,6 +460,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        segments={segments}
       />
     );
   }

@@ -8,10 +8,11 @@ const Sphere = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  segments
 }) => {
   let linesArray = [];
   const verticesLength = verticesArray.length;
-  const firstDistance = 22;
+  const firstDistance = +segments  || 20;
 
   for (let i = 0; i < verticesLength; i++) {
     if (i + 1 < verticesLength) {

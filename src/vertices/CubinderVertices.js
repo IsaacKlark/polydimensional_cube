@@ -3,14 +3,15 @@ const CubinderVertices = (
   DimensionOfFigure,
   setVerticesArray,
   scale,
-  setOriginalVerticesArray
+  setOriginalVerticesArray,
+  segments
 ) => {
   let basicVertices = [];
   let angle = 0;
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < segments; i++) {
     const radAngle = angle * 0.0175;
     basicVertices.push([70 * Math.sin(radAngle), -70 * Math.cos(radAngle)]);
-    angle += 18;
+    angle += 360 / segments;
   }
 
   let edgeLengthHalf = 80;

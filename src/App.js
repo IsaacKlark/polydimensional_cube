@@ -45,6 +45,13 @@ const baseFigures = [
   "Torus",
 ];
 
+const segmentedFigures = [
+  "Sphere",
+  "Clifford Torus",
+  "Torus",
+  "Cubinder analog"
+]
+
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
   const [amount, setAmount] = useState(1);
@@ -61,6 +68,7 @@ function App() {
   const [perspectiveND, setPerspectiveND] = useState(150);
   const [scale, setScale] = useState(1);
   const [originalVerticesArray, setOriginalVerticesArray] = useState([]);
+  const [segments, setSegments] = useState(21);
 
   useEffect(() => {
     if (+dimensionOfFigure === 2 && specific3D.includes(figure)) {
@@ -126,7 +134,8 @@ function App() {
       dimensionOfFigure,
       figure,
       scale,
-      setOriginalVerticesArray
+      setOriginalVerticesArray,
+      segments
     );
   }, [scale]);
 
@@ -137,7 +146,8 @@ function App() {
         +e.target.value,
         figure,
         scale,
-        setOriginalVerticesArray
+        setOriginalVerticesArray,
+        segments
       );
       setDimensionOfFigure(+e.target.value);
     }
@@ -149,6 +159,34 @@ function App() {
     } else {
       useKeyboard = true;
     }
+  };
+
+  const changeFigure = (e) => {
+    if (!segmentedFigures.includes(e.target.value)) {
+      vertices(
+        numberOfDimensions,
+        dimensionOfFigure,
+        e.target.value,
+        scale,
+        setOriginalVerticesArray,
+        segments
+      );
+      setFigure(e.target.value);
+    } else {
+      let segments = +prompt('Please, input amount of segments', 14) || 4;
+      if (e.target.value === 'Sphere' && segments % 2 !== 0) segments += 1;
+      vertices(
+        numberOfDimensions,
+        dimensionOfFigure,
+        e.target.value,
+        scale,
+        setOriginalVerticesArray,
+        segments
+      );
+      setSegments(segments);
+      setFigure(e.target.value);
+    }
+   
   };
 
   return (
@@ -259,20 +297,7 @@ function App() {
         <div className="wrapper">
           <label className="checkboxWrapper">
             {numberOfDimensions}D
-            <select
-              onChange={(e) => {
-                vertices(
-                  numberOfDimensions,
-                  dimensionOfFigure,
-                  e.target.value,
-                  scale,
-                  setOriginalVerticesArray
-                );
-                setFigure(e.target.value);
-              }}
-              className="select"
-              value={figure}
-            >
+            <select onChange={changeFigure} className="select" value={figure}>
               {baseFigures.map((figure) => (
                 <option key={figure}>{figure}</option>
               ))}
@@ -344,6 +369,7 @@ function App() {
           perspectiveND={perspectiveND}
           scale={scale}
           setOriginalVerticesArray={setOriginalVerticesArray}
+          segments={segments}
         />
         <Svg
           dimension={numberOfDimensions}
@@ -357,8 +383,8 @@ function App() {
           perspective3D={perspective3D}
           perspectiveND={perspectiveND}
           setScale={setScale}
-          scale={scale}
           originalVerticesArray={originalVerticesArray}
+          segments={segments}
         />
       </div>
     </>

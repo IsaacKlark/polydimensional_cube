@@ -3,14 +3,15 @@ const SphereVertices = (
   DimensionOfFigure,
   setVerticesArray,
   scale,
-  setOriginalVerticesArray
+  setOriginalVerticesArray,
+  segments
 ) => {
   let basicVertices = [];
-  const segments = 22;
-  const segmentAngle = 360 / segments;
+  const _segments = +segments || 20;
+  const segmentAngle = 360 / _segments;
 
   let angle = 0;
-  for (let i = 0; i < segments; i++) {
+  for (let i = 0; i < _segments; i++) {
     const radAngle = angle * 0.0175;
     basicVertices.push([150 * Math.sin(radAngle), -150 * Math.cos(radAngle)]);
     angle += segmentAngle;
@@ -31,7 +32,7 @@ const SphereVertices = (
     const currentVertices = [...basicVertices];
     let angle = 0;
 
-    for (let j = 0; j < segments / 2 + 1; j++) {
+    for (let j = 0; j < _segments / 2 + 1; j++) {
       for (let k = 0; k < currentVertices.length; k++) {
         const radAngle = angle * 0.0175;
 

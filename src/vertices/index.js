@@ -35,7 +35,8 @@ const vertices = (
   DimensionOfFigure,
   figure,
   scale,
-  setOriginalVerticesArray
+  setOriginalVerticesArray,
+  segments
 ) => {
   if (figure === "Cube") {
     cubeVertices(dimensions, DimensionOfFigure, setVerticesArray, scale);
@@ -229,7 +230,8 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray
+      setOriginalVerticesArray,
+      segments
     );
   }
 
@@ -239,7 +241,8 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray
+      setOriginalVerticesArray,
+      segments
     );
   }
 
@@ -249,7 +252,8 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray
+      setOriginalVerticesArray,
+      segments
     );
   }
 
@@ -259,7 +263,8 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray
+      setOriginalVerticesArray,
+      segments
     );
   }
 };
