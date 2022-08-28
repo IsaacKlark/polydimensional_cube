@@ -28,6 +28,7 @@ import PentagonPrismVertices from "./PentagonPrismVertices";
 import CylinderVertices from "./CylinderVertices";
 import ConeVertices from "./ConeVertices";
 import PentagonalAntiprismVertices from "./PentagonalAntiprismVertices";
+import HexagonalPrismVertices from "./HexagonalPrismVertices";
 
 export let verticesArray = [];
 
@@ -327,7 +328,17 @@ const vertices = (
       segments
     );
   }
- 
+
+  if (figure === "Hexahonal Prism") {
+    HexagonalPrismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 export default vertices;

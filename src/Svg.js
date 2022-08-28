@@ -33,6 +33,7 @@ import PentagonPrism from "./figures/PentagonPrism";
 import Cylinder from "./figures/Cylinder";
 import Cone from "./figures/Cone";
 import PentagonalAntiprism from "./figures/PentagonalAntiprism";
+import HexagonPrism from "./figures/HexagonPrism";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -534,6 +535,21 @@ const Svg = ({
   if (figure === "3D Pentagonal Antiprism") {
     return (
       <PentagonalAntiprism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "Hexahonal Prism") {
+    return (
+      <HexagonPrism
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

@@ -42,6 +42,7 @@ const baseFigures = [
   "Great Rhombicuboctahedron",
   "Triangle Prism",
   "Pentagon Prism",
+  "Hexahonal Prism",
   "Cubinder analog",
   "Sphere",
   "Clifford Torus",
