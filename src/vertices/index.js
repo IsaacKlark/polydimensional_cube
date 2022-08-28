@@ -26,6 +26,7 @@ import TorusVertices from "./TorusVertices";
 import SquareAntiprismVertices from "./SquareAntiprismVertices";
 import PentagonPrismVertices from "./PentagonPrismVertices";
 import CylinderVertices from "./CylinderVertices";
+import ConeVertices from "./ConeVertices";
 
 export let verticesArray = [];
 
@@ -304,7 +305,16 @@ const vertices = (
     );
   }
 
-  
+  if (figure === "Cone") {
+    ConeVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 export default vertices;

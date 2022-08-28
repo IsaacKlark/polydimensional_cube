@@ -1,6 +1,6 @@
 import React from "react";
 
-const Cylinder = ({
+const Cone = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -12,31 +12,33 @@ const Cylinder = ({
 }) => {
   let linesArray = [];
   const verticesLength = verticesArray.length;
-  const firstDistance = +segments  || 20;
+  const _segments = +segments  || 20;
 
   for (let i = 0; i < verticesLength; i++) {
-    if (i + 1 < verticesLength && (i + 1) % firstDistance !== 0) {
+    if (i + 1 < verticesLength && (i + 1) % _segments !== 0) {
       linesArray.push([i, i + 1]);
     }
-
-    if (i % firstDistance === 0) {
-      linesArray.push([i, i + (firstDistance - 1)]);
-      if (i - firstDistance >= 0) linesArray.push([i, i - firstDistance]);
+    if (i !== verticesArray - 1) {
+      linesArray.push([i, verticesArray.length - 1]);
     }
 
-    let distance = firstDistance;
+    if (i + 1 === _segments) {
+      linesArray.push([i, i + 1 - _segments]);
+    }
+
+    let distance = _segments;
 
     for (let j = 2; j < +dimensionOfFigure; j++) {
-      let step = Math.ceil(i / (distance * (firstDistance / 2 + 2)));
+      let step = Math.ceil(i / (distance * (_segments / 2 + 2)));
 
       if (
-        i + distance < step * distance * (firstDistance / 2 + 2) &&
+        i + distance < step * distance * (_segments / 2 + 2) &&
         i + distance < verticesArray.length
       ) {
         linesArray.push([i, i + distance]);
       }
 
-      distance *= firstDistance / 2 + 2;
+      distance *= _segments / 2 + 2;
     }
   }
 
@@ -105,4 +107,4 @@ const Cylinder = ({
   );
 };
 
-export default Cylinder;
+export default Cone;
