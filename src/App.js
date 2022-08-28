@@ -24,6 +24,7 @@ const specific3D = [
   "3D Truncated Dodecahedron",
   "3D Great Rhombicosidodecahedron",
   "3D Snub Dodecahedron",
+  "3D Square Antiprism"
 ];
 
 const baseFigures = [
@@ -257,13 +258,13 @@ function App() {
                 <p>0</p>
                 <input
                   min={0}
-                  max={800}
+                  max={1200}
                   step={10}
                   value={perspective3D}
                   type="range"
                   onChange={(e) => setPerspective3D(+e.target.value)}
                 />
-                <p>800</p>
+                <p>1200</p>
               </label>
               <div className="rangeDescription">
                 <p>3D perspective:</p>
