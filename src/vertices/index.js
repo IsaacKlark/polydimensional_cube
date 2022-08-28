@@ -27,6 +27,7 @@ import SquareAntiprismVertices from "./SquareAntiprismVertices";
 import PentagonPrismVertices from "./PentagonPrismVertices";
 import CylinderVertices from "./CylinderVertices";
 import ConeVertices from "./ConeVertices";
+import PentagonalAntiprismVertices from "./PentagonalAntiprismVertices";
 
 export let verticesArray = [];
 
@@ -315,6 +316,18 @@ const vertices = (
       segments
     );
   }
+
+  if (figure === "3D Pentagonal Antiprism") {
+    PentagonalAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+ 
 };
 
 export default vertices;
