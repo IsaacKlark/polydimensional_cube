@@ -45,13 +45,15 @@ const baseFigures = [
   "Sphere",
   "Clifford Torus",
   "Torus",
+  "Cylinder",
 ];
 
 const segmentedFigures = [
   "Sphere",
   "Clifford Torus",
   "Torus",
-  "Cubinder analog"
+  "Cubinder analog",
+  "Cylinder",
 ]
 
 function App() {

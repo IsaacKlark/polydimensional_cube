@@ -33,7 +33,7 @@ const CubinderVertices = (
 
   let vertices = basicVertices;
 
-  if (vertices[0].length < +dimensions) {
+  if (vertices[0].length < +DimensionOfFigure) {
     vertices = vertices.map((arr, index) => {
       for (let i = +vertices[index].length + 1; i <= +dimensions; i++) {
         arr.push(0);
@@ -54,6 +54,16 @@ const CubinderVertices = (
       return copyArr;
     });
   }
+
+  if (+dimensions > +DimensionOfFigure) {
+    vertices = vertices.map((arr) => {
+      for (let i = +DimensionOfFigure + 1; i <= +dimensions; i++) {
+        arr.push(0);
+      }
+      return arr;
+    });
+  }
+
   setOriginalVerticesArray(vertices);
   vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);

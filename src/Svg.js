@@ -30,6 +30,7 @@ import CliffordTorus from "./figures/CliffordTorus";
 import Torus from "./figures/Torus";
 import SquareAntiprism from "./figures/SquareAntiprism";
 import PentagonPrism from "./figures/PentagonPrism";
+import Cylinder from "./figures/Cylinder";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -486,6 +487,21 @@ const Svg = ({
   if (figure === "Pentagon Prism") {
     return (
       <PentagonPrism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "Cylinder") {
+    return (
+      <Cylinder
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

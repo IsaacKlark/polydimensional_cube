@@ -25,6 +25,7 @@ import CliffordTorusVertices from "./CliffordTorusVertices";
 import TorusVertices from "./TorusVertices";
 import SquareAntiprismVertices from "./SquareAntiprismVertices";
 import PentagonPrismVertices from "./PentagonPrismVertices";
+import CylinderVertices from "./CylinderVertices";
 
 export let verticesArray = [];
 
@@ -291,6 +292,19 @@ const vertices = (
       segments
     );
   }
+
+  if (figure === "Cylinder") {
+    CylinderVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  
 };
 
 export default vertices;

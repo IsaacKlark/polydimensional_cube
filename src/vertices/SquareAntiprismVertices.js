@@ -18,6 +18,7 @@ const SquareAntiprismVertices = (
     [1, -1, -1/(2**(1/4))],
     [-1, -1, -1/(2**(1/4))],
   ].map((arr) => arr.map((number) => number * 60));
+  
 
   let vertices = baseGroup1;
 
