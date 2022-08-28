@@ -24,6 +24,7 @@ import SphereVertices from "./SphereVertices";
 import CliffordTorusVertices from "./CliffordTorusVertices";
 import TorusVertices from "./TorusVertices";
 import SquareAntiprismVertices from "./SquareAntiprismVertices";
+import PentagonPrismVertices from "./PentagonPrismVertices";
 
 export let verticesArray = [];
 
@@ -271,6 +272,17 @@ const vertices = (
 
   if (figure === "3D Square Antiprism") {
     SquareAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "Pentagon Prism") {
+    PentagonPrismVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
