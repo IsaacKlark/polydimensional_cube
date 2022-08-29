@@ -25,7 +25,8 @@ const specific3D = [
   "3D Great Rhombicosidodecahedron",
   "3D Snub Dodecahedron",
   "3D Square Antiprism",
-  "3D Pentagonal Antiprism"
+  "3D Pentagonal Antiprism",
+  "3D Hexagonal Antiprism",
 ];
 
 const baseFigures = [
