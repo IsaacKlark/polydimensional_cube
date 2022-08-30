@@ -1,6 +1,6 @@
 import React from "react";
 
-const HexagonPrism = ({
+const HeptagonPrism = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -9,7 +9,7 @@ const HexagonPrism = ({
   onMouseOver,
   onMouseLeave,
 }) => {
-  const segments = 6;
+  const segments = 7;
   let linesArray = [];
   for (let i = 0; i < verticesArray.length; i++) {
     const step = Math.ceil(i / segments);
@@ -110,4 +110,4 @@ const HexagonPrism = ({
   );
 };
 
-export default HexagonPrism;
+export default HeptagonPrism;

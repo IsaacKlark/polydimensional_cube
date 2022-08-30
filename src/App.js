@@ -44,6 +44,7 @@ const baseFigures = [
   "Triangle Prism",
   "Pentagon Prism",
   "Hexahonal Prism",
+  "Heptagonal Prism",
   "Cubinder analog",
   "Sphere",
   "Clifford Torus",

@@ -30,6 +30,7 @@ import ConeVertices from "./ConeVertices";
 import PentagonalAntiprismVertices from "./PentagonalAntiprismVertices";
 import HexagonalPrismVertices from "./HexagonalPrismVertices";
 import HexagonalAntiprismVertices from "./HexagonalAntiprismVertices";
+import HeptagonalPrismVertices from "./HeptagonalPrismVertices";
 
 export let verticesArray = [];
 
@@ -343,6 +344,17 @@ const vertices = (
 
   if (figure === "3D Hexagonal Antiprism") {
     HexagonalAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "Heptagonal Prism") {
+    HeptagonalPrismVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

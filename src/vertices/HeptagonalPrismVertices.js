@@ -1,4 +1,4 @@
-const HexagonalPrismVertices = (
+const HeptagonalPrismVertices = (
   dimensions,
   DimensionOfFigure,
   setVerticesArray,
@@ -7,7 +7,7 @@ const HexagonalPrismVertices = (
 ) => {
   let basicVertices = [];
   let angle = 0;
-  const segments = 6;
+  const segments = 7;
   for (let i = 0; i < segments; i++) {
     const radAngle = angle * 0.0175;
     basicVertices.push([70 * Math.sin(radAngle), -70 * Math.cos(radAngle)]);
@@ -56,4 +56,4 @@ const HexagonalPrismVertices = (
   setVerticesArray(vertices);
 };
 
-export default HexagonalPrismVertices;
+export default HeptagonalPrismVertices;
