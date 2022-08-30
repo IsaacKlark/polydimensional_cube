@@ -36,6 +36,10 @@ import PentagonalAntiprism from "./figures/PentagonalAntiprism";
 import HexagonPrism from "./figures/HexagonPrism";
 import HexagonalAntiprism from "./figures/HexagonalAntiprism";
 import HeptagonPrism from "./figures/HeptagonPrism";
+import OctagonalPrism from "./figures/OctagonalPrism";
+import DecagonalPrism from "./figures/DecagonalPrism";
+import HeptagonalAntiprism from "./figures/HeptagonalAntiprism";
+import OctagonalAntiprism from "./figures/OctagonalAntiprism";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -609,6 +613,65 @@ const Svg = ({
     );
   }
   
+  if (figure === "Octagonal Prism") {
+    return (
+      <OctagonalPrism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "Decagonal Prism") {
+    return (
+      <DecagonalPrism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "3D Heptagonal Antiprism") {
+    return (
+      <HeptagonalAntiprism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "3D Octagonal Antiprism") {
+    return (
+      <OctagonalAntiprism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
 };
 
 export default Svg;

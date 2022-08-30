@@ -31,6 +31,10 @@ import PentagonalAntiprismVertices from "./PentagonalAntiprismVertices";
 import HexagonalPrismVertices from "./HexagonalPrismVertices";
 import HexagonalAntiprismVertices from "./HexagonalAntiprismVertices";
 import HeptagonalPrismVertices from "./HeptagonalPrismVertices";
+import OctagonalPrismVertices from "./OctagonalPrismVertices";
+import DecagonalPrismVertices from "./DecagonalPrismVertices";
+import HeptagonalAntiprismVertices from "./HeptagonalAntiprismVertices";
+import OctagonalAntiprismVertices from "./OctagonalAntiprismVertices";
 
 export let verticesArray = [];
 
@@ -363,6 +367,51 @@ const vertices = (
       segments
     );
   }
+
+  if (figure === "Octagonal Prism") {
+    OctagonalPrismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "Decagonal Prism") {
+    DecagonalPrismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "3D Heptagonal Antiprism") {
+    HeptagonalAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "3D Octagonal Antiprism") {
+    OctagonalAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
+
 
 export default vertices;
