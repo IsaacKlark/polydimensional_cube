@@ -29,6 +29,7 @@ const specific3D = [
   "3D Hexagonal Antiprism",
   "3D Heptagonal Antiprism",
   "3D Octagonal Antiprism",
+  "3D Decagonal Antiprism",
 ];
 
 const baseFigures = [

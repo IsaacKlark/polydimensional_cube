@@ -35,6 +35,7 @@ import OctagonalPrismVertices from "./OctagonalPrismVertices";
 import DecagonalPrismVertices from "./DecagonalPrismVertices";
 import HeptagonalAntiprismVertices from "./HeptagonalAntiprismVertices";
 import OctagonalAntiprismVertices from "./OctagonalAntiprismVertices";
+import DecagonalAntiprismVertices from "./DecagonalAntiprismVertices";
 
 export let verticesArray = [];
 
@@ -403,6 +404,17 @@ const vertices = (
 
   if (figure === "3D Octagonal Antiprism") {
     OctagonalAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "3D Decagonal Antiprism") {
+    DecagonalAntiprismVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

@@ -40,6 +40,7 @@ import OctagonalPrism from "./figures/OctagonalPrism";
 import DecagonalPrism from "./figures/DecagonalPrism";
 import HeptagonalAntiprism from "./figures/HeptagonalAntiprism";
 import OctagonalAntiprism from "./figures/OctagonalAntiprism";
+import DecagonalAntiprism from "./figures/DecagonalAntiprism";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -661,6 +662,21 @@ const Svg = ({
   if (figure === "3D Octagonal Antiprism") {
     return (
       <OctagonalAntiprism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "3D Decagonal Antiprism") {
+    return (
+      <DecagonalAntiprism
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
