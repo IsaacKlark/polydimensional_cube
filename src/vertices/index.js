@@ -38,6 +38,7 @@ import OctagonalAntiprismVertices from "./OctagonalAntiprismVertices";
 import DecagonalAntiprismVertices from "./DecagonalAntiprismVertices";
 import Rectified5CellVertices from "./Rectified5CellVertices";
 import Bitruncated5CellVertices from "./Bitruncated5CellVertices";
+import Runcinated5CellVertices from "./Runcinated5CellVertices";
 
 export let verticesArray = [];
 
@@ -447,6 +448,18 @@ const vertices = (
       segments
     );
   }
+
+  if (figure === "4D Runcinated 5-cell") {
+    Runcinated5CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+  
 };
 
 

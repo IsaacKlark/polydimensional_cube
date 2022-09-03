@@ -43,6 +43,7 @@ import OctagonalAntiprism from "./figures/OctagonalAntiprism";
 import DecagonalAntiprism from "./figures/DecagonalAntiprism";
 import Rectified5Cell from "./figures/Rectified5Cell";
 import Bitruncated5Cell from "./figures/Bitruncated5Cell";
+import Runcinated5Cell from "./figures/Runcinated5Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -720,6 +721,37 @@ const Svg = ({
       />
     );
   }
+
+  if (figure === "4D Bitruncated 5-cell") {
+    return (
+      <Bitruncated5Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Runcinated 5-cell") {
+    return (
+      <Runcinated5Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+  
 };
 
 export default Svg;
