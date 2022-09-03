@@ -1,0 +1,153 @@
+const Omnitruncated5CellVertices = (
+  dimensions,
+  DimensionOfFigure,
+  setVerticesArray,
+  scale,
+  setOriginalVerticesArray
+) => {
+  let copyDimensionOfFigure = DimensionOfFigure > 4 ? 4 : DimensionOfFigure;
+  if (+DimensionOfFigure > +dimensions) copyDimensionOfFigure = dimensions;
+
+  const baseGroup1 = [
+    [0, 4 / Math.sqrt(6), -2 / Math.sqrt(3), 4],
+    [0, 4 / Math.sqrt(6), -2 / Math.sqrt(3), -4],
+    [0, -4 / Math.sqrt(6), 2 / Math.sqrt(3), 4],
+    [0, -4 / Math.sqrt(6), 2 / Math.sqrt(3), -4],
+    [0, 4 / Math.sqrt(6), -5 / Math.sqrt(3), 3],
+    [0, 4 / Math.sqrt(6), -5 / Math.sqrt(3), -3],
+    [0, -4 / Math.sqrt(6), 5 / Math.sqrt(3), 3],
+    [0, -4 / Math.sqrt(6), 5 / Math.sqrt(3), -3],
+    [0, 4 / Math.sqrt(6), 7 / Math.sqrt(3), 1],
+    [0, 4 / Math.sqrt(6), 7 / Math.sqrt(3), -1],
+    [0, -4 / Math.sqrt(6), -7 / Math.sqrt(3), 1],
+    [0, -4 / Math.sqrt(6), -7 / Math.sqrt(3), -1],
+    [0, 8 / Math.sqrt(6), -1 / Math.sqrt(3), 3],
+    [0, 8 / Math.sqrt(6), -1 / Math.sqrt(3), -3],
+    [0, -8 / Math.sqrt(6), 1 / Math.sqrt(3), 3],
+    [0, -8 / Math.sqrt(6), 1 / Math.sqrt(3), -3],
+    [0, 8 / Math.sqrt(6), -4 / Math.sqrt(3), 2],
+    [0, 8 / Math.sqrt(6), -4 / Math.sqrt(3), -2],
+    [0, -8 / Math.sqrt(6), 4 / Math.sqrt(3), 2],
+    [0, -8 / Math.sqrt(6), 4 / Math.sqrt(3), -2],
+    [0, 8 / Math.sqrt(6), 5 / Math.sqrt(3), 1],
+    [0, 8 / Math.sqrt(6), 5 / Math.sqrt(3), -1],
+    [0, -8 / Math.sqrt(6), -5 / Math.sqrt(3), 1],
+    [0, -8 / Math.sqrt(6), -5 / Math.sqrt(3), -1],
+    [10 / Math.sqrt(10), 2 / Math.sqrt(6), -1 / Math.sqrt(3), 3],
+    [-10 / Math.sqrt(10), 2 / Math.sqrt(6), -1 / Math.sqrt(3), 3],
+    [10 / Math.sqrt(10), 2 / Math.sqrt(6), -1 / Math.sqrt(3), -3],
+    [-10 / Math.sqrt(10), 2 / Math.sqrt(6), -1 / Math.sqrt(3), -3],
+    [10 / Math.sqrt(10), -2 / Math.sqrt(6), 1 / Math.sqrt(3), 3],
+    [-10 / Math.sqrt(10), -2 / Math.sqrt(6), 1 / Math.sqrt(3), 3],
+    [10 / Math.sqrt(10), -2 / Math.sqrt(6), 1 / Math.sqrt(3), -3],
+    [-10 / Math.sqrt(10), -2 / Math.sqrt(6), 1 / Math.sqrt(3), -3],
+    [10 / Math.sqrt(10), 2 / Math.sqrt(6), -4 / Math.sqrt(3), 2],
+    [-10 / Math.sqrt(10), 2 / Math.sqrt(6), -4 / Math.sqrt(3), 2],
+    [10 / Math.sqrt(10), 2 / Math.sqrt(6), -4 / Math.sqrt(3), -2],
+    [-10 / Math.sqrt(10), 2 / Math.sqrt(6), -4 / Math.sqrt(3), -2],
+    [10 / Math.sqrt(10), -2 / Math.sqrt(6), 4 / Math.sqrt(3), 2],
+    [-10 / Math.sqrt(10), -2 / Math.sqrt(6), 4 / Math.sqrt(3), 2],
+    [10 / Math.sqrt(10), -2 / Math.sqrt(6), 4 / Math.sqrt(3), -2],
+    [-10 / Math.sqrt(10), -2 / Math.sqrt(6), 4 / Math.sqrt(3), -2],
+    [10 / Math.sqrt(10), 2 / Math.sqrt(6), 5 / Math.sqrt(3), 1],
+    [-10 / Math.sqrt(10), 2 / Math.sqrt(6), 5 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), 2 / Math.sqrt(6), 5 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), 2 / Math.sqrt(6), 5 / Math.sqrt(3), -1],
+    [10 / Math.sqrt(10), -2 / Math.sqrt(6), -5 / Math.sqrt(3), 1],
+    [-10 / Math.sqrt(10), -2 / Math.sqrt(6), -5 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), -2 / Math.sqrt(6), -5 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), -2 / Math.sqrt(6), -5 / Math.sqrt(3), -1],
+    [10 / Math.sqrt(10), 6 / Math.sqrt(6), 0, 2],
+    [-10 / Math.sqrt(10), 6 / Math.sqrt(6), 0, 2],
+    [10 / Math.sqrt(10), -6 / Math.sqrt(6), 0, 2],
+    [10 / Math.sqrt(10), 6 / Math.sqrt(6), 0, -2],
+    [-10 / Math.sqrt(10), -6 / Math.sqrt(6), 0, 2],
+    [10 / Math.sqrt(10), -6 / Math.sqrt(6), 0, -2],
+    [-10 / Math.sqrt(10), 6 / Math.sqrt(6), 0, -2],
+    [-10 / Math.sqrt(10), -6 / Math.sqrt(6), 0, -2],
+    [10 / Math.sqrt(10), 6 / Math.sqrt(6), 3 / Math.sqrt(3), 1],
+    [-10 / Math.sqrt(10), 6 / Math.sqrt(6), 3 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), -6 / Math.sqrt(6), 3 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), 6 / Math.sqrt(6), -3 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), 6 / Math.sqrt(6), 3 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), -6 / Math.sqrt(6), 3 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), -6 / Math.sqrt(6), -3 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), 6 / Math.sqrt(6), -3 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), 6 / Math.sqrt(6), -3 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), -6 / Math.sqrt(6), 3 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), 6 / Math.sqrt(6), 3 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), -6 / Math.sqrt(6), -3 / Math.sqrt(3), 1],
+    [10 / Math.sqrt(10), -6 / Math.sqrt(6), -3 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), -6 / Math.sqrt(6), -3 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), 6 / Math.sqrt(6), -3 / Math.sqrt(3), -1],
+    [-10 / Math.sqrt(10), -6 / Math.sqrt(6), 3 / Math.sqrt(3), -1],
+    [5 / Math.sqrt(10), 1 / Math.sqrt(6), -2 / Math.sqrt(3), 4],
+    [5 / Math.sqrt(10), 1 / Math.sqrt(6), -2 / Math.sqrt(3), -4],
+    [-5 / Math.sqrt(10), -1 / Math.sqrt(6), 2 / Math.sqrt(3), 4],
+    [-5 / Math.sqrt(10), -1 / Math.sqrt(6), 2 / Math.sqrt(3), -4],
+    [5 / Math.sqrt(10), 1 / Math.sqrt(6), -5 / Math.sqrt(3), 3],
+    [5 / Math.sqrt(10), 1 / Math.sqrt(6), -5 / Math.sqrt(3), -3],
+    [-5 / Math.sqrt(10), -1 / Math.sqrt(6), 5 / Math.sqrt(3), 3],
+    [-5 / Math.sqrt(10), -1 / Math.sqrt(6), 5 / Math.sqrt(3), -3],
+    [5 / Math.sqrt(10), 1 / Math.sqrt(6), 7 / Math.sqrt(3), 1],
+    [5 / Math.sqrt(10), 1 / Math.sqrt(6), 7 / Math.sqrt(3), -1],
+    [-5 / Math.sqrt(10), -1 / Math.sqrt(6), -7 / Math.sqrt(3), 1],
+    [-5 / Math.sqrt(10), -1 / Math.sqrt(6), -7 / Math.sqrt(3), -1],
+    [5 / Math.sqrt(10), -3 / Math.sqrt(6), 0, 4],
+    [5 / Math.sqrt(10), -3 / Math.sqrt(6), 0, -4],
+    [-5 / Math.sqrt(10), 3 / Math.sqrt(6), 0, 4],
+    [-5 / Math.sqrt(10), 3 / Math.sqrt(6), 0, -4],
+    [5 / Math.sqrt(10), -3 / Math.sqrt(6), 6 / Math.sqrt(3), 2],
+    [5 / Math.sqrt(10), -3 / Math.sqrt(6), -6 / Math.sqrt(3), 2],
+    [5 / Math.sqrt(10), -3 / Math.sqrt(6), 6 / Math.sqrt(3), -2],
+    [5 / Math.sqrt(10), -3 / Math.sqrt(6), -6 / Math.sqrt(3), -2],
+    [-5 / Math.sqrt(10), 3 / Math.sqrt(6), 6 / Math.sqrt(3), 2],
+    [-5 / Math.sqrt(10), 3 / Math.sqrt(6), -6 / Math.sqrt(3), 2],
+    [-5 / Math.sqrt(10), 3 / Math.sqrt(6), 6 / Math.sqrt(3), -2],
+    [-5 / Math.sqrt(10), 3 / Math.sqrt(6), -6 / Math.sqrt(3), -2],
+    [5 / Math.sqrt(10), -7 / Math.sqrt(6), -1 / Math.sqrt(3), 3],
+    [5 / Math.sqrt(10), -7 / Math.sqrt(6), -1 / Math.sqrt(3), -3],
+    [-5 / Math.sqrt(10), 7 / Math.sqrt(6), 1 / Math.sqrt(3), 3],
+    [-5 / Math.sqrt(10), 7 / Math.sqrt(6), 1 / Math.sqrt(3), -3],
+    [5 / Math.sqrt(10), -7 / Math.sqrt(6), -4 / Math.sqrt(3), 2],
+    [5 / Math.sqrt(10), -7 / Math.sqrt(6), -4 / Math.sqrt(3), -2],
+    [-5 / Math.sqrt(10), 7 / Math.sqrt(6), 4 / Math.sqrt(3), 2],
+    [-5 / Math.sqrt(10), 7 / Math.sqrt(6), 4 / Math.sqrt(3), -2],
+    [5 / Math.sqrt(10), -7 / Math.sqrt(6), 5 / Math.sqrt(3), 1],
+    [5 / Math.sqrt(10), -7 / Math.sqrt(6), 5 / Math.sqrt(3), -1],
+    [-5 / Math.sqrt(10), 7 / Math.sqrt(6), -5 / Math.sqrt(3), 1],
+    [-5 / Math.sqrt(10), 7 / Math.sqrt(6), -5 / Math.sqrt(3), -1],
+    [5 / Math.sqrt(10), 9 / Math.sqrt(6), 0, 2],
+    [5 / Math.sqrt(10), 9 / Math.sqrt(6), 0, -2],
+    [-5 / Math.sqrt(10), -9 / Math.sqrt(6), 0, 2],
+    [-5 / Math.sqrt(10), -9 / Math.sqrt(6), 0, -2],
+    [5 / Math.sqrt(10), 9 / Math.sqrt(6), 3 / Math.sqrt(3), 1],
+    [5 / Math.sqrt(10), 9 / Math.sqrt(6), -3 / Math.sqrt(3), 1],
+    [5 / Math.sqrt(10), 9 / Math.sqrt(6), 3 / Math.sqrt(3), -1],
+    [5 / Math.sqrt(10), 9 / Math.sqrt(6), -3 / Math.sqrt(3), -1],
+    [-5 / Math.sqrt(10), -9 / Math.sqrt(6), 3 / Math.sqrt(3), 1],
+    [-5 / Math.sqrt(10), -9 / Math.sqrt(6), -3 / Math.sqrt(3), 1],
+    [-5 / Math.sqrt(10), -9 / Math.sqrt(6), 3 / Math.sqrt(3), -1],
+    [-5 / Math.sqrt(10), -9 / Math.sqrt(6), -3 / Math.sqrt(3), -1],
+  ].map((arr) => arr.map((number) => number * 30));
+
+  let vertices = baseGroup1;
+
+  if (+dimensions > +copyDimensionOfFigure) {
+    vertices = vertices.map((arr) => {
+      for (let i = +copyDimensionOfFigure + 1; i <= +dimensions; i++) {
+        arr.push(0);
+      }
+      return arr;
+    });
+  }
+
+  if (+DimensionOfFigure < 4) {
+    vertices = vertices.map((el) => el.slice(0, 2));
+  }
+  setOriginalVerticesArray(vertices);
+  vertices = vertices.map((arr) => arr.map((item) => item * scale));
+  setVerticesArray(vertices);
+};
+
+export default Omnitruncated5CellVertices;
