@@ -49,6 +49,7 @@ import Truncated5Cell from "./figures/Truncated5Cell";
 import Runcitruncated5Cell from "./figures/Runcitruncated5Cell";
 import Cantitruncated5Cell from "./figures/Cantitruncated5Cell";
 import Omnitruncated5Cell from "./figures/Omnitruncated5Cell";
+import Truncated16Cell from "./figures/Truncated16Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -820,6 +821,21 @@ const Svg = ({
   if (figure === "4D Omnitruncated 5-cell") {
     return (
       <Omnitruncated5Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "Truncated 16-cell") {
+    return (
+      <Truncated16Cell
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

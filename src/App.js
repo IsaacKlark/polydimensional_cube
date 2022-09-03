@@ -68,6 +68,7 @@ const baseFigures = [
   "Torus",
   "Cylinder",
   "Cone",
+  "Truncated 16-cell"
 ];
 
 const segmentedFigures = [
