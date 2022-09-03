@@ -9,11 +9,6 @@ import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
 export let useKeyboard = false;
 
-//The Bitruncated Tesseract
-//cantellated tesseract
-//truncated tesseract
-//Rectified Tesseract
-//Cantitruncated Tesseract
 const specific3D = [
   "3D Icosahedron",
   "3D Truncated Tetrahedron",
@@ -30,6 +25,17 @@ const specific3D = [
   "3D Heptagonal Antiprism",
   "3D Octagonal Antiprism",
   "3D Decagonal Antiprism",
+];
+
+//The Bitruncated Tesseract
+//cantellated tesseract
+//truncated tesseract
+//Rectified Tesseract
+//Cantitruncated Tesseract
+
+const specific4D = [
+  "4D Rectified 5-cell",
+  "4D Bitruncated 5-cell"
 ];
 
 const baseFigures = [
@@ -55,7 +61,7 @@ const baseFigures = [
   "Clifford Torus",
   "Torus",
   "Cylinder",
-  "Cone"
+  "Cone",
 ];
 
 const segmentedFigures = [
@@ -64,8 +70,8 @@ const segmentedFigures = [
   "Torus",
   "Cubinder analog",
   "Cylinder",
-  "Cone"
-]
+  "Cone",
+];
 
 function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
@@ -79,6 +85,7 @@ function App() {
   const [displayVertices, setDisplayVertices] = useState(false);
   const [displayEdges, setDisplayEdges] = useState(true);
   const [displaySpecific3D, setDisplaySpecific3D] = useState(true);
+  const [displaySpecific4D, setDisplaySpecific4D] = useState(true);
   const [perspective3D, setPerspective3D] = useState(350);
   const [perspectiveND, setPerspectiveND] = useState(150);
   const [scale, setScale] = useState(1);
@@ -86,7 +93,10 @@ function App() {
   const [segments, setSegments] = useState(21);
 
   useEffect(() => {
-    if (+dimensionOfFigure === 2 && specific3D.includes(figure)) {
+    if (+dimensionOfFigure < 3 && specific3D.includes(figure)) {
+      setFigure("Cube");
+    }
+    if (+dimensionOfFigure < 4 && specific4D.includes(figure)) {
       setFigure("Cube");
     }
   }, [dimensionOfFigure, figure]);
@@ -188,8 +198,8 @@ function App() {
       );
       setFigure(e.target.value);
     } else {
-      let segments = +prompt('Please, input amount of segments', 14) || 4;
-      if (e.target.value === 'Sphere' && segments % 2 !== 0) segments += 1;
+      let segments = +prompt("Please, input amount of segments", 14) || 4;
+      if (e.target.value === "Sphere" && segments % 2 !== 0) segments += 1;
       vertices(
         numberOfDimensions,
         dimensionOfFigure,
@@ -201,7 +211,6 @@ function App() {
       setSegments(segments);
       setFigure(e.target.value);
     }
-   
   };
 
   return (
@@ -321,6 +330,11 @@ function App() {
                     <option key={figure}>{figure}</option>
                   ))
                 : null}
+              {displaySpecific4D && +numberOfDimensions >= 4
+                ? specific4D.map((figure) => (
+                    <option key={figure}>{figure}</option>
+                  ))
+                : null}
             </select>
           </label>
 
@@ -335,6 +349,20 @@ function App() {
                 checked={displaySpecific3D}
               />
               <p>display specific 3D figures</p>
+            </label>
+          ) : null}
+
+          {numberOfDimensions >= 4 ? (
+            <label className="checkboxWrapper">
+              <input
+                type="checkbox"
+                name="specific 4D"
+                onChange={() => {
+                  setDisplaySpecific3D(!displaySpecific4D);
+                }}
+                checked={displaySpecific4D}
+              />
+              <p>display specific 4D figures</p>
             </label>
           ) : null}
         </div>

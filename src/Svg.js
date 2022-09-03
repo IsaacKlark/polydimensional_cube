@@ -41,6 +41,8 @@ import DecagonalPrism from "./figures/DecagonalPrism";
 import HeptagonalAntiprism from "./figures/HeptagonalAntiprism";
 import OctagonalAntiprism from "./figures/OctagonalAntiprism";
 import DecagonalAntiprism from "./figures/DecagonalAntiprism";
+import Rectified5Cell from "./figures/Rectified5Cell";
+import Bitruncated5Cell from "./figures/Bitruncated5Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -677,6 +679,36 @@ const Svg = ({
   if (figure === "3D Decagonal Antiprism") {
     return (
       <DecagonalAntiprism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Rectified 5-cell") {
+    return (
+      <Rectified5Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Bitruncated 5-cell") {
+    return (
+      <Bitruncated5Cell
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

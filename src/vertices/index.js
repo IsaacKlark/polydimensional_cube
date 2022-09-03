@@ -36,6 +36,8 @@ import DecagonalPrismVertices from "./DecagonalPrismVertices";
 import HeptagonalAntiprismVertices from "./HeptagonalAntiprismVertices";
 import OctagonalAntiprismVertices from "./OctagonalAntiprismVertices";
 import DecagonalAntiprismVertices from "./DecagonalAntiprismVertices";
+import Rectified5CellVertices from "./Rectified5CellVertices";
+import Bitruncated5CellVertices from "./Bitruncated5CellVertices";
 
 export let verticesArray = [];
 
@@ -415,6 +417,28 @@ const vertices = (
 
   if (figure === "3D Decagonal Antiprism") {
     DecagonalAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "4D Rectified 5-cell") {
+    Rectified5CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "4D Bitruncated 5-cell") {
+    Bitruncated5CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
