@@ -26,10 +26,15 @@ const Truncated16Cell = ({
           if (length === edgeLength || length === edgeLength - 1) {
             linesArray.push([i, j]);
           }
-        } 
+        } else {
+          if (length === 80 || length === 113) {
+            linesArray.push([i, j]);
+          }
+        }
       }
     }
   }
+
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
