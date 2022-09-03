@@ -39,7 +39,8 @@ const specific4D = [
   "4D Runcinated 5-cell",
   "4D Cantellated 5-cell",
   "4D Truncated 5-cell",
-  "4D Runcitruncated 5-cell"
+  "4D Runcitruncated 5-cell",
+  "4D Cantitruncated 5-cell"
 ];
 
 const baseFigures = [

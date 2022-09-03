@@ -42,6 +42,7 @@ import Runcinated5CellVertices from "./Runcinated5CellVertices";
 import Cantellated5CellVertices from "./Cantellated5CellVertices";
 import Truncated5CellVertices from "./Truncated5CellVertices";
 import Runcitruncated5CellVertices from "./Runcitruncated5CellVertices";
+import Cantitruncated5CellVertices from "./Cantitruncated5CellVertices";
 
 export let verticesArray = [];
 
@@ -495,7 +496,17 @@ const vertices = (
       segments
     );
   }
-  
+
+  if (figure === "4D Cantitruncated 5-cell") {
+    Cantitruncated5CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 

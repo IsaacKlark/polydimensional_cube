@@ -47,6 +47,7 @@ import Runcinated5Cell from "./figures/Runcinated5Cell";
 import Cantellated5Cell from "./figures/Cantellated5Cell";
 import Truncated5Cell from "./figures/Truncated5Cell";
 import Runcitruncated5Cell from "./figures/Runcitruncated5Cell";
+import Cantitruncated5Cell from "./figures/Cantitruncated5Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -799,7 +800,21 @@ const Svg = ({
       />
     );
   }
-  
+
+  if (figure === "4D Cantitruncated 5-cell") {
+    return (
+      <Cantitruncated5Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
 };
 
 export default Svg;
