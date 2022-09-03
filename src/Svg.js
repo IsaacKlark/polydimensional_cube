@@ -46,6 +46,7 @@ import Bitruncated5Cell from "./figures/Bitruncated5Cell";
 import Runcinated5Cell from "./figures/Runcinated5Cell";
 import Cantellated5Cell from "./figures/Cantellated5Cell";
 import Truncated5Cell from "./figures/Truncated5Cell";
+import Runcitruncated5Cell from "./figures/Runcitruncated5Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -772,6 +773,21 @@ const Svg = ({
   if (figure === "4D Truncated 5-cell") {
     return (
       <Truncated5Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Runcitruncated 5-cell") {
+    return (
+      <Runcitruncated5Cell
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
