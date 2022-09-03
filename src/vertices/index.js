@@ -39,6 +39,8 @@ import DecagonalAntiprismVertices from "./DecagonalAntiprismVertices";
 import Rectified5CellVertices from "./Rectified5CellVertices";
 import Bitruncated5CellVertices from "./Bitruncated5CellVertices";
 import Runcinated5CellVertices from "./Runcinated5CellVertices";
+import Cantellated5CellVertices from "./Cantellated5CellVertices";
+import Truncated5CellVertices from "./Truncated5CellVertices";
 
 export let verticesArray = [];
 
@@ -459,7 +461,28 @@ const vertices = (
       segments
     );
   }
-  
+
+  if (figure === "4D Cantellated 5-cell") {
+    Cantellated5CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "4D Truncated 5-cell") {
+    Truncated5CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 

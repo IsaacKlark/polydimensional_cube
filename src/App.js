@@ -36,7 +36,9 @@ const specific3D = [
 const specific4D = [
   "4D Rectified 5-cell",
   "4D Bitruncated 5-cell",
-  "4D Runcinated 5-cell"
+  "4D Runcinated 5-cell",
+  "4D Cantellated 5-cell",
+  "4D Truncated 5-cell"
 ];
 
 const baseFigures = [
