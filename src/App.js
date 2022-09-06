@@ -41,7 +41,7 @@ const specific4D = [
   "4D Truncated 5-cell",
   "4D Runcitruncated 5-cell",
   "4D Cantitruncated 5-cell",
-  "4D Omnitruncated 5-cell"
+  "4D Omnitruncated 5-cell",
 ];
 
 const baseFigures = [
@@ -68,7 +68,8 @@ const baseFigures = [
   "Torus",
   "Cylinder",
   "Cone",
-  "Truncated 16-cell"
+  "Truncated 16-cell",
+  "Runcinated Tesseract"
 ];
 
 const segmentedFigures = [
