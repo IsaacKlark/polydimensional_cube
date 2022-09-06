@@ -69,7 +69,8 @@ const baseFigures = [
   "Cylinder",
   "Cone",
   "Truncated 16-cell",
-  "Runcinated Tesseract"
+  "Runcinated Tesseract",
+  "Runcitruncated 16-cell"
 ];
 
 const segmentedFigures = [
