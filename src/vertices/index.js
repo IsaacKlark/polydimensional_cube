@@ -53,6 +53,7 @@ import Rectified24CellVertices from "./Rectified24CellVertices";
 import Bitruncated24CellVertices from "./Bitruncated24CellVertices";
 import Runcinated24CellVertices from "./Runcinated24CellVertices";
 import Cantellated24CellVertices from "./Cantellated24CellVertices";
+import Truncated24CellVertices from "./Truncated24CellVertices";
 
 export let verticesArray = [];
 
@@ -628,6 +629,16 @@ const vertices = (
     );
   }
   
+  if (figure === "Truncated 24-cell") {
+    Truncated24CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 

@@ -76,7 +76,8 @@ const baseFigures = [
   "Rectified 24-cell",
   "Bitruncated 24-cell",
   "Runcinated 24-cell",
-  "Cantellated 24-cell"
+  "Cantellated 24-cell",
+  "Truncated 24-cell"
 ];
 
 const segmentedFigures = [

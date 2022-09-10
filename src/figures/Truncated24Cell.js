@@ -1,6 +1,6 @@
 import React from "react";
 
-const Cantellated24Cell = ({
+const Truncated24Cell = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -20,15 +20,9 @@ const Cantellated24Cell = ({
           length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
         }
         length = Math.round(length ** (1 / 2));
-        test.add(length)
-        if (+dimensionOfFigure > 2) {
-          if (length === 60 || length === 52 || length === 67) {
-            linesArray.push([i, j]);
-          }
-        }  else {
-          if (length === 60 || length === 120) {
-            linesArray.push([i, j]);
-          }
+        test.add(length);
+        if (length === 40) {
+          linesArray.push([i, j]);
         }
       }
     }
@@ -98,4 +92,4 @@ const Cantellated24Cell = ({
   );
 };
 
-export default Cantellated24Cell;
+export default Truncated24Cell;
