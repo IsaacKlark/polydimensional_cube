@@ -55,6 +55,7 @@ import Runcitruncated16Cell from "./figures/Runcitruncated16Cell";
 import RuncitruncatedTesseract from "./figures/RuncitruncatedTesseract";
 import OmnitruncatedTesseract from "./figures/OmnitruncatedTesseract";
 import Rectified24Сell from "./figures/Rectified24Сell";
+import Bitruncated24Cell from "./figures/Bitruncated24Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -928,6 +929,20 @@ const Svg = ({
     );
   }
   
+  if (figure === "Bitruncated 24-cell") {
+    return (
+      <Bitruncated24Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
 };
 
 export default Svg;
