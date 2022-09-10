@@ -48,9 +48,9 @@ const baseFigures = [
   "Symplex",
   "Octahedron",
   "Cube",
-  "24-cell-analog",
-  "120-cell-analog",
-  "600-cell-analog",
+  "24-Сell",
+  "120-Сell",
+  "600-Сell",
   "Truncated Cube",
   "Rhombicuboctahedron",
   "Truncated Octahedron",
@@ -72,7 +72,8 @@ const baseFigures = [
   "Runcinated Tesseract",
   "Runcitruncated 16-cell",
   "Runcitruncated Tesseract",
-  "Omnitruncated Tesseract"
+  "Omnitruncated Tesseract",
+  "Rectified 24-cell"
 ];
 
 const segmentedFigures = [

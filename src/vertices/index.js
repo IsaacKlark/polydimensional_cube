@@ -49,6 +49,7 @@ import RuncinatedTesseractVertices from "./RuncinatedTesseractVertices";
 import Runcitruncated16CellVertices from "./Runcitruncated16CellVertices";
 import RuncitruncatedTesseractVertices from "./RuncitruncatedTesseractVertices";
 import OmnitruncatedTesseractVertices from "./OmnitruncatedTesseractVertices";
+import Rectified24CellVertices from "./Rectified24CellVertices";
 
 export let verticesArray = [];
 
@@ -76,7 +77,7 @@ const vertices = (
     octahedronVertices(dimensions, DimensionOfFigure, setVerticesArray, scale);
   }
 
-  if (figure === "24-cell-analog") {
+  if (figure === "24-Сell") {
     Cell24AnaologVertices(
       dimensions,
       DimensionOfFigure,
@@ -86,7 +87,7 @@ const vertices = (
     );
   }
 
-  if (figure === "120-cell-analog") {
+  if (figure === "120-Сell") {
     Cell120AnalogVertices(
       dimensions,
       DimensionOfFigure,
@@ -96,7 +97,7 @@ const vertices = (
     );
   }
 
-  if (figure === "600-cell-analog") {
+  if (figure === "600-Сell") {
     Cell600AnalogVertices(
       dimensions,
       DimensionOfFigure,
@@ -571,6 +572,17 @@ const vertices = (
 
   if (figure === "Omnitruncated Tesseract") {
     OmnitruncatedTesseractVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "Rectified 24-cell") {
+    Rectified24CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

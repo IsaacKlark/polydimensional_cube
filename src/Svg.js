@@ -54,6 +54,7 @@ import RuncinatedTesseract from "./figures/RuncinatedTesseract";
 import Runcitruncated16Cell from "./figures/Runcitruncated16Cell";
 import RuncitruncatedTesseract from "./figures/RuncitruncatedTesseract";
 import OmnitruncatedTesseract from "./figures/OmnitruncatedTesseract";
+import Rectified24Сell from "./figures/Rectified24Сell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -180,7 +181,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "24-cell-analog") {
+  if (figure === "24-Сell") {
     return (
       <Cell24Analog
         verticesArray={originalVerticesArray}
@@ -194,7 +195,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "120-cell-analog") {
+  if (figure === "120-Сell") {
     return (
       <Cell120Analog
         verticesArray={originalVerticesArray}
@@ -208,7 +209,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "600-cell-analog") {
+  if (figure === "600-Сell") {
     return (
       <Cell600Analog
         verticesArray={originalVerticesArray}
@@ -900,6 +901,21 @@ const Svg = ({
   if (figure === "Omnitruncated Tesseract") {
     return (
       <OmnitruncatedTesseract
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+  
+  if (figure === "Rectified 24-cell") {
+    return (
+      <Rectified24Сell
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
