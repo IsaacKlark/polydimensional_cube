@@ -1,6 +1,6 @@
 import React from "react";
 
-const RuncitruncatedTesseract = ({
+const OmnitruncatedTesseract = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -22,11 +22,11 @@ const RuncitruncatedTesseract = ({
         length = Math.round(length ** (1 / 2));
         test.add(length)
         if (+dimensionOfFigure > 2) {
-          if (length === 60) {
+          if (length === 40) {
             linesArray.push([i, j]);
           }
         } else {
-          if (length === 60 || length === 120) {
+          if (length === 40 || length === 80) {
             linesArray.push([i, j]);
           }
         }
@@ -99,4 +99,4 @@ const RuncitruncatedTesseract = ({
   );
 };
 
-export default RuncitruncatedTesseract;
+export default OmnitruncatedTesseract;

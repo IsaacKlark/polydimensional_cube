@@ -71,7 +71,8 @@ const baseFigures = [
   "Truncated 16-cell",
   "Runcinated Tesseract",
   "Runcitruncated 16-cell",
-  "Runcitruncated Tesseract"
+  "Runcitruncated Tesseract",
+  "Omnitruncated Tesseract"
 ];
 
 const segmentedFigures = [
