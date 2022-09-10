@@ -1,6 +1,6 @@
 import React from "react";
 
-const Runcitruncated16Cell = ({
+const RuncitruncatedTesseract = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -22,17 +22,19 @@ const Runcitruncated16Cell = ({
         length = Math.round(length ** (1 / 2));
         test.add(length)
         if (+dimensionOfFigure > 2) {
-          if (length === 70) {
+          if (length === 60) {
             linesArray.push([i, j]);
           }
         } else {
-          if (length === 70 || length === 169) {
+          if (length === 60 || length === 120) {
             linesArray.push([i, j]);
           }
         }
       }
     }
   }
+
+  console.log(test);
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
@@ -98,4 +100,4 @@ const Runcitruncated16Cell = ({
   );
 };
 
-export default Runcitruncated16Cell;
+export default RuncitruncatedTesseract;

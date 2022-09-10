@@ -52,6 +52,7 @@ import Omnitruncated5Cell from "./figures/Omnitruncated5Cell";
 import Truncated16Cell from "./figures/Truncated16Cell";
 import RuncinatedTesseract from "./figures/RuncinatedTesseract";
 import Runcitruncated16Cell from "./figures/Runcitruncated16Cell";
+import RuncitruncatedTesseract from "./figures/RuncitruncatedTesseract";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -879,6 +880,23 @@ const Svg = ({
       />
     );
   }
+
+  if (figure === "Runcitruncated Tesseract") {
+    return (
+      <RuncitruncatedTesseract
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  
 };
 
 export default Svg;

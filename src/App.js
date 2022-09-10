@@ -31,7 +31,7 @@ const specific3D = [
 //cantellated tesseract
 //truncated tesseract
 //Rectified Tesseract
-//Cantitruncated Tesseract
+//Cantitruncated Tesseract 
 
 const specific4D = [
   "4D Rectified 5-cell",
@@ -70,7 +70,8 @@ const baseFigures = [
   "Cone",
   "Truncated 16-cell",
   "Runcinated Tesseract",
-  "Runcitruncated 16-cell"
+  "Runcitruncated 16-cell",
+  "Runcitruncated Tesseract"
 ];
 
 const segmentedFigures = [

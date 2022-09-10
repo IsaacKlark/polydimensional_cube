@@ -47,6 +47,7 @@ import Omnitruncated5CellVertices from "./Omnitruncated5CellVertices";
 import Truncated16CellVertices from "./Truncated16CellVertices";
 import RuncinatedTesseractVertices from "./RuncinatedTesseractVertices";
 import Runcitruncated16CellVertices from "./Runcitruncated16CellVertices";
+import RuncitruncatedTesseractVertices from "./RuncitruncatedTesseractVertices";
 
 export let verticesArray = [];
 
@@ -555,7 +556,17 @@ const vertices = (
       segments
     );
   }
-  
+
+  if (figure === "Runcitruncated Tesseract") {
+    RuncitruncatedTesseractVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 
