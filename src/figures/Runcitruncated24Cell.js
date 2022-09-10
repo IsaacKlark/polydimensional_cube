@@ -27,7 +27,6 @@ const Runcitruncated24Cell = ({
       }
     }
   }
-  console.log(Array.from(test).sort((a,b) => a-b));
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
