@@ -22,11 +22,11 @@ const Rectified24Сell = ({
         length = Math.round(length ** (1 / 2));
         test.add(length)
         if (+dimensionOfFigure > 2) {
-          if (length === 60) {
+          if (length === 80) {
             linesArray.push([i, j]);
           }
         } else {
-          if (length === 60 || length === 120) {
+          if (length === 80 || length === 160) {
             linesArray.push([i, j]);
           }
         }

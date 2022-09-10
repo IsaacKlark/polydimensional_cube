@@ -5,10 +5,10 @@ const Rectified24CellVertices = (
   scale,
   setOriginalVerticesArray
 ) => {
-  const baseGroup1 = [0, 60*Math.sqrt(2)];
+  const baseGroup1 = [0, 80*Math.sqrt(2)];
 
   for (let i = 2; i < +DimensionOfFigure; i++) {
-    baseGroup1.splice(1, 0, Math.sqrt(2) * 30);
+    baseGroup1.splice(1, 0, Math.sqrt(2) * 40);
   }
 
   const combinations = (arr, couple) => {
