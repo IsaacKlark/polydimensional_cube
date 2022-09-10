@@ -1,6 +1,6 @@
 import React from "react";
 
-const Bitruncated24Cell = ({
+const Cantellated24Cell = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -21,23 +21,19 @@ const Bitruncated24Cell = ({
         }
         length = Math.round(length ** (1 / 2));
         test.add(length)
-        if (+dimensionOfFigure > 3) {
-          if (length === 40 || length === 45) {
+        if (+dimensionOfFigure > 2) {
+          if (length === 60 || length === 52 || length === 67) {
             linesArray.push([i, j]);
           }
-        } else if (+dimensionOfFigure === 3) {
-          if (length === 35 ||length === 40) {
-            linesArray.push([i, j]);
-          }
-        } else {
-          if (length === 40 || length === 137) {
+        }  else {
+          if (length === 60 || length === 120) {
             linesArray.push([i, j]);
           }
         }
       }
     }
   }
-
+  console.log(Array.from(test).sort((a, b) => a -b))
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
@@ -103,4 +99,4 @@ const Bitruncated24Cell = ({
   );
 };
 
-export default Bitruncated24Cell;
+export default Cantellated24Cell;

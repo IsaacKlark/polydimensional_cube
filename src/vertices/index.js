@@ -51,6 +51,8 @@ import RuncitruncatedTesseractVertices from "./RuncitruncatedTesseractVertices";
 import OmnitruncatedTesseractVertices from "./OmnitruncatedTesseractVertices";
 import Rectified24CellVertices from "./Rectified24CellVertices";
 import Bitruncated24CellVertices from "./Bitruncated24CellVertices";
+import Runcinated24CellVertices from "./Runcinated24CellVertices";
+import Cantellated24CellVertices from "./Cantellated24CellVertices";
 
 export let verticesArray = [];
 
@@ -595,6 +597,28 @@ const vertices = (
   
   if (figure === "Bitruncated 24-cell") {
     Bitruncated24CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+  
+  if (figure === "Runcinated 24-cell") {
+    Runcinated24CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "Cantellated 24-cell") {
+    Cantellated24CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

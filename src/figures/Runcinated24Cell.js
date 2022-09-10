@@ -1,6 +1,6 @@
 import React from "react";
 
-const Bitruncated24Cell = ({
+const Runcinated24Cell = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -22,15 +22,11 @@ const Bitruncated24Cell = ({
         length = Math.round(length ** (1 / 2));
         test.add(length)
         if (+dimensionOfFigure > 3) {
-          if (length === 40 || length === 45) {
+          if (length === 80 || length === 89) {
             linesArray.push([i, j]);
           }
-        } else if (+dimensionOfFigure === 3) {
-          if (length === 35 ||length === 40) {
-            linesArray.push([i, j]);
-          }
-        } else {
-          if (length === 40 || length === 137) {
+        }  else {
+          if (length === 80 || length === 160) {
             linesArray.push([i, j]);
           }
         }
@@ -103,4 +99,4 @@ const Bitruncated24Cell = ({
   );
 };
 
-export default Bitruncated24Cell;
+export default Runcinated24Cell;
