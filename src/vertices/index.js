@@ -55,6 +55,7 @@ import Runcinated24CellVertices from "./Runcinated24CellVertices";
 import Cantellated24CellVertices from "./Cantellated24CellVertices";
 import Truncated24CellVertices from "./Truncated24CellVertices";
 import Runcitruncated24CellVertices from "./Runcitruncated24CellVertices";
+import Cantitruncated24CellVertices from "./Cantitruncated24CellVertices";
 
 export let verticesArray = [];
 
@@ -643,6 +644,17 @@ const vertices = (
 
   if (figure === "Runcitruncated 24-cell") {
     Runcitruncated24CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "Cantitruncated 24-cell") {
+    Cantitruncated24CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
