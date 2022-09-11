@@ -61,6 +61,7 @@ import Runcinated24Cell from "./figures/Runcinated24Cell";
 import Truncated24Cell from "./figures/Truncated24Cell";
 import Runcitruncated24Cell from "./figures/Runcitruncated24Cell";
 import Cantitruncated24Cell from "./figures/Cantitruncated24Cell";
+import Omnitruncated24Cell from "./figures/Omnitruncated24Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1012,6 +1013,21 @@ const Svg = ({
   if (figure === "Cantitruncated 24-cell") {
     return (
       <Cantitruncated24Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Omnitruncated 24-cell") {
+    return (
+      <Omnitruncated24Cell
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

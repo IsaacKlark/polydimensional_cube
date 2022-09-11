@@ -42,6 +42,7 @@ const specific4D = [
   "4D Runcitruncated 5-cell",
   "4D Cantitruncated 5-cell",
   "4D Omnitruncated 5-cell",
+  "4D Omnitruncated 24-cell"
 ];
 
 const baseFigures = [
