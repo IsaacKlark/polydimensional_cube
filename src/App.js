@@ -42,7 +42,8 @@ const specific4D = [
   "4D Runcitruncated 5-cell",
   "4D Cantitruncated 5-cell",
   "4D Omnitruncated 5-cell",
-  "4D Omnitruncated 24-cell"
+  "4D Omnitruncated 24-cell",
+  "4D Snub 24-cell"
 ];
 
 const baseFigures = [
@@ -80,7 +81,7 @@ const baseFigures = [
   "Cantellated 24-cell",
   "Truncated 24-cell",
   "Runcitruncated 24-cell",
-  "Cantitruncated 24-cell"
+  "Cantitruncated 24-cell",
 ];
 
 const segmentedFigures = [

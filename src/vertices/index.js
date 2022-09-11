@@ -57,6 +57,7 @@ import Truncated24CellVertices from "./Truncated24CellVertices";
 import Runcitruncated24CellVertices from "./Runcitruncated24CellVertices";
 import Cantitruncated24CellVertices from "./Cantitruncated24CellVertices";
 import Omnitruncated24CellVertices from "./Omnitruncated24CellVertices";
+import Snub24CellVertices from "./Snub24CellVertices";
 
 export let verticesArray = [];
 
@@ -667,6 +668,17 @@ const vertices = (
 
   if (figure === "4D Omnitruncated 24-cell") {
     Omnitruncated24CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "4D Snub 24-cell") {
+    Snub24CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
