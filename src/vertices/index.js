@@ -58,6 +58,7 @@ import Runcitruncated24CellVertices from "./Runcitruncated24CellVertices";
 import Cantitruncated24CellVertices from "./Cantitruncated24CellVertices";
 import Omnitruncated24CellVertices from "./Omnitruncated24CellVertices";
 import Snub24CellVertices from "./Snub24CellVertices";
+import Rectified600CellVertices from "./Rectified600CellVertices";
 
 export let verticesArray = [];
 
@@ -186,7 +187,13 @@ const vertices = (
   }
 
   if (figure === "3D Snub Cube") {
-    SnubCubeVertices(dimensions, DimensionOfFigure, setVerticesArray, scale, setOriginalVerticesArray);
+    SnubCubeVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
   }
 
   if (figure === "3D Icosidodecahedron") {
@@ -599,7 +606,7 @@ const vertices = (
       segments
     );
   }
-  
+
   if (figure === "Bitruncated 24-cell") {
     Bitruncated24CellVertices(
       dimensions,
@@ -610,7 +617,7 @@ const vertices = (
       segments
     );
   }
-  
+
   if (figure === "Runcinated 24-cell") {
     Runcinated24CellVertices(
       dimensions,
@@ -632,7 +639,7 @@ const vertices = (
       segments
     );
   }
-  
+
   if (figure === "Truncated 24-cell") {
     Truncated24CellVertices(
       dimensions,
@@ -687,7 +694,17 @@ const vertices = (
       segments
     );
   }
-};
 
+  if (figure === "4D Rectified 600-cell") {
+    Rectified600CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+};
 
 export default vertices;
