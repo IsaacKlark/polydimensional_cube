@@ -60,6 +60,7 @@ import Omnitruncated24CellVertices from "./Omnitruncated24CellVertices";
 import Snub24CellVertices from "./Snub24CellVertices";
 import Rectified600CellVertices from "./Rectified600CellVertices";
 import Truncated600CellVertices from "./Truncated600CellVertices";
+import Rectified120CellVertices from "./Rectified120CellVertices";
 
 export let verticesArray = [];
 
@@ -717,7 +718,17 @@ const vertices = (
       segments
     );
   }
-  
+
+  if (figure === "4D Rectified 120-cell") {
+    Rectified120CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 export default vertices;
