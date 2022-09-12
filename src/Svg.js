@@ -66,6 +66,7 @@ import Snub24Cell from "./figures/Snub24Cell";
 import Rectified600Cell from "./figures/Rectified600Cell";
 import Truncated600Cell from "./figures/Truncated600Cell";
 import Rectified120Cell from "./figures/Rectified120Cell";
+import Cantellated600Cell from "./figures/Cantellated600Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1092,6 +1093,21 @@ const Svg = ({
   if (figure === "4D Rectified 120-cell") {
     return (
       <Rectified120Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Cantellated 600-cell") {
+    return (
+      <Cantellated600Cell
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
