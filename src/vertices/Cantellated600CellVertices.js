@@ -6,73 +6,29 @@ const Cantellated600CellVertices = (
   setOriginalVerticesArray
 ) => {
   const fi = 1.618;
-  const baseGroup1 = [0, 0, 2 * fi, 2 + 6 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup2 = [0, 2, 2 * fi ** 3, 2 * fi ** 3].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup3 = [1, 1, 1 + 4 * fi, 3 + 4 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup4 = [fi ** 3, fi ** 3, 1 + 4 * fi, 1 + 4 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup5 = [0, 1, 3 * fi, fi ** 5].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup6 = [0, 2 * fi, 4 * fi ** 2, 2 * fi ** 2].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup7 = [0, 3 + 2 * fi, fi ** 4, 3 * fi ** 2].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup8 = [1, fi, 2 + 6 * fi, fi ** 2].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup9 = [1, fi, 4 * fi ** 2, 1 + 3 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup10 = [1, 2 * fi, fi ** 5, 2 + fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup11 = [1, 2 + fi, 2 * fi ** 3, 3 * fi ** 2].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup12 = [1, fi ** 3, 3 + 4 * fi, 3 + 2 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup13 = [fi, 2, fi ** 3, fi ** 5].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup14 = [fi, 2 * fi ** 2, 1 + 4 * fi, 3 * fi ** 2].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup15 = [fi, 1 + 3 * fi, 2 * fi ** 3, 3 + 2 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup16 = [2, fi ** 2, 3 + 4 * fi, fi ** 4].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup17 = [fi ** 2, 2 + fi, fi ** 3, 4 * fi ** 2].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup18 = [fi ** 2, 2 + fi, 1 + 4 * fi, 2 * fi ** 3].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup19 = [fi ** 2, 3 * fi, 3 + 4 * fi, 2 * fi ** 2].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup20 = [2 * fi, 2 + fi, 1 + 3 * fi, 3 + 4 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup21 = [2 * fi, 1 + 3 * fi, 1 + 4 * fi, fi ** 4].map((number) =>
-    Math.round(number * 14)
-  );
-  const baseGroup22 = [fi ** 3, 3 * fi, 2 * fi ** 3, 1 + 3 * fi].map((number) =>
-    Math.round(number * 14)
-  );
-  
+  const baseGroup1 = [0, 0, 2 * fi, 2 + 6 * fi].map((number) => Math.trunc(number * 14));
+  const baseGroup2 = [0, 2, 2 * fi ** 3, 2 * fi ** 3].map((number) => Math.trunc(number * 14));
+  const baseGroup3 = [1, 1, 1 + 4 * fi, 3 + 4 * fi].map((number) => Math.trunc(number * 14));
+  const baseGroup4 = [fi ** 3, fi ** 3, 1 + 4 * fi, 1 + 4 * fi].map((number) => Math.trunc(number * 14));
+  const baseGroup5 = [0, 1, 3 * fi, fi ** 5].map((number) => Math.trunc(number * 14));
+  const baseGroup6 = [0, 2 * fi, 4 * fi ** 2, 2 * fi ** 2].map((number) => Math.trunc(number * 14));
+  const baseGroup7 = [0, 3 + 2 * fi, fi ** 4, 3 * fi ** 2].map((number) => Math.trunc(number * 14));
+  const baseGroup8 = [1, fi, 2 + 6 * fi, fi ** 2].map((number) => number * 14);
+  const baseGroup9 = [1, fi, 4 * fi ** 2, 1 + 3 * fi].map((number) => Math.trunc(number * 14));
+  const baseGroup10 = [1, 2 * fi, fi ** 5, 2 + fi].map((number) => Math.trunc(number * 14));
+  const baseGroup11 = [1, 2 + fi, 2 * fi ** 3, 3 * fi ** 2].map((number) => Math.trunc(number * 14));
+  const baseGroup12 = [1, fi ** 3, 3 + 4 * fi, 3 + 2 * fi].map((number) => Math.trunc(number * 14));
+  const baseGroup13 = [fi, 2, fi ** 3, fi ** 5].map((number) => Math.trunc(number * 14));
+  const baseGroup14 = [fi, 2 * fi ** 2, 1 + 4 * fi, 3 * fi ** 2].map((number) => Math.trunc(number * 14));
+  const baseGroup15 = [fi, 1 + 3 * fi, 2 * fi ** 3, 3 + 2 * fi].map((number) => Math.trunc(number * 14));
+  const baseGroup16 = [2, fi ** 2, 3 + 4 * fi, fi ** 4].map((number) => Math.trunc(number * 14));
+  const baseGroup17 = [fi ** 2, 2 + fi, fi ** 3, 4 * fi ** 2].map((number) => Math.trunc(number * 14));
+  const baseGroup18 = [fi ** 2, 2 + fi, 1 + 4 * fi, 2 * fi ** 3].map((number) => Math.trunc(number * 14));
+  const baseGroup19 = [fi ** 2, 3 * fi, 3 + 4 * fi, 2 * fi ** 2].map((number) => Math.trunc(number * 14));
+  const baseGroup20 = [2 * fi, 2 + fi, 1 + 3 * fi, 3 + 4 * fi].map((number) => Math.trunc(number * 14));
+  const baseGroup21 = [2 * fi, 1 + 3 * fi, 1 + 4 * fi, fi ** 4].map((number) => Math.trunc(number * 14));
+  const baseGroup22 = [fi ** 3, 3 * fi, 2 * fi ** 3, 1 + 3 * fi].map((number) => Math.trunc(number * 14));
+
   const signPermutations = (a) => {
     let result = [];
     let fourResults = [];
@@ -237,7 +193,6 @@ const Cantellated600CellVertices = (
   const group20 = arrayToSetAndToArray(especialCombinations(baseGroup20));
   const group21 = arrayToSetAndToArray(especialCombinations(baseGroup21));
   const group22 = arrayToSetAndToArray(especialCombinations(baseGroup22));
-
 
   let vertices = [
     ...group1,

@@ -21,14 +21,12 @@ const Cantellated600Cell = ({
         length = Math.round(length ** (1 / 2));
         test.add(length);
         if (
-          length === 22 ||
           length === 23 ||
-          length === 24 ||
           length === 26 ||
           length === 27 ||
           length === 28 ||
-          length === 36 ||
-          length === 38
+          length === 32 ||
+          length === 38   
         ) {
           linesArray.push([i, j]);
         }
