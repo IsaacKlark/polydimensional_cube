@@ -66,6 +66,7 @@ import Bitruncated120CellVertices from "./Bitruncated120CellVertices";
 import Cantitruncated600CellVertices from "./Cantitruncated600CellVertices";
 import Runcinated120CellVertices from "./Runcinated120CellVertices";
 import Cantellated120CellVertices from "./Cantellated120CellVertices";
+import Runcitruncated600CellVertices from "./Runcitruncated600CellVertices";
 
 export let verticesArray = [];
 
@@ -781,6 +782,17 @@ const vertices = (
   
   if (figure === "4D Cantellated 120-cell") {
     Cantellated120CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "4D Runcitruncated 600-cell") {
+    Runcitruncated600CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
