@@ -1,6 +1,6 @@
 import React from "react";
 
-const Cantitruncated600Cell = ({
+const Runcinated120Cell = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -19,18 +19,16 @@ const Cantitruncated600Cell = ({
         for (let k = 0; k < dimensionOfFigure; k++) {
           length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
         }
-        length = length ** (1 / 2);
-        if (length > 17 && length < 25) {
-          test.add(length);
+        length = Math.round(length ** (1 / 2));
+        test.add(length);
+
+        if (length === 26 || length === 27 || length === 31 || length === 32) {
 
           linesArray.push([i, j]);
         }
       }
     }
   }
-
-  console.log(linesArray.length);
-  console.log(Array.from(test).sort((a, b) => a - b));
 
   const amountOfLines = linesArray.length;
   let ids = 0;
@@ -97,4 +95,4 @@ const Cantitruncated600Cell = ({
   );
 };
 
-export default Cantitruncated600Cell;
+export default Runcinated120Cell;
