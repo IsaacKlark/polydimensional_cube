@@ -70,6 +70,7 @@ import Cantellated600Cell from "./figures/Cantellated600Cell";
 import Bitruncated120Cell from "./figures/Bitruncated120Cell";
 import Cantitruncated600Cell from "./figures/Cantitruncated600Cell";
 import Runcinated120Cell from "./figures/Runcinated120Cell";
+import Cantellated120Cell from "./figures/Cantellated120Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1167,7 +1168,21 @@ const Svg = ({
       />
     );
   }
-  
+
+  if (figure === "4D Cantellated 120-cell") {
+    return (
+      <Cantellated120Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
 };
 
 export default Svg;

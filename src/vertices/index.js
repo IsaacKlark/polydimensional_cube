@@ -64,7 +64,8 @@ import Rectified120CellVertices from "./Rectified120CellVertices";
 import Cantellated600CellVertices from "./Cantellated600CellVertices";
 import Bitruncated120CellVertices from "./Bitruncated120CellVertices";
 import Cantitruncated600CellVertices from "./Cantitruncated600CellVertices";
-import CaRuncinated120CellVertices from "./CaRuncinated120CellVertices";
+import Runcinated120CellVertices from "./Runcinated120CellVertices";
+import Cantellated120CellVertices from "./Cantellated120CellVertices";
 
 export let verticesArray = [];
 
@@ -768,7 +769,7 @@ const vertices = (
   }
 
   if (figure === "4D Runcinated 120-cell") {
-    CaRuncinated120CellVertices(
+    Runcinated120CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
@@ -778,6 +779,16 @@ const vertices = (
     );
   }
   
+  if (figure === "4D Cantellated 120-cell") {
+    Cantellated120CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
 };
 
 export default vertices;

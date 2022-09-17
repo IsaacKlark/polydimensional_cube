@@ -1,4 +1,4 @@
-const CaRuncinated120CellVertices = (
+const Runcinated120CellVertices = (
   dimensions,
   DimensionOfFigure,
   setVerticesArray,
@@ -218,4 +218,4 @@ const CaRuncinated120CellVertices = (
   setVerticesArray(vertices);
 };
 
-export default CaRuncinated120CellVertices;
+export default Runcinated120CellVertices;
