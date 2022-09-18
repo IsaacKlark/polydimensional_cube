@@ -70,6 +70,7 @@ import Runcitruncated600CellVertices from "./Runcitruncated600CellVertices";
 import Truncated120CellVertices from "./Truncated120CellVertices";
 import Runcitruncated120CellVertices from "./Runcitruncated120CellVertices";
 import Cantitruncated120CellVertices from "./Cantitruncated120CellVertices";
+import Omnitruncated120CellVertices from "./Omnitruncated120CellVertices";
 
 export let verticesArray = [];
 
@@ -826,10 +827,20 @@ const vertices = (
       segments
     );
   }
-
   
   if (figure === "4D Cantitruncated 120-cell") {
     Cantitruncated120CellVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "4D Omnitruncated 120-cell") {
+    Omnitruncated120CellVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
