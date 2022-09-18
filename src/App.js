@@ -52,7 +52,8 @@ const specific4D = [
   // "4D Cantitruncated 600-cell",
   "4D Runcinated 120-cell",
   "4D Cantellated 120-cell",
-  // "4D Runcitruncated 600-cell"
+  // "4D Runcitruncated 600-cell",
+  "4D Truncated 120-cell"
 ];
 
 const baseFigures = [
