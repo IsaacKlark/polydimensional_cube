@@ -73,6 +73,7 @@ import Runcinated120Cell from "./figures/Runcinated120Cell";
 import Cantellated120Cell from "./figures/Cantellated120Cell";
 import Runcitruncated600Cell from "./figures/Runcitruncated600Cell";
 import Truncated120Cell from "./figures/Truncated120Cell";
+import Runcitruncated120Cell from "./figures/Runcitruncated120Cell";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1215,6 +1216,23 @@ const Svg = ({
       />
     );
   }
+
+  if (figure === "4D Runcitruncated 120-cell") {
+    return (
+      <Runcitruncated120Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  
 };
 
 export default Svg;
