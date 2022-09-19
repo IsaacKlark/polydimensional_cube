@@ -95,6 +95,7 @@ const baseFigures = [
   "Truncated 24-cell",
   "Runcitruncated 24-cell",
   "Cantitruncated 24-cell",
+  "Square pyramid"
 ];
 
 const segmentedFigures = [

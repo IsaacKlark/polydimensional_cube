@@ -76,6 +76,7 @@ import Truncated120Cell from "./figures/Truncated120Cell";
 import Runcitruncated120Cell from "./figures/Runcitruncated120Cell";
 import Cantitruncated120Cell from "./figures/Cantitruncated120Cell";
 import Omnitruncated120Cell from "./figures/Omnitruncated120Cell";
+import SquarePyramid from "./figures/SquarePyramid";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1252,6 +1253,21 @@ const Svg = ({
   if (figure === "4D Omnitruncated 120-cell") {
     return (
       <Omnitruncated120Cell
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "Square pyramid") {
+    return (
+      <SquarePyramid
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

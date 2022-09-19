@@ -71,6 +71,7 @@ import Truncated120CellVertices from "./Truncated120CellVertices";
 import Runcitruncated120CellVertices from "./Runcitruncated120CellVertices";
 import Cantitruncated120CellVertices from "./Cantitruncated120CellVertices";
 import Omnitruncated120CellVertices from "./Omnitruncated120CellVertices";
+import SquarePyramidVertices from "./SquarePyramidVertices";
 
 export let verticesArray = [];
 
@@ -847,6 +848,16 @@ const vertices = (
       scale,
       setOriginalVerticesArray,
       segments
+    );
+  }
+
+  if (figure === "Square pyramid") {
+    SquarePyramidVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
     );
   }
 };
