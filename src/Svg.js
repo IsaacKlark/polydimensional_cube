@@ -77,6 +77,7 @@ import Runcitruncated120Cell from "./figures/Runcitruncated120Cell";
 import Cantitruncated120Cell from "./figures/Cantitruncated120Cell";
 import Omnitruncated120Cell from "./figures/Omnitruncated120Cell";
 import SquarePyramid from "./figures/SquarePyramid";
+import PentagonalPyramid from "./figures/PentagonalPyramid";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1268,6 +1269,21 @@ const Svg = ({
   if (figure === "Square pyramid") {
     return (
       <SquarePyramid
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "Pentagonal pyramid") {
+    return (
+      <PentagonalPyramid
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

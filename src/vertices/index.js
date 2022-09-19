@@ -72,6 +72,7 @@ import Runcitruncated120CellVertices from "./Runcitruncated120CellVertices";
 import Cantitruncated120CellVertices from "./Cantitruncated120CellVertices";
 import Omnitruncated120CellVertices from "./Omnitruncated120CellVertices";
 import SquarePyramidVertices from "./SquarePyramidVertices";
+import PentagonalPyramidVertices from "./PentagonalPyramidVertices";
 
 export let verticesArray = [];
 
@@ -853,6 +854,16 @@ const vertices = (
 
   if (figure === "Square pyramid") {
     SquarePyramidVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+    );
+  }
+
+  if (figure === "Pentagonal pyramid") {
+    PentagonalPyramidVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
