@@ -16,6 +16,10 @@ export const CustomAutoComplete = styled(Autocomplete)`
     border: 1px solid #fff616;
   }
 
+  .notchedOutline {
+    
+  }
+
   height: max-content;
 
   &:hover,

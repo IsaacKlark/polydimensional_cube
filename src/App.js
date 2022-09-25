@@ -10,7 +10,7 @@ import vertices from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
 import Button from "@mui/material/Button";
-import Checkbox from '@mui/material/Checkbox';
+import Checkbox from "@mui/material/Checkbox";
 
 export let useKeyboard = false;
 
@@ -379,13 +379,21 @@ function App() {
               onChange={(e, value) => {
                 if (value) changeFigure(value);
               }}
-              sx={{ width: 300 }}
+              sx={{
+                width: 300 ,
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": {
+                    borderColor: "#00ffaf"
+                  }
+                }
+              }}
               renderInput={(params) => {
                 return (
                   <TextField
                     id={params.id}
                     InputLabelProps={params.InputLabelProps}
                     inputProps={params.inputProps}
+                    
                     InputProps={{
                       id: params.InputProps.id,
                       className: params.InputProps.className,
@@ -433,27 +441,28 @@ function App() {
       </div>
       <div className="App">
         <div className="flexWrapper">
-          <Button
-            variant="contained"
-            onClick={resetAngles}
-          >
+          <Button variant="contained" onClick={resetAngles}>
             Reset angles
           </Button>
           <CustomInput
             id="outlined-name"
+            sx={{
+              "& .MuiOutlinedInput-root:hover": {
+                "& > fieldset": {
+                  borderColor: "#00ffaf"
+                }
+              }
+            }}
             label="Input number of dimensions"
             value={numberValue}
             onChange={(e) => {
               if (!/\D/g.test(e.target.value)) {
                 setNumberValue(e.target.value);
                 setFigureDimension(e.target.value);
-              };
+              }
             }}
           />
-          <Button
-            variant="contained"
-            onClick={generateDimensions}
-          >
+          <Button variant="contained" onClick={generateDimensions}>
             Generate dimensions
           </Button>
 
@@ -468,7 +477,14 @@ function App() {
                 dimension(value);
                 setFigureDimension(value);
               }}
-              sx={{ width: 300 }}
+              sx={{
+                width: 300 ,
+                "& .MuiOutlinedInput-root:hover": {
+                  "& > fieldset": {
+                    borderColor: "#00ffaf"
+                  }
+                }
+              }}
               renderInput={(params) => {
                 return (
                   <TextField

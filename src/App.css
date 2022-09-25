@@ -173,6 +173,8 @@ button:hover {
 .rangesWrapper {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+
 }
 
 .rangesWrapper p {
@@ -195,6 +197,8 @@ button:hover {
 
 .flexWrapper {
   display: flex;
-  column-gap: 12px;
+  gap: 12px;
   justify-content: center;
+  flex-wrap: wrap;
+
 }
