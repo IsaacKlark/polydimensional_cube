@@ -251,14 +251,14 @@ function App() {
   };
 
   useEffect(() => {
-    let copyOptions = [...optionsFigures];
-
+    let copyOptions = [...baseFigures];
     if (displaySpecific3D && +numberOfDimensions >= 3) {
       copyOptions = [...copyOptions, ...specific3D];
     }
     if (displaySpecific4D && +numberOfDimensions >= 4) {
       copyOptions = [...copyOptions, ...specific4D];
     }
+    console.log(copyOptions)
 
     setOptionsFigures(copyOptions);
   }, [displaySpecific3D, numberOfDimensions, displaySpecific4D]);
