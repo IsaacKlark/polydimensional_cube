@@ -377,7 +377,7 @@ function App() {
               options={optionsFigures}
               value={figure}
               onChange={(e, value) => {
-                changeFigure(value);
+                if (value) changeFigure(value);
               }}
               sx={{ width: 300 }}
               renderInput={(params) => {
