@@ -7,6 +7,11 @@ import generateFigureOrthography from "./generateFigureOrthography";
 import { verticesArray } from "./vertices";
 import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
+import TextField from "@mui/material/TextField";
+import { CustomAutoComplete, CustomInput } from "./styles";
+import Button from "@mui/material/Button";
+import Checkbox from '@mui/material/Checkbox';
+
 export let useKeyboard = false;
 
 const specific3D = [
@@ -26,12 +31,6 @@ const specific3D = [
   "3D Octagonal Antiprism",
   "3D Decagonal Antiprism",
 ];
-
-//The Bitruncated Tesseract
-//cantellated tesseract
-//truncated tesseract
-//Rectified Tesseract
-//Cantitruncated Tesseract 
 
 const specific4D = [
   "4D Rectified 5-cell",
@@ -96,7 +95,7 @@ const baseFigures = [
   "Runcitruncated 24-cell",
   "Cantitruncated 24-cell",
   "Square pyramid",
-  "Pentagonal pyramid"
+  "Pentagonal pyramid",
 ];
 
 const segmentedFigures = [
@@ -126,6 +125,9 @@ function App() {
   const [scale, setScale] = useState(1);
   const [originalVerticesArray, setOriginalVerticesArray] = useState([]);
   const [segments, setSegments] = useState(21);
+  const [optionsFigures, setOptionsFigures] = useState([...baseFigures]);
+  const [numberValue, setNumberValue] = useState(numberOfDimensions);
+  const [figureDimension, setFigureDimension] = useState(2);
 
   useEffect(() => {
     if (+dimensionOfFigure < 3 && specific3D.includes(figure)) {
@@ -136,10 +138,6 @@ function App() {
     }
   }, [dimensionOfFigure, figure]);
 
-  let number = numberOfDimensions;
-  const changeNumber = (e) => {
-    number = e.target.value;
-  };
   const optionList = [];
 
   for (let i = 0; i < numberOfDimensions; i++) {
@@ -147,7 +145,11 @@ function App() {
   }
 
   const generateDimensions = () => {
-    if (isNaN(number) || +number < 0 || Math.trunc(+number) - +number !== 0) {
+    if (
+      isNaN(numberValue) ||
+      +numberValue < 0 ||
+      Math.trunc(+numberValue) - +numberValue !== 0
+    ) {
       alert("input positive integer number");
     } else {
       const checkboxes = Array.from(document.querySelectorAll(".checkbox"));
@@ -157,9 +159,9 @@ function App() {
       }
 
       setActiveRotations([]);
-      setNumberOfDimensions(number);
-      setAmount((number * (number - 1)) / 2);
-      setDimensionOfFigure(number);
+      setNumberOfDimensions(numberValue);
+      setAmount((numberValue * (numberValue - 1)) / 2);
+      setDimensionOfFigure(numberValue);
       document.querySelector(".select").value = `select dimension of ${figure}`;
     }
   };
@@ -199,17 +201,17 @@ function App() {
     );
   }, [scale]);
 
-  const dimensionOfCube = (e) => {
-    if (!isNaN(e.target.value)) {
+  const dimension = (value) => {
+    if (!isNaN(value)) {
       vertices(
         numberOfDimensions,
-        +e.target.value,
+        +value,
         figure,
         scale,
         setOriginalVerticesArray,
         segments
       );
-      setDimensionOfFigure(+e.target.value);
+      setDimensionOfFigure(+value);
     }
   };
 
@@ -221,32 +223,45 @@ function App() {
     }
   };
 
-  const changeFigure = (e) => {
-    if (!segmentedFigures.includes(e.target.value)) {
+  const changeFigure = (value) => {
+    if (!segmentedFigures.includes(value)) {
       vertices(
         numberOfDimensions,
         dimensionOfFigure,
-        e.target.value,
+        value,
         scale,
         setOriginalVerticesArray,
         segments
       );
-      setFigure(e.target.value);
+      setFigure(value);
     } else {
       let segments = +prompt("Please, input amount of segments", 14) || 4;
-      if (e.target.value === "Sphere" && segments % 2 !== 0) segments += 1;
+      if (value === "Sphere" && segments % 2 !== 0) segments += 1;
       vertices(
         numberOfDimensions,
         dimensionOfFigure,
-        e.target.value,
+        value,
         scale,
         setOriginalVerticesArray,
         segments
       );
       setSegments(segments);
-      setFigure(e.target.value);
+      setFigure(value);
     }
   };
+
+  useEffect(() => {
+    let copyOptions = [...optionsFigures];
+
+    if (displaySpecific3D && +numberOfDimensions >= 3) {
+      copyOptions = [...copyOptions, ...specific3D];
+    }
+    if (displaySpecific4D && +numberOfDimensions >= 4) {
+      copyOptions = [...copyOptions, ...specific4D];
+    }
+
+    setOptionsFigures(copyOptions);
+  }, [displaySpecific3D, numberOfDimensions, displaySpecific4D]);
 
   return (
     <>
@@ -356,21 +371,35 @@ function App() {
         <div className="wrapper">
           <label className="checkboxWrapper">
             {numberOfDimensions}D
-            <select onChange={changeFigure} className="select" value={figure}>
-              {baseFigures.map((figure) => (
-                <option key={figure}>{figure}</option>
-              ))}
-              {displaySpecific3D && +numberOfDimensions >= 3
-                ? specific3D.map((figure) => (
-                    <option key={figure}>{figure}</option>
-                  ))
-                : null}
-              {displaySpecific4D && +numberOfDimensions >= 4
-                ? specific4D.map((figure) => (
-                    <option key={figure}>{figure}</option>
-                  ))
-                : null}
-            </select>
+            <CustomAutoComplete
+              disablePortal
+              id="combo-box-demo"
+              options={optionsFigures}
+              value={figure}
+              onChange={(e, value) => {
+                changeFigure(value);
+              }}
+              sx={{ width: 300 }}
+              renderInput={(params) => {
+                return (
+                  <TextField
+                    id={params.id}
+                    InputLabelProps={params.InputLabelProps}
+                    inputProps={params.inputProps}
+                    InputProps={{
+                      id: params.InputProps.id,
+                      className: params.InputProps.className,
+                      startAdornment: params.InputProps.startAdornment,
+                      ref: params.InputProps.ref,
+                      disabled: params.InputProps.disabled,
+                      fullWidth: params.InputProps.fullWidth,
+                    }}
+                    fullWidth={true}
+                    label="Figure"
+                  />
+                );
+              }}
+            />
           </label>
 
           {numberOfDimensions >= 3 ? (
@@ -393,7 +422,7 @@ function App() {
                 type="checkbox"
                 name="specific 4D"
                 onChange={() => {
-                  setDisplaySpecific3D(!displaySpecific4D);
+                  setDisplaySpecific4D(!displaySpecific4D);
                 }}
                 checked={displaySpecific4D}
               />
@@ -403,34 +432,65 @@ function App() {
         </div>
       </div>
       <div className="App">
-        <button type="button" className="reset" onClick={resetAngles}>
-          Reset angles
-        </button>
-        <input
-          type="text"
-          placeholder="input number of dimensions"
-          className="input_dimension"
-          onChange={changeNumber}
-        />
-        <button
-          type="button"
-          className="generate-button"
-          onClick={generateDimensions}
-        >
-          Generate dimensions
-        </button>
+        <div className="flexWrapper">
+          <Button
+            variant="contained"
+            onClick={resetAngles}
+          >
+            Reset angles
+          </Button>
+          <CustomInput
+            id="outlined-name"
+            label="Input number of dimensions"
+            value={numberValue}
+            onChange={(e) => {
+              if (!/\D/g.test(e.target.value)) {
+                setNumberValue(e.target.value);
+                setFigureDimension(e.target.value);
+              };
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={generateDimensions}
+          >
+            Generate dimensions
+          </Button>
 
-        <select onChange={dimensionOfCube} className="select">
-          <option>select dimension of {figure}</option>
-          {optionList.map((number) => {
-            return (
-              <option key={number} className="option">
-                {number}
-              </option>
-            );
-          })}
-        </select>
-
+          <label className="selectWrapper">
+            {numberOfDimensions}D
+            <CustomAutoComplete
+              disablePortal
+              id="combo-box-demo"
+              options={optionList}
+              value={figureDimension}
+              onChange={(e, value) => {
+                dimension(value);
+                setFigureDimension(value);
+              }}
+              sx={{ width: 300 }}
+              renderInput={(params) => {
+                return (
+                  <TextField
+                    id={params.id}
+                    InputLabelProps={params.InputLabelProps}
+                    inputProps={params.inputProps}
+                    InputProps={{
+                      id: params.InputProps.id,
+                      className: params.InputProps.className,
+                      startAdornment: params.InputProps.startAdornment,
+                      ref: params.InputProps.ref,
+                      disabled: params.InputProps.disabled,
+                      fullWidth: params.InputProps.fullWidth,
+                    }}
+                    fullWidth={true}
+                    label={`select dimension of ${figure}`}
+                  />
+                );
+              }}
+            />
+          </label>
+        </div>
         <CreateCheckboxes
           dimensions={amount}
           number={numberOfDimensions}

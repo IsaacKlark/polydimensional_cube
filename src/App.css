@@ -1,9 +1,12 @@
 body {
-  background-color: #49423f;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(53,53,158,1) 46%, rgba(0,212,255,1) 100%);
 }
 
 .App {
   text-align: center;
+  margin-top: 1rem;
+  column-gap: 1rem;
 }
 
 .App-logo {
@@ -106,6 +109,18 @@ body {
   column-gap: 5px;
 }
 
+.selectWrapper {
+  color: #2de9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+}
+
+.checkboxWrapper .MuiFormLabel {
+  color: white;
+}
+
 .rangeWrapper {
   display: flex;
   align-items: center;
@@ -176,4 +191,10 @@ button:hover {
   height: 8px; /* высота для горизонтального скролла */
   background-color: #143861;
   border-radius: 9px;
+}
+
+.flexWrapper {
+  display: flex;
+  column-gap: 12px;
+  justify-content: center;
 }

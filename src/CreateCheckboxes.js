@@ -4,6 +4,7 @@ import generateFigure from "./generateFigure";
 import vertices, { verticesArray } from "./vertices";
 import { useKeyboard } from "./App";
 import generateFigureOrthography from "./generateFigureOrthography";
+import { Checkbox } from "@mui/material";
 
 const CreateCheckboxes = ({
   dimensions,
