@@ -8,8 +8,10 @@ const SquarePyramid = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  scale,
 }) => {
   let linesArray = [];
+
   for (let i = 0; i < verticesArray.length; i++) {
     for (let j = i; j < verticesArray.length; j++) {
       if (i !== j) {
@@ -19,11 +21,14 @@ const SquarePyramid = ({
         }
         length = Math.round(length ** (1 / 2));
         if (+dimensionOfFigure > 2) {
-          if (length === 160 ) {
+          if (length === Math.trunc(160 * scale)) {
             linesArray.push([i, j]);
           }
         } else {
-          if (length === 160 || length === 180) {
+          if (
+            length === Math.trunc(160 * scale) ||
+            length === Math.trunc(180 * scale)
+          ) {
             linesArray.push([i, j]);
           }
         }
@@ -40,7 +45,6 @@ const SquarePyramid = ({
     lines.push(ids);
     ids += 1;
   }
-
 
   return (
     <svg

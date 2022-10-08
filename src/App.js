@@ -10,7 +10,6 @@ import vertices from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 
 export let useKeyboard = false;
 
@@ -162,7 +161,11 @@ function App() {
       setNumberOfDimensions(numberValue);
       setAmount((numberValue * (numberValue - 1)) / 2);
       setDimensionOfFigure(numberValue);
-      document.querySelector(".select").value = `select dimension of ${figure}`;
+      if (document.querySelector(".select")) {
+        document.querySelector(
+          ".select"
+        ).value = `select dimension of ${figure}`;
+      }
     }
   };
 
@@ -258,7 +261,6 @@ function App() {
     if (displaySpecific4D && +numberOfDimensions >= 4) {
       copyOptions = [...copyOptions, ...specific4D];
     }
-    console.log(copyOptions)
 
     setOptionsFigures(copyOptions);
   }, [displaySpecific3D, numberOfDimensions, displaySpecific4D]);
@@ -380,12 +382,12 @@ function App() {
                 if (value) changeFigure(value);
               }}
               sx={{
-                width: 300 ,
+                width: 300,
                 "& .MuiOutlinedInput-root:hover": {
                   "& > fieldset": {
-                    borderColor: "#00ffaf"
-                  }
-                }
+                    borderColor: "#00ffaf",
+                  },
+                },
               }}
               renderInput={(params) => {
                 return (
@@ -393,7 +395,6 @@ function App() {
                     id={params.id}
                     InputLabelProps={params.InputLabelProps}
                     inputProps={params.inputProps}
-                    
                     InputProps={{
                       id: params.InputProps.id,
                       className: params.InputProps.className,
@@ -449,9 +450,9 @@ function App() {
             sx={{
               "& .MuiOutlinedInput-root:hover": {
                 "& > fieldset": {
-                  borderColor: "#00ffaf"
-                }
-              }
+                  borderColor: "#00ffaf",
+                },
+              },
             }}
             label="Input number of dimensions"
             value={numberValue}
@@ -471,19 +472,19 @@ function App() {
             <CustomAutoComplete
               disablePortal
               id="combo-box-demo"
-              options={optionList}
-              value={figureDimension}
+              options={optionList.map((el) => el.toString())}
+              value={figureDimension.toString()}
               onChange={(e, value) => {
                 dimension(value);
                 setFigureDimension(value);
               }}
               sx={{
-                width: 300 ,
+                width: 300,
                 "& .MuiOutlinedInput-root:hover": {
                   "& > fieldset": {
-                    borderColor: "#00ffaf"
-                  }
-                }
+                    borderColor: "#00ffaf",
+                  },
+                },
               }}
               renderInput={(params) => {
                 return (
@@ -539,6 +540,7 @@ function App() {
           setScale={setScale}
           originalVerticesArray={originalVerticesArray}
           segments={segments}
+          scale={scale}
         />
       </div>
     </>

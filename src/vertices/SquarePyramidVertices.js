@@ -77,6 +77,7 @@ const SquarePyramidVertices = (
       return arr;
     });
   }
+  
   setOriginalVerticesArray(vertices);
   vertices = vertices.map((arr) => arr.map((item) => item * scale));
   setVerticesArray(vertices);

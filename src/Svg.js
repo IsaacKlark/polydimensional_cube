@@ -98,7 +98,8 @@ const Svg = ({
   perspectiveND,
   setScale,
   segments,
-  originalVerticesArray
+  originalVerticesArray,
+  scale
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -1277,6 +1278,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        scale={scale}
       />
     );
   }
