@@ -1,6 +1,6 @@
 import React from "react";
 
-const SquareAntiprism = ({
+const CubeAntiprism = ({
   verticesArray,
   dimensionOfFigure,
   displayEdges,
@@ -19,12 +19,29 @@ const SquareAntiprism = ({
           length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
         }
         length = Math.round(length ** (1 / 2));
-        if (length === 120) {
-          linesArray.push([i, j]);
+
+        if (dimensionOfFigure === 2) {
+          if (
+            length === 160 ||
+            length === 139 ||
+            length === 113 ||
+            length === 226
+          ) {
+            linesArray.push([i, j]);
+          }
+        } else {
+          if (
+            length === 160 ||
+            (length > 160 && length < 160 * +`1.${+dimensionOfFigure - 4}5`) ||
+            length === 139
+          ) {
+            linesArray.push([i, j]);
+          }
         }
       }
     }
   }
+
   const amountOfLines = linesArray.length;
   let ids = 0;
   const lines = [];
@@ -90,4 +107,4 @@ const SquareAntiprism = ({
   );
 };
 
-export default SquareAntiprism;
+export default CubeAntiprism;

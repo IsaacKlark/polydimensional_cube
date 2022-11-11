@@ -23,7 +23,6 @@ import CubinderVertices from "./CubinderVertices";
 import SphereVertices from "./SphereVertices";
 import CliffordTorusVertices from "./CliffordTorusVertices";
 import TorusVertices from "./TorusVertices";
-import SquareAntiprismVertices from "./SquareAntiprismVertices";
 import PentagonPrismVertices from "./PentagonPrismVertices";
 import CylinderVertices from "./CylinderVertices";
 import ConeVertices from "./ConeVertices";
@@ -74,6 +73,7 @@ import Omnitruncated120CellVertices from "./Omnitruncated120CellVertices";
 import SquarePyramidVertices from "./SquarePyramidVertices";
 import PentagonalPyramidVertices from "./PentagonalPyramidVertices";
 import AxesVertices from "./AxesVertices";
+import CubeAntiprismVertices from "./CubeAntiprismVertices";
 
 export let verticesArray = [];
 
@@ -316,17 +316,6 @@ const vertices = (
 
   if (figure === "Torus") {
     TorusVertices(
-      dimensions,
-      DimensionOfFigure,
-      setVerticesArray,
-      scale,
-      setOriginalVerticesArray,
-      segments
-    );
-  }
-
-  if (figure === "3D Square Antiprism") {
-    SquareAntiprismVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
@@ -875,6 +864,16 @@ const vertices = (
 
   if (figure === "Axes") {
     AxesVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+    );
+  }
+
+  if (figure === "Cube Antiprism") {
+    CubeAntiprismVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

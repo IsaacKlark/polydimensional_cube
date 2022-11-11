@@ -23,7 +23,6 @@ const specific3D = [
   "3D Truncated Dodecahedron",
   "3D Great Rhombicosidodecahedron",
   "3D Snub Dodecahedron",
-  "3D Square Antiprism",
   "3D Pentagonal Antiprism",
   "3D Hexagonal Antiprism",
   "3D Heptagonal Antiprism",
@@ -95,7 +94,8 @@ const baseFigures = [
   "Cantitruncated 24-cell",
   "Square pyramid",
   "Pentagonal pyramid",
-  "Axes"
+  "Axes",
+  "Cube Antiprism"
 ];
 
 const segmentedFigures = [
@@ -502,7 +502,7 @@ function App() {
                       fullWidth: params.InputProps.fullWidth,
                     }}
                     fullWidth={true}
-                    label="Your name"
+                    label="Dimension of figure"
                   />
                 );
               }}
