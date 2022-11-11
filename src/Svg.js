@@ -78,6 +78,7 @@ import Cantitruncated120Cell from "./figures/Cantitruncated120Cell";
 import Omnitruncated120Cell from "./figures/Omnitruncated120Cell";
 import SquarePyramid from "./figures/SquarePyramid";
 import PentagonalPyramid from "./figures/PentagonalPyramid";
+import Axes from "./figures/Axes";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -457,7 +458,7 @@ const Svg = ({
     );
   }
 
-  if (figure === "Cubinder analog") {
+  if (figure === "Cubinder") {
     return (
       <Cubinder
         verticesArray={originalVerticesArray}
@@ -1286,6 +1287,21 @@ const Svg = ({
   if (figure === "Pentagonal pyramid") {
     return (
       <PentagonalPyramid
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "Axes") {
+    return (
+      <Axes
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

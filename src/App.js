@@ -75,7 +75,7 @@ const baseFigures = [
   "Heptagonal Prism",
   "Octagonal Prism",
   "Decagonal Prism",
-  "Cubinder analog",
+  "Cubinder",
   "Sphere",
   "Clifford Torus",
   "Torus",
@@ -95,13 +95,14 @@ const baseFigures = [
   "Cantitruncated 24-cell",
   "Square pyramid",
   "Pentagonal pyramid",
+  "Axes"
 ];
 
 const segmentedFigures = [
   "Sphere",
   "Clifford Torus",
   "Torus",
-  "Cubinder analog",
+  "Cubinder",
   "Cylinder",
   "Cone",
 ];
@@ -501,7 +502,7 @@ function App() {
                       fullWidth: params.InputProps.fullWidth,
                     }}
                     fullWidth={true}
-                    label={`select dimension of ${figure}`}
+                    label="Your name"
                   />
                 );
               }}

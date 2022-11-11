@@ -73,6 +73,7 @@ import Cantitruncated120CellVertices from "./Cantitruncated120CellVertices";
 import Omnitruncated120CellVertices from "./Omnitruncated120CellVertices";
 import SquarePyramidVertices from "./SquarePyramidVertices";
 import PentagonalPyramidVertices from "./PentagonalPyramidVertices";
+import AxesVertices from "./AxesVertices";
 
 export let verticesArray = [];
 
@@ -280,7 +281,7 @@ const vertices = (
     );
   }
 
-  if (figure === "Cubinder analog") {
+  if (figure === "Cubinder") {
     CubinderVertices(
       dimensions,
       DimensionOfFigure,
@@ -864,6 +865,16 @@ const vertices = (
 
   if (figure === "Pentagonal pyramid") {
     PentagonalPyramidVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+    );
+  }
+
+  if (figure === "Axes") {
+    AxesVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
