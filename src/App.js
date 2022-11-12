@@ -55,7 +55,8 @@ const specific4D = [
   "4D Cantitruncated 120-cell",
   // "4D Omnitruncated 120-cell",
   "4D Cube atop Icosahedron",
-  "4D Cube atop Cuboctahedron"
+  "4D Cube atop Cuboctahedron",
+  "4D Truncated Tetrahedral Cupoliprism"
 ];
 
 const baseFigures = [

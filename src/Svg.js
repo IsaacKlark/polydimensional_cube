@@ -81,6 +81,7 @@ import Axes from "./figures/Axes";
 import CubeAntiprism from "./figures/CubeAntiprism";
 import CubeAtopIcosahedron from "./figures/CubeAtopIcosahedron";
 import CubeAtopCuboctahedron from "./figures/CubeAtopCuboctahedron";
+import TruncatedTetrahedralCupoliprism from "./figures/TruncatedTetrahedralCupoliprism";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1346,6 +1347,22 @@ const Svg = ({
       />
     );
   }
+
+  if (figure === "4D Truncated Tetrahedral Cupoliprism") {
+    return (
+      <TruncatedTetrahedralCupoliprism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+  
 };
 
 export default Svg;
