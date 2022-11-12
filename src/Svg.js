@@ -80,6 +80,7 @@ import PentagonalPyramid from "./figures/PentagonalPyramid";
 import Axes from "./figures/Axes";
 import CubeAntiprism from "./figures/CubeAntiprism";
 import CubeAtopIcosahedron from "./figures/CubeAtopIcosahedron";
+import CubeAtopCuboctahedron from "./figures/CubeAtopCuboctahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1319,6 +1320,21 @@ const Svg = ({
   if (figure === "4D Cube atop Icosahedron") {
     return (
       <CubeAtopIcosahedron
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Cube atop Cuboctahedron") {
+    return (
+      <CubeAtopCuboctahedron
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
