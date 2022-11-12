@@ -74,6 +74,7 @@ import SquarePyramidVertices from "./SquarePyramidVertices";
 import PentagonalPyramidVertices from "./PentagonalPyramidVertices";
 import AxesVertices from "./AxesVertices";
 import CubeAntiprismVertices from "./CubeAntiprismVertices";
+import CubeAtopIcosahedronVertices from "./CubeAtopIcosahedronVertices";
 
 export let verticesArray = [];
 
@@ -874,6 +875,16 @@ const vertices = (
 
   if (figure === "Cube Antiprism") {
     CubeAntiprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+    );
+  }
+
+  if (figure === "4D Cube atop Icosahedron") {
+    CubeAtopIcosahedronVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

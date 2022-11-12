@@ -79,6 +79,7 @@ import SquarePyramid from "./figures/SquarePyramid";
 import PentagonalPyramid from "./figures/PentagonalPyramid";
 import Axes from "./figures/Axes";
 import CubeAntiprism from "./figures/CubeAntiprism";
+import CubeAtopIcosahedron from "./figures/CubeAtopIcosahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1302,6 +1303,22 @@ const Svg = ({
   if (figure === "Cube Antiprism") {
     return (
       <CubeAntiprism
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+
+  if (figure === "4D Cube atop Icosahedron") {
+    return (
+      <CubeAtopIcosahedron
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
