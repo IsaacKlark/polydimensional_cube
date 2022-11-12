@@ -84,6 +84,7 @@ import CubeAtopCuboctahedron from "./figures/CubeAtopCuboctahedron";
 import TruncatedTetrahedralCupoliprism from "./figures/TruncatedTetrahedralCupoliprism";
 import TetrahedralCanticupola from "./figures/TetrahedralCanticupola";
 import SquareMagnabicupolicRing from "./figures/SquareMagnabicupolicRing";
+import OctahedronAtopRhombicuboctahedron from "./figures/OctahedronAtopRhombicuboctahedron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1394,6 +1395,22 @@ const Svg = ({
       />
     );
   }
+
+  if (figure === "4D Octahedron atop Rhombicuboctahedron") {
+    return (
+      <OctahedronAtopRhombicuboctahedron
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+  
   
 };
 

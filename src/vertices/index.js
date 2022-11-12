@@ -79,6 +79,7 @@ import CubeAtopCuboctahedronVertices from "./CubeAtopCuboctahedronVertices";
 import TruncatedTetrahedralCupoliprismVertices from "./TruncatedTetrahedralCupoliprismVertices";
 import TetrahedralCanticupolaVertices from "./TetrahedralCanticupolaVertices";
 import SquareMagnabicupolicRingVertices from "./SquareMagnabicupolicRingVertices";
+import OctahedronAtopRhombicuboctahedronVertices from "./OctahedronAtopRhombicuboctahedronVertices";
 
 export let verticesArray = [];
 
@@ -929,6 +930,16 @@ const vertices = (
 
   if (figure === "4D Square Magnabicupolic Ring") {
     SquareMagnabicupolicRingVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
+  }
+
+  if (figure === "4D Octahedron atop Rhombicuboctahedron") {
+    OctahedronAtopRhombicuboctahedronVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
