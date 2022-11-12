@@ -78,6 +78,7 @@ import CubeAtopIcosahedronVertices from "./CubeAtopIcosahedronVertices";
 import CubeAtopCuboctahedronVertices from "./CubeAtopCuboctahedronVertices";
 import TruncatedTetrahedralCupoliprismVertices from "./TruncatedTetrahedralCupoliprismVertices";
 import TetrahedralCanticupolaVertices from "./TetrahedralCanticupolaVertices";
+import SquareMagnabicupolicRingVertices from "./SquareMagnabicupolicRingVertices";
 
 export let verticesArray = [];
 
@@ -779,7 +780,7 @@ const vertices = (
       segments
     );
   }
-  
+
   if (figure === "4D Cantellated 120-cell") {
     Cantellated120CellVertices(
       dimensions,
@@ -823,7 +824,7 @@ const vertices = (
       segments
     );
   }
-  
+
   if (figure === "4D Cantitruncated 120-cell") {
     Cantitruncated120CellVertices(
       dimensions,
@@ -852,7 +853,7 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
     );
   }
 
@@ -862,7 +863,7 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
     );
   }
 
@@ -872,7 +873,7 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
     );
   }
 
@@ -882,7 +883,7 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
     );
   }
 
@@ -892,7 +893,7 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
     );
   }
 
@@ -902,7 +903,7 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
     );
   }
 
@@ -912,7 +913,7 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
     );
   }
 
@@ -922,7 +923,17 @@ const vertices = (
       DimensionOfFigure,
       setVerticesArray,
       scale,
-      setOriginalVerticesArray,
+      setOriginalVerticesArray
+    );
+  }
+
+  if (figure === "4D Square Magnabicupolic Ring") {
+    SquareMagnabicupolicRingVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
     );
   }
 };

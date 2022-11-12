@@ -57,7 +57,8 @@ const specific4D = [
   "4D Cube atop Icosahedron",
   "4D Cube atop Cuboctahedron",
   "4D Truncated Tetrahedral Cupoliprism",
-  "4D Tetrahedral Canticupola"
+  "4D Tetrahedral Canticupola",
+  "4D Square Magnabicupolic Ring"
 ];
 
 const baseFigures = [
