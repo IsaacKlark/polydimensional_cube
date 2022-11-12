@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/polydimensional_cube/static/css/main.d2450b61.css",
-    "main.js": "/polydimensional_cube/static/js/main.27827e3f.js",
+    "main.js": "/polydimensional_cube/static/js/main.d7dc7c58.js",
     "index.html": "/polydimensional_cube/index.html",
     "main.d2450b61.css.map": "/polydimensional_cube/static/css/main.d2450b61.css.map",
-    "main.27827e3f.js.map": "/polydimensional_cube/static/js/main.27827e3f.js.map"
+    "main.d7dc7c58.js.map": "/polydimensional_cube/static/js/main.d7dc7c58.js.map"
   },
   "entrypoints": [
     "static/css/main.d2450b61.css",
-    "static/js/main.27827e3f.js"
+    "static/js/main.d7dc7c58.js"
   ]
 }
