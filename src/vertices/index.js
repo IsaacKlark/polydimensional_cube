@@ -77,6 +77,7 @@ import CubeAntiprismVertices from "./CubeAntiprismVertices";
 import CubeAtopIcosahedronVertices from "./CubeAtopIcosahedronVertices";
 import CubeAtopCuboctahedronVertices from "./CubeAtopCuboctahedronVertices";
 import TruncatedTetrahedralCupoliprismVertices from "./TruncatedTetrahedralCupoliprismVertices";
+import TetrahedralCanticupolaVertices from "./TetrahedralCanticupolaVertices";
 
 export let verticesArray = [];
 
@@ -907,6 +908,16 @@ const vertices = (
 
   if (figure === "4D Truncated Tetrahedral Cupoliprism") {
     TruncatedTetrahedralCupoliprismVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+    );
+  }
+
+  if (figure === "4D Tetrahedral Canticupola") {
+    TetrahedralCanticupolaVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,
