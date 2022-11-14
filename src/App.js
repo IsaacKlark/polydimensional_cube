@@ -60,6 +60,7 @@ const specific4D = [
   "4D Tetrahedral Canticupola",
   "4D Square Magnabicupolic Ring",
   "4D Octahedron atop Rhombicuboctahedron",
+  "4D Cuboctahedron atop Truncated Cube"
 ];
 
 const baseFigures = [
