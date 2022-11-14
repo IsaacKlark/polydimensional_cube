@@ -87,6 +87,7 @@ import SquareMagnabicupolicRing from "./figures/SquareMagnabicupolicRing";
 import OctahedronAtopRhombicuboctahedron from "./figures/OctahedronAtopRhombicuboctahedron";
 import CuboctahedronAtopTruncatedCube from "./figures/CuboctahedronAtopTruncatedCube";
 import BilunabirotundaPseudopyramid from "./figures/BilunabirotundaPseudopyramid";
+import TetrahedralUrsachoron from "./figures/TetrahedralUrsachoron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -108,7 +109,7 @@ const Svg = ({
   setScale,
   segments,
   originalVerticesArray,
-  scale
+  scale,
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -134,19 +135,19 @@ const Svg = ({
 
   const onWheel = (e) => {
     if (e.deltaY > 0) {
-      setScale((value) => value - 0.1)
+      setScale((value) => value - 0.1);
     } else {
-      setScale((value) => value + 0.1)
-    };
-  }
+      setScale((value) => value + 0.1);
+    }
+  };
 
   const onMouseEnter = () => {
     document.body.style.overflow = "hidden";
-  }
+  };
 
   const onMouseLeave = () => {
     document.body.style.overflow = "auto";
-  }
+  };
 
   if (+dimensionOfFigure === 0) {
     return (
@@ -645,7 +646,7 @@ const Svg = ({
       />
     );
   }
-  
+
   if (figure === "Octagonal Prism") {
     return (
       <OctagonalPrism
@@ -930,7 +931,7 @@ const Svg = ({
       />
     );
   }
-  
+
   if (figure === "Rectified 24-cell") {
     return (
       <Rectified24Сell
@@ -945,7 +946,7 @@ const Svg = ({
       />
     );
   }
-  
+
   if (figure === "Bitruncated 24-cell") {
     return (
       <Bitruncated24Cell
@@ -1322,7 +1323,6 @@ const Svg = ({
     );
   }
 
-
   if (figure === "4D Cube atop Icosahedron") {
     return (
       <CubeAtopIcosahedron
@@ -1367,7 +1367,7 @@ const Svg = ({
       />
     );
   }
-  
+
   if (figure === "4D Tetrahedral Canticupola") {
     return (
       <TetrahedralCanticupola
@@ -1382,7 +1382,7 @@ const Svg = ({
       />
     );
   }
-  
+
   if (figure === "4D Square Magnabicupolic Ring") {
     return (
       <SquareMagnabicupolicRing
@@ -1442,7 +1442,21 @@ const Svg = ({
       />
     );
   }
-  
+
+  if (figure === "4D Tetrahedral Ursachoron") {
+    return (
+      <TetrahedralUrsachoron
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
 };
 
 export default Svg;

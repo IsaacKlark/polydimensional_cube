@@ -82,6 +82,7 @@ import SquareMagnabicupolicRingVertices from "./SquareMagnabicupolicRingVertices
 import OctahedronAtopRhombicuboctahedronVertices from "./OctahedronAtopRhombicuboctahedronVertices";
 import CuboctahedronAtopTruncatedCubeVertices from "./CuboctahedronAtopTruncatedCubeVertices";
 import BilunabirotundaPseudopyramidVertices from "./BilunabirotundaPseudopyramidVertices";
+import TetrahedralUrsachoronVertices from "./TetrahedralUrsachoronVertices";
 
 export let verticesArray = [];
 
@@ -969,7 +970,16 @@ const vertices = (
       setOriginalVerticesArray
     );
   }
-  
+
+  if (figure === "4D Tetrahedral Ursachoron") {
+    TetrahedralUrsachoronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
+  }
 };
 
 export default vertices;
