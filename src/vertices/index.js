@@ -83,6 +83,7 @@ import OctahedronAtopRhombicuboctahedronVertices from "./OctahedronAtopRhombicub
 import CuboctahedronAtopTruncatedCubeVertices from "./CuboctahedronAtopTruncatedCubeVertices";
 import BilunabirotundaPseudopyramidVertices from "./BilunabirotundaPseudopyramidVertices";
 import TetrahedralUrsachoronVertices from "./TetrahedralUrsachoronVertices";
+import OctahedralUrsachoronVertices from "./OctahedralUrsachoronVertices";
 
 export let verticesArray = [];
 
@@ -973,6 +974,16 @@ const vertices = (
 
   if (figure === "4D Tetrahedral Ursachoron") {
     TetrahedralUrsachoronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
+  }
+
+  if (figure === "4D Octahedral Ursachoron") {
+    OctahedralUrsachoronVertices(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

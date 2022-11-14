@@ -88,6 +88,7 @@ import OctahedronAtopRhombicuboctahedron from "./figures/OctahedronAtopRhombicub
 import CuboctahedronAtopTruncatedCube from "./figures/CuboctahedronAtopTruncatedCube";
 import BilunabirotundaPseudopyramid from "./figures/BilunabirotundaPseudopyramid";
 import TetrahedralUrsachoron from "./figures/TetrahedralUrsachoron";
+import OctahedralUrsachoron from "./figures/OctahedralUrsachoron";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1446,6 +1447,21 @@ const Svg = ({
   if (figure === "4D Tetrahedral Ursachoron") {
     return (
       <TetrahedralUrsachoron
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Octahedral Ursachoron") {
+    return (
+      <OctahedralUrsachoron
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

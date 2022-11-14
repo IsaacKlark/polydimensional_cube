@@ -62,7 +62,8 @@ const specific4D = [
   "4D Octahedron atop Rhombicuboctahedron",
   "4D Cuboctahedron atop Truncated Cube",
   "4D Bilunabirotunda Pseudopyramid",
-  "4D Tetrahedral Ursachoron"
+  "4D Tetrahedral Ursachoron",
+  "4D Octahedral Ursachoron"
 ];
 
 const baseFigures = [
