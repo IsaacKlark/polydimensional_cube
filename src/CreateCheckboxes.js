@@ -195,6 +195,7 @@ const CreateCheckboxes = ({
     }
   }, [reset]);
 
+
   useEffect(() => {
     const anglesArray = [];
     for (let i = 0; i < amountOfAngles; i++) {

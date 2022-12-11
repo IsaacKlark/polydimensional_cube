@@ -182,7 +182,7 @@ function App() {
         ).value = `select dimension of ${figure}`;
       }
 
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -260,6 +260,7 @@ function App() {
       setSegments(segments);
       setFigure(value);
     }
+    resetAngles();
   };
 
   useEffect(() => {
