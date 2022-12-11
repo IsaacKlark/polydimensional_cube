@@ -10,6 +10,7 @@ import vertices from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
 import Button from "@mui/material/Button";
+import Instruction from "./Instruction";
 
 export let useKeyboard = false;
 
@@ -63,7 +64,9 @@ const specific4D = [
   "4D Cuboctahedron atop Truncated Cube",
   "4D Bilunabirotunda Pseudopyramid",
   "4D Tetrahedral Ursachoron",
-  "4D Octahedral Ursachoron"
+  "4D Octahedral Ursachoron",
+  // "4D Tetrahedral Magnaursachoron",
+  // "4D Klein bottle"
 ];
 
 const baseFigures = [
@@ -105,7 +108,7 @@ const baseFigures = [
   "Square pyramid",
   "Pentagonal pyramid",
   "Axes",
-  "Cube Antiprism"
+  "Cube Antiprism",
 ];
 
 const segmentedFigures = [
@@ -138,6 +141,7 @@ function App() {
   const [optionsFigures, setOptionsFigures] = useState([...baseFigures]);
   const [numberValue, setNumberValue] = useState(numberOfDimensions);
   const [figureDimension, setFigureDimension] = useState(2);
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     if (+dimensionOfFigure < 3 && specific3D.includes(figure)) {
@@ -177,12 +181,14 @@ function App() {
           ".select"
         ).value = `select dimension of ${figure}`;
       }
+
+      window.scrollTo({top: 0, behavior: 'smooth'});
     }
   };
 
   const resetAngles = () => {
     const copyAnglesArray = [...anglesArray].map((angle) => 0);
-
+    setReset(true);
     setAnglesArray(copyAnglesArray);
     setActiveRotations([]);
     const matrix = generateMatrixes(
@@ -229,14 +235,6 @@ function App() {
     }
   };
 
-  const useKeyboardChange = () => {
-    if (useKeyboard) {
-      useKeyboard = false;
-    } else {
-      useKeyboard = true;
-    }
-  };
-
   const changeFigure = (value) => {
     if (!segmentedFigures.includes(value)) {
       vertices(
@@ -279,63 +277,56 @@ function App() {
   return (
     <>
       <div className="checkboxWrapper-wrap">
-        <div className="wrapper">
-          <label className="checkboxWrapper">
-            <input
-              type="checkbox"
-              name="checkbox"
-              onChange={useKeyboardChange}
-            />
-            <p>rotate by checking checkboxes and using w/s keys</p>
-          </label>
+        <div className="instructionWrapper">
+          <Instruction numberOfDimensions={numberOfDimensions} />
+          <div className="wrapper">
+            <label className="checkboxWrapper">
+              <input
+                type="checkbox"
+                name="checkbox 2"
+                onChange={() => {
+                  setActiveRotations([]);
+                  setTransposeRotation(!transposeRotation);
+                }}
+                checked={transposeRotation}
+              />
+              <p>transpose rotation</p>
+            </label>
+            <label className="checkboxWrapper">
+              <input
+                type="checkbox"
+                name="checkbox 3"
+                onChange={() => {
+                  setOrthography(!orthography);
+                }}
+                checked={orthography}
+              />
+              <p>orthography</p>
+            </label>
 
-          <label className="checkboxWrapper">
-            <input
-              type="checkbox"
-              name="checkbox 2"
-              onChange={() => {
-                setActiveRotations([]);
-                setTransposeRotation(!transposeRotation);
-              }}
-              checked={transposeRotation}
-            />
-            <p>transpose rotation</p>
-          </label>
-          <label className="checkboxWrapper">
-            <input
-              type="checkbox"
-              name="checkbox 3"
-              onChange={() => {
-                setOrthography(!orthography);
-              }}
-              checked={orthography}
-            />
-            <p>orthography</p>
-          </label>
-        </div>
-        <div className="wrapper">
-          <label className="checkboxWrapper">
-            <input
-              type="checkbox"
-              name="checkbox 4"
-              onChange={() => {
-                setDisplayVertices(!displayVertices);
-              }}
-              checked={displayVertices}
-            />
-            <p>display vertices</p>
-          </label>
-          <label className="checkboxWrapper">
-            <input
-              type="checkbox"
-              name="checkbox 5"
-              onChange={() => {
-                setDisplayEdges(!displayEdges);
-              }}
-              checked={displayEdges}
-            />
-            <p>display edges</p>
-          </label>
+            <label className="checkboxWrapper">
+              <input
+                type="checkbox"
+                name="checkbox 4"
+                onChange={() => {
+                  setDisplayVertices(!displayVertices);
+                }}
+                checked={displayVertices}
+              />
+              <p>display vertices</p>
+            </label>
+            <label className="checkboxWrapper">
+              <input
+                type="checkbox"
+                name="checkbox 5"
+                onChange={() => {
+                  setDisplayEdges(!displayEdges);
+                }}
+                checked={displayEdges}
+              />
+              <p>display edges</p>
+            </label>
+          </div>
         </div>
         <div className="wrapperOfRanges">
           <div className="rangesWrapper">
@@ -520,9 +511,10 @@ function App() {
           </label>
         </div>
         <CreateCheckboxes
-          dimensions={amount}
-          number={numberOfDimensions}
-          DimensionOfFigure={dimensionOfFigure}
+          reset={reset}
+          setReset={setReset}
+          amountOfAngles={amount}
+          dimensions={numberOfDimensions}
           anglesArray={anglesArray}
           setAnglesArray={setAnglesArray}
           activeRotations={activeRotations}
@@ -537,22 +529,24 @@ function App() {
           setOriginalVerticesArray={setOriginalVerticesArray}
           segments={segments}
         />
-        <Svg
-          dimension={numberOfDimensions}
-          anglesArray={anglesArray}
-          figure={figure}
-          dimensionOfFigure={dimensionOfFigure}
-          transposeRotation={transposeRotation}
-          orthography={orthography}
-          displayEdges={displayEdges}
-          displayVertices={displayVertices}
-          perspective3D={perspective3D}
-          perspectiveND={perspectiveND}
-          setScale={setScale}
-          originalVerticesArray={originalVerticesArray}
-          segments={segments}
-          scale={scale}
-        />
+        <div id="svgWrapper">
+          <Svg
+            dimension={numberOfDimensions}
+            anglesArray={anglesArray}
+            figure={figure}
+            dimensionOfFigure={dimensionOfFigure}
+            transposeRotation={transposeRotation}
+            orthography={orthography}
+            displayEdges={displayEdges}
+            displayVertices={displayVertices}
+            perspective3D={perspective3D}
+            perspectiveND={perspectiveND}
+            setScale={setScale}
+            originalVerticesArray={originalVerticesArray}
+            segments={segments}
+            scale={scale}
+          />
+        </div>
       </div>
     </>
   );

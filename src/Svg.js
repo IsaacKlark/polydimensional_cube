@@ -89,6 +89,8 @@ import CuboctahedronAtopTruncatedCube from "./figures/CuboctahedronAtopTruncated
 import BilunabirotundaPseudopyramid from "./figures/BilunabirotundaPseudopyramid";
 import TetrahedralUrsachoron from "./figures/TetrahedralUrsachoron";
 import OctahedralUrsachoron from "./figures/OctahedralUrsachoron";
+import TetrahedralMagnaursachoron from "./figures/TetrahedralMagnaursachoron";
+import KleinBottle from "./figures/KleinBottle";
 
 export let canRotate = false;
 export let mouseX = 0;
@@ -1462,6 +1464,36 @@ const Svg = ({
   if (figure === "4D Octahedral Ursachoron") {
     return (
       <OctahedralUrsachoron
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Tetrahedral Magnaursachoron") {
+    return (
+      <TetrahedralMagnaursachoron
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+      />
+    );
+  }
+
+  if (figure === "4D Klein bottle") {
+    return (
+      <KleinBottle
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

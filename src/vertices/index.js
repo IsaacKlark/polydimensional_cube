@@ -84,6 +84,8 @@ import CuboctahedronAtopTruncatedCubeVertices from "./CuboctahedronAtopTruncated
 import BilunabirotundaPseudopyramidVertices from "./BilunabirotundaPseudopyramidVertices";
 import TetrahedralUrsachoronVertices from "./TetrahedralUrsachoronVertices";
 import OctahedralUrsachoronVertices from "./OctahedralUrsachoronVertices";
+import TetrahedralMagnaursachoronVertices from "./TetrahedralMagnaursachoronVertices";
+import KleinBottleVertices from "./KleinBottleVertices";
 
 export let verticesArray = [];
 
@@ -989,6 +991,27 @@ const vertices = (
       setVerticesArray,
       scale,
       setOriginalVerticesArray
+    );
+  }
+
+  if (figure === "4D Tetrahedral Magnaursachoron") {
+    TetrahedralMagnaursachoronVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray
+    );
+  }
+
+  if (figure === "4D Klein bottle") {
+    KleinBottleVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
     );
   }
 };
