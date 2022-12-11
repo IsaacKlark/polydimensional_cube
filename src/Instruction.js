@@ -1,3 +1,5 @@
+import React from "react";
+
 const Instruction = ({ numberOfDimensions }) => {
   const instructions = [
     { dimension: 4, char: "q" },
@@ -57,7 +59,7 @@ const Instruction = ({ numberOfDimensions }) => {
         {instructions.map((instruction) => {
           if (numberOfDimensions >= instruction.dimension) {
             return (
-              <>
+              <React.Fragment key={instruction.char}>
                 <tr>
                   <td>
                     <span className="key">{instruction.char}</span>+ right mouse down + drag
@@ -76,7 +78,7 @@ const Instruction = ({ numberOfDimensions }) => {
                     <strong>{instruction.dimension}-2</strong> rotation
                   </td>
                 </tr>
-              </>
+              </React.Fragment>
             );
           }
         })}
