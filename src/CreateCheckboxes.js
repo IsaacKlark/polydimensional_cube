@@ -78,57 +78,57 @@ const CreateCheckboxes = ({
     };
 
     document.onkeydown = (e) => {
-      if (e.key === "q" && dimensions >= 4) {
+      if (e.code === "KeyQ" && dimensions >= 4) {
         indexes = { x: 4, y: 5 };
-      } else if (e.key === "w" && dimensions >= 5) {
+      } else if (e.code === "KeyW" && dimensions >= 5) {
         indexes = { x: 7, y: 8 };
-      } else if (e.key === "e" && dimensions >= 6) {
+      } else if (e.code === "KeyE" && dimensions >= 6) {
         indexes = { x: 11, y: 12 };
-      } else if (e.key === "r" && dimensions >= 7) {
+      } else if (e.code === "KeyR" && dimensions >= 7) {
         indexes = { x: 16, y: 17 };
-      } else if (e.key === "t" && dimensions >= 8) {
+      } else if (e.code === "KeyT" && dimensions >= 8) {
         indexes = { x: 22, y: 23 };
-      } else if (e.key === "y" && dimensions >= 9) {
+      } else if (e.code === "KeyY" && dimensions >= 9) {
         indexes = { x: 29, y: 30 };
-      } else if (e.key === "u" && dimensions >= 10) {
+      } else if (e.code === "KeyU" && dimensions >= 10) {
         indexes = { x: 37, y: 38 };
-      } else if (e.key === "i" && dimensions >= 11) {
+      } else if (e.code === "KeyI" && dimensions >= 11) {
         indexes = { x: 46, y: 47 };
-      } else if (e.key === "o" && dimensions >= 12) {
+      } else if (e.code === "KeyO" && dimensions >= 12) {
         indexes = { x: 56, y: 57 };
-      } else if (e.key === "p" && dimensions >= 13) {
+      } else if (e.code === "KeyP" && dimensions >= 13) {
         indexes = { x: 67, y: 68 };
-      } else if (e.key === "a" && dimensions >= 14) {
+      } else if (e.code === "KeyA" && dimensions >= 14) {
         indexes = { x: 79, y: 80 };
-      } else if (e.key === "s" && dimensions >= 15) {
+      } else if (e.code === "KeyS" && dimensions >= 15) {
         indexes = { x: 92, y: 93 };
-      } else if (e.key === "d" && dimensions >= 16) {
+      } else if (e.code === "KeyD" && dimensions >= 16) {
         indexes = { x: 106, y: 107 };
-      } else if (e.key === "f" && dimensions >= 17) {
+      } else if (e.code === "KeyF" && dimensions >= 17) {
         indexes = { x: 121, y: 122 };
-      } else if (e.key === "g" && dimensions >= 18) {
+      } else if (e.code === "KeyG" && dimensions >= 18) {
         indexes = { x: 137, y: 138 };
-      } else if (e.key === "h" && dimensions >= 19) {
+      } else if (e.code === "KeyH" && dimensions >= 19) {
         indexes = { x: 154, y: 155 };
-      } else if (e.key === "j" && dimensions >= 20) {
+      } else if (e.code === "KeyJ" && dimensions >= 20) {
         indexes = { x: 172, y: 173 };
-      } else if (e.key === "k" && dimensions >= 21) {
+      } else if (e.code === "KeyK" && dimensions >= 21) {
         indexes = { x: 191, y: 192 };
-      } else if (e.key === "l" && dimensions >= 22) {
+      } else if (e.code === "KeyL" && dimensions >= 22) {
         indexes = { x: 211, y: 212 };
-      } else if (e.key === "z" && dimensions >= 23) {
+      } else if (e.code === "KeyZ" && dimensions >= 23) {
         indexes = { x: 232, y: 233 };
-      } else if (e.key === "x" && dimensions >= 24) {
+      } else if (e.key === "KeyX" && dimensions >= 24) {
         indexes = { x: 254, y: 255 };
-      } else if (e.key === "c" && dimensions >= 25) {
+      } else if (e.code === "KeyC" && dimensions >= 25) {
         indexes = { x: 277, y: 278 };
-      } else if (e.key === "v" && dimensions >= 26) {
+      } else if (e.code === "KeyV" && dimensions >= 26) {
         indexes = { x: 301, y: 302 };
-      } else if (e.key === "b" && dimensions >= 27) {
+      } else if (e.code === "KeyB" && dimensions >= 27) {
         indexes = { x: 326, y: 327 };
-      } else if (e.key === "n" && dimensions >= 28) {
+      } else if (e.code === "KeyN" && dimensions >= 28) {
         indexes = { x: 352, y: 353 };
-      } else if (e.key === "m" && dimensions >= 29) {
+      } else if (e.code === "KeyM" && dimensions >= 29) {
         indexes = { x: 379, y: 380 };
       }
     };
