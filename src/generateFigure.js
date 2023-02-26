@@ -48,8 +48,11 @@ const generateFigure = (
       verticesOnSvg[index1]?.x === null ||
       verticesOnSvg[index2]?.x === null
     ) {
+      line.setAttribute("stroke", "transparent");
       return null;
     }
+
+    line.setAttribute("stroke", "white");
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
