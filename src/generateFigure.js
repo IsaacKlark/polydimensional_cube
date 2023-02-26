@@ -14,12 +14,21 @@ const generateFigure = (
     let x = coordinates?.e(1, 1) || 0;
     let y = coordinates?.e(2, 1) || 0;
 
-    if (coordinates.e(dimension, 1) + perspective < 0) {
-      // точка находится за границей холста
-      return { x: null, y: null };
-    }
+    // if (coordinates.e(dimension, 1) + perspective3D < 0) {
+    //   // точка находится за границей холста
+    //   return { x: null, y: null };
+    // }
+
+
 
     for (let i = 2; i < dimension; i++) {
+      if (coordinates.e(i + 1, 1) + perspective < 0) {
+        // точка находится за границей холста
+        perspective += perspectiveND;
+
+        return { x: null, y: null };
+      }
+
       x = (perspective * x) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
       y = (perspective * y) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
 
@@ -56,8 +65,9 @@ const generateFigure = (
       line.setAttribute("y2", height / 2);
     } else {
       line.setAttribute("x1", width / 2 + verticesOnSvg[+index1]?.x);
-      line.setAttribute("x2", width / 2 + verticesOnSvg[+index2]?.x);
       line.setAttribute("y1", height / 2 + verticesOnSvg[+index1]?.y);
+
+      line.setAttribute("x2", width / 2 + verticesOnSvg[+index2]?.x);
       line.setAttribute("y2", height / 2 + verticesOnSvg[+index2]?.y);
     }
 
