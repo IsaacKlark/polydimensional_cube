@@ -14,13 +14,6 @@ const generateFigure = (
     let x = coordinates?.e(1, 1) || 0;
     let y = coordinates?.e(2, 1) || 0;
 
-    // if (coordinates.e(dimension, 1) + perspective3D < 0) {
-    //   // точка находится за границей холста
-    //   return { x: null, y: null };
-    // }
-
-
-
     for (let i = 2; i < dimension; i++) {
       if (coordinates.e(i + 1, 1) + perspective < 0) {
         // точка находится за границей холста
