@@ -15,7 +15,7 @@ const generateFigure = (
     let y = coordinates?.e(2, 1) || 0;
 
     for (let i = 2; i < dimension; i++) {
-      if (coordinates.e(i + 1, 1) + perspective < 0) {
+      if (coordinates && coordinates.e(i + 1, 1) + perspective < 0) {
         // точка находится за границей холста
         perspective += perspectiveND;
 
