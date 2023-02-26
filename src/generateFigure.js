@@ -52,7 +52,7 @@ const generateFigure = (
       return null;
     }
 
-    line.setAttribute("stroke", "white");
+    if (line.getAttribute("stroke") === "transparent") line.setAttribute("stroke", "white");
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
