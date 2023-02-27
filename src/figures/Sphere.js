@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 
 const Sphere = ({
   verticesArray,
@@ -8,45 +8,49 @@ const Sphere = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
-  segments
+  segments,
 }) => {
-  let linesArray = [];
-  const verticesLength = verticesArray.length;
-  const firstDistance = +segments  || 20;
-
-  for (let i = 0; i < verticesLength; i++) {
-    if (i + 1 < verticesLength) {
-      linesArray.push([i, i + 1]);
-    }
-
-    if (i % firstDistance === 0) {
-      linesArray.push([i, i + (firstDistance - 1)]);
-    }
-
-    let distance = firstDistance;
-
-    for (let j = 2; j < +dimensionOfFigure; j++) {
-      let step = Math.ceil(i / (distance * (firstDistance / 2 + 2)));
-
-      if (
-        i + distance < step * distance * (firstDistance / 2 + 2) &&
-        i + distance < verticesArray.length
-      ) {
-        linesArray.push([i, i + distance]);
+  const linesArray = useMemo(() => {
+    let linesArray = [];
+    const verticesLength = verticesArray.length;
+    const firstDistance = +segments || 20;
+    for (let i = 0; i < verticesLength; i++) {
+      if (i + 1 < verticesLength) {
+        linesArray.push([i, i + 1]);
       }
-
-      distance *= firstDistance / 2 + 2;
+      if (i % firstDistance === 0) {
+        linesArray.push([i, i + (firstDistance - 1)]);
+      }
+      let distance = firstDistance;
+      for (let j = 2; j < +dimensionOfFigure; j++) {
+        let step = Math.ceil(i / (distance * (firstDistance / 2 + 2)));
+        if (
+          i + distance < step * distance * (firstDistance / 2 + 2) &&
+          i + distance < verticesArray.length
+        ) {
+          linesArray.push([i, i + distance]);
+        }
+        distance *= firstDistance / 2 + 2;
+      }
     }
-  }
+    return linesArray;
+  }, [verticesArray, dimensionOfFigure, segments]);
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
+  const lines = useMemo(() => {
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+    return lines;
+  }, [linesArray]);
 
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
-  }
+  const handleContextMenu = useCallback((e) => {
+    e.preventDefault();
+    e.target.style.display = "none";
+  }, []);
 
   return (
     <svg
@@ -61,7 +65,6 @@ const Sphere = ({
         lines.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
-
           vertex1 = linesArray[index][0];
           vertex2 = linesArray[index][1];
           return (
@@ -79,13 +82,9 @@ const Sphere = ({
             />
           );
         })}
-
       {displayVertices
         ? verticesArray.map((item, index) => (
             <circle
-              onClick={() => {
-                console.log(verticesArray[index], index);
-              }}
               key={index}
               cx="300"
               cy="200"
@@ -93,10 +92,7 @@ const Sphere = ({
               fill="white"
               id={`circle${index}`}
               className="circle"
-              onContextMenu={(e) => {
-                e.preventDefault();
-                e.target.style.display = "none";
-              }}
+              onContextMenu={handleContextMenu}
             />
           ))
         : null}
