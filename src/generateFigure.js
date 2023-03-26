@@ -6,7 +6,7 @@ const generateFigure = (
   dimension,
   dimensionOfFigure,
   perspective3D,
-  perspectiveND,
+  perspectiveND
 ) => {
   const checkboxes = document.querySelectorAll(".checkbox");
 
@@ -32,6 +32,10 @@ const generateFigure = (
     return copyVertex;
   });
 
+  if (!newVertices.includes(undefined)) {
+    setVerticesArray(newVertices);
+  }
+
   const verticesOnSvg = vertices.map((vertex) => {
     let perspective = perspective3D;
 
@@ -39,7 +43,7 @@ const generateFigure = (
 
     let x = copyVertex[0];
     let y = copyVertex[1];
-    
+
     for (let i = 2; i < dimension; i++) {
       if (copyVertex[i] + perspective < 0) {
         // точка находится за границей холста
@@ -52,10 +56,6 @@ const generateFigure = (
     }
     return { x, y };
   });
-
-  if (!newVertices.includes(undefined)) {
-    setVerticesArray(newVertices);
-  }
 
   const width = document.querySelector("svg").clientWidth;
   const height = document.querySelector("svg").clientHeight;

@@ -1,14 +1,41 @@
 import React, { useEffect } from "react";
 import generateFigure from "./generateFigure";
-import vertices, { verticesArray } from "./vertices";
+import vertices, { setVerticesArray, verticesArray } from "./vertices";
 import { useKeyboard } from "./App";
 import generateFigureOrthography from "./generateFigureOrthography";
 import { useState } from "react";
 import { setOuthhNumberOfCheckboxes } from "./helpers";
 
 let startCoords = { x: 0, y: 0 };
-let indexes = { x: 2, y: 3 };
+let indexes = [
+  [2, 0],
+  [1, 2],
+];
+
 let curCoordinates = [];
+
+const rotateFigure = (indexes, angle) => {
+  const newVertices = verticesArray.map((vertex) => {
+    const copyVertex = [...vertex];
+
+    const checkboxIndex1 = indexes[0];
+    const checkboxIndex2 = indexes[1];
+
+    const cos1 = Math.cos(angle);
+    const sin1 = Math.sin(angle);
+    const tmp1 =
+      cos1 * copyVertex[checkboxIndex1] + sin1 * copyVertex[checkboxIndex2];
+    copyVertex[checkboxIndex2] =
+      -sin1 * copyVertex[checkboxIndex1] + cos1 * copyVertex[checkboxIndex2];
+    copyVertex[checkboxIndex1] = tmp1;
+
+    return copyVertex;
+  });
+
+  if (!newVertices.includes(undefined)) {
+    setVerticesArray(newVertices);
+  }
+};
 
 const CreateCheckboxes = ({
   amountOfAngles,
@@ -78,62 +105,143 @@ const CreateCheckboxes = ({
 
     document.onkeydown = (e) => {
       if (e.code === "KeyQ" && dimensions >= 4) {
-        indexes = { x: 4, y: 5 };
+        indexes = [
+          [3, 0],
+          [1, 3],
+        ];
       } else if (e.code === "KeyW" && dimensions >= 5) {
-        indexes = { x: 7, y: 8 };
+        indexes = [
+          [4, 0],
+          [1, 4],
+        ];
       } else if (e.code === "KeyE" && dimensions >= 6) {
-        indexes = { x: 11, y: 12 };
+        indexes = [
+          [5, 0],
+          [1, 5],
+        ];
       } else if (e.code === "KeyR" && dimensions >= 7) {
-        indexes = { x: 16, y: 17 };
+        indexes = [
+          [6, 0],
+          [1, 6],
+        ];
       } else if (e.code === "KeyT" && dimensions >= 8) {
-        indexes = { x: 22, y: 23 };
+        indexes = [
+          [7, 0],
+          [1, 7],
+        ];
       } else if (e.code === "KeyY" && dimensions >= 9) {
-        indexes = { x: 29, y: 30 };
+        indexes = [
+          [8, 0],
+          [1, 8],
+        ];
       } else if (e.code === "KeyU" && dimensions >= 10) {
-        indexes = { x: 37, y: 38 };
+        indexes = [
+          [9, 0],
+          [1, 9],
+        ];
       } else if (e.code === "KeyI" && dimensions >= 11) {
-        indexes = { x: 46, y: 47 };
+        indexes = [
+          [10, 0],
+          [1, 10],
+        ];
       } else if (e.code === "KeyO" && dimensions >= 12) {
-        indexes = { x: 56, y: 57 };
+        indexes = [
+          [11, 0],
+          [1, 11],
+        ];
       } else if (e.code === "KeyP" && dimensions >= 13) {
-        indexes = { x: 67, y: 68 };
+        indexes = [
+          [12, 0],
+          [1, 12],
+        ];
       } else if (e.code === "KeyA" && dimensions >= 14) {
-        indexes = { x: 79, y: 80 };
+        indexes = [
+          [13, 0],
+          [1, 13],
+        ];
       } else if (e.code === "KeyS" && dimensions >= 15) {
-        indexes = { x: 92, y: 93 };
+        indexes = [
+          [14, 0],
+          [1, 14],
+        ];
       } else if (e.code === "KeyD" && dimensions >= 16) {
-        indexes = { x: 106, y: 107 };
+        indexes = [
+          [15, 0],
+          [1, 15],
+        ];
       } else if (e.code === "KeyF" && dimensions >= 17) {
-        indexes = { x: 121, y: 122 };
+        indexes = [
+          [16, 0],
+          [1, 16],
+        ];
       } else if (e.code === "KeyG" && dimensions >= 18) {
-        indexes = { x: 137, y: 138 };
+        indexes = [
+          [17, 0],
+          [1, 17],
+        ];
       } else if (e.code === "KeyH" && dimensions >= 19) {
-        indexes = { x: 154, y: 155 };
+        indexes = [
+          [18, 0],
+          [1, 18],
+        ];
       } else if (e.code === "KeyJ" && dimensions >= 20) {
-        indexes = { x: 172, y: 173 };
+        indexes = [
+          [19, 0],
+          [1, 19],
+        ];
       } else if (e.code === "KeyK" && dimensions >= 21) {
-        indexes = { x: 191, y: 192 };
+        indexes = [
+          [20, 0],
+          [1, 20],
+        ];
       } else if (e.code === "KeyL" && dimensions >= 22) {
-        indexes = { x: 211, y: 212 };
+        indexes = [
+          [21, 0],
+          [1, 21],
+        ];
       } else if (e.code === "KeyZ" && dimensions >= 23) {
-        indexes = { x: 232, y: 233 };
+        indexes = [
+          [22, 0],
+          [1, 22],
+        ];
       } else if (e.key === "KeyX" && dimensions >= 24) {
-        indexes = { x: 254, y: 255 };
+        indexes = [
+          [23, 0],
+          [1, 23],
+        ];
       } else if (e.code === "KeyC" && dimensions >= 25) {
-        indexes = { x: 277, y: 278 };
+        indexes = [
+          [24, 0],
+          [1, 24],
+        ];
       } else if (e.code === "KeyV" && dimensions >= 26) {
-        indexes = { x: 301, y: 302 };
+        indexes = [
+          [25, 0],
+          [1, 25],
+        ];
       } else if (e.code === "KeyB" && dimensions >= 27) {
-        indexes = { x: 326, y: 327 };
+        indexes = [
+          [26, 0],
+          [1, 26],
+        ];
       } else if (e.code === "KeyN" && dimensions >= 28) {
-        indexes = { x: 352, y: 353 };
+        indexes = [
+          [27, 0],
+          [1, 27],
+        ];
       } else if (e.code === "KeyM" && dimensions >= 29) {
-        indexes = { x: 379, y: 380 };
+        indexes = [
+          [28, 0],
+          [1, 28],
+        ];
       }
     };
 
     document.onkeyup = () => {
-      indexes = { x: 2, y: 3 };
+      indexes = [
+        [2, 0],
+        [1, 2],
+      ];
     };
 
     document.onmousemove = function (e) {
@@ -155,13 +263,10 @@ const CreateCheckboxes = ({
       };
 
       if (dimensions === 2) {
-        copyAnglesArray[copyAnglesArray.length - 1] -=
-          ((Math.PI * motion.x) / bound) * 10;
+        rotateFigure([0, 1], (Math.PI * motion.x) / bound / 5);
       } else {
-        copyAnglesArray[copyAnglesArray.length - indexes.x] -=
-          ((Math.PI * motion.x) / bound) * 20;
-        copyAnglesArray[copyAnglesArray.length - indexes.y] +=
-          ((Math.PI * motion.y) / bound) * 20;
+        rotateFigure(indexes[0], (Math.PI * motion.x) / bound / 2);
+        rotateFigure(indexes[1], (Math.PI * motion.y) / bound / 2);
       }
 
       startCoords = currCoords;
@@ -175,7 +280,7 @@ const CreateCheckboxes = ({
           dimensions,
           dimensionOfFigure,
           perspective3D,
-          perspectiveND,
+          perspectiveND
         );
       }
     };
@@ -187,7 +292,6 @@ const CreateCheckboxes = ({
       setReset(false);
     }
   }, [reset]);
-
 
   useEffect(() => {
     const anglesArray = [];
@@ -222,7 +326,7 @@ const CreateCheckboxes = ({
         });
 
         setAnglesArray(copyAnglesArray);
-    
+
         if (orthography) {
           generateFigureOrthography(verticesArray, dimensionOfFigure);
         } else {
@@ -231,7 +335,7 @@ const CreateCheckboxes = ({
             dimensions,
             dimensionOfFigure,
             perspective3D,
-            perspectiveND,
+            perspectiveND
           );
         }
       }
