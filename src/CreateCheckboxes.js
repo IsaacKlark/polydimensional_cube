@@ -40,8 +40,6 @@ const rotateFigure = (indexes, angle) => {
 const CreateCheckboxes = ({
   amountOfAngles,
   dimensions,
-  anglesArray,
-  setAnglesArray,
   activeRotations,
   setActiveRotations,
   figure,
@@ -91,12 +89,10 @@ const CreateCheckboxes = ({
       ) / 2;
 
     document.onmouseup = function () {
-      if (curCoordinates.length) setAnglesArray(curCoordinates);
       setClicked(false);
     };
 
     svg.onmousedown = function (e) {
-      if (!startCoords.length) startCoords = anglesArray;
       startCoords = mouseCoords(e);
       startCoords.x -= Math.floor(svg.clientWidth / 2);
       startCoords.y = Math.floor(svg.clientHeight / 2) - startCoords.y;
@@ -249,10 +245,7 @@ const CreateCheckboxes = ({
         return;
       }
 
-      const copyAnglesArray =
-        curCoordinates.length === amountOfAngles
-          ? curCoordinates
-          : [...anglesArray];
+   
       var currCoords = mouseCoords(e);
       currCoords.x -= Math.floor(svg.clientWidth / 2);
       currCoords.y = Math.floor(svg.clientHeight / 2) - currCoords.y;
@@ -265,12 +258,11 @@ const CreateCheckboxes = ({
       if (dimensions === 2) {
         rotateFigure([0, 1], (Math.PI * motion.x) / bound / 5);
       } else {
-        rotateFigure(indexes[0], (Math.PI * motion.x) / bound / 2);
-        rotateFigure(indexes[1], (Math.PI * motion.y) / bound / 2);
+        rotateFigure(indexes[0], (Math.PI * motion.x) / bound);
+        rotateFigure(indexes[1], (Math.PI * motion.y) / bound);
       }
 
       startCoords = currCoords;
-      curCoordinates = copyAnglesArray;
 
       if (orthography) {
         generateFigureOrthography(verticesArray, dimensionOfFigure);
@@ -288,45 +280,14 @@ const CreateCheckboxes = ({
 
   useEffect(() => {
     if (reset) {
-      curCoordinates = anglesArray;
       setReset(false);
     }
   }, [reset]);
 
-  useEffect(() => {
-    const anglesArray = [];
-    for (let i = 0; i < amountOfAngles; i++) {
-      anglesArray.push(0);
-    }
-    setAnglesArray(anglesArray);
-    //eslint-disable-next-line
-  }, [amountOfAngles]);
 
   useEffect(() => {
-    let copyAnglesArray = curCoordinates.length
-      ? curCoordinates
-      : [...anglesArray];
-    if (!useKeyboard) {
-      if (copyAnglesArray.length < amountOfAngles) {
-        copyAnglesArray = [];
-        for (let i = 0; i < amountOfAngles; i++) {
-          anglesArray.push(0);
-        }
-      }
-    }
-
     const interval = setInterval(() => {
       if (!useKeyboard) {
-        activeRotations.forEach((index) => {
-          if (copyAnglesArray[index] < 359) {
-            copyAnglesArray[index]++;
-          } else {
-            copyAnglesArray[index] = 0;
-          }
-        });
-
-        setAnglesArray(copyAnglesArray);
-
         if (orthography) {
           generateFigureOrthography(verticesArray, dimensionOfFigure);
         } else {

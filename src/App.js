@@ -123,7 +123,6 @@ function App() {
   const [numberOfDimensions, setNumberOfDimensions] = useState(2);
   const [amount, setAmount] = useState(1);
   const [dimensionOfFigure, setDimensionOfFigure] = useState(2);
-  const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
   const [figure, setFigure] = useState("Cube");
   const [orthography, setOrthography] = useState(false);
@@ -197,19 +196,9 @@ function App() {
       segments
     );
 
-    setAnglesArray((prevState) => prevState.map(() => 0));
   };
 
-  // useEffect(() => {
-  //   vertices(
-  //     numberOfDimensions,
-  //     dimensionOfFigure,
-  //     figure,
-  //     scale,
-  //     setOriginalVerticesArray,
-  //     segments
-  //   );
-  // }, [scale]);
+ 
 
   const dimension = (value) => {
     if (!isNaN(value)) {
@@ -494,8 +483,6 @@ function App() {
           setReset={setReset}
           amountOfAngles={amount}
           dimensions={numberOfDimensions}
-          anglesArray={anglesArray}
-          setAnglesArray={setAnglesArray}
           activeRotations={activeRotations}
           setActiveRotations={setActiveRotations}
           figure={figure}
