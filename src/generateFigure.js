@@ -1,35 +1,62 @@
-import { Matrix } from "./sylvester.src";
+import { outhNumberOfCheckboxes } from "./helpers";
+import { setVerticesArray } from "./vertices";
 
 const generateFigure = (
   vertices,
-  matrix,
   dimension,
   dimensionOfFigure,
   perspective3D,
-  perspectiveND
+  perspectiveND,
 ) => {
+  const checkboxes = document.querySelectorAll(".checkbox");
+
+  const newVertices = vertices.map((vertex) => {
+    const copyVertex = [...vertex];
+
+    outhNumberOfCheckboxes.forEach((el, index) => {
+      if (checkboxes[index].checked) {
+        const checkboxIndex1 = +el.split("-")[0] - 1;
+        const checkboxIndex2 = +el.split("-")[1] - 1;
+
+        const cos1 = Math.cos(0.02);
+        const sin1 = Math.sin(0.02);
+        const tmp1 =
+          cos1 * copyVertex[checkboxIndex1] + sin1 * copyVertex[checkboxIndex2];
+        copyVertex[checkboxIndex2] =
+          -sin1 * copyVertex[checkboxIndex1] +
+          cos1 * copyVertex[checkboxIndex2];
+        copyVertex[checkboxIndex1] = tmp1;
+      }
+    });
+
+    return copyVertex;
+  });
+
   const verticesOnSvg = vertices.map((vertex) => {
     let perspective = perspective3D;
-    let coordinates = matrix.multiply(Matrix.create(vertex));
-    let x = coordinates?.e(1, 1) || 0;
-    let y = coordinates?.e(2, 1) || 0;
 
+    const copyVertex = [...vertex];
+
+    let x = copyVertex[0];
+    let y = copyVertex[1];
+    
     for (let i = 2; i < dimension; i++) {
-      if (coordinates && coordinates.e(i + 1, 1) + perspective < 0) {
+      if (copyVertex[i] + perspective < 0) {
         // точка находится за границей холста
         perspective += perspectiveND;
-
         return { x: null, y: null };
       }
-
-      x = (perspective * x) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
-      y = (perspective * y) / ((coordinates?.e(i + 1, 1) || 0) + perspective);
-
+      x = (perspective * x) / ((copyVertex[i] || 0) + perspective);
+      y = (perspective * y) / ((copyVertex[i] || 0) + perspective);
       perspective += perspectiveND;
     }
-
     return { x, y };
   });
+
+  if (!newVertices.includes(undefined)) {
+    setVerticesArray(newVertices);
+  }
+
   const width = document.querySelector("svg").clientWidth;
   const height = document.querySelector("svg").clientHeight;
   const setCoordinatesToLines = Array.from(document.querySelectorAll(".line"));
@@ -52,7 +79,8 @@ const generateFigure = (
       return null;
     }
 
-    if (line.getAttribute("stroke") === "transparent") line.setAttribute("stroke", "white");
+    if (line.getAttribute("stroke") === "transparent")
+      line.setAttribute("stroke", "white");
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);

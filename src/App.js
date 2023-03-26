@@ -5,7 +5,6 @@ import Svg from "./Svg";
 import generateFigure from "./generateFigure";
 import generateFigureOrthography from "./generateFigureOrthography";
 import { verticesArray } from "./vertices";
-import generateMatrixes from "./generateMatrixes";
 import vertices from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
@@ -127,7 +126,6 @@ function App() {
   const [anglesArray, setAnglesArray] = useState([0]);
   const [activeRotations, setActiveRotations] = useState([]);
   const [figure, setFigure] = useState("Cube");
-  const [transposeRotation, setTransposeRotation] = useState(false);
   const [orthography, setOrthography] = useState(false);
   const [displayVertices, setDisplayVertices] = useState(false);
   const [displayEdges, setDisplayEdges] = useState(true);
@@ -187,30 +185,9 @@ function App() {
   };
 
   const resetAngles = () => {
-    const copyAnglesArray = [...anglesArray].map((angle) => 0);
     setReset(true);
-    setAnglesArray(copyAnglesArray);
     setActiveRotations([]);
-    const matrix = generateMatrixes(
-      numberOfDimensions,
-      copyAnglesArray,
-      transposeRotation
-    );
-    if (orthography) {
-      generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
-    } else {
-      generateFigure(
-        verticesArray,
-        matrix,
-        numberOfDimensions,
-        dimensionOfFigure,
-        perspective3D,
-        perspectiveND
-      );
-    }
-  };
 
-  useEffect(() => {
     vertices(
       numberOfDimensions,
       dimensionOfFigure,
@@ -219,7 +196,20 @@ function App() {
       setOriginalVerticesArray,
       segments
     );
-  }, [scale]);
+
+    setAnglesArray((prevState) => prevState.map(() => 0));
+  };
+
+  // useEffect(() => {
+  //   vertices(
+  //     numberOfDimensions,
+  //     dimensionOfFigure,
+  //     figure,
+  //     scale,
+  //     setOriginalVerticesArray,
+  //     segments
+  //   );
+  // }, [scale]);
 
   const dimension = (value) => {
     if (!isNaN(value)) {
@@ -281,18 +271,6 @@ function App() {
         <div className="instructionWrapper">
           <Instruction numberOfDimensions={numberOfDimensions} />
           <div className="wrapper">
-            <label className="checkboxWrapper">
-              <input
-                type="checkbox"
-                name="checkbox 2"
-                onChange={() => {
-                  setActiveRotations([]);
-                  setTransposeRotation(!transposeRotation);
-                }}
-                checked={transposeRotation}
-              />
-              <p>transpose rotation</p>
-            </label>
             <label className="checkboxWrapper">
               <input
                 type="checkbox"
@@ -521,7 +499,6 @@ function App() {
           activeRotations={activeRotations}
           setActiveRotations={setActiveRotations}
           figure={figure}
-          transposeRotation={transposeRotation}
           orthography={orthography}
           dimensionOfFigure={dimensionOfFigure}
           perspective3D={perspective3D}
@@ -533,10 +510,8 @@ function App() {
         <div id="svgWrapper">
           <Svg
             dimension={numberOfDimensions}
-            anglesArray={anglesArray}
             figure={figure}
             dimensionOfFigure={dimensionOfFigure}
-            transposeRotation={transposeRotation}
             orthography={orthography}
             displayEdges={displayEdges}
             displayVertices={displayVertices}

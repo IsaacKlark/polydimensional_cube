@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import generateMatrixes from "./generateMatrixes";
 import generateFigure from "./generateFigure";
 import vertices, { verticesArray } from "./vertices";
 import { useKeyboard } from "./App";
 import generateFigureOrthography from "./generateFigureOrthography";
 import { useState } from "react";
+import { setOuthhNumberOfCheckboxes } from "./helpers";
 
 let startCoords = { x: 0, y: 0 };
 let indexes = { x: 2, y: 3 };
@@ -18,7 +18,6 @@ const CreateCheckboxes = ({
   activeRotations,
   setActiveRotations,
   figure,
-  transposeRotation,
   orthography,
   dimensionOfFigure,
   perspective3D,
@@ -167,22 +166,16 @@ const CreateCheckboxes = ({
 
       startCoords = currCoords;
       curCoordinates = copyAnglesArray;
-      const matrix = generateMatrixes(
-        dimensions,
-        copyAnglesArray,
-        transposeRotation
-      );
 
       if (orthography) {
-        generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
+        generateFigureOrthography(verticesArray, dimensionOfFigure);
       } else {
         generateFigure(
           verticesArray,
-          matrix,
           dimensions,
           dimensionOfFigure,
           perspective3D,
-          perspectiveND
+          perspectiveND,
         );
       }
     };
@@ -229,21 +222,16 @@ const CreateCheckboxes = ({
         });
 
         setAnglesArray(copyAnglesArray);
-        const matrix = generateMatrixes(
-          dimensions,
-          copyAnglesArray,
-          transposeRotation
-        );
+    
         if (orthography) {
-          generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
+          generateFigureOrthography(verticesArray, dimensionOfFigure);
         } else {
           generateFigure(
             verticesArray,
-            matrix,
             dimensions,
             dimensionOfFigure,
             perspective3D,
-            perspectiveND
+            perspectiveND,
           );
         }
       }
@@ -323,6 +311,8 @@ const CreateCheckboxes = ({
     setActiveRotations(copyActiveRotations);
   };
 
+  setOuthhNumberOfCheckboxes(numbersOfCheckboxes);
+
   return (
     <>
       <label className="checkboxWrapper">
@@ -348,15 +338,6 @@ const CreateCheckboxes = ({
                 className="checkbox"
               />
               {field}
-              <input
-                type="number"
-                value={anglesArray[index] || 0}
-                onChange={(e) => {
-                  const copyAnglesArray = [...anglesArray];
-                  copyAnglesArray[index] = +e.target.value;
-                  setAnglesArray(copyAnglesArray);
-                }}
-              />
             </label>
           );
         })}

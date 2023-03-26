@@ -1,13 +1,44 @@
-import { Matrix } from "./sylvester.src";
+import { outhNumberOfCheckboxes } from "./helpers";
+import { setVerticesArray } from "./vertices";
 
-const generateFigureOrthography = (vertices, matrix, dimensionOfFigure) => {
+const generateFigureOrthography = (vertices, dimensionOfFigure) => {
+  const checkboxes = document.querySelectorAll(".checkbox");
+
+  const newVertices = vertices.map((vertex) => {
+    const copyVertex = [...vertex];
+
+    outhNumberOfCheckboxes.forEach((el, index) => {
+      if (checkboxes[index].checked) {
+        const checkboxIndex1 = +el.split("-")[0] - 1;
+        const checkboxIndex2 = +el.split("-")[1] - 1;
+
+        const cos1 = Math.cos(0.02);
+        const sin1 = Math.sin(0.02);
+        const tmp1 =
+          cos1 * copyVertex[checkboxIndex1] + sin1 * copyVertex[checkboxIndex2];
+        copyVertex[checkboxIndex2] =
+          -sin1 * copyVertex[checkboxIndex1] +
+          cos1 * copyVertex[checkboxIndex2];
+        copyVertex[checkboxIndex1] = tmp1;
+      }
+    });
+
+    return copyVertex;
+  });
+
   const verticesOnSvg = vertices.map((vertex) => {
-    let coordinates = matrix.multiply(Matrix.create(vertex));
-    let x = coordinates?.e(1, 1) || 0;
-    let y = coordinates?.e(2, 1) || 0;
+    const copyVertex = [...vertex];
+
+    let x = copyVertex[0];
+    let y = copyVertex[1];
 
     return { x, y };
   });
+
+  if (!newVertices.includes(undefined)) {
+    setVerticesArray(newVertices);
+  }
+
   const width = document.querySelector("svg").clientWidth;
   const height = document.querySelector("svg").clientHeight;
   const setCoordinatesToLines = Array.from(document.querySelectorAll(".line"));

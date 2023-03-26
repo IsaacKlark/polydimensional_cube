@@ -1,8 +1,7 @@
 import generateFigureOrthography from "./generateFigureOrthography";
 import React, { useEffect } from "react";
 import generateFigure from "./generateFigure";
-import { verticesArray } from "./vertices";
-import generateMatrixes from "./generateMatrixes";
+import { setVerticesArray, verticesArray } from "./vertices";
 import Cube from "./figures/Cube";
 import Symplex from "./figures/Symplex";
 import Octahedron from "./figures/Octahedron";
@@ -100,10 +99,8 @@ export let prevY = 0;
 
 const Svg = ({
   dimension,
-  anglesArray,
   figure,
   dimensionOfFigure,
-  transposeRotation,
   orthography,
   displayEdges,
   displayVertices,
@@ -116,17 +113,11 @@ const Svg = ({
 }) => {
   useEffect(() => {
     if (dimension > 1) {
-      const matrix = generateMatrixes(
-        dimension,
-        anglesArray,
-        transposeRotation
-      );
       if (orthography) {
-        generateFigureOrthography(verticesArray, matrix, dimensionOfFigure);
+        generateFigureOrthography(verticesArray, dimensionOfFigure);
       } else {
         generateFigure(
           verticesArray,
-          matrix,
           dimension,
           dimensionOfFigure,
           perspective3D,
@@ -138,9 +129,32 @@ const Svg = ({
 
   const onWheel = (e) => {
     if (e.deltaY > 0) {
-      setScale((value) => value - 0.1);
+      setScale((value) => {
+        const res = value - 0.1;
+        const copyVertices = verticesArray.map((arr) =>
+          arr.map((el) => el * 0.95)
+        );
+
+        if (!copyVertices.includes(undefined)) {
+          setVerticesArray(copyVertices);
+        }
+
+        return res;
+      });
     } else {
-      setScale((value) => value + 0.1);
+      setScale((value) => {
+        const res = value + 0.1;
+
+        const copyVertices = verticesArray.map((arr) =>
+          arr.map((el) => el * 1.05)
+        );
+
+        if (!copyVertices.includes(undefined)) {
+          setVerticesArray(copyVertices);
+        }
+
+        return res;
+      });
     }
   };
 

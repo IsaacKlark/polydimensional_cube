@@ -1,3 +1,4 @@
+
 const cubeVertices = (dimensions, DimensionOfFigure, setVerticesArray, scale) => {
   const verticesAmount = 2 ** dimensions;
 

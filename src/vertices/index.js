@@ -89,7 +89,7 @@ import KleinBottleVertices from "./KleinBottleVertices";
 
 export let verticesArray = [];
 
-const setVerticesArray = (result) => {
+export const setVerticesArray = (result) => {
   verticesArray = result;
 };
 
