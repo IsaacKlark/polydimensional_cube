@@ -130,7 +130,7 @@ const Svg = ({
   const onWheel = (e) => {
     if (e.deltaY > 0) {
       setScale((value) => {
-        const res = value - 0.1;
+        const res = value * 0.95;
         const copyVertices = verticesArray.map((arr) =>
           arr.map((el) => el * 0.95)
         );
@@ -143,7 +143,7 @@ const Svg = ({
       });
     } else {
       setScale((value) => {
-        const res = value + 0.1;
+        const res = value * 1.05;
 
         const copyVertices = verticesArray.map((arr) =>
           arr.map((el) => el * 1.05)
