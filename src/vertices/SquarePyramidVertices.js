@@ -13,9 +13,9 @@ const SquarePyramidVertices = (
 
     for (let j = 0; j < +DimensionOfFigure; j++) {
       if (Math.trunc(i / 2 ** j) % 2 === 0 && j < DimensionOfFigure) {
-        vertex.push(80 * scale);
+        vertex.push(80);
       } else if (j < DimensionOfFigure) {
-        vertex.push(-80 * scale);
+        vertex.push(-80);
       } else {
         vertex.push(0);
       }

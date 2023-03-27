@@ -1290,7 +1290,6 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
-        scale={scale}
       />
     );
   }

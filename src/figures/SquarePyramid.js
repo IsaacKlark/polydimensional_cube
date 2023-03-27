@@ -8,7 +8,6 @@ const SquarePyramid = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
-  scale,
 }) => {
   let linesArray = [];
 
@@ -21,13 +20,13 @@ const SquarePyramid = ({
         }
         length = Math.round(length ** (1 / 2));
         if (+dimensionOfFigure > 2) {
-          if (length === Math.trunc(160 * scale)) {
+          if (length === Math.trunc(160 )) {
             linesArray.push([i, j]);
           }
         } else {
           if (
-            length === Math.trunc(160 * scale) ||
-            length === Math.trunc(180 * scale)
+            length === Math.trunc(160 ) ||
+            length === Math.trunc(180)
           ) {
             linesArray.push([i, j]);
           }
