@@ -109,7 +109,8 @@ const Svg = ({
   setScale,
   segments,
   originalVerticesArray,
-  scale,
+  shadow,
+  shadowValue,
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -121,7 +122,9 @@ const Svg = ({
           dimension,
           dimensionOfFigure,
           perspective3D,
-          perspectiveND
+          perspectiveND,
+          shadow,
+          shadowValue
         );
       }
     }

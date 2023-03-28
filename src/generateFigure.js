@@ -6,7 +6,9 @@ const generateFigure = (
   dimension,
   dimensionOfFigure,
   perspective3D,
-  perspectiveND
+  perspectiveND,
+  shadow,
+  shadowValue
 ) => {
   const checkboxes = document.querySelectorAll(".checkbox");
 
@@ -43,6 +45,13 @@ const generateFigure = (
 
     let x = copyVertex[0];
     let y = copyVertex[1];
+    const otherDimensions = [];
+
+    if (shadow) {
+      for (let i = 2; i < dimension; i++) {
+        otherDimensions.push(copyVertex[i]);
+      }
+    }
 
     for (let i = 2; i < dimension; i++) {
       if (copyVertex[i] + perspective < 0) {
@@ -54,7 +63,7 @@ const generateFigure = (
       y = (perspective * y) / ((copyVertex[i] || 0) + perspective);
       perspective += perspectiveND;
     }
-    return { x, y };
+    return { x, y, otherDimensions };
   });
 
   const width = document.querySelector("svg").clientWidth;
@@ -78,9 +87,27 @@ const generateFigure = (
       line.setAttribute("stroke", "transparent");
       return null;
     }
+    let opacityIndex = 1;
+
+    if (shadow) {
+      for (let i = 0; i < dimension - 2; i++) {
+        opacityIndex +=
+          1 -
+          ((verticesOnSvg[index1]?.otherDimensions[i] +
+            verticesOnSvg[index2]?.otherDimensions[i]) /
+            2 +
+            shadowValue) /
+            450;
+      }
+
+      if (dimension >= 3) {
+        opacityIndex = opacityIndex / (dimension - 1);
+      }
+    }
+    line.setAttribute("stroke", `rgba(255, 255, 255, ${opacityIndex})`);
 
     if (line.getAttribute("stroke") === "transparent")
-      line.setAttribute("stroke", "white");
+      line.setAttribute("stroke", `rgba(255, 255, 255, ${opacityIndex})`);
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
@@ -98,14 +125,35 @@ const generateFigure = (
     return null;
   });
 
-  coordinatesToCircles.map((line, index) => {
+  coordinatesToCircles.map((circle, index) => {
     // точка находится за границей холста
     if (verticesOnSvg[index]?.x === null || verticesOnSvg[index]?.y === null) {
       return 0;
     }
 
-    line.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
-    line.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);
+    if (verticesOnSvg[index]?.x === null || verticesOnSvg[index]?.y === null) {
+      circle.setAttribute("fill", "transparent");
+      return null;
+    }
+
+    let opacityIndex = 1;
+    if (shadow) {
+      for (let i = 0; i < dimension - 2; i++) {
+        opacityIndex +=
+          1 - (verticesOnSvg[index]?.otherDimensions[i] + shadowValue) / 450;
+      }
+
+      if (dimension >= 3) {
+        opacityIndex = opacityIndex / (dimension - 1);
+      }
+    }
+    circle.setAttribute("fill", `rgba(255, 255, 255, ${opacityIndex})`);
+
+    if (circle.getAttribute("fill") === "transparent")
+      circle.setAttribute("fill", `rgba(255, 255, 255, ${opacityIndex})`);
+
+    circle.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
+    circle.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);
 
     return 0;
   });

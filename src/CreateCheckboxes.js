@@ -52,6 +52,10 @@ const CreateCheckboxes = ({
   segments,
   reset,
   setReset,
+  shadow,
+  shadowValue,
+  setShadow,
+  setShadowValue
 }) => {
   const [clicked, setClicked] = useState(false);
 
@@ -245,7 +249,6 @@ const CreateCheckboxes = ({
         return;
       }
 
-   
       var currCoords = mouseCoords(e);
       currCoords.x -= Math.floor(svg.clientWidth / 2);
       currCoords.y = Math.floor(svg.clientHeight / 2) - currCoords.y;
@@ -272,7 +275,9 @@ const CreateCheckboxes = ({
           dimensions,
           dimensionOfFigure,
           perspective3D,
-          perspectiveND
+          perspectiveND,
+          shadow,
+          shadowValue
         );
       }
     };
@@ -283,7 +288,6 @@ const CreateCheckboxes = ({
       setReset(false);
     }
   }, [reset]);
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -296,7 +300,9 @@ const CreateCheckboxes = ({
             dimensions,
             dimensionOfFigure,
             perspective3D,
-            perspectiveND
+            perspectiveND,
+            shadow,
+            shadowValue
           );
         }
       }
@@ -380,15 +386,42 @@ const CreateCheckboxes = ({
 
   return (
     <>
-      <label className="checkboxWrapper">
-        <input
-          type="checkbox"
-          name="checkbox"
-          onChange={selectAll}
-          checked={activeRotations.length === numbersOfCheckboxes.length}
-        />
-        <p>Select All</p>
-      </label>
+      <section className="checkboxes">
+        <label className="checkboxWrapper">
+          <input
+            type="checkbox"
+            name="checkbox"
+            onChange={selectAll}
+            checked={activeRotations.length === numbersOfCheckboxes.length}
+          />
+          <p>Select All</p>
+        </label>
+
+        <label className="checkboxWrapper">
+          <input
+            type="checkbox"
+            name="checkbox"
+            onChange={() => setShadow((value) => !value)}
+            checked={shadow}
+          />
+          <p>Use shadow</p>
+        </label>
+
+        {shadow && (
+          <label className="rangeWrapper">
+            <p className="rangeText">0</p>
+            <input
+              min={0}
+              max={800}
+              step={10}
+              value={shadowValue}
+              type="range"
+              onChange={(e) => setShadowValue(+e.target.value)}
+            />
+            <p className="rangeText">800</p>
+          </label>
+        )}
+      </section>
       <section className="checkboxes">
         <div className="angles">angles:</div>
         {numbersOfCheckboxes.map((field, index) => {

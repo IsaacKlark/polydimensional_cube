@@ -139,6 +139,8 @@ function App() {
   const [numberValue, setNumberValue] = useState(numberOfDimensions);
   const [figureDimension, setFigureDimension] = useState(2);
   const [reset, setReset] = useState(false);
+  const [shadow, setShadow] = useState(false);
+  const [shadowValue, setShadowValue] = useState(600);
 
   useEffect(() => {
     if (+dimensionOfFigure < 3 && specific3D.includes(figure)) {
@@ -195,10 +197,7 @@ function App() {
       setOriginalVerticesArray,
       segments
     );
-
   };
-
- 
 
   const dimension = (value) => {
     if (!isNaN(value)) {
@@ -493,6 +492,10 @@ function App() {
           scale={scale}
           setOriginalVerticesArray={setOriginalVerticesArray}
           segments={segments}
+          shadow={shadow}
+          shadowValue={shadowValue}
+          setShadow={setShadow}
+          setShadowValue={setShadowValue}
         />
         <div id="svgWrapper">
           <Svg
@@ -507,7 +510,8 @@ function App() {
             setScale={setScale}
             originalVerticesArray={originalVerticesArray}
             segments={segments}
-            scale={scale}
+            shadow={shadow}
+            shadowValue={shadowValue}
           />
         </div>
       </div>
