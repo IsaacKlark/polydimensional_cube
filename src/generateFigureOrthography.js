@@ -1,7 +1,14 @@
 import { outhNumberOfCheckboxes } from "./helpers";
 import { setVerticesArray } from "./vertices";
 
-const generateFigureOrthography = (vertices, dimensionOfFigure) => {
+const generateFigureOrthography = (
+  vertices,
+  dimensionOfFigure,
+  shadow,
+  shadowValue,
+  displayVertices,
+  dimension
+) => {
   const checkboxes = document.querySelectorAll(".checkbox");
 
   const newVertices = vertices.map((vertex) => {
@@ -32,7 +39,15 @@ const generateFigureOrthography = (vertices, dimensionOfFigure) => {
     let x = copyVertex[0];
     let y = copyVertex[1];
 
-    return { x, y };
+    const otherDimensions = [];
+
+    if (shadow) {
+      for (let i = 2; i < dimension; i++) {
+        otherDimensions.push(copyVertex[i]);
+      }
+    }
+
+    return { x, y, otherDimensions };
   });
 
   if (!newVertices.includes(undefined)) {
@@ -42,12 +57,32 @@ const generateFigureOrthography = (vertices, dimensionOfFigure) => {
   const width = document.querySelector("svg").clientWidth;
   const height = document.querySelector("svg").clientHeight;
   const setCoordinatesToLines = Array.from(document.querySelectorAll(".line"));
-  const setCoordinatesToCircles = Array.from(
-    document.querySelectorAll(".circle")
-  );
+  const setCoordinatesToCircles = displayVertices
+    ? Array.from(document.querySelectorAll(".circle"))
+    : [];
+
   setCoordinatesToLines.map((line) => {
     const index1 = line.getAttribute("vertex1");
     const index2 = line.getAttribute("vertex2");
+
+    let opacityIndex = 1;
+
+    if (shadow) {
+      for (let i = 0; i < dimension - 2; i++) {
+        opacityIndex +=
+          1 -
+          ((verticesOnSvg[index1]?.otherDimensions[i] +
+            verticesOnSvg[index2]?.otherDimensions[i]) /
+            2 +
+            shadowValue) /
+            450;
+      }
+
+      if (dimension >= 3) {
+        opacityIndex = opacityIndex / (dimension - 1);
+      }
+    }
+    line.setAttribute("stroke", `rgba(255, 255, 255, ${opacityIndex})`);
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
@@ -64,9 +99,38 @@ const generateFigureOrthography = (vertices, dimensionOfFigure) => {
     return 0;
   });
 
-  setCoordinatesToCircles.map((line, index) => {
-    line.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
-    line.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);
+  setCoordinatesToCircles.map((circle, index) => {
+    if (verticesOnSvg[index]?.x === null || verticesOnSvg[index]?.y === null) {
+      return 0;
+    }
+
+    if (verticesOnSvg[index]?.x === null || verticesOnSvg[index]?.y === null) {
+      circle.setAttribute("fill", "transparent");
+      return null;
+    }
+
+    let opacityIndex = 1;
+
+    if (shadow) {
+      for (let i = 0; i < dimension - 2; i++) {
+        opacityIndex +=
+          1 - (verticesOnSvg[index]?.otherDimensions[i] + shadowValue) / 450;
+      }
+
+      if (dimension >= 3) {
+        opacityIndex = opacityIndex / (dimension - 1);
+      }
+      circle.setAttribute("r", 2 + 4 * opacityIndex);
+    } else {
+      circle.setAttribute("r", 2);
+    }
+    circle.setAttribute("fill", `rgba(255, 255, 255, ${opacityIndex})`);
+
+    if (circle.getAttribute("fill") === "transparent")
+      circle.setAttribute("fill", `rgba(255, 255, 255, ${opacityIndex})`);
+
+    circle.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
+    circle.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);
 
     return 0;
   });

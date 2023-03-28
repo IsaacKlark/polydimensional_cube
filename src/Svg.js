@@ -115,7 +115,14 @@ const Svg = ({
   useEffect(() => {
     if (dimension > 1) {
       if (orthography) {
-        generateFigureOrthography(verticesArray, dimensionOfFigure);
+        generateFigureOrthography(
+          verticesArray,
+          dimensionOfFigure,
+          shadow,
+          shadowValue,
+          displayVertices,
+          dimension,
+        );
       } else {
         generateFigure(
           verticesArray,
@@ -131,36 +138,39 @@ const Svg = ({
     }
   });
 
-  const onWheel = useCallback((e) => {
-    if (e.deltaY > 0) {
-      setScale((value) => {
-        const res = value * 0.95;
-        const copyVertices = verticesArray.map((arr) =>
-          arr.map((el) => el * 0.95)
-        );
+  const onWheel = useCallback(
+    (e) => {
+      if (e.deltaY > 0) {
+        setScale((value) => {
+          const res = value * 0.95;
+          const copyVertices = verticesArray.map((arr) =>
+            arr.map((el) => el * 0.95)
+          );
 
-        if (!copyVertices.includes(undefined)) {
-          setVerticesArray(copyVertices);
-        }
+          if (!copyVertices.includes(undefined)) {
+            setVerticesArray(copyVertices);
+          }
 
-        return res;
-      });
-    } else {
-      setScale((value) => {
-        const res = value * 1.05;
+          return res;
+        });
+      } else {
+        setScale((value) => {
+          const res = value * 1.05;
 
-        const copyVertices = verticesArray.map((arr) =>
-          arr.map((el) => el * 1.05)
-        );
+          const copyVertices = verticesArray.map((arr) =>
+            arr.map((el) => el * 1.05)
+          );
 
-        if (!copyVertices.includes(undefined)) {
-          setVerticesArray(copyVertices);
-        }
+          if (!copyVertices.includes(undefined)) {
+            setVerticesArray(copyVertices);
+          }
 
-        return res;
-      });
-    }
-  }, [setScale]);
+          return res;
+        });
+      }
+    },
+    [setScale]
+  );
 
   const onMouseEnter = useCallback(() => {
     document.body.style.overflow = "hidden";

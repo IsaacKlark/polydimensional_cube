@@ -271,7 +271,14 @@ const CreateCheckboxes = ({
         startCoords = currCoords;
 
         if (orthography) {
-          generateFigureOrthography(verticesArray, dimensionOfFigure);
+          generateFigureOrthography(
+            verticesArray,
+            dimensionOfFigure,
+            shadow,
+            shadowValue,
+            displayVertices,
+            dimensions,
+          );
         } else {
           generateFigure(
             verticesArray,
@@ -296,7 +303,7 @@ const CreateCheckboxes = ({
     perspectiveND,
     shadow,
     shadowValue,
-    svg
+    svg,
   ]);
 
   useEffect(() => {
@@ -309,7 +316,14 @@ const CreateCheckboxes = ({
     const interval = setInterval(() => {
       if (!useKeyboard) {
         if (orthography) {
-          generateFigureOrthography(verticesArray, dimensionOfFigure);
+          generateFigureOrthography(
+            verticesArray,
+            dimensionOfFigure,
+            shadow,
+            shadowValue,
+            displayVertices,
+            dimensions,
+          );
         } else {
           generateFigure(
             verticesArray,
