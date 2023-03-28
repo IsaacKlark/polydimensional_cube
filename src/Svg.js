@@ -124,7 +124,8 @@ const Svg = ({
           perspective3D,
           perspectiveND,
           shadow,
-          shadowValue
+          shadowValue,
+          displayVertices
         );
       }
     }

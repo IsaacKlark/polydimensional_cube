@@ -8,7 +8,8 @@ const generateFigure = (
   perspective3D,
   perspectiveND,
   shadow,
-  shadowValue
+  shadowValue,
+  displayVertices
 ) => {
   const checkboxes = document.querySelectorAll(".checkbox");
 
@@ -69,7 +70,9 @@ const generateFigure = (
   const width = document.querySelector("svg").clientWidth;
   const height = document.querySelector("svg").clientHeight;
   const setCoordinatesToLines = Array.from(document.querySelectorAll(".line"));
-  const coordinatesToCircles = Array.from(document.querySelectorAll(".circle"));
+  const coordinatesToCircles = displayVertices
+    ? Array.from(document.querySelectorAll(".circle"))
+    : [];
 
   setCoordinatesToLines.map((line) => {
     const index1 = isNaN(line.getAttribute("vertex1"))
@@ -125,6 +128,8 @@ const generateFigure = (
     return null;
   });
 
+  if (!displayVertices) return;
+
   coordinatesToCircles.map((circle, index) => {
     // точка находится за границей холста
     if (verticesOnSvg[index]?.x === null || verticesOnSvg[index]?.y === null) {
@@ -137,6 +142,7 @@ const generateFigure = (
     }
 
     let opacityIndex = 1;
+
     if (shadow) {
       for (let i = 0; i < dimension - 2; i++) {
         opacityIndex +=
@@ -146,6 +152,9 @@ const generateFigure = (
       if (dimension >= 3) {
         opacityIndex = opacityIndex / (dimension - 1);
       }
+      circle.setAttribute("r", 2 + 4 * opacityIndex);
+    } else {
+      circle.setAttribute("r", 2);
     }
     circle.setAttribute("fill", `rgba(255, 255, 255, ${opacityIndex})`);
 

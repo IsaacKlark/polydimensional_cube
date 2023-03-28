@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
-import generateFigure from "./generateFigure";
-import generateFigureOrthography from "./generateFigureOrthography";
-import { verticesArray } from "./vertices";
 import vertices from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
@@ -496,6 +493,7 @@ function App() {
           shadowValue={shadowValue}
           setShadow={setShadow}
           setShadowValue={setShadowValue}
+          displayVertices={displayVertices}
         />
         <div id="svgWrapper">
           <Svg

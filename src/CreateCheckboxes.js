@@ -55,7 +55,8 @@ const CreateCheckboxes = ({
   shadow,
   shadowValue,
   setShadow,
-  setShadowValue
+  setShadowValue,
+  displayVertices
 }) => {
   const [clicked, setClicked] = useState(false);
 
@@ -277,7 +278,8 @@ const CreateCheckboxes = ({
           perspective3D,
           perspectiveND,
           shadow,
-          shadowValue
+          shadowValue,
+          displayVertices
         );
       }
     };
@@ -302,7 +304,8 @@ const CreateCheckboxes = ({
             perspective3D,
             perspectiveND,
             shadow,
-            shadowValue
+            shadowValue,
+            displayVertices
           );
         }
       }
