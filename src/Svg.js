@@ -1,5 +1,5 @@
 import generateFigureOrthography from "./generateFigureOrthography";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import generateFigure from "./generateFigure";
 import { setVerticesArray, verticesArray } from "./vertices";
 import Cube from "./figures/Cube";
@@ -131,7 +131,7 @@ const Svg = ({
     }
   });
 
-  const onWheel = (e) => {
+  const onWheel = useCallback((e) => {
     if (e.deltaY > 0) {
       setScale((value) => {
         const res = value * 0.95;
@@ -160,15 +160,15 @@ const Svg = ({
         return res;
       });
     }
-  };
+  }, [setScale]);
 
-  const onMouseEnter = () => {
+  const onMouseEnter = useCallback(() => {
     document.body.style.overflow = "hidden";
-  };
+  }, []);
 
-  const onMouseLeave = () => {
+  const onMouseLeave = useCallback(() => {
     document.body.style.overflow = "auto";
-  };
+  }, []);
 
   if (+dimensionOfFigure === 0) {
     return (

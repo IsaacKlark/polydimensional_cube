@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
@@ -154,7 +154,7 @@ function App() {
     optionList.push(i + 1);
   }
 
-  const generateDimensions = () => {
+  const generateDimensions = useCallback(() => {
     if (
       isNaN(numberValue) ||
       +numberValue < 0 ||
@@ -180,9 +180,9 @@ function App() {
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  };
+  }, [figure, numberValue]);
 
-  const resetAngles = () => {
+  const resetAngles = useCallback(() => {
     setReset(true);
     setActiveRotations([]);
 
@@ -194,49 +194,55 @@ function App() {
       setOriginalVerticesArray,
       segments
     );
-  };
+  }, [numberOfDimensions, dimensionOfFigure, figure, scale, segments]);
 
-  const dimension = (value) => {
-    if (!isNaN(value)) {
-      vertices(
-        numberOfDimensions,
-        +value,
-        figure,
-        scale,
-        setOriginalVerticesArray,
-        segments
-      );
-      setDimensionOfFigure(+value);
-    }
-  };
+  const dimension = useCallback(
+    (value) => {
+      if (!isNaN(value)) {
+        vertices(
+          numberOfDimensions,
+          +value,
+          figure,
+          scale,
+          setOriginalVerticesArray,
+          segments
+        );
+        setDimensionOfFigure(+value);
+      }
+    },
+    [figure, numberOfDimensions, scale, segments]
+  );
 
-  const changeFigure = (value) => {
-    if (!segmentedFigures.includes(value)) {
-      vertices(
-        numberOfDimensions,
-        dimensionOfFigure,
-        value,
-        scale,
-        setOriginalVerticesArray,
-        segments
-      );
-      setFigure(value);
-    } else {
-      let segments = +prompt("Please, input amount of segments", 14) || 4;
-      if (value === "Sphere" && segments % 2 !== 0) segments += 1;
-      vertices(
-        numberOfDimensions,
-        dimensionOfFigure,
-        value,
-        scale,
-        setOriginalVerticesArray,
-        segments
-      );
-      setSegments(segments);
-      setFigure(value);
-    }
-    resetAngles();
-  };
+  const changeFigure = useCallback(
+    (value) => {
+      if (!segmentedFigures.includes(value)) {
+        vertices(
+          numberOfDimensions,
+          dimensionOfFigure,
+          value,
+          scale,
+          setOriginalVerticesArray,
+          segments
+        );
+        setFigure(value);
+      } else {
+        let segments = +prompt("Please, input amount of segments", 14) || 4;
+        if (value === "Sphere" && segments % 2 !== 0) segments += 1;
+        vertices(
+          numberOfDimensions,
+          dimensionOfFigure,
+          value,
+          scale,
+          setOriginalVerticesArray,
+          segments
+        );
+        setSegments(segments);
+        setFigure(value);
+      }
+      resetAngles();
+    },
+    [dimensionOfFigure, numberOfDimensions, resetAngles, scale, segments]
+  );
 
   useEffect(() => {
     let copyOptions = [...baseFigures];
