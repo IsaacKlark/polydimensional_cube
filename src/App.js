@@ -136,7 +136,7 @@ function App() {
   const [numberValue, setNumberValue] = useState(numberOfDimensions);
   const [figureDimension, setFigureDimension] = useState(2);
   const [reset, setReset] = useState(false);
-  const [shadow, setShadow] = useState(false);
+  const [shadow, setShadow] = useState(true);
   const [shadowValue, setShadowValue] = useState(600);
 
   useEffect(() => {
