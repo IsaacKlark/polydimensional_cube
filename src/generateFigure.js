@@ -9,7 +9,8 @@ const generateFigure = (
   perspectiveND,
   shadow,
   shadowValue,
-  displayVertices
+  displayVertices,
+  figureColor
 ) => {
   const checkboxes = document.querySelectorAll(".checkbox");
 
@@ -107,10 +108,10 @@ const generateFigure = (
         opacityIndex = opacityIndex / (dimension - 1);
       }
     }
-    line.setAttribute("stroke", `rgba(255, 255, 255, ${opacityIndex})`);
+    line.setAttribute("stroke", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
 
     if (line.getAttribute("stroke") === "transparent")
-      line.setAttribute("stroke", `rgba(255, 255, 255, ${opacityIndex})`);
+      line.setAttribute("stroke", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
@@ -156,10 +157,10 @@ const generateFigure = (
     } else {
       circle.setAttribute("r", 2);
     }
-    circle.setAttribute("fill", `rgba(255, 255, 255, ${opacityIndex})`);
+    circle.setAttribute("fill", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
 
     if (circle.getAttribute("fill") === "transparent")
-      circle.setAttribute("fill", `rgba(255, 255, 255, ${opacityIndex})`);
+      circle.setAttribute("fill", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
 
     circle.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
     circle.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);

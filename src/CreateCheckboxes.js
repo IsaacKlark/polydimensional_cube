@@ -38,6 +38,10 @@ const rotateFigure = (indexes, angle) => {
   }
 };
 
+function rgbToHex(r, g, b) {
+  return "#" + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
+}
+
 const CreateCheckboxes = ({
   amountOfAngles,
   dimensions,
@@ -58,6 +62,10 @@ const CreateCheckboxes = ({
   setShadow,
   setShadowValue,
   displayVertices,
+  figureColor,
+  setFigureColor,
+  backgroundColor,
+  setBackgroundColor,
 }) => {
   const [clicked, setClicked] = useState(false);
 
@@ -278,6 +286,7 @@ const CreateCheckboxes = ({
             shadowValue,
             displayVertices,
             dimensions,
+            figureColor
           );
         } else {
           generateFigure(
@@ -288,7 +297,8 @@ const CreateCheckboxes = ({
             perspectiveND,
             shadow,
             shadowValue,
-            displayVertices
+            displayVertices,
+            figureColor
           );
         }
       };
@@ -304,6 +314,7 @@ const CreateCheckboxes = ({
     shadow,
     shadowValue,
     svg,
+    figureColor,
   ]);
 
   useEffect(() => {
@@ -323,6 +334,7 @@ const CreateCheckboxes = ({
             shadowValue,
             displayVertices,
             dimensions,
+            figureColor
           );
         } else {
           generateFigure(
@@ -333,7 +345,8 @@ const CreateCheckboxes = ({
             perspectiveND,
             shadow,
             shadowValue,
-            displayVertices
+            displayVertices,
+            figureColor
           );
         }
       }
@@ -362,7 +375,7 @@ const CreateCheckboxes = ({
       setOriginalVerticesArray,
       segments
     );
-  }, [figure, dimensions, dimensionOfFigure]);
+  }, [figure, dimensions, dimensionOfFigure, figureColor]);
 
   const numbersOfCheckboxes = new Array(amountOfAngles);
   let subDimensionStart = 2;
@@ -417,10 +430,46 @@ const CreateCheckboxes = ({
   }, [activeRotations, numbersOfCheckboxes, setActiveRotations]);
 
   setOuthhNumberOfCheckboxes(numbersOfCheckboxes);
+  
+
+  const changeFigureColor = useCallback((e, fn) => {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
+      e.target.value
+    );
+    fn([
+      parseInt(result[1], 16),
+      parseInt(result[2], 16),
+      parseInt(result[3], 16),
+    ]);
+  }, []);
+
+  const changeBackgroundColor = useCallback((e, fn) => {
+    fn(e.target.value);
+    const svg = document.querySelector(".svg");
+    svg.style.backgroundColor = e.target.value;
+  }, []);
 
   return (
     <>
       <section className="checkboxes">
+        <label className="checkboxWrapper">
+          <input
+            type="color"
+            name="checkbox"
+            value={rgbToHex(figureColor[0], figureColor[1], figureColor[2])}
+            onChange={(e) => changeFigureColor(e, setFigureColor)}
+          />
+          <p>Figure color</p>
+        </label>
+        <label className="checkboxWrapper">
+          <input
+            type="color"
+            name="checkbox"
+            value={backgroundColor}
+            onChange={(e) => changeBackgroundColor(e, setBackgroundColor)}
+          />
+          <p>Background color</p>
+        </label>
         <label className="checkboxWrapper">
           <input
             type="checkbox"
@@ -456,6 +505,7 @@ const CreateCheckboxes = ({
           </label>
         )}
       </section>
+
       <section className="checkboxes">
         <div className="angles">angles:</div>
         {numbersOfCheckboxes.map((field, index) => {

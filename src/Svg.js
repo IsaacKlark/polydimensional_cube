@@ -1,5 +1,5 @@
 import generateFigureOrthography from "./generateFigureOrthography";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import generateFigure from "./generateFigure";
 import { setVerticesArray, verticesArray } from "./vertices";
 import Cube from "./figures/Cube";
@@ -111,6 +111,8 @@ const Svg = ({
   originalVerticesArray,
   shadow,
   shadowValue,
+  figureColor,
+  backgroundColor,
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -122,6 +124,7 @@ const Svg = ({
           shadowValue,
           displayVertices,
           dimension,
+          figureColor
         );
       } else {
         generateFigure(
@@ -132,7 +135,8 @@ const Svg = ({
           perspectiveND,
           shadow,
           shadowValue,
-          displayVertices
+          displayVertices,
+          figureColor
         );
       }
     }
@@ -182,7 +186,12 @@ const Svg = ({
 
   if (+dimensionOfFigure === 0) {
     return (
-      <svg width="600" height="400" className="svg" onScroll={onWheel}>
+      <svg
+        width="600"
+        height="400"
+        className="svg"
+        onScroll={onWheel}
+      >
         <circle cx="300" cy="200" r="3" fill="white" />
       </svg>
     );
@@ -190,7 +199,12 @@ const Svg = ({
 
   if (+dimensionOfFigure === 1) {
     return (
-      <svg width="600" height="400" className="svg" onScroll={onWheel}>
+      <svg
+        width="600"
+        height="400"
+        className="svg"
+        onScroll={onWheel}
+      >
         <line
           id="line1"
           x1="200"

@@ -138,6 +138,8 @@ function App() {
   const [reset, setReset] = useState(false);
   const [shadow, setShadow] = useState(true);
   const [shadowValue, setShadowValue] = useState(600);
+  const [figureColor, setFigureColor] = useState([255, 255, 255]);
+  const [backgroundColor, setBackgroundColor] = useState("#000000");
 
   useEffect(() => {
     if (+dimensionOfFigure < 3 && specific3D.includes(figure)) {
@@ -194,7 +196,21 @@ function App() {
       setOriginalVerticesArray,
       segments
     );
-  }, [numberOfDimensions, dimensionOfFigure, figure, scale, segments]);
+
+    setTimeout(() => {
+      const svg = document.querySelector(".svg");
+      svg.style.backgroundColor = backgroundColor;
+    }, 0);
+
+    console.log(backgroundColor);
+  }, [
+    numberOfDimensions,
+    dimensionOfFigure,
+    figure,
+    scale,
+    segments,
+    backgroundColor,
+  ]);
 
   const dimension = useCallback(
     (value) => {
@@ -241,7 +257,14 @@ function App() {
       }
       resetAngles();
     },
-    [dimensionOfFigure, numberOfDimensions, resetAngles, scale, segments]
+    [
+      dimensionOfFigure,
+      numberOfDimensions,
+      resetAngles,
+      scale,
+      segments,
+      backgroundColor,
+    ]
   );
 
   useEffect(() => {
@@ -500,6 +523,10 @@ function App() {
           setShadow={setShadow}
           setShadowValue={setShadowValue}
           displayVertices={displayVertices}
+          figureColor={figureColor}
+          setFigureColor={setFigureColor}
+          backgroundColor={backgroundColor}
+          setBackgroundColor={setBackgroundColor}
         />
         <div id="svgWrapper">
           <Svg
@@ -516,6 +543,8 @@ function App() {
             segments={segments}
             shadow={shadow}
             shadowValue={shadowValue}
+            figureColor={figureColor}
+            backgroundColor={backgroundColor}
           />
         </div>
       </div>
