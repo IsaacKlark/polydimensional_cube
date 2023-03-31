@@ -117,9 +117,9 @@ const segmentedFigures = [
 ];
 
 function App() {
-  const [numberOfDimensions, setNumberOfDimensions] = useState(2);
-  const [amount, setAmount] = useState(1);
-  const [dimensionOfFigure, setDimensionOfFigure] = useState(2);
+  const [numberOfDimensions, setNumberOfDimensions] = useState(4);
+  const [amount, setAmount] = useState(6);
+  const [dimensionOfFigure, setDimensionOfFigure] = useState(4);
   const [activeRotations, setActiveRotations] = useState([]);
   const [figure, setFigure] = useState("Cube");
   const [orthography, setOrthography] = useState(false);
@@ -133,11 +133,11 @@ function App() {
   const [originalVerticesArray, setOriginalVerticesArray] = useState([]);
   const [segments, setSegments] = useState(21);
   const [optionsFigures, setOptionsFigures] = useState([...baseFigures]);
-  const [numberValue, setNumberValue] = useState(numberOfDimensions);
-  const [figureDimension, setFigureDimension] = useState(2);
+  const [numberValue, setNumberValue] = useState(4);
+  const [figureDimension, setFigureDimension] = useState(4);
   const [reset, setReset] = useState(false);
   const [shadow, setShadow] = useState(true);
-  const [shadowValue, setShadowValue] = useState(600);
+  const [shadowValue, setShadowValue] = useState(520);
   const [figureColor, setFigureColor] = useState([255, 255, 255]);
   const [backgroundColor, setBackgroundColor] = useState("#000000");
 
@@ -201,8 +201,6 @@ function App() {
       const svg = document.querySelector(".svg");
       svg.style.backgroundColor = backgroundColor;
     }, 0);
-
-    console.log(backgroundColor);
   }, [
     numberOfDimensions,
     dimensionOfFigure,

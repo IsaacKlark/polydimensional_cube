@@ -140,7 +140,18 @@ const Svg = ({
         );
       }
     }
-  });
+  }, [
+    dimension,
+    dimensionOfFigure,
+    perspective3D,
+    perspectiveND,
+    shadow,
+    shadowValue,
+    displayVertices,
+    figureColor,
+    orthography,
+    verticesArray
+  ]);
 
   const onWheel = useCallback(
     (e) => {
@@ -186,12 +197,7 @@ const Svg = ({
 
   if (+dimensionOfFigure === 0) {
     return (
-      <svg
-        width="600"
-        height="400"
-        className="svg"
-        onScroll={onWheel}
-      >
+      <svg width="600" height="400" className="svg" onScroll={onWheel}>
         <circle cx="300" cy="200" r="3" fill="white" />
       </svg>
     );
@@ -199,12 +205,7 @@ const Svg = ({
 
   if (+dimensionOfFigure === 1) {
     return (
-      <svg
-        width="600"
-        height="400"
-        className="svg"
-        onScroll={onWheel}
-      >
+      <svg width="600" height="400" className="svg" onScroll={onWheel}>
         <line
           id="line1"
           x1="200"

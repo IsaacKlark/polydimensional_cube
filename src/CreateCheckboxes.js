@@ -364,6 +364,7 @@ const CreateCheckboxes = ({
     orthography,
     dimensionOfFigure,
     curCoordinates,
+    shadowValue
   ]);
 
   useEffect(() => {
