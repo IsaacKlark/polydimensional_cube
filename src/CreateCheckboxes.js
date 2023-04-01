@@ -18,7 +18,6 @@ let curCoordinates = [];
 const rotateFigure = (indexes, angle) => {
   const newVertices = verticesArray.map((vertex) => {
     const copyVertex = [...vertex];
-
     const checkboxIndex1 = indexes[0];
     const checkboxIndex2 = indexes[1];
 
@@ -269,7 +268,7 @@ const CreateCheckboxes = ({
           y: currCoords.y - startCoords.y,
         };
 
-        if (dimensions === 2) {
+        if (+dimensions === 2) {
           rotateFigure([0, 1], (Math.PI * motion.x) / bound / 5);
         } else {
           rotateFigure(indexes[0], (Math.PI * motion.x) / bound);
@@ -364,7 +363,7 @@ const CreateCheckboxes = ({
     orthography,
     dimensionOfFigure,
     curCoordinates,
-    shadowValue
+    shadowValue,
   ]);
 
   useEffect(() => {
@@ -431,7 +430,6 @@ const CreateCheckboxes = ({
   }, [activeRotations, numbersOfCheckboxes, setActiveRotations]);
 
   setOuthhNumberOfCheckboxes(numbersOfCheckboxes);
-  
 
   const changeFigureColor = useCallback((e, fn) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
