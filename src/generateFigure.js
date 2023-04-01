@@ -65,12 +65,16 @@ const generateFigure = (
       y = (perspective * y) / ((copyVertex[i] || 0) + perspective);
       perspective += perspectiveND;
     }
+
     return { x, y, otherDimensions };
   });
 
   const width = document.querySelector("svg").clientWidth;
   const height = document.querySelector("svg").clientHeight;
   const setCoordinatesToLines = Array.from(document.querySelectorAll(".line"));
+  const setCoordinatesToPolygons = Array.from(
+    document.querySelectorAll(".polygon")
+  );
   const coordinatesToCircles = displayVertices
     ? Array.from(document.querySelectorAll(".circle"))
     : [];
@@ -108,10 +112,16 @@ const generateFigure = (
         opacityIndex = opacityIndex / (dimension - 1);
       }
     }
-    line.setAttribute("stroke", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
+    line.setAttribute(
+      "stroke",
+      `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+    );
 
     if (line.getAttribute("stroke") === "transparent")
-      line.setAttribute("stroke", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
+      line.setAttribute(
+        "stroke",
+        `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+      );
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
@@ -127,6 +137,21 @@ const generateFigure = (
     }
 
     return null;
+  });
+
+  setCoordinatesToPolygons.map((polygon) => {
+    const indexes = JSON.parse(polygon.getAttribute("data-points"));
+
+    polygon.setAttribute(
+      "points",
+      `${width / 2 + verticesOnSvg[indexes[0]]?.x}, ${
+        height / 2 + verticesOnSvg[indexes[0]]?.y
+      } ${width / 2 + verticesOnSvg[indexes[1]]?.x}, ${
+        height / 2 + verticesOnSvg[indexes[1]]?.y
+      }
+      ${width / 2 + verticesOnSvg[indexes[2]]?.x}, ${height / 2 + verticesOnSvg[indexes[2]]?.y}
+      ${width / 2 + verticesOnSvg[indexes[3]]?.x}, ${height / 2 + verticesOnSvg[indexes[3]]?.y}`
+    );
   });
 
   if (!displayVertices) return;
@@ -157,10 +182,16 @@ const generateFigure = (
     } else {
       circle.setAttribute("r", 2);
     }
-    circle.setAttribute("fill", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
+    circle.setAttribute(
+      "fill",
+      `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+    );
 
     if (circle.getAttribute("fill") === "transparent")
-      circle.setAttribute("fill", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
+      circle.setAttribute(
+        "fill",
+        `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+      );
 
     circle.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
     circle.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);

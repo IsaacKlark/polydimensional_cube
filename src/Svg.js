@@ -229,6 +229,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        dimensionOfFigure={dimensionOfFigure}
       />
     );
   }

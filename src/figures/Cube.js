@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
+let polygons = [];
 
 const Cube = ({
   dimension,
@@ -8,6 +9,7 @@ const Cube = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  dimensionOfFigure,
 }) => {
   const amountOfLines = 2 ** (dimension - 1) * dimension;
   let ids = 0;
@@ -21,6 +23,16 @@ const Cube = ({
   let cubesRepeats = 4;
   let cube = [0, 1, 2, 3];
 
+  useMemo(() => {
+    polygons = [];
+    let group1 = [0, 1, 3, 2];
+
+    for (let i = 0; i < 2 ** (+dimensionOfFigure - 2); i++) {
+      polygons.push(group1);
+      group1 = group1.map((num) => num + 4);
+    }
+  }, [dimensionOfFigure])
+  
   return (
     <svg
       width="600"
@@ -114,6 +126,16 @@ const Cube = ({
             />
           ))
         : null}
+
+      {polygons.map((arr, index) => (
+        <polygon
+          data-points={JSON.stringify(arr)}
+          key={index}
+          points="0 0, 0 0, 0 0, 0 0"
+          fill={`rgba(255,255, 255, 0.3)`}
+          className="polygon"
+        />
+      ))}
     </svg>
   );
 };
