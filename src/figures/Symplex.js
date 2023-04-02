@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
 
 const Symplex = ({
   dimensionOfFigure,
@@ -8,6 +10,7 @@ const Symplex = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces,
 }) => {
   const amountOfLines = ((+dimensionOfFigure + 1) * dimensionOfFigure) / 2;
   let ids = 0;
@@ -47,6 +50,35 @@ const Symplex = ({
     }
   }
 
+  useMemo(() => {
+    polygons = [];
+    if (dimensionOfFigure < 2 || !displayFaces) return;
+
+    let x = 0;
+    let y = 1;
+    let z = 2;
+
+    while (x <= +dimensionOfFigure - 2) {
+      polygons.push([x, y, z]);
+
+      if (+dimensionOfFigure === 2) break;
+
+      z += 1;
+
+      if (z === +dimensionOfFigure + 1) {
+        y += 1;
+        z = y + 1;
+      }
+
+      if (y === +dimensionOfFigure) {
+        x += 1;
+        y = x + 1;
+        z = y + 1;
+      }
+    }
+
+  }, [dimensionOfFigure, displayFaces]);
+
   return (
     <svg
       width="600"
@@ -56,6 +88,17 @@ const Symplex = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {polygons.map((arr, index) => (
+        <polygon
+          data-points={JSON.stringify(arr)}
+          key={index}
+          points="0 0, 0 0, 0 0, 0 0"
+          fill={`rgba(255,255, 255, 0.3)`}
+          className="polygon"
+          data-type="triangle"
+        />
+      ))}
+
       {displayEdges
         ? lines.map((id, index) => {
             let vertex1 = 0;
