@@ -207,7 +207,7 @@ const generateFigure = (
               }
             }
             if (count > 0) {
-              opacityIndex += 1 - (sum / count + shadowValue) / 450;
+              opacityIndex += 1 - (sum / count + shadowValue + 100) / 450;
             }
           }
 
