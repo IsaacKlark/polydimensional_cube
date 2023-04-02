@@ -87,7 +87,10 @@ const generateFigureOrthography = (
         opacityIndex = opacityIndex / (dimension - 1);
       }
     }
-    line.setAttribute("stroke", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
+    line.setAttribute(
+      "stroke",
+      `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+    );
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
@@ -129,10 +132,16 @@ const generateFigureOrthography = (
     } else {
       circle.setAttribute("r", 2);
     }
-    circle.setAttribute("fill", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
+    circle.setAttribute(
+      "fill",
+      `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+    );
 
     if (circle.getAttribute("fill") === "transparent")
-      circle.setAttribute("fill", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`);
+      circle.setAttribute(
+        "fill",
+        `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+      );
 
     circle.setAttribute("cx", width / 2 + verticesOnSvg[index]?.x);
     circle.setAttribute("cy", height / 2 + verticesOnSvg[index]?.y);
@@ -140,10 +149,10 @@ const generateFigureOrthography = (
     return 0;
   });
 
-
   if (displayFaces) {
     setCoordinatesToPolygons.map((polygon) => {
       const indexes = JSON.parse(polygon.getAttribute("data-points"));
+      const type = polygon.getAttribute("data-type");
 
       const p1 = {
         x: width / 2 + verticesOnSvg[indexes[0]]?.x,
@@ -157,36 +166,52 @@ const generateFigureOrthography = (
         x: width / 2 + verticesOnSvg[indexes[2]]?.x,
         y: height / 2 + verticesOnSvg[indexes[2]]?.y,
       };
-      const p4 = {
-        x: width / 2 + verticesOnSvg[indexes[3]]?.x,
-        y: height / 2 + verticesOnSvg[indexes[3]]?.y,
-      };
+      const p4 =
+        type === "triangle"
+          ? { x: 0, y: 0 }
+          : {
+              x: width / 2 + verticesOnSvg[indexes[3]]?.x,
+              y: height / 2 + verticesOnSvg[indexes[3]]?.y,
+            };
 
       const outhValue = 500;
 
       if (
-        p1.x < -outhValue ||
-        p1.x > width + outhValue ||
-        p1.y < -outhValue ||
-        p1.y > height + outhValue ||
-        p2.x < -outhValue ||
-        p2.x > width + outhValue ||
-        p2.y < -outhValue ||
-        p2.y > height + outhValue ||
-        p3.x < -outhValue ||
-        p3.x > width + outhValue ||
-        p3.y < -outhValue ||
-        p3.y > height + outhValue ||
-        p4.x < -outhValue ||
-        p4.x > width + outhValue ||
-        p4.y < -outhValue ||
-        p4.y > height + outhValue
+        type === "square" &&
+        (p1.x < -outhValue ||
+          p1.x > width + outhValue ||
+          p1.y < -outhValue ||
+          p1.y > height + outhValue ||
+          p2.x < -outhValue ||
+          p2.x > width + outhValue ||
+          p2.y < -outhValue ||
+          p2.y > height + outhValue ||
+          p3.x < -outhValue ||
+          p3.x > width + outhValue ||
+          p3.y < -outhValue ||
+          p3.y > height + outhValue ||
+          p4.x < -outhValue ||
+          p4.x > width + outhValue ||
+          p4.y < -outhValue ||
+          p4.y > height + outhValue)
       ) {
         polygon.style.display = "none";
-        polygon.setAttribute(
-          "points",
-          `${0}, ${0} ${0}, ${0} ${0}, ${0} ${0}, ${0}`
-        );
+      } else if (
+        type === "triangle" &&
+        (p1.x < -outhValue ||
+          p1.x > width + outhValue ||
+          p1.y < -outhValue ||
+          p1.y > height + outhValue ||
+          p2.x < -outhValue ||
+          p2.x > width + outhValue ||
+          p2.y < -outhValue ||
+          p2.y > height + outhValue ||
+          p3.x < -outhValue ||
+          p3.x > width + outhValue ||
+          p3.y < -outhValue ||
+          p3.y > height + outhValue)
+      ) {
+        polygon.style.display = "none";
       } else {
         polygon.style.display = "block";
 
@@ -208,7 +233,7 @@ const generateFigureOrthography = (
               }
             }
             if (count > 0) {
-              opacityIndex += 1 - (sum / count + shadowValue) / 450;
+              opacityIndex += 1 - (sum / count + shadowValue + 100) / 450;
             }
           }
 
@@ -221,10 +246,17 @@ const generateFigureOrthography = (
           "fill",
           `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
         );
-        polygon.setAttribute(
-          "points",
-          `${p1.x}, ${p1.y} ${p2.x}, ${p2.y} ${p3.x}, ${p3.y} ${p4.x}, ${p4.y}`
-        );
+        if (type === "square") {
+          polygon.setAttribute(
+            "points",
+            `${p1.x}, ${p1.y} ${p2.x}, ${p2.y} ${p3.x}, ${p3.y} ${p4.x}, ${p4.y}`
+          );
+        } else if (type === "triangle") {
+          polygon.setAttribute(
+            "points",
+            `${p1.x}, ${p1.y} ${p2.x}, ${p2.y} ${p3.x}, ${p3.y}`
+          );
+        }
       }
     });
   }
