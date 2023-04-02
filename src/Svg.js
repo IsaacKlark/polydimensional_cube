@@ -112,7 +112,7 @@ const Svg = ({
   shadow,
   shadowValue,
   figureColor,
-  backgroundColor,
+  displayFaces
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -124,7 +124,8 @@ const Svg = ({
           shadowValue,
           displayVertices,
           dimension,
-          figureColor
+          figureColor,
+          displayFaces
         );
       } else {
         generateFigure(
@@ -136,7 +137,8 @@ const Svg = ({
           shadow,
           shadowValue,
           displayVertices,
-          figureColor
+          figureColor,
+          displayFaces
         );
       }
     }
@@ -230,6 +232,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         dimensionOfFigure={dimensionOfFigure}
+        displayFaces={displayFaces}
       />
     );
   }

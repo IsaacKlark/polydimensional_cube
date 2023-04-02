@@ -9,8 +9,12 @@ const generateFigureOrthography = (
   displayVertices,
   dimension,
   figureColor,
+  displayFaces
 ) => {
   const checkboxes = document.querySelectorAll(".checkbox");
+  const setCoordinatesToPolygons = Array.from(
+    document.querySelectorAll(".polygon")
+  );
 
   const newVertices = vertices.map((vertex) => {
     const copyVertex = [...vertex];
@@ -135,6 +139,95 @@ const generateFigureOrthography = (
 
     return 0;
   });
+
+
+  if (displayFaces) {
+    setCoordinatesToPolygons.map((polygon) => {
+      const indexes = JSON.parse(polygon.getAttribute("data-points"));
+
+      const p1 = {
+        x: width / 2 + verticesOnSvg[indexes[0]]?.x,
+        y: height / 2 + verticesOnSvg[indexes[0]]?.y,
+      };
+      const p2 = {
+        x: width / 2 + verticesOnSvg[indexes[1]]?.x,
+        y: height / 2 + verticesOnSvg[indexes[1]]?.y,
+      };
+      const p3 = {
+        x: width / 2 + verticesOnSvg[indexes[2]]?.x,
+        y: height / 2 + verticesOnSvg[indexes[2]]?.y,
+      };
+      const p4 = {
+        x: width / 2 + verticesOnSvg[indexes[3]]?.x,
+        y: height / 2 + verticesOnSvg[indexes[3]]?.y,
+      };
+
+      const outhValue = 500;
+
+      if (
+        p1.x < -outhValue ||
+        p1.x > width + outhValue ||
+        p1.y < -outhValue ||
+        p1.y > height + outhValue ||
+        p2.x < -outhValue ||
+        p2.x > width + outhValue ||
+        p2.y < -outhValue ||
+        p2.y > height + outhValue ||
+        p3.x < -outhValue ||
+        p3.x > width + outhValue ||
+        p3.y < -outhValue ||
+        p3.y > height + outhValue ||
+        p4.x < -outhValue ||
+        p4.x > width + outhValue ||
+        p4.y < -outhValue ||
+        p4.y > height + outhValue
+      ) {
+        polygon.style.display = "none";
+        polygon.setAttribute(
+          "points",
+          `${0}, ${0} ${0}, ${0} ${0}, ${0} ${0}, ${0}`
+        );
+      } else {
+        polygon.style.display = "block";
+
+        let opacityIndex = 1;
+
+        if (shadow) {
+          for (let i = 0; i < dimension - 2; i++) {
+            let sum = 0;
+            let count = 0;
+            for (let j = 0; j < indexes.length; j++) {
+              const vertex = verticesOnSvg[indexes[j]];
+              if (
+                vertex &&
+                vertex.otherDimensions &&
+                vertex.otherDimensions[i] !== undefined
+              ) {
+                sum += vertex.otherDimensions[i];
+                count++;
+              }
+            }
+            if (count > 0) {
+              opacityIndex += 1 - (sum / count + shadowValue) / 450;
+            }
+          }
+
+          if (dimension >= 3) {
+            opacityIndex = opacityIndex / (dimension - 1);
+          }
+        }
+
+        polygon.setAttribute(
+          "fill",
+          `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+        );
+        polygon.setAttribute(
+          "points",
+          `${p1.x}, ${p1.y} ${p2.x}, ${p2.y} ${p3.x}, ${p3.y} ${p4.x}, ${p4.y}`
+        );
+      }
+    });
+  }
 };
 
 export default generateFigureOrthography;

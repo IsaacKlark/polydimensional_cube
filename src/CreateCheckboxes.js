@@ -65,6 +65,7 @@ const CreateCheckboxes = ({
   setFigureColor,
   backgroundColor,
   setBackgroundColor,
+  displayFaces
 }) => {
   const [clicked, setClicked] = useState(false);
 
@@ -285,7 +286,8 @@ const CreateCheckboxes = ({
             shadowValue,
             displayVertices,
             dimensions,
-            figureColor
+            figureColor,
+            displayFaces
           );
         } else {
           generateFigure(
@@ -297,7 +299,8 @@ const CreateCheckboxes = ({
             shadow,
             shadowValue,
             displayVertices,
-            figureColor
+            figureColor,
+            displayFaces
           );
         }
       };
@@ -333,7 +336,8 @@ const CreateCheckboxes = ({
             shadowValue,
             displayVertices,
             dimensions,
-            figureColor
+            figureColor,
+            displayFaces
           );
         } else {
           generateFigure(
@@ -345,7 +349,8 @@ const CreateCheckboxes = ({
             shadow,
             shadowValue,
             displayVertices,
-            figureColor
+            figureColor,
+            displayFaces
           );
         }
       }

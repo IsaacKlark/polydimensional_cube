@@ -10,6 +10,7 @@ const Cube = ({
   onMouseOver,
   onMouseLeave,
   dimensionOfFigure,
+  displayFaces
 }) => {
   const amountOfLines = 2 ** (dimension - 1) * dimension;
   let ids = 0;
@@ -25,6 +26,8 @@ const Cube = ({
 
   useMemo(() => {
     polygons = [];
+    if (!displayFaces) return;
+
     let group1 = [0, 1, 3, 2];
 
     for (let i = 0; i < 2 ** (+dimensionOfFigure - 2); i++) {
@@ -114,7 +117,7 @@ const Cube = ({
         }
       }
     }
-  }, [dimensionOfFigure]);
+  }, [dimensionOfFigure, displayFaces]);
 
   return (
     <svg
@@ -134,7 +137,7 @@ const Cube = ({
           className="polygon"
         />
       ))}
-      
+
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
@@ -195,6 +198,7 @@ const Cube = ({
               className="line"
               vertex1={vertex1}
               vertex2={vertex2}
+              // strokeWidth={4}
             />
           );
         })}

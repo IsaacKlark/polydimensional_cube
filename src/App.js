@@ -124,6 +124,7 @@ function App() {
   const [figure, setFigure] = useState("Cube");
   const [orthography, setOrthography] = useState(false);
   const [displayVertices, setDisplayVertices] = useState(false);
+  const [displayFaces, setDisplayFaces] = useState(true);
   const [displayEdges, setDisplayEdges] = useState(true);
   const [displaySpecific3D, setDisplaySpecific3D] = useState(true);
   const [displaySpecific4D, setDisplaySpecific4D] = useState(true);
@@ -316,6 +317,17 @@ function App() {
                 checked={displayEdges}
               />
               <p>display edges</p>
+            </label>
+            <label className="checkboxWrapper">
+              <input
+                type="checkbox"
+                name="checkbox faces"
+                onChange={() => {
+                  setDisplayFaces(!displayFaces);
+                }}
+                checked={displayFaces}
+              />
+              <p>display faces</p>
             </label>
           </div>
         </div>
@@ -525,6 +537,7 @@ function App() {
           setFigureColor={setFigureColor}
           backgroundColor={backgroundColor}
           setBackgroundColor={setBackgroundColor}
+          displayFaces={displayFaces}
         />
         <div id="svgWrapper">
           <Svg
@@ -542,7 +555,7 @@ function App() {
             shadow={shadow}
             shadowValue={shadowValue}
             figureColor={figureColor}
-            backgroundColor={backgroundColor}
+            displayFaces={displayFaces}
           />
         </div>
       </div>
