@@ -61,8 +61,9 @@ const Octahedron = ({
     if (dimensionOfFigure < 2 || !displayFaces) return;
     const polySet = new Set();
 
-    for (let k = 0; k < +dimensionOfFigure - 2; k++) {
-      const amountOfLines = k + 3 * (k + 3 - 1) * 2;
+    for (let k = 3; k <= +dimensionOfFigure; k++) {
+
+      const amountOfLines = k * (k - 1) * 2;
 
       let ids = 0;
       const lines = [];
@@ -82,19 +83,19 @@ const Octahedron = ({
         const initIndex = [vertex1, vertex2];
 
         if (
-          initIndex.includes((k + 3) * 2 - 1) ||
-          initIndex.includes((k + 3) * 2 - 2)
+          initIndex.includes(k * 2 - 1) ||
+          initIndex.includes(k * 2 - 2)
         ) {
           continue;
         }
 
-        polySet.add(JSON.stringify([...initIndex, (k + 3) * 2 - 2].sort((a,b) => a -b)));
-        polySet.add(JSON.stringify([...initIndex, (k + 3) * 2 - 1].sort((a,b) => a -b)));
+        polySet.add(JSON.stringify([...initIndex, k * 2 - 2].sort((a,b) => a -b)));
+        polySet.add(JSON.stringify([...initIndex, k * 2 - 1].sort((a,b) => a -b)));
       }
     }
 
     polygons = Array.from(polySet);
-  }, [dimensionOfFigure, displayFaces, xDots, yDots]);
+  }, [dimensionOfFigure, displayFaces]);
 
   return (
     <svg
