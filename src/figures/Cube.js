@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 let polygons = [];
 
 const Cube = ({
@@ -31,8 +31,91 @@ const Cube = ({
       polygons.push(group1);
       group1 = group1.map((num) => num + 4);
     }
-  }, [dimensionOfFigure])
-  
+
+    if (dimensionOfFigure >= 3) {
+      let group2 = [
+        [0, 1, 5, 4],
+        [0, 2, 6, 4],
+        [1, 3, 7, 5],
+        [2, 3, 7, 6],
+      ];
+      let index = 8;
+
+      for (let i = 3; i < +dimensionOfFigure; i++) {
+        const addPart = [...group2].map((arr) =>
+          arr.map((value) => value + index)
+        );
+        index *= 2;
+
+        group2 = [...group2, ...addPart];
+      }
+      polygons = [...polygons, ...group2];
+    }
+
+    if (dimensionOfFigure >= 4) {
+      let group3 = [
+        [0, 1, 9, 8],
+        [0, 2, 10, 8],
+        [1, 3, 11, 9],
+        [2, 3, 11, 10],
+
+        [4, 5, 13, 12],
+        [4, 6, 14, 12],
+        [5, 7, 15, 13],
+        [6, 7, 15, 14],
+
+        [0, 4, 12, 8],
+        [1, 5, 13, 9],
+        [2, 6, 14, 10],
+        [3, 7, 15, 11],
+      ];
+
+      let groupNext = [...group3];
+      let arr = [0, 8, 24, 16];
+      let nextArr = [...arr];
+
+      let outhIndex = 16;
+      let nextOuthIndex = 16;
+      let addIndex = 8;
+
+      for (let k = 4; k <= +dimensionOfFigure; k++) {
+        if (dimensionOfFigure >= k) {
+          for (let i = k; i < +dimensionOfFigure; i++) {
+            const addPart = [...group3].map((arr) =>
+              arr.map((value) => value + outhIndex)
+            );
+            outhIndex *= 2;
+
+            group3 = [...group3, ...addPart];
+          }
+          polygons = [...polygons, ...group3];
+          nextOuthIndex *= 2;
+          outhIndex = nextOuthIndex;
+
+          const subGroup1 = groupNext.map((arr) =>
+            arr.map((number, index) => (index > 1 ? number + addIndex : number))
+          );
+          const subGroup2 = subGroup1.map((arr) =>
+            arr.map((number) => number + addIndex)
+          );
+
+          const subGroup3 = [];
+
+          for (let i = 0; i < nextArr[1]; i++) {
+            subGroup3.push(arr);
+            arr = arr.map((num) => num + 1);
+          }
+          groupNext = [...subGroup1, ...subGroup2, ...subGroup3];
+          group3 = [...subGroup1, ...subGroup2, ...subGroup3];
+
+          addIndex *= 2;
+          arr = nextArr.map((num) => num * 2);
+          nextArr = [...arr];
+        }
+      }
+    }
+  }, [dimensionOfFigure]);
+
   return (
     <svg
       width="600"
@@ -42,6 +125,16 @@ const Cube = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {polygons.map((arr, index) => (
+        <polygon
+          data-points={JSON.stringify(arr)}
+          key={index}
+          points="0 0, 0 0, 0 0, 0 0"
+          fill={`rgba(255,255, 255, 0.3)`}
+          className="polygon"
+        />
+      ))}
+      
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
@@ -126,16 +219,6 @@ const Cube = ({
             />
           ))
         : null}
-
-      {polygons.map((arr, index) => (
-        <polygon
-          data-points={JSON.stringify(arr)}
-          key={index}
-          points="0 0, 0 0, 0 0, 0 0"
-          fill={`rgba(255,255, 255, 0.3)`}
-          className="polygon"
-        />
-      ))}
     </svg>
   );
 };

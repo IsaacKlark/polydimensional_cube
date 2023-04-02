@@ -152,6 +152,29 @@ const generateFigure = (
       ${width / 2 + verticesOnSvg[indexes[2]]?.x}, ${height / 2 + verticesOnSvg[indexes[2]]?.y}
       ${width / 2 + verticesOnSvg[indexes[3]]?.x}, ${height / 2 + verticesOnSvg[indexes[3]]?.y}`
     );
+
+    let opacityIndex = 1;
+
+    if (shadow) {
+      for (let i = 0; i < dimension - 2; i++) {
+        opacityIndex +=
+          1 -
+          ((verticesOnSvg[indexes[0]]?.otherDimensions[i] +
+            verticesOnSvg[indexes[1]]?.otherDimensions[i] +
+            verticesOnSvg[indexes[2]]?.otherDimensions[i] +
+            verticesOnSvg[indexes[3]]?.otherDimensions[i]) /
+            4 +
+            shadowValue) /
+            450;
+      }
+
+      if (dimension >= 3) {
+        opacityIndex = opacityIndex / (dimension - 1);
+      }
+    }
+
+
+    polygon.setAttribute("fill", `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`)
   });
 
   if (!displayVertices) return;
