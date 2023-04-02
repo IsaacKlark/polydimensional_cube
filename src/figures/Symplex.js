@@ -88,7 +88,7 @@ const Symplex = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
-      {polygons.map((arr, index) => (
+      {displayFaces ? polygons.map((arr, index) => (
         <polygon
           data-points={JSON.stringify(arr)}
           key={index}
@@ -97,7 +97,7 @@ const Symplex = ({
           className="polygon"
           data-type="triangle"
         />
-      ))}
+      )) : null}
 
       {displayEdges
         ? lines.map((id, index) => {

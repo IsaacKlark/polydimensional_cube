@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
 
 const Octahedron = ({
   dimensionOfFigure,
@@ -8,6 +10,7 @@ const Octahedron = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces,
 }) => {
   const amountOfLines = dimensionOfFigure * (dimensionOfFigure - 1) * 2;
   let ids = 0;
@@ -53,6 +56,46 @@ const Octahedron = ({
     }
   }
 
+  useMemo(() => {
+    polygons = [];
+    if (dimensionOfFigure < 2 || !displayFaces) return;
+    const polySet = new Set();
+
+    for (let k = 0; k < +dimensionOfFigure - 2; k++) {
+      const amountOfLines = k + 3 * (k + 3 - 1) * 2;
+
+      let ids = 0;
+      const lines = [];
+
+      for (let i = 0; i < amountOfLines; i++) {
+        lines.push(ids);
+        ids += 1;
+      }
+
+      for (let i = 0; i < lines.length; i++) {
+        let vertex1 = 0;
+        let vertex2 = 0;
+
+        vertex1 = xDots[i];
+        vertex2 = yDots[i];
+
+        const initIndex = [vertex1, vertex2];
+
+        if (
+          initIndex.includes((k + 3) * 2 - 1) ||
+          initIndex.includes((k + 3) * 2 - 2)
+        ) {
+          continue;
+        }
+
+        polySet.add(JSON.stringify([...initIndex, (k + 3) * 2 - 2].sort((a,b) => a -b)));
+        polySet.add(JSON.stringify([...initIndex, (k + 3) * 2 - 1].sort((a,b) => a -b)));
+      }
+    }
+
+    polygons = Array.from(polySet);
+  }, [dimensionOfFigure, displayFaces, xDots, yDots]);
+
   return (
     <svg
       width="600"
@@ -62,6 +105,29 @@ const Octahedron = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure > 2
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={arr}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="triangle"
+            />
+          ))
+        : null}
+
+      {displayFaces && +dimensionOfFigure === 2 ? (
+        <polygon
+          data-points={JSON.stringify([3, 0, 2, 1])}
+          points="0 0, 0 0, 0 0, 0 0"
+          fill={`rgba(255,255, 255, 0.3)`}
+          className="polygon"
+          data-type="square"
+        />
+      ) : null}
+
       {displayEdges
         ? lines.map((id, index) => {
             let vertex1 = 0;
