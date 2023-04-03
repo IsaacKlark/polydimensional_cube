@@ -1,5 +1,49 @@
 import React from "react";
 
+const trianglePolygons = [
+  [16,5,12],
+  [20,16,12],
+  [16,9,5],
+  [9,1,5],
+  [5,1,13],
+  [1,21,13],
+  [13,21,17],
+  [13,4,17],
+  [8,4,17],
+  [21,11,17],
+  [21,11,3],
+  [7,11,3],
+  [7,11,18],
+  [7,14,18],
+  [22,14,18],
+  [22,8,18],
+  [22,8,0],
+  [4,8,0],
+  [4,12,0],
+  [20,12,0],
+  [20,2,10],
+  [20,16,10],
+  [2,14,22],
+  [2,14,6],
+  [2,10,6],
+  [19,10,6],
+  [19,15,6],
+  [19,15,23],
+  [3,15,23],
+  [3,15,7],
+  [9,1,23],
+  [9,19,23],
+];
+
+const squarePolygons = [
+  [16,10,19,9],
+  [6,14,7,15],
+  [18,8,17,11],
+  [4,12,5,13],
+  [22,2,20,0],
+  [1,23,3,21],
+];
+
 const SnubCube = ({
   verticesArray,
   dimensionOfFigure,
@@ -8,6 +52,7 @@ const SnubCube = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces,
 }) => {
   let linesArray = [];
   const edgeLength = 97;
@@ -45,6 +90,31 @@ const SnubCube = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure > 2
+        ? trianglePolygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="triangle"
+            />
+          ))
+        : null}
+
+      {displayFaces && +dimensionOfFigure > 2
+        ? squarePolygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="square"
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

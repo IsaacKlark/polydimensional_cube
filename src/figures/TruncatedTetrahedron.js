@@ -1,5 +1,19 @@
 import React from "react";
 
+const polygons = [
+  [1, 4, 6],
+  [9, 10, 11],
+  [2, 5, 8],
+  [0, 3, 7],
+];
+
+const hexPolygons = [
+  [6,4,8,5,3,7],
+  [1,4,8,2,11,10],
+  [1,10,9,0,7,6],
+  [9,11,2,5,3,0],
+];
+
 const TruncatedTetrahedron = ({
   verticesArray,
   dimensionOfFigure,
@@ -8,6 +22,7 @@ const TruncatedTetrahedron = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces,
 }) => {
   let linesArray = [];
   const edgeLength = 2 * 60;
@@ -46,6 +61,30 @@ const TruncatedTetrahedron = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure > 2
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="triangle"
+            />
+          ))
+        : null}
+        {displayFaces && +dimensionOfFigure > 2
+        ? hexPolygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="hexagon"
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

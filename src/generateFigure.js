@@ -164,7 +164,21 @@ const generateFigure = (
               x: width / 2 + verticesOnSvg[indexes[3]]?.x,
               y: height / 2 + verticesOnSvg[indexes[3]]?.y,
             };
+      const p5 =
+        type === "triangle" || type === "square"
+          ? { x: 0, y: 0 }
+          : {
+              x: width / 2 + verticesOnSvg[indexes[4]]?.x,
+              y: height / 2 + verticesOnSvg[indexes[4]]?.y,
+            };
 
+      const p6 =
+        type === "triangle" || type === "square" || type === "pentagon"
+          ? { x: 0, y: 0 }
+          : {
+              x: width / 2 + verticesOnSvg[indexes[5]]?.x,
+              y: height / 2 + verticesOnSvg[indexes[5]]?.y,
+            };
 
       const outhValue = 500;
 
@@ -188,7 +202,57 @@ const generateFigure = (
           p4.y > height + outhValue)
       ) {
         polygon.style.display = "none";
-      } else if (
+      } else if ( type === "pentagon" &&
+        (p1.x < -outhValue ||
+          p1.x > width + outhValue ||
+          p1.y < -outhValue ||
+          p1.y > height + outhValue ||
+          p2.x < -outhValue ||
+          p2.x > width + outhValue ||
+          p2.y < -outhValue ||
+          p2.y > height + outhValue ||
+          p3.x < -outhValue ||
+          p3.x > width + outhValue ||
+          p3.y < -outhValue ||
+          p3.y > height + outhValue ||
+          p4.x < -outhValue ||
+          p4.x > width + outhValue ||
+          p4.y < -outhValue ||
+          p4.y > height + outhValue ||
+          p5.x < -outhValue ||
+          p5.x > width + outhValue ||
+          p5.y < -outhValue ||
+          p5.y > height + outhValue)
+      ) {
+        polygon.style.display = "none";
+      } else if ( type === "hexagon" &&
+      (p1.x < -outhValue ||
+        p1.x > width + outhValue ||
+        p1.y < -outhValue ||
+        p1.y > height + outhValue ||
+        p2.x < -outhValue ||
+        p2.x > width + outhValue ||
+        p2.y < -outhValue ||
+        p2.y > height + outhValue ||
+        p3.x < -outhValue ||
+        p3.x > width + outhValue ||
+        p3.y < -outhValue ||
+        p3.y > height + outhValue ||
+        p4.x < -outhValue ||
+        p4.x > width + outhValue ||
+        p4.y < -outhValue ||
+        p4.y > height + outhValue ||
+        p5.x < -outhValue ||
+        p5.x > width + outhValue ||
+        p5.y < -outhValue ||
+        p5.y > height + outhValue ||
+        p6.x < -outhValue ||
+        p6.x > width + outhValue ||
+        p6.y < -outhValue ||
+        p6.y > height + outhValue) 
+    ) {
+      polygon.style.display = "none";
+    } else if (
         type === "triangle" &&
         (p1.x < -outhValue ||
           p1.x > width + outhValue ||
@@ -242,6 +306,16 @@ const generateFigure = (
           polygon.setAttribute(
             "points",
             `${p1.x}, ${p1.y} ${p2.x}, ${p2.y} ${p3.x}, ${p3.y} ${p4.x}, ${p4.y}`
+          );
+        } else if (type === "pentagon") {
+          polygon.setAttribute(
+            "points",
+            `${p1.x}, ${p1.y} ${p2.x}, ${p2.y} ${p3.x}, ${p3.y} ${p4.x}, ${p4.y} ${p5.x}, ${p5.y}`
+          );
+        } else if (type === "hexagon") {
+          polygon.setAttribute(
+            "points",
+            `${p1.x}, ${p1.y} ${p2.x}, ${p2.y} ${p3.x}, ${p3.y} ${p4.x}, ${p4.y} ${p5.x}, ${p5.y} ${p6.x}, ${p6.y}`
           );
         } else if (type === "triangle") {
           polygon.setAttribute(

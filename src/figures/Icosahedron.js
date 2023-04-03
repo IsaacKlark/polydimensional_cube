@@ -1,5 +1,27 @@
 import React from "react";
 
+const polygons = [
+  [0,2,8],
+  [0,2,10],
+  [0,4,6],
+  [0,4,8],
+  [0,6,10],
+  [1,3,9],
+  [1,3,11],
+  [1,5,7],
+  [1,5,9],
+  [1,7,11],
+  [2,5,7],
+  [2,5,10],
+  [2,7,8],
+  [3,4,6],
+  [3,4,11],
+  [3,6,9],
+  [4,8,11],
+  [5,9,10],
+  [6,9,10],
+  [7,8,11],
+];
 const Icosahedron = ({
   verticesArray,
   dimensionOfFigure,
@@ -8,6 +30,7 @@ const Icosahedron = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces
 }) => {
   let linesArray = [];
   const edgeLength = 2 * 70;
@@ -46,6 +69,18 @@ const Icosahedron = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure > 2
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="triangle"
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
