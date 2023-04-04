@@ -69,7 +69,7 @@ const TruncatedTetrahedron = ({
               points="0 0, 0 0, 0 0, 0 0"
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
-              data-type="triangle"
+              data-type="3"
             />
           ))
         : null}
@@ -81,7 +81,7 @@ const TruncatedTetrahedron = ({
               points="0 0, 0 0, 0 0, 0 0"
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
-              data-type="hexagon"
+              data-type="6"
             />
           ))
         : null}

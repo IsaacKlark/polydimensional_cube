@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
 
 const Cell24Analog = ({
   verticesArray,
@@ -8,6 +10,7 @@ const Cell24Analog = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces
 }) => {
   let check1 = (array1, array2) => {
     for (let i = 0; i < dimensionOfFigure; i++) {
@@ -68,6 +71,12 @@ const Cell24Analog = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    
+  }, []);
+
+  console.log(verticesArray)
+
   return (
     <svg
       width="600"
@@ -77,6 +86,18 @@ const Cell24Analog = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure > 2
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="3"
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
