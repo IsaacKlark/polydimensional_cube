@@ -10,7 +10,7 @@ const Cell24Analog = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
-  displayFaces
+  displayFaces,
 }) => {
   let check1 = (array1, array2) => {
     for (let i = 0; i < dimensionOfFigure; i++) {
@@ -49,6 +49,7 @@ const Cell24Analog = ({
   };
 
   const linesSet = new Set();
+
   for (let i = 0; i < verticesArray.length; i++) {
     for (let j = 0; j < verticesArray.length; j++) {
       if (
@@ -60,7 +61,7 @@ const Cell24Analog = ({
     }
   }
 
-  const linesArray = Array.from(linesSet).map((item) => item.split(","));
+  let linesArray = Array.from(linesSet).map((item) => item.split(","));
 
   const amountOfLines = linesArray.length;
   let ids = 0;
@@ -72,10 +73,39 @@ const Cell24Analog = ({
   }
 
   useMemo(() => {
-    
-  }, []);
+    if (!displayFaces) return;
 
-  console.log(verticesArray)
+    linesArray = linesArray.map((arr) => arr.map((val) => +val));
+
+    function getFacesArray(verticesArray, linesArray) {
+      const facesArray = [];
+
+      for (let i = 0; i < verticesArray.length; i++) {
+        for (let j = i + 1; j < verticesArray.length; j++) {
+          for (let k = j + 1; k < verticesArray.length; k++) {
+            if (
+              linesArray.some(
+                ([a, b]) => (a === i && b === j) || (a === j && b === i)
+              ) &&
+              linesArray.some(
+                ([a, b]) => (a === j && b === k) || (a === k && b === j)
+              ) &&
+              linesArray.some(
+                ([a, b]) => (a === k && b === i) || (a === i && b === k)
+              )
+            ) {
+              facesArray.push([i, j, k]);
+            }
+          }
+        }
+      }
+
+      return facesArray;
+    }
+
+    polygons = getFacesArray(verticesArray, linesArray);
+
+  }, [linesArray, displayFaces]);
 
   return (
     <svg

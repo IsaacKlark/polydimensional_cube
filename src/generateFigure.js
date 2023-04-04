@@ -165,7 +165,7 @@ const generateFigure = (
         ) {
           polygon.style.display = "none";
 
-          return;
+          return null;
         }
       }
 
