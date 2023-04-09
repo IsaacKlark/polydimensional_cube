@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 let polygons = [];
 
+let colors = [];
+
 const Cube = ({
   dimension,
   displayEdges,
@@ -10,7 +12,7 @@ const Cube = ({
   onMouseOver,
   onMouseLeave,
   dimensionOfFigure,
-  displayFaces
+  displayFaces,
 }) => {
   const amountOfLines = 2 ** (dimension - 1) * dimension;
   let ids = 0;
@@ -117,6 +119,14 @@ const Cube = ({
         }
       }
     }
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [dimensionOfFigure, displayFaces]);
 
   return (
@@ -136,6 +146,7 @@ const Cube = ({
           fill={`rgba(255,255, 255, 0.3)`}
           className="polygon"
           data-type="4"
+          data-color={JSON.stringify(colors[index])}
         />
       ))}
 

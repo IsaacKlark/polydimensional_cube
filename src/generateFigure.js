@@ -198,10 +198,14 @@ const generateFigure = (
         }
       }
 
+      const dataColor = JSON.parse(polygon.getAttribute('data-color'))
+
       polygon.setAttribute(
         "fill",
-        `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+        `rgba(${dataColor[0]}, ${dataColor[1]}, ${dataColor[2]}, ${1})`
       );
+
+      polygon.setAttribute("data-opacityIndex", opacityIndex)
 
 
       let coordinates = "";
@@ -214,6 +218,17 @@ const generateFigure = (
         "points",
         coordinates
       );
+    });
+
+    setCoordinatesToPolygons.sort((a, b) => {
+      const aOpacity = Number(a.getAttribute("data-opacityIndex"));
+      const bOpacity = Number(b.getAttribute("data-opacityIndex"));
+      return aOpacity - bOpacity;
+    });
+    
+    setCoordinatesToPolygons.forEach(polygon => {
+      // append the sorted polygons to the parent element
+      polygon.parentNode.appendChild(polygon);
     });
   }
 
