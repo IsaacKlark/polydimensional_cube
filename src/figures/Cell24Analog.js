@@ -73,7 +73,8 @@ const Cell24Analog = ({
   }
 
   useMemo(() => {
-    if (!displayFaces) return;
+    console.log( verticesArray.length)
+    if (!displayFaces || verticesArray.length > 300) return;
 
     linesArray = linesArray.map((arr) => arr.map((val) => +val));
 

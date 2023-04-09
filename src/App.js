@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
-import vertices from "./vertices";
+import vertices, { setVerticesArray } from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
 import Button from "@mui/material/Button";
