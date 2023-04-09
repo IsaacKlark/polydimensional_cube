@@ -54,6 +54,8 @@ const Cell120Analog = ({
   }
 
   useMemo(() => {
+    polygons = [];
+    
     if (+dimensionOfFigure === 2) {
       polygons = [[0, 1, 2, 3, 4]];
     }

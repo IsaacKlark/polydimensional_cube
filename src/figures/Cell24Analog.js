@@ -73,7 +73,7 @@ const Cell24Analog = ({
   }
 
   useMemo(() => {
-    console.log( verticesArray.length)
+    polygons = [];
     if (!displayFaces || verticesArray.length > 300) return;
 
     linesArray = linesArray.map((arr) => arr.map((val) => +val));
@@ -105,7 +105,6 @@ const Cell24Analog = ({
     }
 
     polygons = getFacesArray(verticesArray, linesArray);
-
   }, [verticesArray, displayFaces]);
 
   return (
