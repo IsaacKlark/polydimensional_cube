@@ -105,7 +105,7 @@ const Cell24Analog = ({
 
     polygons = getFacesArray(verticesArray, linesArray);
 
-  }, [linesArray, displayFaces]);
+  }, [verticesArray, displayFaces]);
 
   return (
     <svg

@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useMemo} from "react";
+
+let polygons = [];
 
 const CliffordTorus = ({
   verticesArray,
@@ -8,7 +10,8 @@ const CliffordTorus = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
-  segments
+  segments,
+  displayFaces
 }) => {
   let linesArray = [];
 
@@ -43,6 +46,14 @@ const CliffordTorus = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    if (displayFaces && dimensionOfFigure >= 3) {
+      for (let i = 0; i < segments ** 2 + segments - 1; i += 1) {
+        polygons.push([i, i + 1,  i + segments + 2, i + segments + 1])
+      }
+    }
+  }, [displayFaces, dimensionOfFigure, verticesArray]);
+
   return (
     <svg
       width="600"
@@ -52,6 +63,18 @@ const CliffordTorus = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure >= 3
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type="4"
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
