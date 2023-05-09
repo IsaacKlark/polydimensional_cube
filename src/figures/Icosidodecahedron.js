@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 const pentagonalPolygons = [
   [18, 10, 12, 20, 1],
@@ -36,6 +36,9 @@ const trianglePolygons = [
   [25, 24, 2],
   [26, 27, 3],
 ];
+
+let pentagonColors = [];
+let triangleColors = [];
 
 const Icosidodecahedron = ({
   verticesArray,
@@ -75,6 +78,24 @@ const Icosidodecahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    pentagonalPolygons.forEach(() => {
+      pentagonColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+
+    trianglePolygons.forEach(() => {
+      triangleColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, [])
+
   return (
     <svg
       width="600"
@@ -93,6 +114,7 @@ const Icosidodecahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="3"
+              data-color={JSON.stringify(triangleColors[index])}
             />
           ))
         : null}
@@ -106,6 +128,7 @@ const Icosidodecahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="5"
+              data-color={JSON.stringify(pentagonColors[index])}
             />
           ))
         : null}

@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 let polygons = [];
 
 let colors = [];
+let EdgeColors = [];
 
 const Cube = ({
   dimension,
@@ -127,6 +128,13 @@ const Cube = ({
         Math.trunc(Math.random() * 255),
       ]);
     });
+    lines.forEach(() => {
+      EdgeColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [dimensionOfFigure, displayFaces]);
 
   return (
@@ -211,6 +219,7 @@ const Cube = ({
               vertex1={vertex1}
               vertex2={vertex2}
               // strokeWidth={4}
+              data-color={JSON.stringify(EdgeColors[index])}
             />
           );
         })}

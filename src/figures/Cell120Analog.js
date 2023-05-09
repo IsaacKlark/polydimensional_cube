@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 let polygons = [];
+let colors = [];
+let EdgeColors = [];
 
 const Cell120Analog = ({
   verticesArray,
@@ -802,6 +804,22 @@ const Cell120Analog = ({
       ];
     }
 
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+
+    lines.forEach(() => {
+      EdgeColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+
     // for (let i = 0; i < polygons.length; i++) {
     //   for (let j = i + 1; j < polygons.length; j++) {
     //     if (
@@ -837,6 +855,7 @@ const Cell120Analog = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="5"
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}
@@ -859,6 +878,7 @@ const Cell120Analog = ({
               className="line"
               vertex1={vertex1}
               vertex2={vertex2}
+              data-color={JSON.stringify(EdgeColors[index])}
             />
           );
         })}

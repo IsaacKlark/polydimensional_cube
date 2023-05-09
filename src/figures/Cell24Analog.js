@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 let polygons = [];
-
+let colors = [];
 const Cell24Analog = ({
   verticesArray,
   dimensionOfFigure,
@@ -105,6 +105,14 @@ const Cell24Analog = ({
     }
 
     polygons = getFacesArray(verticesArray, linesArray);
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [verticesArray, displayFaces]);
 
   return (
@@ -125,6 +133,7 @@ const Cell24Analog = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="3"
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}

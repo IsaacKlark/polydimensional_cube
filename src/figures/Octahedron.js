@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 let polygons = [];
+let colors = [];
 
 const Octahedron = ({
   dimensionOfFigure,
@@ -95,6 +96,14 @@ const Octahedron = ({
     }
 
     polygons = Array.from(polySet);
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [dimensionOfFigure, displayFaces]);
 
   return (
@@ -115,6 +124,7 @@ const Octahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="3"
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}

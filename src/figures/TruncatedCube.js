@@ -2,6 +2,8 @@ import React, { useMemo, useState } from "react";
 
 let trianglePolygons = [];
 let octagonalPolygons = [];
+let triangleColors = [];
+let octagonalColors = [];
 
 const TruncatedCube = ({
   verticesArray,
@@ -175,6 +177,22 @@ const TruncatedCube = ({
     // }
 
     // console.log(octagonalPolygons);
+
+    trianglePolygons.forEach(() => {
+      triangleColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+    octagonalPolygons.forEach(() => {
+      octagonalColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+
   }, [verticesArray, displayFaces, dimensionOfFigure]);
 
   return (
@@ -195,6 +213,7 @@ const TruncatedCube = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="3"
+              data-color={JSON.stringify(triangleColors[index])}
             />
           ))
         : null}
@@ -207,6 +226,7 @@ const TruncatedCube = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="8"
+              data-color={JSON.stringify(octagonalColors[index])}
             />
           ))
         : null}

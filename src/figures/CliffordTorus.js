@@ -1,6 +1,7 @@
 import React, {useMemo} from "react";
 
 let polygons = [];
+let colors = [];
 
 const CliffordTorus = ({
   verticesArray,
@@ -52,6 +53,14 @@ const CliffordTorus = ({
         polygons.push([i, i + 1,  i + segments + 2, i + segments + 1])
       }
     }
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [displayFaces, dimensionOfFigure, verticesArray]);
 
   return (
@@ -72,6 +81,7 @@ const CliffordTorus = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="4"
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}

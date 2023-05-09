@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 const trianglePolygons = [
   [1, 57, 5],
@@ -71,6 +71,10 @@ const pentagonalPolygons = [
   [53, 33, 9, 10, 34],
 ];
 
+let triangleColors = [];
+let squareColors = [];
+let pentagonColors = [];
+
 const Rhombicosidodecahedron = ({
   verticesArray,
   dimensionOfFigure,
@@ -107,6 +111,30 @@ const Rhombicosidodecahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    pentagonalPolygons.forEach(() => {
+      pentagonColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+    trianglePolygons.forEach(() => {
+      triangleColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+    squarePolygons.forEach(() => {
+      squareColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, [])
+
   return (
     <svg
       width="600"
@@ -125,6 +153,7 @@ const Rhombicosidodecahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="3"
+              data-color={JSON.stringify(triangleColors[index])}
             />
           ))
         : null}
@@ -137,6 +166,7 @@ const Rhombicosidodecahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="4"
+              data-color={JSON.stringify(squareColors[index])}
             />
           ))
         : null}
@@ -149,6 +179,7 @@ const Rhombicosidodecahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="5"
+              data-color={JSON.stringify(pentagonColors[index])}
             />
           ))
         : null}

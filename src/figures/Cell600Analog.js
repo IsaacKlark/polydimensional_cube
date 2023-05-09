@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-
+let colors = [];
 let polygons = [
   [0, 31, 39],
   [0, 31, 47],
@@ -1435,38 +1435,44 @@ const Cell600Analog = ({
     ids += 1;
   }
 
-  // useMemo(() => {
-  //   function getFacesArray(verticesArray, linesArray) {
-  //     const facesArray = [];
+  useMemo(() => {
+    //   function getFacesArray(verticesArray, linesArray) {
+    //     const facesArray = [];
 
-  //     for (let i = 0; i < verticesArray.length; i++) {
-  //       for (let j = i + 1; j < verticesArray.length; j++) {
-  //         for (let k = j + 1; k < verticesArray.length; k++) {
-  //           if (
-  //             linesArray.some(
-  //               ([a, b]) => (a === i && b === j) || (a === j && b === i)
-  //             ) &&
-  //             linesArray.some(
-  //               ([a, b]) => (a === j && b === k) || (a === k && b === j)
-  //             ) &&
-  //             linesArray.some(
-  //               ([a, b]) => (a === k && b === i) || (a === i && b === k)
-  //             )
-  //           ) {
-  //             facesArray.push([i, j, k]);
-  //           }
-  //         }
-  //       }
-  //     }
+    //     for (let i = 0; i < verticesArray.length; i++) {
+    //       for (let j = i + 1; j < verticesArray.length; j++) {
+    //         for (let k = j + 1; k < verticesArray.length; k++) {
+    //           if (
+    //             linesArray.some(
+    //               ([a, b]) => (a === i && b === j) || (a === j && b === i)
+    //             ) &&
+    //             linesArray.some(
+    //               ([a, b]) => (a === j && b === k) || (a === k && b === j)
+    //             ) &&
+    //             linesArray.some(
+    //               ([a, b]) => (a === k && b === i) || (a === i && b === k)
+    //             )
+    //           ) {
+    //             facesArray.push([i, j, k]);
+    //           }
+    //         }
+    //       }
+    //     }
 
-  //     return facesArray;
-  //   }
+    //     return facesArray;
+    //   }
 
-  //   polygons = getFacesArray(verticesArray, linesArray);
+    //   polygons = getFacesArray(verticesArray, linesArray);
 
-  //   console.log(polygons)
-  // }, []);
 
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, []);
 
   return (
     <svg
@@ -1478,16 +1484,19 @@ const Cell600Analog = ({
       onMouseLeave={onMouseLeave}
     >
       {displayFaces && +dimensionOfFigure >= 4
-        ? polygons.map((arr, index) => (
-            <polygon
-              data-points={JSON.stringify(arr)}
-              key={index}
-              points="0 0, 0 0, 0 0, 0 0"
-              fill={`rgba(255,255, 255, 0.3)`}
-              className="polygon"
-              data-type="3"
-            />
-          ))
+        ? polygons.map((arr, index) => {
+            return (
+              <polygon
+                data-points={JSON.stringify(arr)}
+                key={index}
+                points="0 0, 0 0, 0 0, 0 0"
+                fill={`rgba(255,255, 255, 0.3)`}
+                className="polygon"
+                data-type="3"
+                data-color={JSON.stringify(colors[index])}
+              />
+            );
+          })
         : null}
 
       {displayFaces && +dimensionOfFigure === 3

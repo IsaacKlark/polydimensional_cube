@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useMemo} from "react";
+let colors = [];
 
 const polygons = [
   [0,2,8],
@@ -60,6 +61,16 @@ const Icosahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, [])
+
   return (
     <svg
       width="600"
@@ -78,6 +89,7 @@ const Icosahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="3"
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}

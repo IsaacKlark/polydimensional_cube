@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let pentagonColors = [];
+let hexagonColors = [];
 
 const pentagonalPolygons = [
   [12, 4, 19, 51, 44],
@@ -13,7 +16,6 @@ const pentagonalPolygons = [
   [26, 58, 52, 20, 8],
   [28, 0, 32, 40, 36],
   [42, 38, 30, 2, 34],
-
 ];
 const hexagonPolygons = [
   [49, 25, 57, 33, 41, 17],
@@ -74,6 +76,26 @@ const TruncatedIcosahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    hexagonPolygons.forEach(() => {
+      hexagonColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, [])
+
+  useMemo(() => {
+    pentagonalPolygons.forEach(() => {
+      pentagonColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, [])
+
   return (
     <svg
       width="600"
@@ -92,6 +114,7 @@ const TruncatedIcosahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="6"
+              data-color={JSON.stringify(hexagonColors[index])}
             />
           ))
         : null}
@@ -105,6 +128,7 @@ const TruncatedIcosahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="5"
+              data-color={JSON.stringify(pentagonColors[index])}
             />
           ))
         : null}

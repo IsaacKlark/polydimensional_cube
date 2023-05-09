@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 
+let colors = [];
+let hexColors = [];
 const polygons = [
   [1, 4, 6],
   [9, 10, 11],
@@ -8,10 +10,10 @@ const polygons = [
 ];
 
 const hexPolygons = [
-  [6,4,8,5,3,7],
-  [1,4,8,2,11,10],
-  [1,10,9,0,7,6],
-  [9,11,2,5,3,0],
+  [6, 4, 8, 5, 3, 7],
+  [1, 4, 8, 2, 11, 10],
+  [1, 10, 9, 0, 7, 6],
+  [9, 11, 2, 5, 3, 0],
 ];
 
 const TruncatedTetrahedron = ({
@@ -52,6 +54,24 @@ const TruncatedTetrahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+
+    hexPolygons.forEach(() => {
+      hexColors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, [])
+
   return (
     <svg
       width="600"
@@ -70,10 +90,11 @@ const TruncatedTetrahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="3"
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}
-        {displayFaces && +dimensionOfFigure > 2
+      {displayFaces && +dimensionOfFigure > 2
         ? hexPolygons.map((arr, index) => (
             <polygon
               data-points={JSON.stringify(arr)}
@@ -82,6 +103,7 @@ const TruncatedTetrahedron = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type="6"
+              data-color={JSON.stringify(hexColors[index])}
             />
           ))
         : null}

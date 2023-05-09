@@ -50,11 +50,9 @@ const generateFigure = (
     let y = copyVertex[1];
     const otherDimensions = [];
 
-    if (shadow) {
       for (let i = 2; i < dimension; i++) {
         otherDimensions.push(copyVertex[i]);
       }
-    }
 
     for (let i = 2; i < dimension; i++) {
       if (copyVertex[i] + perspective < 0) {
@@ -98,7 +96,6 @@ const generateFigure = (
     }
     let opacityIndex = 1;
 
-    if (shadow) {
       for (let i = 0; i < dimension - 2; i++) {
         opacityIndex +=
           1 -
@@ -112,17 +109,21 @@ const generateFigure = (
       if (dimension >= 3) {
         opacityIndex = opacityIndex / (dimension - 1);
       }
-    }
+
+    const dataColor = JSON.parse(line.getAttribute("data-color")) || figureColor;
+
     line.setAttribute(
       "stroke",
-      `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+      `rgba(${dataColor[0]}, ${dataColor[1]}, ${dataColor[2]}, ${opacityIndex})`
     );
 
     if (line.getAttribute("stroke") === "transparent")
       line.setAttribute(
         "stroke",
-        `rgba(${figureColor[0]}, ${figureColor[1]}, ${figureColor[2]}, ${opacityIndex})`
+        `rgba(${dataColor[0]}, ${dataColor[1]}, ${dataColor[2]}, ${opacityIndex})`
       );
+
+    line.setAttribute("data-opacityIndex", opacityIndex * 0.9);
 
     if (+dimensionOfFigure === 1) {
       line.setAttribute("x1", height / 2);
@@ -173,7 +174,6 @@ const generateFigure = (
 
       let opacityIndex = 1;
 
-      if (shadow) {
         for (let i = 0; i < dimension - 2; i++) {
           let sum = 0;
           let count = 0;
@@ -196,41 +196,36 @@ const generateFigure = (
         if (dimension >= 3) {
           opacityIndex = opacityIndex / (dimension - 1);
         }
-      }
 
-      const dataColor = JSON.parse(polygon.getAttribute('data-color'))
+      const dataColor = JSON.parse(polygon.getAttribute("data-color"));
 
       polygon.setAttribute(
         "fill",
-        `rgba(${dataColor[0]}, ${dataColor[1]}, ${dataColor[2]}, ${1})`
+        `rgba(${dataColor[0]}, ${dataColor[1]}, ${dataColor[2]}, ${shadow ? opacityIndex : 1})`
       );
 
-      polygon.setAttribute("data-opacityIndex", opacityIndex)
-
+      polygon.setAttribute("data-opacityIndex", opacityIndex);
 
       let coordinates = "";
 
       for (let i = 0; i < points.length; i++) {
-        coordinates += `${points[i].x}, ${points[i].y} `
+        coordinates += `${points[i].x}, ${points[i].y} `;
       }
 
-      polygon.setAttribute(
-        "points",
-        coordinates
-      );
+      polygon.setAttribute("points", coordinates);
     });
+  }
 
-    setCoordinatesToPolygons.sort((a, b) => {
+  [...setCoordinatesToPolygons, ...setCoordinatesToLines]
+    .sort((a, b) => {
       const aOpacity = Number(a.getAttribute("data-opacityIndex"));
       const bOpacity = Number(b.getAttribute("data-opacityIndex"));
       return aOpacity - bOpacity;
-    });
-    
-    setCoordinatesToPolygons.forEach(polygon => {
+    })
+    .forEach((obj) => {
       // append the sorted polygons to the parent element
-      polygon.parentNode.appendChild(polygon);
+      obj.parentNode.appendChild(obj);
     });
-  }
 
   if (!displayVertices) return;
 
