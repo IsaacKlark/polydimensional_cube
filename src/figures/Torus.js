@@ -350,7 +350,6 @@ const Torus = ({
     }
   }, [displayFaces, dimensionOfFigure, verticesArray, dimension, segments]);
 
-  console.log("verticesArray.length", verticesArray.length);
   for (let i = 0; i < amountOfLines; i++) {
     lines.push(ids);
     ids += 1;
