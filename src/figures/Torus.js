@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
 
 const Torus = ({
   verticesArray,
@@ -8,7 +10,9 @@ const Torus = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
-  segments
+  segments,
+  displayFaces,
+  dimension,
 }) => {
   let linesArray = [];
   if (displayEdges) {
@@ -38,6 +42,315 @@ const Torus = ({
   let ids = 0;
   const lines = [];
 
+  useMemo(() => {
+    polygons = [];
+
+    if (displayFaces && +dimensionOfFigure === 2) {
+      let points = [];
+      for (let i = 0; i < segments; i++) {
+        points.push(i);
+      }
+      polygons.push(points);
+    }
+
+    if (displayFaces && +dimensionOfFigure >= 3) {
+      for (let i = 0; i < verticesArray.length - segments - 2; i++) {
+        let points = [i, i + segments + 1, i + segments + 2, i + 1];
+        polygons.push(points);
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 4) {
+      const dimension3ArrLength = segments ** 2 + segments * 2 + 1;
+
+      for (let j = 1; j <= segments / 2; j++) {
+        for (let i = 0; i < dimension3ArrLength; i++) {
+          let points = [
+            i,
+            i + dimension3ArrLength,
+            i + dimension3ArrLength + 1,
+            i + 1,
+          ].map((el) => el + dimension3ArrLength * j);
+          polygons.push(points);
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 5) {
+      const dimension3ArrLength = segments ** 2 + segments * 2 + 1;
+      const dimension4ArrLength =
+        (segments ** 2 + segments * 2 + 1) * (segments + 2);
+
+      for (let k = 1; k <= segments / 2; k++) {
+        for (let j = 1; j <= segments / 2; j++) {
+          for (let i = 0; i < dimension3ArrLength; i++) {
+            let points = [
+              i,
+              i + dimension3ArrLength,
+              i + dimension3ArrLength + 1,
+              i + 1,
+            ]
+              .map((el) => el + dimension3ArrLength * j)
+              .map((el) => el + dimension4ArrLength * k);
+            polygons.push(points);
+          }
+
+          for (let i = 0; i < dimension3ArrLength; i++) {
+            let points = [
+              i,
+              i + dimension4ArrLength,
+              i + dimension4ArrLength + 1,
+              i + 1,
+            ]
+              .map((el) => el + dimension3ArrLength * j)
+              .map((el) => el + dimension4ArrLength * k);
+            polygons.push(points);
+          }
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 6) {
+      const dimension3ArrLength = segments ** 2 + segments * 2 + 1;
+      const dimension4ArrLength =
+        (segments ** 2 + segments * 2 + 1) * (segments + 2);
+      const dimension5ArrLength =
+        (segments ** 2 + segments * 2 + 1) * (segments + 2) * (segments + 2);
+
+      for (let l = 1; l <= segments / 2; l++) {
+        for (let k = 1; k <= segments / 2; k++) {
+          for (let j = 1; j <= segments / 2; j++) {
+            for (let i = 0; i < dimension3ArrLength; i++) {
+              let points = [
+                i,
+                i + dimension3ArrLength,
+                i + dimension3ArrLength + 1,
+                i + 1,
+              ]
+                .map((el) => el + dimension3ArrLength * j)
+                .map((el) => el + dimension4ArrLength * k)
+                .map((el) => el + dimension5ArrLength * l);
+              polygons.push(points);
+            }
+
+            for (let i = 0; i < dimension3ArrLength; i++) {
+              let points = [
+                i,
+                i + dimension4ArrLength,
+                i + dimension4ArrLength + 1,
+                i + 1,
+              ]
+                .map((el) => el + dimension3ArrLength * j)
+                .map((el) => el + dimension4ArrLength * k)
+                .map((el) => el + dimension5ArrLength * l);
+              polygons.push(points);
+            }
+
+            for (let i = 0; i < dimension3ArrLength; i++) {
+              let points = [
+                i,
+                i + dimension5ArrLength,
+                i + dimension5ArrLength + 1,
+                i + 1,
+              ]
+                .map((el) => el + dimension3ArrLength * j)
+                .map((el) => el + dimension4ArrLength * k)
+                .map((el) => el + dimension5ArrLength * l);
+              polygons.push(points);
+            }
+          }
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 7) {
+      const dimension3ArrLength = segments ** 2 + segments * 2 + 1;
+      const dimension4ArrLength =
+        (segments ** 2 + segments * 2 + 1) * (segments + 2);
+      const dimension5ArrLength =
+        (segments ** 2 + segments * 2 + 1) * (segments + 2) * (segments + 2);
+
+      const dimension6ArrLength =
+        (segments ** 2 + segments * 2 + 1) *
+        (segments + 2) *
+        (segments + 2) *
+        (segments + 2);
+
+      for (let m = 1; m <= segments / 2; m++) {
+        for (let l = 1; l <= segments / 2; l++) {
+          for (let k = 1; k <= segments / 2; k++) {
+            for (let j = 1; j <= segments / 2; j++) {
+              for (let i = 0; i < dimension3ArrLength; i++) {
+                let points = [
+                  i,
+                  i + dimension3ArrLength,
+                  i + dimension3ArrLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3ArrLength * j)
+                  .map((el) => el + dimension4ArrLength * k)
+                  .map((el) => el + dimension5ArrLength * l)
+                  .map((el) => el + dimension6ArrLength * m);
+
+                polygons.push(points);
+              }
+
+              for (let i = 0; i < dimension3ArrLength; i++) {
+                let points = [
+                  i,
+                  i + dimension4ArrLength,
+                  i + dimension4ArrLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3ArrLength * j)
+                  .map((el) => el + dimension4ArrLength * k)
+                  .map((el) => el + dimension5ArrLength * l)
+                  .map((el) => el + dimension6ArrLength * m);
+                polygons.push(points);
+              }
+
+              for (let i = 0; i < dimension3ArrLength; i++) {
+                let points = [
+                  i,
+                  i + dimension5ArrLength,
+                  i + dimension5ArrLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3ArrLength * j)
+                  .map((el) => el + dimension4ArrLength * k)
+                  .map((el) => el + dimension5ArrLength * l)
+                  .map((el) => el + dimension6ArrLength * m);
+                polygons.push(points);
+              }
+
+              for (let i = 0; i < dimension3ArrLength; i++) {
+                let points = [
+                  i,
+                  i + dimension6ArrLength,
+                  i + dimension6ArrLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3ArrLength * j)
+                  .map((el) => el + dimension4ArrLength * k)
+                  .map((el) => el + dimension5ArrLength * l)
+                  .map((el) => el + dimension6ArrLength * m);
+                polygons.push(points);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 8) {
+      const dimension3ArrLength = segments ** 2 + segments * 2 + 1;
+      const dimension4ArrLength =
+        (segments ** 2 + segments * 2 + 1) * (segments + 2);
+      const dimension5ArrLength =
+        (segments ** 2 + segments * 2 + 1) * (segments + 2) * (segments + 2);
+
+      const dimension6ArrLength =
+        (segments ** 2 + segments * 2 + 1) *
+        (segments + 2) *
+        (segments + 2) *
+        (segments + 2);
+
+      const dimension7ArrLength =
+        (segments ** 2 + segments * 2 + 1) *
+        (segments + 2) *
+        (segments + 2) *
+        (segments + 2) *
+        (segments + 2);
+
+      for (let o = 1; o <= segments / 2; o++) {
+        for (let m = 1; m <= segments / 2; m++) {
+          for (let l = 1; l <= segments / 2; l++) {
+            for (let k = 1; k <= segments / 2; k++) {
+              for (let j = 1; j <= segments / 2; j++) {
+                for (let i = 0; i < dimension3ArrLength; i++) {
+                  let points = [
+                    i,
+                    i + dimension3ArrLength,
+                    i + dimension3ArrLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3ArrLength * j)
+                    .map((el) => el + dimension4ArrLength * k)
+                    .map((el) => el + dimension5ArrLength * l)
+                    .map((el) => el + dimension6ArrLength * m)
+                    .map((el) => el + dimension7ArrLength * o);
+
+                  polygons.push(points);
+                }
+
+                for (let i = 0; i < dimension3ArrLength; i++) {
+                  let points = [
+                    i,
+                    i + dimension4ArrLength,
+                    i + dimension4ArrLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3ArrLength * j)
+                    .map((el) => el + dimension4ArrLength * k)
+                    .map((el) => el + dimension5ArrLength * l)
+                    .map((el) => el + dimension6ArrLength * m)
+                    .map((el) => el + dimension7ArrLength * o);
+                  polygons.push(points);
+                }
+
+                for (let i = 0; i < dimension3ArrLength; i++) {
+                  let points = [
+                    i,
+                    i + dimension5ArrLength,
+                    i + dimension5ArrLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3ArrLength * j)
+                    .map((el) => el + dimension4ArrLength * k)
+                    .map((el) => el + dimension5ArrLength * l)
+                    .map((el) => el + dimension6ArrLength * m)
+                    .map((el) => el + dimension7ArrLength * o);
+                  polygons.push(points);
+                }
+
+                for (let i = 0; i < dimension3ArrLength; i++) {
+                  let points = [
+                    i,
+                    i + dimension6ArrLength,
+                    i + dimension6ArrLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3ArrLength * j)
+                    .map((el) => el + dimension4ArrLength * k)
+                    .map((el) => el + dimension5ArrLength * l)
+                    .map((el) => el + dimension6ArrLength * m)
+                    .map((el) => el + dimension7ArrLength * o);
+                  polygons.push(points);
+                }
+
+                for (let i = 0; i < dimension3ArrLength; i++) {
+                  let points = [
+                    i,
+                    i + dimension7ArrLength,
+                    i + dimension7ArrLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3ArrLength * j)
+                    .map((el) => el + dimension4ArrLength * k)
+                    .map((el) => el + dimension5ArrLength * l)
+                    .map((el) => el + dimension6ArrLength * m)
+                    .map((el) => el + dimension7ArrLength * o);
+                  polygons.push(points);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }, [displayFaces, dimensionOfFigure, verticesArray, dimension, segments]);
+
+  console.log("verticesArray.length", verticesArray.length);
   for (let i = 0; i < amountOfLines; i++) {
     lines.push(ids);
     ids += 1;
@@ -52,6 +365,31 @@ const Torus = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure === 2
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={arr.length}
+            />
+          ))
+        : null}
+
+      {displayFaces && +dimensionOfFigure >= 3
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={4}
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
