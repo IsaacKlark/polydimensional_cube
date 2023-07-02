@@ -1,5 +1,7 @@
 import React, { useMemo, useCallback } from "react";
 
+let polygons = [];
+
 const Sphere = ({
   verticesArray,
   dimensionOfFigure,
@@ -9,6 +11,8 @@ const Sphere = ({
   onMouseOver,
   onMouseLeave,
   segments,
+  displayFaces,
+  dimension,
 }) => {
   const linesArray = useMemo(() => {
     let linesArray = [];
@@ -52,6 +56,701 @@ const Sphere = ({
     e.target.style.display = "none";
   }, []);
 
+  useMemo(() => {
+    polygons = [];
+    if (displayFaces && +dimensionOfFigure === 2) {
+      let points = [];
+      for (let i = 0; i < segments; i++) {
+        points.push(i);
+      }
+      polygons.push(points);
+    }
+
+    if (displayFaces && +dimensionOfFigure === 3) {
+      for (let i = 0; i <= segments * (segments / 2) + segments - 2; i++) {
+        let points = [i, i + segments, i + segments + 1, i + 1];
+        polygons.push(points);
+      }
+      polygons.push([
+        (segments / 2 + 1) * segments,
+        (segments / 2 + 1) * segments - 1,
+        (segments / 2 + 1) * segments - 1 + segments,
+        (segments / 2 + 1) * segments - 1 + segments,
+      ]);
+    }
+
+    if (displayFaces && +dimensionOfFigure === 4) {
+      const dimension3VerticesLength = segments * (segments / 2 + 1) + segments;
+
+      for (let j = 0; j <= segments / 2; j++) {
+        for (let i = 0; i <= segments * (segments / 2) + segments - 2; i++) {
+          let points = [i, i + segments, i + segments + 1, i + 1].map(
+            (el) => el + dimension3VerticesLength * j
+          );
+          polygons.push(points);
+        }
+
+        for (let i = 0; i <= segments * (segments / 2) + segments - 2; i++) {
+          let points = [
+            i,
+            i + dimension3VerticesLength,
+            i + dimension3VerticesLength + 1,
+            i + 1,
+          ].map((el) => el + dimension3VerticesLength * j);
+          polygons.push(points);
+        }
+
+        polygons.push(
+          [
+            (segments / 2 + 1) * segments,
+            (segments / 2 + 1) * segments - 1,
+            (segments / 2 + 1) * segments - 1 + segments,
+            (segments / 2 + 1) * segments - 1 + segments,
+          ].map((el) => el + dimension3VerticesLength * j)
+        );
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 5) {
+      const dimension3VerticesLength = segments * (segments / 2 + 1) + segments;
+      const dimension4VerticesLength =
+        (segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+        dimension3VerticesLength;
+      for (let k = 0; k <= segments / 2; k++) {
+        for (let j = 0; j <= segments / 2; j++) {
+          for (let i = 0; i <= segments * (segments / 2) + segments - 2; i++) {
+            let points = [i, i + segments, i + segments + 1, i + 1]
+              .map((el) => el + dimension3VerticesLength * j)
+              .map((el) => el + dimension4VerticesLength * k);
+            polygons.push(points);
+          }
+
+          for (let i = 0; i <= segments * (segments / 2) + segments - 2; i++) {
+            let points = [
+              i,
+              i + dimension3VerticesLength,
+              i + dimension3VerticesLength + 1,
+              i + 1,
+            ]
+              .map((el) => el + dimension3VerticesLength * j)
+              .map((el) => el + dimension4VerticesLength * k);
+            polygons.push(points);
+          }
+
+          for (let i = 0; i <= segments * (segments / 2) + segments - 2; i++) {
+            let points = [
+              i,
+              i + dimension4VerticesLength,
+              i + dimension4VerticesLength + 1,
+              i + 1,
+            ]
+              .map((el) => el + dimension3VerticesLength * j)
+              .map((el) => el + dimension4VerticesLength * k);
+            polygons.push(points);
+          }
+
+          polygons.push(
+            [
+              (segments / 2 + 1) * segments,
+              (segments / 2 + 1) * segments - 1,
+              (segments / 2 + 1) * segments - 1 + segments,
+              (segments / 2 + 1) * segments - 1 + segments,
+            ]
+              .map((el) => el + dimension3VerticesLength * j)
+              .map((el) => el + dimension4VerticesLength * k)
+          );
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 6) {
+      const dimension3VerticesLength = segments * (segments / 2 + 1) + segments;
+      const dimension4VerticesLength =
+        (segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+        dimension3VerticesLength;
+      const dimension5VerticesLength =
+        ((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+        dimension4VerticesLength;
+
+      for (let w = 0; w <= segments / 2; w++) {
+        for (let k = 0; k <= segments / 2; k++) {
+          for (let j = 0; j <= segments / 2; j++) {
+            for (
+              let i = 0;
+              i <= segments * (segments / 2) + segments - 2;
+              i++
+            ) {
+              let points = [i, i + segments, i + segments + 1, i + 1]
+                .map((el) => el + dimension3VerticesLength * j)
+                .map((el) => el + dimension4VerticesLength * k)
+                .map((el) => el + dimension5VerticesLength * w);
+              polygons.push(points);
+            }
+
+            for (
+              let i = 0;
+              i <= segments * (segments / 2) + segments - 2;
+              i++
+            ) {
+              let points = [
+                i,
+                i + dimension3VerticesLength,
+                i + dimension3VerticesLength + 1,
+                i + 1,
+              ]
+                .map((el) => el + dimension3VerticesLength * j)
+                .map((el) => el + dimension4VerticesLength * k)
+                .map((el) => el + dimension5VerticesLength * w);
+              polygons.push(points);
+            }
+
+            for (
+              let i = 0;
+              i <= segments * (segments / 2) + segments - 2;
+              i++
+            ) {
+              let points = [
+                i,
+                i + dimension4VerticesLength,
+                i + dimension4VerticesLength + 1,
+                i + 1,
+              ]
+                .map((el) => el + dimension3VerticesLength * j)
+                .map((el) => el + dimension4VerticesLength * k)
+                .map((el) => el + dimension5VerticesLength * w);
+              polygons.push(points);
+            }
+
+            for (
+              let i = 0;
+              i <= segments * (segments / 2) + segments - 2;
+              i++
+            ) {
+              let points = [
+                i,
+                i + dimension5VerticesLength,
+                i + dimension5VerticesLength + 1,
+                i + 1,
+              ]
+                .map((el) => el + dimension3VerticesLength * j)
+                .map((el) => el + dimension4VerticesLength * k)
+                .map((el) => el + dimension5VerticesLength * w);
+              polygons.push(points);
+            }
+
+            polygons.push(
+              [
+                (segments / 2 + 1) * segments,
+                (segments / 2 + 1) * segments - 1,
+                (segments / 2 + 1) * segments - 1 + segments,
+                (segments / 2 + 1) * segments - 1 + segments,
+              ]
+                .map((el) => el + dimension3VerticesLength * j)
+                .map((el) => el + dimension4VerticesLength * k)
+                .map((el) => el + dimension5VerticesLength * w)
+            );
+          }
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 7) {
+      const dimension3VerticesLength = segments * (segments / 2 + 1) + segments;
+      const dimension4VerticesLength =
+        (segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+        dimension3VerticesLength;
+      const dimension5VerticesLength =
+        ((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+        dimension4VerticesLength;
+
+      const dimension6VerticesLength =
+        (((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+          dimension4VerticesLength) *
+          (segments / 2 + 1) +
+        dimension5VerticesLength;
+
+      for (let v = 0; v <= segments / 2; v++) {
+        for (let w = 0; w <= segments / 2; w++) {
+          for (let k = 0; k <= segments / 2; k++) {
+            for (let j = 0; j <= segments / 2; j++) {
+              for (
+                let i = 0;
+                i <= segments * (segments / 2) + segments - 2;
+                i++
+              ) {
+                let points = [i, i + segments, i + segments + 1, i + 1]
+                  .map((el) => el + dimension3VerticesLength * j)
+                  .map((el) => el + dimension4VerticesLength * k)
+                  .map((el) => el + dimension5VerticesLength * w)
+                  .map((el) => el + dimension6VerticesLength * v);
+                polygons.push(points);
+              }
+
+              for (
+                let i = 0;
+                i <= segments * (segments / 2) + segments - 2;
+                i++
+              ) {
+                let points = [
+                  i,
+                  i + dimension3VerticesLength,
+                  i + dimension3VerticesLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3VerticesLength * j)
+                  .map((el) => el + dimension4VerticesLength * k)
+                  .map((el) => el + dimension5VerticesLength * w)
+                  .map((el) => el + dimension6VerticesLength * v);
+                polygons.push(points);
+              }
+
+              for (
+                let i = 0;
+                i <= segments * (segments / 2) + segments - 2;
+                i++
+              ) {
+                let points = [
+                  i,
+                  i + dimension4VerticesLength,
+                  i + dimension4VerticesLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3VerticesLength * j)
+                  .map((el) => el + dimension4VerticesLength * k)
+                  .map((el) => el + dimension5VerticesLength * w)
+                  .map((el) => el + dimension6VerticesLength * v);
+                polygons.push(points);
+              }
+
+              for (
+                let i = 0;
+                i <= segments * (segments / 2) + segments - 2;
+                i++
+              ) {
+                let points = [
+                  i,
+                  i + dimension5VerticesLength,
+                  i + dimension5VerticesLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3VerticesLength * j)
+                  .map((el) => el + dimension4VerticesLength * k)
+                  .map((el) => el + dimension5VerticesLength * w)
+                  .map((el) => el + dimension6VerticesLength * v);
+                polygons.push(points);
+              }
+
+              for (
+                let i = 0;
+                i <= segments * (segments / 2) + segments - 2;
+                i++
+              ) {
+                let points = [
+                  i,
+                  i + dimension6VerticesLength,
+                  i + dimension6VerticesLength + 1,
+                  i + 1,
+                ]
+                  .map((el) => el + dimension3VerticesLength * j)
+                  .map((el) => el + dimension4VerticesLength * k)
+                  .map((el) => el + dimension5VerticesLength * w)
+                  .map((el) => el + dimension6VerticesLength * v);
+                polygons.push(points);
+              }
+
+              polygons.push(
+                [
+                  (segments / 2 + 1) * segments,
+                  (segments / 2 + 1) * segments - 1,
+                  (segments / 2 + 1) * segments - 1 + segments,
+                  (segments / 2 + 1) * segments - 1 + segments,
+                ]
+                  .map((el) => el + dimension3VerticesLength * j)
+                  .map((el) => el + dimension4VerticesLength * k)
+                  .map((el) => el + dimension5VerticesLength * w)
+                  .map((el) => el + dimension6VerticesLength * v)
+              );
+            }
+          }
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 8) {
+      const dimension3VerticesLength = segments * (segments / 2 + 1) + segments;
+      const dimension4VerticesLength =
+        (segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+        dimension3VerticesLength;
+      const dimension5VerticesLength =
+        ((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+        dimension4VerticesLength;
+
+      const dimension6VerticesLength =
+        (((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+          dimension4VerticesLength) *
+          (segments / 2 + 1) +
+        dimension5VerticesLength;
+
+      const dimension7VerticesLength =
+        ((((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+          dimension4VerticesLength) *
+          (segments / 2 + 1) +
+          dimension5VerticesLength) *
+          (segments / 2 + 1) +
+        dimension6VerticesLength;
+
+      for (let n = 0; n <= segments / 2; n++) {
+        for (let v = 0; v <= segments / 2; v++) {
+          for (let w = 0; w <= segments / 2; w++) {
+            for (let k = 0; k <= segments / 2; k++) {
+              for (let j = 0; j <= segments / 2; j++) {
+                for (
+                  let i = 0;
+                  i <= segments * (segments / 2) + segments - 2;
+                  i++
+                ) {
+                  let points = [i, i + segments, i + segments + 1, i + 1]
+                    .map((el) => el + dimension3VerticesLength * j)
+                    .map((el) => el + dimension4VerticesLength * k)
+                    .map((el) => el + dimension5VerticesLength * w)
+                    .map((el) => el + dimension6VerticesLength * v)
+                    .map((el) => el + dimension7VerticesLength * n);
+                  polygons.push(points);
+                }
+
+                for (
+                  let i = 0;
+                  i <= segments * (segments / 2) + segments - 2;
+                  i++
+                ) {
+                  let points = [
+                    i,
+                    i + dimension3VerticesLength,
+                    i + dimension3VerticesLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3VerticesLength * j)
+                    .map((el) => el + dimension4VerticesLength * k)
+                    .map((el) => el + dimension5VerticesLength * w)
+                    .map((el) => el + dimension6VerticesLength * v)
+                    .map((el) => el + dimension7VerticesLength * n);
+                  polygons.push(points);
+                }
+
+                for (
+                  let i = 0;
+                  i <= segments * (segments / 2) + segments - 2;
+                  i++
+                ) {
+                  let points = [
+                    i,
+                    i + dimension4VerticesLength,
+                    i + dimension4VerticesLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3VerticesLength * j)
+                    .map((el) => el + dimension4VerticesLength * k)
+                    .map((el) => el + dimension5VerticesLength * w)
+                    .map((el) => el + dimension6VerticesLength * v)
+                    .map((el) => el + dimension7VerticesLength * n);
+                  polygons.push(points);
+                }
+
+                for (
+                  let i = 0;
+                  i <= segments * (segments / 2) + segments - 2;
+                  i++
+                ) {
+                  let points = [
+                    i,
+                    i + dimension5VerticesLength,
+                    i + dimension5VerticesLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3VerticesLength * j)
+                    .map((el) => el + dimension4VerticesLength * k)
+                    .map((el) => el + dimension5VerticesLength * w)
+                    .map((el) => el + dimension6VerticesLength * v)
+                    .map((el) => el + dimension7VerticesLength * n);
+                  polygons.push(points);
+                }
+
+                for (
+                  let i = 0;
+                  i <= segments * (segments / 2) + segments - 2;
+                  i++
+                ) {
+                  let points = [
+                    i,
+                    i + dimension6VerticesLength,
+                    i + dimension6VerticesLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3VerticesLength * j)
+                    .map((el) => el + dimension4VerticesLength * k)
+                    .map((el) => el + dimension5VerticesLength * w)
+                    .map((el) => el + dimension6VerticesLength * v)
+                    .map((el) => el + dimension7VerticesLength * n);
+                  polygons.push(points);
+                }
+
+                for (
+                  let i = 0;
+                  i <= segments * (segments / 2) + segments - 2;
+                  i++
+                ) {
+                  let points = [
+                    i,
+                    i + dimension7VerticesLength,
+                    i + dimension7VerticesLength + 1,
+                    i + 1,
+                  ]
+                    .map((el) => el + dimension3VerticesLength * j)
+                    .map((el) => el + dimension4VerticesLength * k)
+                    .map((el) => el + dimension5VerticesLength * w)
+                    .map((el) => el + dimension6VerticesLength * v)
+                    .map((el) => el + dimension7VerticesLength * n);
+                  polygons.push(points);
+                }
+
+                polygons.push(
+                  [
+                    (segments / 2 + 1) * segments,
+                    (segments / 2 + 1) * segments - 1,
+                    (segments / 2 + 1) * segments - 1 + segments,
+                    (segments / 2 + 1) * segments - 1 + segments,
+                  ]
+                    .map((el) => el + dimension3VerticesLength * j)
+                    .map((el) => el + dimension4VerticesLength * k)
+                    .map((el) => el + dimension5VerticesLength * w)
+                    .map((el) => el + dimension6VerticesLength * v)
+                    .map((el) => el + dimension7VerticesLength * n)
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (displayFaces && +dimensionOfFigure === 9) {
+      const dimension3VerticesLength = segments * (segments / 2 + 1) + segments;
+      const dimension4VerticesLength =
+        (segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+        dimension3VerticesLength;
+      const dimension5VerticesLength =
+        ((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+        dimension4VerticesLength;
+
+      const dimension6VerticesLength =
+        (((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+          dimension4VerticesLength) *
+          (segments / 2 + 1) +
+        dimension5VerticesLength;
+
+      const dimension7VerticesLength =
+        ((((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+          dimension4VerticesLength) *
+          (segments / 2 + 1) +
+          dimension5VerticesLength) *
+          (segments / 2 + 1) +
+        dimension6VerticesLength;
+
+      const dimension8VerticesLength =
+        (((((segments * (segments / 2 + 1) + segments) * (segments / 2 + 1) +
+          dimension3VerticesLength) *
+          (segments / 2 + 1) +
+          dimension4VerticesLength) *
+          (segments / 2 + 1) +
+          dimension5VerticesLength) *
+          (segments / 2 + 1) +
+          dimension6VerticesLength) *
+          (segments / 2 + 1) +
+        dimension7VerticesLength;
+
+      for (let m = 0; m <= segments / 2; m++) {
+        for (let n = 0; n <= segments / 2; n++) {
+          for (let v = 0; v <= segments / 2; v++) {
+            for (let w = 0; w <= segments / 2; w++) {
+              for (let k = 0; k <= segments / 2; k++) {
+                for (let j = 0; j <= segments / 2; j++) {
+                  for (
+                    let i = 0;
+                    i <= segments * (segments / 2) + segments - 2;
+                    i++
+                  ) {
+                    let points = [i, i + segments, i + segments + 1, i + 1]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m);
+
+                    polygons.push(points);
+                  }
+
+                  for (
+                    let i = 0;
+                    i <= segments * (segments / 2) + segments - 2;
+                    i++
+                  ) {
+                    let points = [
+                      i,
+                      i + dimension3VerticesLength,
+                      i + dimension3VerticesLength + 1,
+                      i + 1,
+                    ]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m);
+                    polygons.push(points);
+                  }
+
+                  for (
+                    let i = 0;
+                    i <= segments * (segments / 2) + segments - 2;
+                    i++
+                  ) {
+                    let points = [
+                      i,
+                      i + dimension4VerticesLength,
+                      i + dimension4VerticesLength + 1,
+                      i + 1,
+                    ]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m);
+                    polygons.push(points);
+                  }
+
+                  for (
+                    let i = 0;
+                    i <= segments * (segments / 2) + segments - 2;
+                    i++
+                  ) {
+                    let points = [
+                      i,
+                      i + dimension5VerticesLength,
+                      i + dimension5VerticesLength + 1,
+                      i + 1,
+                    ]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m);
+                    polygons.push(points);
+                  }
+
+                  for (
+                    let i = 0;
+                    i <= segments * (segments / 2) + segments - 2;
+                    i++
+                  ) {
+                    let points = [
+                      i,
+                      i + dimension6VerticesLength,
+                      i + dimension6VerticesLength + 1,
+                      i + 1,
+                    ]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m);
+                    polygons.push(points);
+                  }
+
+                  for (
+                    let i = 0;
+                    i <= segments * (segments / 2) + segments - 2;
+                    i++
+                  ) {
+                    let points = [
+                      i,
+                      i + dimension7VerticesLength,
+                      i + dimension7VerticesLength + 1,
+                      i + 1,
+                    ]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m);
+                    polygons.push(points);
+                  }
+
+                  for (
+                    let i = 0;
+                    i <= segments * (segments / 2) + segments - 2;
+                    i++
+                  ) {
+                    let points = [
+                      i,
+                      i + dimension8VerticesLength,
+                      i + dimension8VerticesLength + 1,
+                      i + 1,
+                    ]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m);
+                    polygons.push(points);
+                  }
+
+                  polygons.push(
+                    [
+                      (segments / 2 + 1) * segments,
+                      (segments / 2 + 1) * segments - 1,
+                      (segments / 2 + 1) * segments - 1 + segments,
+                      (segments / 2 + 1) * segments - 1 + segments,
+                    ]
+                      .map((el) => el + dimension3VerticesLength * j)
+                      .map((el) => el + dimension4VerticesLength * k)
+                      .map((el) => el + dimension5VerticesLength * w)
+                      .map((el) => el + dimension6VerticesLength * v)
+                      .map((el) => el + dimension7VerticesLength * n)
+                      .map((el) => el + dimension8VerticesLength * m)
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }, [displayFaces, dimensionOfFigure, verticesArray, dimension]);
+
   return (
     <svg
       width="600"
@@ -61,6 +760,30 @@ const Sphere = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure === 2
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={arr.length}
+            />
+          ))
+        : null}
+      {displayFaces && +dimensionOfFigure >= 3
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={4}
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
@@ -93,6 +816,9 @@ const Sphere = ({
               id={`circle${index}`}
               className="circle"
               onContextMenu={handleContextMenu}
+              onClick={() => {
+                console.log(index);
+              }}
             />
           ))
         : null}
