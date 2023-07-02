@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 
 let polygons = [];
 let polygonsNGons = [];
+let colors = [];
+let colorsNGons = [];
 
 const Cone = ({
   verticesArray,
@@ -59,6 +61,8 @@ const Cone = ({
   useMemo(() => {
     polygons = [];
     polygonsNGons = [];
+    colors = [];
+    colorsNGons = [];
 
     if (+dimension === 2) {
       function findCornerPoints(verticesArray) {
@@ -509,7 +513,6 @@ const Cone = ({
         }
       }
 
-
       for (let i = 0; i < dimension6VerticesLength; i++) {
         polygonsNGons.push([i, i + 1, dimension7VerticesLength]);
       }
@@ -523,6 +526,21 @@ const Cone = ({
         }
       }
     }
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+    polygonsNGons.forEach(() => {
+      colorsNGons.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [displayFaces, dimensionOfFigure, verticesArray, dimension, segments]);
 
   return (
@@ -543,6 +561,7 @@ const Cone = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={arr.length}
+              data-color={JSON.stringify(colorsNGons[index])}
             />
           ))
         : null}
@@ -556,6 +575,7 @@ const Cone = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={4}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}
