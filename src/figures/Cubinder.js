@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
+let polygonsNGons = [];
 
 const Cubinder = ({
   verticesArray,
@@ -9,6 +12,8 @@ const Cubinder = ({
   onMouseOver,
   onMouseLeave,
   segments,
+  displayFaces,
+  dimension,
 }) => {
   let linesArray = [];
   for (let i = 0; i < verticesArray.length; i++) {
@@ -32,15 +37,12 @@ const Cubinder = ({
         linesArray.push([i, step * segments - segments]);
       }
 
-      if (
-        i + 1 < step * segments &&
-        i + 1 < verticesArray.length
-      ) {
+      if (i + 1 < step * segments && i + 1 < verticesArray.length) {
         linesArray.push([i, i + 1]);
       }
     }
 
-    if (i % segments === 0 && i+1 < verticesArray.length) {
+    if (i % segments === 0 && i + 1 < verticesArray.length) {
       linesArray.push([i, i + 1]);
     }
   }
@@ -54,6 +56,168 @@ const Cubinder = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    polygons = [];
+    polygonsNGons = [];
+
+    if (displayFaces && +dimensionOfFigure >= 2) {
+      let circlesAmount = 1;
+      for (let j = 2; j < dimension; j++) {
+        circlesAmount *= 2;
+      }
+
+      for (let k = 0; k < circlesAmount; k++) {
+        let points = [];
+        for (let i = 0; i < segments; i++) {
+          points.push(i);
+        }
+        points = points.map((el) => el + segments * k);
+        polygonsNGons.push(points);
+      }
+
+      for (let j = 0; j < circlesAmount / 2; j++) {
+        for (let i = 0; i < segments - 1; i++) {
+          let points = [i, i + 1, segments + 1 + i, segments + i].map(
+            (el) => el + segments * 2 * j
+          );
+
+          polygons.push(points);
+        }
+
+        let points = [0, segments - 1, segments * 2 - 1, segments].map(
+          (el) => el + segments * 2 * j
+        );
+
+        polygons.push(points);
+      }
+
+      let iteration = 2;
+
+      for (let i = 4; i < +dimension; i++) {
+        iteration *= 2;
+      }
+
+      if (+dimension >= 4) {
+        for (let j = 0; j < circlesAmount / 2; j++) {
+          for (let i = 0; i < segments - 1; i++) {
+            let points = [
+              i,
+              i + 1,
+              segments * iteration + 1 + i,
+              segments * iteration + i,
+            ].map((el) => el + segments * j);
+
+            polygons.push(points);
+          }
+
+          let points = [
+            0,
+            segments - 1,
+            segments * (iteration + 1) - 1,
+            segments * iteration,
+          ].map((el) => el + segments * j);
+
+          polygons.push(points);
+        }
+
+        let iteration2 = 2;
+
+        for (let j = 0; j < dimension - 3; j++) {
+          for (let i = 0; i < segments - 1; i++) {
+            let points = [
+              i,
+              i + segments * iteration2,
+              segments * (iteration2 + 1) + i,
+              segments + i,
+            ];
+
+            polygons.push(points);
+          }
+
+          iteration2 *= 2;
+        }
+      }
+
+      if (+dimension === 5) {
+        for (let j = 0; j < iteration / 2; j++) {
+          for (let i = 0; i < segments - 1; i++) {
+            let points = [
+              i + segments * iteration,
+              i + segments * iteration + 1,
+              segments * (iteration + 2) + 1 + i,
+              segments * (iteration + 2) + i,
+            ].map((el) => el + segments * j);
+            polygons.push(points);
+          }
+
+          let points = [
+            segments * iteration,
+            segments * (iteration + 2),
+            segments * (iteration + 3) - 1,
+            segments * (iteration + 1) - 1,
+          ].map((el) => el + segments * j);
+          polygons.push(points);
+        }
+
+        for (let i = 0; i < segments - 1; i++) {
+          let points = [
+            i + segments * 2,
+            i + segments * 3,
+            segments * 7 + i,
+            segments * 6 + i,
+          ];
+          polygons.push(points);
+        }
+
+        for (let i = 0; i < segments - 1; i++) {
+          let points = [i, i + 1, segments * 2 + i + 1, segments * 2 + i];
+          polygons.push(points);
+        }
+
+        for (let i = 0; i < segments - 1; i++) {
+          let points = [
+            i + segments * 5,
+            i + segments * 5 + 1,
+            segments * 7 + 1 + i,
+            segments * 7 + i,
+          ];
+          polygons.push(points);
+        }
+
+        for (let i = 0; i < segments - 1; i++) {
+          let points = [
+            i + segments,
+            i + segments * 3,
+            segments * 7 + i,
+            segments * 5 + i,
+          ];
+          polygons.push(points);
+        }
+
+        for (let i = 0; i < segments - 1; i++) {
+          let points = [
+            i + segments * 5,
+            i + segments * 7,
+            segments * 6 + i,
+            segments * 4 + i,
+          ];
+          polygons.push(points);
+        }
+
+        for (let i = 0; i < segments - 1; i++) {
+          let points = [
+            i + segments * 4,
+            i + segments * 6,
+            segments * 2 + i,
+            i,
+          ];
+          polygons.push(points);
+        }
+
+      }
+    }
+  }, [displayFaces, dimensionOfFigure, verticesArray, dimension, segments]);
+
   return (
     <svg
       width="600"
@@ -63,6 +227,31 @@ const Cubinder = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces && +dimensionOfFigure >= 2
+        ? polygonsNGons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={arr.length}
+            />
+          ))
+        : null}
+
+      {displayFaces && +dimensionOfFigure >= 3
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={4}
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;

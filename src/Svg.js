@@ -112,7 +112,7 @@ const Svg = ({
   shadow,
   shadowValue,
   figureColor,
-  displayFaces
+  displayFaces,
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -152,7 +152,7 @@ const Svg = ({
     displayVertices,
     figureColor,
     orthography,
-    verticesArray
+    verticesArray,
   ]);
 
   const onWheel = useCallback(
@@ -540,6 +540,8 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
+        dimension={dimensionOfFigure}
       />
     );
   }
@@ -620,6 +622,8 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
+        dimension={dimensionOfFigure}
       />
     );
   }
