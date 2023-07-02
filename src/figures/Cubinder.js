@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 
 let polygons = [];
 let polygonsNGons = [];
+let colors = [];
+let colorsNGons = [];
 
 const Cubinder = ({
   verticesArray,
@@ -59,6 +61,8 @@ const Cubinder = ({
   useMemo(() => {
     polygons = [];
     polygonsNGons = [];
+    colors = [];
+    colorsNGons = [];
 
     if (displayFaces && +dimensionOfFigure >= 2) {
       let circlesAmount = 1;
@@ -216,6 +220,21 @@ const Cubinder = ({
 
       }
     }
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+    polygonsNGons.forEach(() => {
+      colorsNGons.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [displayFaces, dimensionOfFigure, verticesArray, dimension, segments]);
 
   return (
@@ -236,6 +255,7 @@ const Cubinder = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={arr.length}
+              data-color={JSON.stringify(colorsNGons[index])}
             />
           ))
         : null}
@@ -249,6 +269,7 @@ const Cubinder = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={4}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}

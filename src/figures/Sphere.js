@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback } from "react";
 
 let polygons = [];
+let colors = [];
 
 const Sphere = ({
   verticesArray,
@@ -58,6 +59,7 @@ const Sphere = ({
 
   useMemo(() => {
     polygons = [];
+    colors = [];
     if (displayFaces && +dimensionOfFigure === 2) {
       let points = [];
       for (let i = 0; i < segments; i++) {
@@ -749,6 +751,14 @@ const Sphere = ({
         }
       }
     }
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [displayFaces, dimensionOfFigure, verticesArray, dimension]);
 
   return (
@@ -769,6 +779,7 @@ const Sphere = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={arr.length}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}
@@ -781,6 +792,7 @@ const Sphere = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={4}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}

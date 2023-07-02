@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 let polygons = [];
+let colors = [];
 
 const Torus = ({
   verticesArray,
@@ -44,6 +45,7 @@ const Torus = ({
 
   useMemo(() => {
     polygons = [];
+    colors = [];
 
     if (displayFaces && +dimensionOfFigure === 2) {
       let points = [];
@@ -348,6 +350,14 @@ const Torus = ({
         }
       }
     }
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, [displayFaces, dimensionOfFigure, verticesArray, dimension, segments]);
 
   for (let i = 0; i < amountOfLines; i++) {
@@ -373,6 +383,7 @@ const Torus = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={arr.length}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}
@@ -386,6 +397,7 @@ const Torus = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={4}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}
