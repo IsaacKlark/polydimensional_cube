@@ -1,4 +1,20 @@
-import React from "react";
+import React, { useMemo,  } from "react";
+
+let polygons = [];
+let polygonsNGons = [
+  [16, 40, 56, 32, 34, 58, 42, 18, 2, 0],
+  [14, 18, 42, 50, 26, 7, 5, 22, 46, 38],
+  [12, 0, 2, 14, 38, 54, 30, 28, 52, 36],
+  [8, 30, 54, 46, 22, 23, 47, 55, 31, 9],
+  [47, 23, 5, 7, 27, 51, 43, 19, 15, 39],
+  [51, 27, 26, 50, 58, 34, 10, 11, 35, 59],
+  [11, 10, 32, 56, 48, 24, 25, 49, 57, 33],
+  [48, 40, 16, 12, 36, 44, 20, 4, 6, 24],
+  [20, 44, 52, 28, 8, 9, 29, 53, 45, 21],
+  [53, 29, 31, 55, 39, 15, 3, 1, 13, 37],
+  [41, 17, 1, 3, 19, 43, 59, 35, 33, 57],
+  [21, 45, 37, 13, 17, 41, 49, 25, 6, 4]
+];
 
 const TruncatedDodecahedron = ({
   verticesArray,
@@ -8,6 +24,7 @@ const TruncatedDodecahedron = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces,
 }) => {
   let linesArray = [];
   const edgeLength = 2 * 20;
@@ -35,6 +52,38 @@ const TruncatedDodecahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    if (displayFaces) {
+      function getFacesArray(verticesArray, linesArray) {
+        const facesArray = [];
+
+        for (let i = 0; i < verticesArray.length; i++) {
+          for (let j = i + 1; j < verticesArray.length; j++) {
+            for (let k = j + 1; k < verticesArray.length; k++) {
+              if (
+                linesArray.some(
+                  ([a, b]) => (a === i && b === j) || (a === j && b === i)
+                ) &&
+                linesArray.some(
+                  ([a, b]) => (a === j && b === k) || (a === k && b === j)
+                ) &&
+                linesArray.some(
+                  ([a, b]) => (a === k && b === i) || (a === i && b === k)
+                )
+              ) {
+                facesArray.push([i, j, k]);
+              }
+            }
+          }
+        }
+
+        return facesArray;
+      }
+
+      polygons = getFacesArray(verticesArray, linesArray);
+    }
+  }, [displayFaces, verticesArray, linesArray]);
+
   return (
     <svg
       width="600"
@@ -44,6 +93,28 @@ const TruncatedDodecahedron = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces &&
+        polygons.map((arr, index) => (
+          <polygon
+            data-points={JSON.stringify(arr)}
+            key={index}
+            points="0 0, 0 0, 0 0, 0 0"
+            fill={`rgba(255,255, 255, 0.3)`}
+            className="polygon"
+            data-type={arr.length}
+          />
+        ))}
+      {displayFaces &&
+        polygonsNGons.map((arr, index) => (
+          <polygon
+            data-points={JSON.stringify(arr)}
+            key={index}
+            points="0 0, 0 0, 0 0, 0 0"
+            fill={`rgba(255,255, 255, 0.3)`}
+            className="polygon"
+            data-type={arr.length}
+          />
+        ))}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
