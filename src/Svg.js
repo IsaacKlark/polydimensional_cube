@@ -483,6 +483,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -497,6 +498,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -511,6 +513,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        displayFaces={displayFaces}
       />
     );
   }
