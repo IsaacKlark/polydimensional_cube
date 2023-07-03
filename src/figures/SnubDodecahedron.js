@@ -1,5 +1,6 @@
+import { useMemo } from "react";
 import React from "react";
-
+let colors = [];
 let polygons = [
   [31, 32, 48],
   [32, 41, 48],
@@ -92,7 +93,7 @@ let polygons = [
   [37, 36, 35, 39, 38],
   [13, 12, 11, 10, 14],
   [16, 15, 19, 18, 17],
-  [40, 44, 43, 42, 41]
+  [40, 44, 43, 42, 41],
 ];
 
 const SnubDodecahedron = ({
@@ -130,6 +131,16 @@ const SnubDodecahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, []);
+
   return (
     <svg
       width="600"
@@ -148,6 +159,7 @@ const SnubDodecahedron = ({
             fill={`rgba(255,255, 255, 0.3)`}
             className="polygon"
             data-type={arr.length}
+            data-color={JSON.stringify(colors[index])}
           />
         ))}
       {displayEdges &&

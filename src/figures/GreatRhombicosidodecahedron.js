@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 
+let colors = [];
 let polygons = [
   [1, 5, 7, 3],
   [52, 100, 76, 28],
@@ -100,6 +101,16 @@ const GreatRhombicosidodecahedron = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
+  }, []);
+
   return (
     <svg
       width="600"
@@ -118,6 +129,7 @@ const GreatRhombicosidodecahedron = ({
             fill={`rgba(255,255, 255, 0.3)`}
             className="polygon"
             data-type={arr.length}
+            data-color={JSON.stringify(colors[index])}
           />
         ))}
       {displayEdges &&

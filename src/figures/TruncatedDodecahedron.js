@@ -1,5 +1,7 @@
 import React, { useMemo,  } from "react";
 
+let colors = [];
+let colorsNGons = [];
 let polygons = [];
 let polygonsNGons = [
   [16, 40, 56, 32, 34, 58, 42, 18, 2, 0],
@@ -53,6 +55,9 @@ const TruncatedDodecahedron = ({
   }
 
   useMemo(() => {
+    colors = [];
+    colorsNGons = [];
+
     if (displayFaces) {
       function getFacesArray(verticesArray, linesArray) {
         const facesArray = [];
@@ -81,6 +86,20 @@ const TruncatedDodecahedron = ({
       }
 
       polygons = getFacesArray(verticesArray, linesArray);
+      polygons.forEach(() => {
+        colors.push([
+          Math.trunc(Math.random() * 255),
+          Math.trunc(Math.random() * 255),
+          Math.trunc(Math.random() * 255),
+        ]);
+      });
+      polygonsNGons.forEach(() => {
+        colorsNGons.push([
+          Math.trunc(Math.random() * 255),
+          Math.trunc(Math.random() * 255),
+          Math.trunc(Math.random() * 255),
+        ]);
+      });
     }
   }, [displayFaces, verticesArray, linesArray]);
 
@@ -102,6 +121,7 @@ const TruncatedDodecahedron = ({
             fill={`rgba(255,255, 255, 0.3)`}
             className="polygon"
             data-type={arr.length}
+            data-color={JSON.stringify(colors[index])}
           />
         ))}
       {displayFaces &&
@@ -113,6 +133,7 @@ const TruncatedDodecahedron = ({
             fill={`rgba(255,255, 255, 0.3)`}
             className="polygon"
             data-type={arr.length}
+            data-color={JSON.stringify(colorsNGons[index])}
           />
         ))}
       {displayEdges &&
