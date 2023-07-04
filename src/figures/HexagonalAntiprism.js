@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
 
 const HexagonalAntiprism = ({
   verticesArray,
@@ -8,6 +10,7 @@ const HexagonalAntiprism = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces,
 }) => {
   let linesArray = [];
 
@@ -34,6 +37,39 @@ const HexagonalAntiprism = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    function getFacesArray(verticesArray, linesArray) {
+      const facesArray = [];
+
+      for (let i = 0; i < verticesArray.length; i++) {
+        for (let j = i + 1; j < verticesArray.length; j++) {
+          for (let k = j + 1; k < verticesArray.length; k++) {
+            if (
+              linesArray.some(
+                ([a, b]) => (a === i && b === j) || (a === j && b === i)
+              ) &&
+              linesArray.some(
+                ([a, b]) => (a === j && b === k) || (a === k && b === j)
+              ) &&
+              linesArray.some(
+                ([a, b]) => (a === k && b === i) || (a === i && b === k)
+              )
+            ) {
+              facesArray.push([i, j, k]);
+            }
+          }
+        }
+      }
+
+      return facesArray;
+    }
+
+    polygons = getFacesArray(verticesArray, linesArray);
+    polygons.push([3, 2, 4, 0, 1, 5]);
+    polygons.push([11, 8, 6, 10, 7, 9]);
+
+  }, []);
+
   return (
     <svg
       width="600"
@@ -43,6 +79,18 @@ const HexagonalAntiprism = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={arr.length}
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
