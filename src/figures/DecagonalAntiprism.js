@@ -75,7 +75,7 @@ const DecagonalAntiprism = ({
     polygons = getFacesArray(verticesArray, linesArray);
     polygons.push([5, 4, 8, 0, 6, 2, 3, 7, 1, 9]);
     polygons.push([11, 18, 14, 12, 16, 10, 17, 13, 15, 19]);
-  }, []);
+  }, [linesArray]);
 
   return (
     <svg

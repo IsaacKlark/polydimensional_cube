@@ -68,7 +68,7 @@ const HexagonalAntiprism = ({
     polygons.push([3, 2, 4, 0, 1, 5]);
     polygons.push([11, 8, 6, 10, 7, 9]);
 
-  }, []);
+  }, [linesArray]);
 
   return (
     <svg

@@ -67,7 +67,7 @@ const PentagonalAntiprism = ({
     polygons = getFacesArray(verticesArray, linesArray);
     polygons.push([6, 4, 3, 7, 5]);
     polygons.push([8, 9, 1, 0, 2]);
-  }, []);
+  }, [linesArray]);
 
   return (
     <svg

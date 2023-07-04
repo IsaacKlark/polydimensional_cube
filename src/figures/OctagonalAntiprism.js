@@ -68,7 +68,7 @@ const OctagonalAntiprism = ({
     polygons = getFacesArray(verticesArray, linesArray);
     polygons.push([9, 14, 10, 12, 8, 13, 11, 15]);
     polygons.push([3, 2, 6, 4, 0, 1, 5, 7]);
-  }, []);
+  }, [linesArray]);
 
   return (
     <svg
