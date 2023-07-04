@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 let polygons = [];
+let colors = [];
 
 const OctagonalAntiprism = ({
   verticesArray,
@@ -12,7 +13,6 @@ const OctagonalAntiprism = ({
   onMouseLeave,
   displayFaces,
 }) => {
- 
   let linesArray = [];
 
   for (let i = 0; i < verticesArray.length; i++) {
@@ -68,6 +68,13 @@ const OctagonalAntiprism = ({
     polygons = getFacesArray(verticesArray, linesArray);
     polygons.push([9, 14, 10, 12, 8, 13, 11, 15]);
     polygons.push([3, 2, 6, 4, 0, 1, 5, 7]);
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, []);
 
   return (
@@ -88,6 +95,7 @@ const OctagonalAntiprism = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={arr.length}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}

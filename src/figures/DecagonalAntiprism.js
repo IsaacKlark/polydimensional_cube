@@ -1,6 +1,7 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo } from "react";
 
 let polygons = [];
+let colors = [];
 
 const DecagonalAntiprism = ({
   verticesArray,
@@ -12,14 +13,7 @@ const DecagonalAntiprism = ({
   onMouseLeave,
   displayFaces,
 }) => {
-  const [test, setTest] = useState([]);
 
-  useEffect(() => {
-    if (test.length === 10) {
-      console.log(test);
-      setTest([]);
-    }
-  }, [test]);
   let linesArray = [];
 
   for (let i = 0; i < verticesArray.length; i++) {
@@ -75,6 +69,14 @@ const DecagonalAntiprism = ({
     polygons = getFacesArray(verticesArray, linesArray);
     polygons.push([5, 4, 8, 0, 6, 2, 3, 7, 1, 9]);
     polygons.push([11, 18, 14, 12, 16, 10, 17, 13, 15, 19]);
+
+    polygons.forEach(() => {
+      colors.push([
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+        Math.trunc(Math.random() * 255),
+      ]);
+    });
   }, []);
 
   return (
@@ -95,6 +97,7 @@ const DecagonalAntiprism = ({
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
               data-type={arr.length}
+              data-color={JSON.stringify(colors[index])}
             />
           ))
         : null}
@@ -126,7 +129,6 @@ const DecagonalAntiprism = ({
             <circle
               onClick={() => {
                 console.log(verticesArray[index], index);
-                setTest([...test, index]);
               }}
               key={index}
               cx="300"
