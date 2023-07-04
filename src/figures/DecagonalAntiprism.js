@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo, useState, useEffect } from "react";
+
+let polygons = [];
 
 const DecagonalAntiprism = ({
   verticesArray,
@@ -8,7 +10,16 @@ const DecagonalAntiprism = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces,
 }) => {
+  const [test, setTest] = useState([]);
+
+  useEffect(() => {
+    if (test.length === 10) {
+      console.log(test);
+      setTest([]);
+    }
+  }, [test]);
   let linesArray = [];
 
   for (let i = 0; i < verticesArray.length; i++) {
@@ -34,6 +45,38 @@ const DecagonalAntiprism = ({
     ids += 1;
   }
 
+  useMemo(() => {
+    function getFacesArray(verticesArray, linesArray) {
+      const facesArray = [];
+
+      for (let i = 0; i < verticesArray.length; i++) {
+        for (let j = i + 1; j < verticesArray.length; j++) {
+          for (let k = j + 1; k < verticesArray.length; k++) {
+            if (
+              linesArray.some(
+                ([a, b]) => (a === i && b === j) || (a === j && b === i)
+              ) &&
+              linesArray.some(
+                ([a, b]) => (a === j && b === k) || (a === k && b === j)
+              ) &&
+              linesArray.some(
+                ([a, b]) => (a === k && b === i) || (a === i && b === k)
+              )
+            ) {
+              facesArray.push([i, j, k]);
+            }
+          }
+        }
+      }
+
+      return facesArray;
+    }
+
+    polygons = getFacesArray(verticesArray, linesArray);
+    polygons.push([5, 4, 8, 0, 6, 2, 3, 7, 1, 9]);
+    polygons.push([11, 18, 14, 12, 16, 10, 17, 13, 15, 19]);
+  }, []);
+
   return (
     <svg
       width="600"
@@ -43,6 +86,18 @@ const DecagonalAntiprism = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
+      {displayFaces
+        ? polygons.map((arr, index) => (
+            <polygon
+              data-points={JSON.stringify(arr)}
+              key={index}
+              points="0 0, 0 0, 0 0, 0 0"
+              fill={`rgba(255,255, 255, 0.3)`}
+              className="polygon"
+              data-type={arr.length}
+            />
+          ))
+        : null}
       {displayEdges &&
         lines.map((id, index) => {
           let vertex1 = 0;
@@ -71,6 +126,7 @@ const DecagonalAntiprism = ({
             <circle
               onClick={() => {
                 console.log(verticesArray[index], index);
+                setTest([...test, index]);
               }}
               key={index}
               cx="300"
