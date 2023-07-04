@@ -75,7 +75,7 @@ const OctagonalAntiprism = ({
         Math.trunc(Math.random() * 255),
       ]);
     });
-  }, []);
+  }, [linesArray]);
 
   return (
     <svg
