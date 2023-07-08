@@ -2,11 +2,12 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
-import vertices, { setVerticesArray } from "./vertices";
+import vertices, { setModified, setVerticesArray } from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
 import Button from "@mui/material/Button";
 import Instruction from "./Instruction";
+import Modificators from "./Modificators";
 
 export let useKeyboard = false;
 
@@ -132,6 +133,8 @@ function App() {
   const [perspectiveND, setPerspectiveND] = useState(150);
   const [scale, setScale] = useState(1);
   const [originalVerticesArray, setOriginalVerticesArray] = useState([]);
+  const [originalLinesArray, setOriginalLinesArray] = useState([]);
+  const [originalPolygonsArray, setOriginalPolygonsArray] = useState([]);
   const [segments, setSegments] = useState(21);
   const [optionsFigures, setOptionsFigures] = useState([...baseFigures]);
   const [numberValue, setNumberValue] = useState(4);
@@ -230,6 +233,7 @@ function App() {
 
   const changeFigure = useCallback(
     (value) => {
+      setModified(false);
       if (!segmentedFigures.includes(value)) {
         vertices(
           numberOfDimensions,
@@ -513,6 +517,7 @@ function App() {
             />
           </label>
         </div>
+
         <CreateCheckboxes
           reset={reset}
           setReset={setReset}
@@ -539,6 +544,14 @@ function App() {
           setBackgroundColor={setBackgroundColor}
           displayFaces={displayFaces}
         />
+        <Modificators
+          originalLinesArray={originalLinesArray}
+          originalPolygonsArray={originalPolygonsArray}
+          setOriginalLinesArray={setOriginalLinesArray}
+          setOriginalPolygonsArray={setOriginalPolygonsArray}
+          setReset={setReset}
+          dimension={numberOfDimensions}
+        />
         <div id="svgWrapper">
           <Svg
             dimension={numberOfDimensions}
@@ -556,6 +569,10 @@ function App() {
             shadowValue={shadowValue}
             figureColor={figureColor}
             displayFaces={displayFaces}
+            originalLinesArray={originalLinesArray}
+            originalPolygonsArray={originalPolygonsArray}
+            setOriginalLinesArray={setOriginalLinesArray}
+            setOriginalPolygonsArray={setOriginalPolygonsArray}
           />
         </div>
       </div>

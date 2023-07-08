@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+} from "../vertices";
 let polygons = [];
 
 const Cell120Analog = ({
@@ -11,51 +15,65 @@ const Cell120Analog = ({
   onMouseOver,
   onMouseLeave,
   displayFaces,
+  originalPolygonsArray,
+  setOriginalPolygonsArray,
+  dimension,
 }) => {
+  if (!modified) {
+    let linesArray = [];
 
-  let linesArray = [];
+    const edgeLength =
+      +dimensionOfFigure === 3 ? 100 : Math.round((2 / 1.618 ** 2) * 50);
 
-  const edgeLength =
-    +dimensionOfFigure === 3 ? 100 : Math.round((2 / 1.618 ** 2) * 50);
+    if (+dimensionOfFigure > 2) {
+      for (let i = 0; i < verticesArray.length; i++) {
+        for (let j = i; j < verticesArray.length; j++) {
+          if (i !== j) {
+            let length = 0;
+            for (let k = 0; k < dimensionOfFigure; k++) {
+              length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+            }
+            length = Math.round(length ** (1 / 2));
 
-  if (+dimensionOfFigure > 2) {
-    for (let i = 0; i < verticesArray.length; i++) {
-      for (let j = i; j < verticesArray.length; j++) {
-        if (i !== j) {
-          let length = 0;
-          for (let k = 0; k < dimensionOfFigure; k++) {
-            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-          }
-          length = Math.round(length ** (1 / 2));
-
-          if (length === edgeLength) {
-            linesArray.push([i, j]);
+            if (length === edgeLength) {
+              linesArray.push([i, j]);
+            }
           }
         }
       }
+    } else if (+dimensionOfFigure === 2) {
+      linesArray = [
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [3, 4],
+        [4, 0],
+      ];
     }
-  } else if (+dimensionOfFigure === 2) {
-    linesArray = [
-      [0, 1],
-      [1, 2],
-      [2, 3],
-      [3, 4],
-      [4, 0],
-    ];
+
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
+
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+
+    const saveLines = [];
+
+    lines.forEach((el, index) => {
+      const vertex1 = linesArray[index][0];
+      const vertex2 = linesArray[index][1];
+      saveLines.push([vertex1, vertex2]);
+    });
+
+    setLinesArray(saveLines);
   }
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
-
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
-  }
-
-  useMemo(() => {
+  useEffect(() => {
     polygons = [];
-    
+
     if (+dimensionOfFigure === 2) {
       polygons = [[0, 1, 2, 3, 4]];
     }
@@ -817,6 +835,7 @@ const Cell120Analog = ({
     // }
 
     // console.log(polygons);
+    setOriginalPolygonsArray(polygons);
   }, [dimensionOfFigure]);
 
   return (
@@ -829,33 +848,33 @@ const Cell120Analog = ({
       onMouseLeave={onMouseLeave}
     >
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? originalPolygonsArray.map((arr, index) => (
             <polygon
               data-points={JSON.stringify(arr)}
               key={index}
               points="0 0, 0 0, 0 0, 0 0"
               fill={`rgba(255,255, 255, 0.3)`}
               className="polygon"
-              data-type="5"
+              data-type={arr.length}
             />
           ))
         : null}
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = id[0];
+          vertex2 = id[1];
           return (
             <line
-              key={id}
+              key={index}
               x1="200"
               y1="200"
               x2="400"
               y2="200"
               stroke="white"
-              id={`line${id}`}
+              id={`line${index}`}
               className="line"
               vertex1={vertex1}
               vertex2={vertex2}

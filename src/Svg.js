@@ -1,7 +1,7 @@
 import generateFigureOrthography from "./generateFigureOrthography";
 import React, { useEffect, useCallback, useRef } from "react";
 import generateFigure from "./generateFigure";
-import { setVerticesArray, verticesArray } from "./vertices";
+import { setModified, setVerticesArray, verticesArray } from "./vertices";
 import Cube from "./figures/Cube";
 import Symplex from "./figures/Symplex";
 import Octahedron from "./figures/Octahedron";
@@ -113,6 +113,10 @@ const Svg = ({
   shadowValue,
   figureColor,
   displayFaces,
+  originalLinesArray,
+  originalPolygonsArray,
+  setOriginalLinesArray,
+  setOriginalPolygonsArray,
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -233,6 +237,8 @@ const Svg = ({
         onMouseLeave={onMouseLeave}
         dimensionOfFigure={dimensionOfFigure}
         displayFaces={displayFaces}
+        originalPolygonsArray={originalPolygonsArray}
+        setOriginalPolygonsArray={setOriginalPolygonsArray}
       />
     );
   }
@@ -285,7 +291,7 @@ const Svg = ({
   if (figure === "120-Сell") {
     return (
       <Cell120Analog
-        verticesArray={originalVerticesArray}
+        verticesArray={verticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
@@ -293,6 +299,9 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         displayFaces={displayFaces}
+        originalPolygonsArray={originalPolygonsArray}
+        setOriginalPolygonsArray={setOriginalPolygonsArray}
+        dimension={dimension}
       />
     );
   }
@@ -814,6 +823,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1144,6 +1154,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1159,6 +1170,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
