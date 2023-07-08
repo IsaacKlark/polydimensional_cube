@@ -6,7 +6,6 @@ import {
   polygonsArray,
   setPolygonsArray,
 } from "../vertices";
-import { useEffect } from "react";
 
 let polygons = [];
 
@@ -19,6 +18,7 @@ const Octahedron = ({
   onMouseOver,
   onMouseLeave,
   displayFaces,
+  dimension
 }) => {
   let xDots = [];
   let yDots = [];
@@ -115,8 +115,12 @@ const Octahedron = ({
     }
 
     polygons = Array.from(polySet);
-    setPolygonsArray(polygons.map(el => JSON.parse(el)))
-  }, [dimensionOfFigure, displayFaces]);
+    if (+dimensionOfFigure === 2) {
+      setPolygonsArray([[3, 0, 2, 1]]);
+    } else {
+      setPolygonsArray(polygons.map((el) => JSON.parse(el)));
+    }
+  }, [dimensionOfFigure, displayFaces, dimension]);
 
   return (
     <svg
@@ -140,7 +144,7 @@ const Octahedron = ({
           ))
         : null} */}
 
-      {displayFaces && +dimensionOfFigure > 2
+      {displayFaces
         ? polygonsArray.map((arr, index) => (
             <polygon
               data-points={JSON.stringify(arr)}

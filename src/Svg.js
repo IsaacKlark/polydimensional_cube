@@ -263,6 +263,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         displayFaces={displayFaces}
+        dimension={dimension}
       />
     );
   }
