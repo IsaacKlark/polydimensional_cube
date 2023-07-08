@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import {
   linesArray as _linesArray,
   setLinesArray,
   modified,
+  polygonsArray,
+  setPolygonsArray
 } from "../vertices";
 let polygons = [];
 
@@ -15,9 +17,6 @@ const Cell120Analog = ({
   onMouseOver,
   onMouseLeave,
   displayFaces,
-  originalPolygonsArray,
-  setOriginalPolygonsArray,
-  dimension,
 }) => {
   if (!modified) {
     let linesArray = [];
@@ -835,7 +834,7 @@ const Cell120Analog = ({
     // }
 
     // console.log(polygons);
-    setOriginalPolygonsArray(polygons);
+    setPolygonsArray(polygons);
   }, [dimensionOfFigure]);
 
   return (
@@ -848,7 +847,7 @@ const Cell120Analog = ({
       onMouseLeave={onMouseLeave}
     >
       {displayFaces && +dimensionOfFigure >= 2
-        ? originalPolygonsArray.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
             <polygon
               data-points={JSON.stringify(arr)}
               key={index}

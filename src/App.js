@@ -545,10 +545,6 @@ function App() {
           displayFaces={displayFaces}
         />
         <Modificators
-          originalLinesArray={originalLinesArray}
-          originalPolygonsArray={originalPolygonsArray}
-          setOriginalLinesArray={setOriginalLinesArray}
-          setOriginalPolygonsArray={setOriginalPolygonsArray}
           setReset={setReset}
           dimension={numberOfDimensions}
         />
@@ -569,10 +565,6 @@ function App() {
             shadowValue={shadowValue}
             figureColor={figureColor}
             displayFaces={displayFaces}
-            originalLinesArray={originalLinesArray}
-            originalPolygonsArray={originalPolygonsArray}
-            setOriginalLinesArray={setOriginalLinesArray}
-            setOriginalPolygonsArray={setOriginalPolygonsArray}
           />
         </div>
       </div>

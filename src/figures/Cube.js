@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { linesArray, setLinesArray } from "../vertices";
+import { linesArray, setLinesArray, polygonsArray, setPolygonsArray } from "../vertices";
 const Cube = ({
   dimension,
   displayEdges,
@@ -10,8 +10,6 @@ const Cube = ({
   onMouseLeave,
   dimensionOfFigure,
   displayFaces,
-  originalPolygonsArray,
-  setOriginalPolygonsArray,
 }) => {
   useEffect(() => {
     let polygons = [];
@@ -107,7 +105,7 @@ const Cube = ({
       }
     }
 
-    setOriginalPolygonsArray(polygons);
+    setPolygonsArray(polygons);
   }, [dimensionOfFigure, displayFaces]);
 
   useEffect(() => {
@@ -205,7 +203,7 @@ const Cube = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
-      {displayFaces && originalPolygonsArray.map((arr, index) => (
+      {displayFaces && polygonsArray.map((arr, index) => (
         <polygon
           data-points={JSON.stringify(arr)}
           key={index}

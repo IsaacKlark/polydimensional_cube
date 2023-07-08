@@ -4,14 +4,14 @@ import {
   verticesArray,
   linesArray,
   setLinesArray,
-  setModified
+  setModified,
+  setPolygonsArray,
+  polygonsArray as _polygons
 } from "./vertices";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
 const Modificators = ({
-  originalPolygonsArray,
-  setOriginalPolygonsArray,
   setReset,
   dimension,
 }) => {
@@ -129,7 +129,7 @@ const Modificators = ({
     }
 
     setVerticesArray(newVertices);
-    setOriginalPolygonsArray(newPolygons);
+    setPolygonsArray(newPolygons);
     setLinesArray(newlines);
     setReset(true);
   };
@@ -137,8 +137,8 @@ const Modificators = ({
   const truncate = (vertices) => {
     setOriginalVertices(vertices);
     setOriginalLines(linesArray);
-    setOriginalPolygons(originalPolygonsArray);
-    truncationFn(vertices, linesArray, originalPolygonsArray);
+    setOriginalPolygons(_polygons);
+    truncationFn(vertices, linesArray, _polygons);
     setModified(true)
   };
 

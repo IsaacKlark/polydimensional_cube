@@ -88,10 +88,14 @@ import TetrahedralMagnaursachoronVertices from "./TetrahedralMagnaursachoronVert
 import KleinBottleVertices from "./KleinBottleVertices";
 
 export let verticesArray = [];
+export let polygonsArray = [];
 export let linesArray = [];
 export let modified = false;
 export const setModified = (result) => {
   modified = result;
+};
+export const setPolygonsArray = (result) => {
+  polygonsArray = result;
 };
 export const setLinesArray = (result) => {
   linesArray = result;

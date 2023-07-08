@@ -113,10 +113,6 @@ const Svg = ({
   shadowValue,
   figureColor,
   displayFaces,
-  originalLinesArray,
-  originalPolygonsArray,
-  setOriginalLinesArray,
-  setOriginalPolygonsArray,
 }) => {
   useEffect(() => {
     if (dimension > 1) {
@@ -237,8 +233,6 @@ const Svg = ({
         onMouseLeave={onMouseLeave}
         dimensionOfFigure={dimensionOfFigure}
         displayFaces={displayFaces}
-        originalPolygonsArray={originalPolygonsArray}
-        setOriginalPolygonsArray={setOriginalPolygonsArray}
       />
     );
   }
@@ -299,8 +293,6 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         displayFaces={displayFaces}
-        originalPolygonsArray={originalPolygonsArray}
-        setOriginalPolygonsArray={setOriginalPolygonsArray}
         dimension={dimension}
       />
     );
