@@ -128,7 +128,7 @@ const Cell24Analog = ({
       polygons = getFacesArray(verticesArray, linesArray);
       setPolygonsArray(polygons);
     }
-  }, [verticesArray, displayFaces, modified]);
+  }, [verticesArray, displayFaces, modified, dimensionOfFigure]);
 
   return (
     <svg

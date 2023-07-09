@@ -493,6 +493,7 @@ function App() {
               onChange={(e, value) => {
                 dimension(value);
                 setFigureDimension(value);
+                setModified(false);
               }}
               sx={{
                 width: 300,
