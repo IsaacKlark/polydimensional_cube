@@ -1,4 +1,11 @@
 import React, { useMemo } from "react";
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 
 let polygons = [];
 
@@ -13,68 +20,83 @@ const Rectified5Cell = ({
   displayFaces,
 }) => {
   let linesArray = [];
-  const edgeLength = 160;
+  if (!modified) {
+    const edgeLength = 160;
 
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-
-        if (+dimensionOfFigure > 2) {
-          if (length === edgeLength || length === edgeLength - 1) {
-            linesArray.push([i, j]);
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
           }
-        } else if (+dimensionOfFigure === 2) {
-          if (length === 94 || length === 98) {
-            linesArray.push([i, j]);
-          }
-        }
-      }
-    }
-  }
+          length = Math.round(length ** (1 / 2));
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
-
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
-  }
-
-  useMemo(() => {
-    function getFacesArray(verticesArray, linesArray) {
-      const facesArray = [];
-
-      for (let i = 0; i < verticesArray.length; i++) {
-        for (let j = i + 1; j < verticesArray.length; j++) {
-          for (let k = j + 1; k < verticesArray.length; k++) {
-            if (
-              linesArray.some(
-                ([a, b]) => (a === i && b === j) || (a === j && b === i)
-              ) &&
-              linesArray.some(
-                ([a, b]) => (a === j && b === k) || (a === k && b === j)
-              ) &&
-              linesArray.some(
-                ([a, b]) => (a === k && b === i) || (a === i && b === k)
-              )
-            ) {
-              facesArray.push([i, j, k]);
+          if (+dimensionOfFigure > 2) {
+            if (length === edgeLength || length === edgeLength - 1) {
+              linesArray.push([i, j]);
+            }
+          } else if (+dimensionOfFigure === 2) {
+            if (length === 94 || length === 98) {
+              linesArray.push([i, j]);
             }
           }
         }
       }
-
-      return facesArray;
     }
 
-    polygons = getFacesArray(verticesArray, linesArray);
-  }, [linesArray]);
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
+
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+
+    const saveLines = [];
+
+    lines.forEach((el, index) => {
+      const vertex1 = linesArray[index][0];
+      const vertex2 = linesArray[index][1];
+      saveLines.push([vertex1, vertex2]);
+    });
+
+    setLinesArray(saveLines);
+  }
+
+  useMemo(() => {
+    if (!modified) {
+      function getFacesArray(verticesArray, linesArray) {
+        const facesArray = [];
+
+        for (let i = 0; i < verticesArray.length; i++) {
+          for (let j = i + 1; j < verticesArray.length; j++) {
+            for (let k = j + 1; k < verticesArray.length; k++) {
+              if (
+                linesArray.some(
+                  ([a, b]) => (a === i && b === j) || (a === j && b === i)
+                ) &&
+                linesArray.some(
+                  ([a, b]) => (a === j && b === k) || (a === k && b === j)
+                ) &&
+                linesArray.some(
+                  ([a, b]) => (a === k && b === i) || (a === i && b === k)
+                )
+              ) {
+                facesArray.push([i, j, k]);
+              }
+            }
+          }
+        }
+
+        return facesArray;
+      }
+
+      polygons = getFacesArray(verticesArray, linesArray);
+      setPolygonsArray(polygons);
+    }
+  }, [linesArray, modified]);
 
   return (
     <svg
@@ -86,7 +108,7 @@ const Rectified5Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayFaces
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
             <polygon
               data-points={JSON.stringify(arr)}
               key={index}
@@ -97,29 +119,29 @@ const Rectified5Cell = ({
             />
           ))
         : null}
-
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = id[0];
+          vertex2 = id[1];
           return (
             <line
-              key={id}
+              key={index}
               x1="200"
               y1="200"
               x2="400"
               y2="200"
               stroke="white"
-              id={`line${id}`}
+              id={`line${index}`}
               className="line"
               vertex1={vertex1}
               vertex2={vertex2}
             />
           );
         })}
+
 
       {displayVertices
         ? verticesArray.map((item, index) => (

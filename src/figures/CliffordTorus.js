@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const CliffordTorus = ({
@@ -13,37 +19,49 @@ const CliffordTorus = ({
   segments,
   displayFaces,
 }) => {
-  let linesArray = [];
+  if (!modified) {
+    let linesArray = [];
 
-  const _segments = +segments + 1 || 21;
+    const _segments = +segments + 1 || 21;
 
-  for (let i = 0; i < verticesArray.length; i++) {
-    const step = Math.ceil(i / _segments);
+    for (let i = 0; i < verticesArray.length; i++) {
+      const step = Math.ceil(i / _segments);
 
-    if (i === step * _segments - 1) {
-      linesArray.push([i, step * _segments - (_segments - 1)]);
-    }
-
-    let distance = 1;
-
-    for (let j = 0; j < Math.ceil(+dimensionOfFigure / 2); j++) {
-      if (
-        i + distance < step * distance * _segments &&
-        i + distance < verticesArray.length
-      ) {
-        linesArray.push([i, i + distance]);
+      if (i === step * _segments - 1) {
+        linesArray.push([i, step * _segments - (_segments - 1)]);
       }
-      distance *= _segments;
+
+      let distance = 1;
+
+      for (let j = 0; j < Math.ceil(+dimensionOfFigure / 2); j++) {
+        if (
+          i + distance < step * distance * _segments &&
+          i + distance < verticesArray.length
+        ) {
+          linesArray.push([i, i + distance]);
+        }
+        distance *= _segments;
+      }
     }
-  }
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
 
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+
+    const saveLines = [];
+
+    lines.forEach((el, index) => {
+      const vertex1 = linesArray[index][0];
+      const vertex2 = linesArray[index][1];
+      saveLines.push([vertex1, vertex2]);
+    });
+
+    setLinesArray(saveLines);
   }
 
   useMemo(() => {
@@ -380,6 +398,8 @@ const CliffordTorus = ({
         }
       }
     }
+
+    setPolygonsArray(polygons);
   }, [displayFaces, dimensionOfFigure, verticesArray]);
 
   return (
@@ -391,8 +411,8 @@ const CliffordTorus = ({
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseLeave}
     >
-      {displayFaces && +dimensionOfFigure === 2
-        ? polygons.map((arr, index) => (
+      {displayFaces
+        ? polygonsArray.map((arr, index) => (
             <polygon
               data-points={JSON.stringify(arr)}
               key={index}
@@ -403,34 +423,22 @@ const CliffordTorus = ({
             />
           ))
         : null}
-      {displayFaces && +dimensionOfFigure >= 3
-        ? polygons.map((arr, index) => (
-            <polygon
-              data-points={JSON.stringify(arr)}
-              key={index}
-              points="0 0, 0 0, 0 0, 0 0"
-              fill={`rgba(255,255, 255, 0.3)`}
-              className="polygon"
-              data-type="4"
-            />
-          ))
-        : null}
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = id[0];
+          vertex2 = id[1];
           return (
             <line
-              key={id}
+              key={index}
               x1="200"
               y1="200"
               x2="400"
               y2="200"
               stroke="white"
-              id={`line${id}`}
+              id={`line${index}`}
               className="line"
               vertex1={vertex1}
               vertex2={vertex2}

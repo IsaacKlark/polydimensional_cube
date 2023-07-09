@@ -33,14 +33,14 @@ const specific4D = [
   "4D Bitruncated 5-cell",
   "4D Runcinated 5-cell",
   "4D Cantellated 5-cell",
-  "4D Truncated 5-cell",
+  // "4D Truncated 5-cell",
   "4D Runcitruncated 5-cell",
   "4D Cantitruncated 5-cell",
   "4D Omnitruncated 5-cell",
   "4D Omnitruncated 24-cell",
   "4D Snub 24-cell",
   "4D Rectified 600-cell",
-  "4D Truncated 600-cell",
+  // "4D Truncated 600-cell",
   "4D Rectified 120-cell",
   // "4D Cantellated 600-cell",
   "4D Bitruncated 120-cell",
@@ -48,7 +48,7 @@ const specific4D = [
   "4D Runcinated 120-cell",
   "4D Cantellated 120-cell",
   // "4D Runcitruncated 600-cell",
-  "4D Truncated 120-cell",
+  // "4D Truncated 120-cell",
   "4D Runcitruncated 120-cell",
   "4D Cantitruncated 120-cell",
   // "4D Omnitruncated 120-cell",
@@ -73,7 +73,7 @@ const baseFigures = [
   "24-Сell",
   "120-Сell",
   "600-Сell",
-  "Truncated Cube",
+  // "Truncated Cube",
   "Rhombicuboctahedron",
   "Truncated Octahedron",
   "Cuboctahedron",
@@ -90,7 +90,7 @@ const baseFigures = [
   "Torus",
   "Cylinder",
   "Cone",
-  "Truncated 16-cell",
+  // "Truncated 16-cell",
   "Runcinated Tesseract",
   "Runcitruncated 16-cell",
   "Runcitruncated Tesseract",
@@ -161,6 +161,7 @@ function App() {
   }
 
   const generateDimensions = useCallback(() => {
+    setModified(false)
     if (
       isNaN(numberValue) ||
       +numberValue < 0 ||
@@ -191,6 +192,7 @@ function App() {
   const resetAngles = useCallback(() => {
     setReset(true);
     setActiveRotations([]);
+    setModified(false)
 
     vertices(
       numberOfDimensions,
@@ -452,7 +454,7 @@ function App() {
       <div className="App">
         <div className="flexWrapper">
           <Button variant="contained" onClick={resetAngles}>
-            Reset angles
+            Reset 
           </Button>
           <CustomInput
             id="outlined-name"

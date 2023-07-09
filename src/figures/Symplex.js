@@ -69,34 +69,36 @@ const Symplex = ({
   }
 
   useMemo(() => {
-    polygons = [];
-    if (dimensionOfFigure < 2 || !displayFaces) return;
+    if (!modified) {
+      polygons = [];
+      if (dimensionOfFigure < 2 || !displayFaces) return;
 
-    let x = 0;
-    let y = 1;
-    let z = 2;
+      let x = 0;
+      let y = 1;
+      let z = 2;
 
-    while (x <= +dimensionOfFigure - 2) {
-      polygons.push([x, y, z]);
+      while (x <= +dimensionOfFigure - 2) {
+        polygons.push([x, y, z]);
 
-      if (+dimensionOfFigure === 2) break;
+        if (+dimensionOfFigure === 2) break;
 
-      z += 1;
+        z += 1;
 
-      if (z === +dimensionOfFigure + 1) {
-        y += 1;
-        z = y + 1;
+        if (z === +dimensionOfFigure + 1) {
+          y += 1;
+          z = y + 1;
+        }
+
+        if (y === +dimensionOfFigure) {
+          x += 1;
+          y = x + 1;
+          z = y + 1;
+        }
       }
 
-      if (y === +dimensionOfFigure) {
-        x += 1;
-        y = x + 1;
-        z = y + 1;
-      }
+      setPolygonsArray(polygons);
     }
-
-    setPolygonsArray(polygons);
-  }, [dimensionOfFigure, displayFaces]);
+  }, [dimensionOfFigure, displayFaces, modified]);
 
   return (
     <svg

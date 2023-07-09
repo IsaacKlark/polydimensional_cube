@@ -18,7 +18,7 @@ const Octahedron = ({
   onMouseOver,
   onMouseLeave,
   displayFaces,
-  dimension
+  dimension,
 }) => {
   let xDots = [];
   let yDots = [];
@@ -77,50 +77,52 @@ const Octahedron = ({
   }
 
   useMemo(() => {
-    polygons = [];
-    if (dimensionOfFigure < 2 || !displayFaces) return;
-    const polySet = new Set();
+    if (!modified) {
+      polygons = [];
+      if (dimensionOfFigure < 2 || !displayFaces) return;
+      const polySet = new Set();
 
-    for (let k = 3; k <= +dimensionOfFigure; k++) {
-      const amountOfLines = k * (k - 1) * 2;
+      for (let k = 3; k <= +dimensionOfFigure; k++) {
+        const amountOfLines = k * (k - 1) * 2;
 
-      let ids = 0;
-      const lines = [];
+        let ids = 0;
+        const lines = [];
 
-      for (let i = 0; i < amountOfLines; i++) {
-        lines.push(ids);
-        ids += 1;
-      }
-
-      for (let i = 0; i < lines.length; i++) {
-        let vertex1 = 0;
-        let vertex2 = 0;
-
-        vertex1 = xDots[i];
-        vertex2 = yDots[i];
-
-        const initIndex = [vertex1, vertex2];
-
-        if (initIndex.includes(k * 2 - 1) || initIndex.includes(k * 2 - 2)) {
-          continue;
+        for (let i = 0; i < amountOfLines; i++) {
+          lines.push(ids);
+          ids += 1;
         }
 
-        polySet.add(
-          JSON.stringify([...initIndex, k * 2 - 2].sort((a, b) => a - b))
-        );
-        polySet.add(
-          JSON.stringify([...initIndex, k * 2 - 1].sort((a, b) => a - b))
-        );
+        for (let i = 0; i < lines.length; i++) {
+          let vertex1 = 0;
+          let vertex2 = 0;
+
+          vertex1 = xDots[i];
+          vertex2 = yDots[i];
+
+          const initIndex = [vertex1, vertex2];
+
+          if (initIndex.includes(k * 2 - 1) || initIndex.includes(k * 2 - 2)) {
+            continue;
+          }
+
+          polySet.add(
+            JSON.stringify([...initIndex, k * 2 - 2].sort((a, b) => a - b))
+          );
+          polySet.add(
+            JSON.stringify([...initIndex, k * 2 - 1].sort((a, b) => a - b))
+          );
+        }
+      }
+
+      polygons = Array.from(polySet);
+      if (+dimensionOfFigure === 2) {
+        setPolygonsArray([[3, 0, 2, 1]]);
+      } else {
+        setPolygonsArray(polygons.map((el) => JSON.parse(el)));
       }
     }
-
-    polygons = Array.from(polySet);
-    if (+dimensionOfFigure === 2) {
-      setPolygonsArray([[3, 0, 2, 1]]);
-    } else {
-      setPolygonsArray(polygons.map((el) => JSON.parse(el)));
-    }
-  }, [dimensionOfFigure, displayFaces, dimension]);
+  }, [dimensionOfFigure, displayFaces, dimension, modified]);
 
   return (
     <svg

@@ -4,7 +4,7 @@ import {
   setLinesArray,
   modified,
   polygonsArray,
-  setPolygonsArray
+  setPolygonsArray,
 } from "../vertices";
 
 let polygons = [
@@ -1455,14 +1455,16 @@ const Cell600Analog = ({
   }
 
   useEffect(() => {
-    if (+dimensionOfFigure === 3) {
-      setPolygonsArray([...polygons3DPentagon, ...polygons3DTriangle]);
-    } else if (+dimensionOfFigure > 3) {
-      setPolygonsArray([...polygons]);
-    } else if (+dimensionOfFigure < 3) {
-      setPolygonsArray([]);
+    if (!modified) {
+      if (+dimensionOfFigure === 3) {
+        setPolygonsArray([...polygons3DPentagon, ...polygons3DTriangle]);
+      } else if (+dimensionOfFigure > 3) {
+        setPolygonsArray([...polygons]);
+      } else if (+dimensionOfFigure < 3) {
+        setPolygonsArray([]);
+      }
     }
-  }, [dimensionOfFigure]);
+  }, [dimensionOfFigure, modified]);
 
   // useMemo(() => {
   //   function getFacesArray(verticesArray, linesArray) {
