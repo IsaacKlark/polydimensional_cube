@@ -6,15 +6,13 @@ import {
   setLinesArray,
   setModified,
   setPolygonsArray,
-  polygonsArray as _polygons
+  polygonsArray as _polygons,
+  modified,
 } from "./vertices";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
-const Modificators = ({
-  setReset,
-  dimension,
-}) => {
+const Modificators = ({ setReset, dimension }) => {
   const [truncation, setTruncation] = useState(40);
   const [originalVertices, setOriginalVertices] = useState([]);
   const [originalLines, setOriginalLines] = useState([]);
@@ -82,7 +80,6 @@ const Modificators = ({
 
     trianglesInfo.sort((a, b) => a.parent - b.parent);
 
-
     for (let i = 0; i <= trianglesInfo[trianglesInfo.length - 1].parent; i++) {
       let fragment = trianglesInfo.filter((el) => el.parent === i);
       let subFragmentVertex = fragment.map((el) => JSON.stringify(el.vertex));
@@ -139,7 +136,7 @@ const Modificators = ({
     setOriginalLines(linesArray);
     setOriginalPolygons(_polygons);
     truncationFn(vertices, linesArray, _polygons);
-    setModified(true)
+    setModified(true);
   };
 
   return (
@@ -147,25 +144,29 @@ const Modificators = ({
       <p className="block">Modificators</p>
 
       <div className="modificator">
-        <Button variant="contained" onClick={() => truncate(verticesArray)}>
-          Truncate
-        </Button>
+        {_polygons.length && (
+          <Button variant="contained" onClick={() => truncate(verticesArray)}>
+            Truncate
+          </Button>
+        )}
 
-        <label className="rangeWrapper">
-          <p>0%</p>
-          <input
-            min={0}
-            max={100}
-            step={1}
-            value={truncation}
-            type="range"
-            onChange={(e) => {
-              setTruncation(+e.target.value);
-              truncationFn(originalVertices, originalLines, originalPolygons);
-            }}
-          />
-          <p>100%</p>
-        </label>
+        {modified && (
+          <label className="rangeWrapper">
+            <p>0%</p>
+            <input
+              min={0}
+              max={100}
+              step={1}
+              value={truncation}
+              type="range"
+              onChange={(e) => {
+                setTruncation(+e.target.value);
+                truncationFn(originalVertices, originalLines, originalPolygons);
+              }}
+            />
+            <p>100%</p>
+          </label>
+        )}
       </div>
     </div>
   );

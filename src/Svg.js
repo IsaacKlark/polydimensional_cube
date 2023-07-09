@@ -1,7 +1,7 @@
 import generateFigureOrthography from "./generateFigureOrthography";
 import React, { useEffect, useCallback, useRef } from "react";
 import generateFigure from "./generateFigure";
-import { setModified, setVerticesArray, verticesArray } from "./vertices";
+import { setModified, setPolygonsArray, setVerticesArray, verticesArray } from "./vertices";
 import Cube from "./figures/Cube";
 import Symplex from "./figures/Symplex";
 import Octahedron from "./figures/Octahedron";

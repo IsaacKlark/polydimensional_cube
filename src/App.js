@@ -2,7 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import CreateCheckboxes from "./CreateCheckboxes";
 import Svg from "./Svg";
-import vertices, { setModified, setVerticesArray } from "./vertices";
+import vertices, {
+  setModified,
+  setPolygonsArray,
+  setVerticesArray,
+} from "./vertices";
 import TextField from "@mui/material/TextField";
 import { CustomAutoComplete, CustomInput } from "./styles";
 import Button from "@mui/material/Button";
@@ -161,7 +165,7 @@ function App() {
   }
 
   const generateDimensions = useCallback(() => {
-    setModified(false)
+    setModified(false);
     if (
       isNaN(numberValue) ||
       +numberValue < 0 ||
@@ -192,7 +196,7 @@ function App() {
   const resetAngles = useCallback(() => {
     setReset(true);
     setActiveRotations([]);
-    setModified(false)
+    setModified(false);
 
     vertices(
       numberOfDimensions,
@@ -235,6 +239,7 @@ function App() {
 
   const changeFigure = useCallback(
     (value) => {
+      setPolygonsArray([]);
       setModified(false);
       if (!segmentedFigures.includes(value)) {
         vertices(
@@ -454,7 +459,7 @@ function App() {
       <div className="App">
         <div className="flexWrapper">
           <Button variant="contained" onClick={resetAngles}>
-            Reset 
+            Reset
           </Button>
           <CustomInput
             id="outlined-name"
@@ -546,10 +551,7 @@ function App() {
           setBackgroundColor={setBackgroundColor}
           displayFaces={displayFaces}
         />
-        <Modificators
-          setReset={setReset}
-          dimension={numberOfDimensions}
-        />
+        <Modificators setReset={setReset} dimension={numberOfDimensions} />
         <div id="svgWrapper">
           <Svg
             dimension={numberOfDimensions}
