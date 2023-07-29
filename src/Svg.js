@@ -286,7 +286,7 @@ const Svg = ({
   if (figure === "120-Сell") {
     return (
       <Cell120Analog
-        verticesArray={verticesArray}
+        verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
