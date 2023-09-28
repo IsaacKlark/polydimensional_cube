@@ -354,6 +354,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -368,6 +369,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -379,6 +381,7 @@ const Svg = ({
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        displayFaces={displayFaces}
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -530,6 +533,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -612,6 +616,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -666,20 +671,6 @@ const Svg = ({
     );
   }
 
-  if (figure === "Hexahonal Prism") {
-    return (
-      <HexagonPrism
-        verticesArray={originalVerticesArray}
-        dimensionOfFigure={dimensionOfFigure}
-        displayEdges={displayEdges}
-        displayVertices={displayVertices}
-        onWheel={onWheel}
-        onMouseOver={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        segments={segments}
-      />
-    );
-  }
 
   if (figure === "Hexahonal Prism") {
     return (
@@ -692,6 +683,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -723,6 +715,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -738,6 +731,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -753,6 +747,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -963,6 +958,7 @@ const Svg = ({
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}
         displayVertices={displayVertices}
+        displayFaces={displayFaces}
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -982,6 +978,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1027,6 +1024,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1102,6 +1100,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1359,6 +1358,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1374,6 +1374,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }

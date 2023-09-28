@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
 
 const Runcitruncated24Cell = ({
   verticesArray,
@@ -8,6 +10,7 @@ const Runcitruncated24Cell = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces
 }) => {
   let linesArray = [];
   const test = new Set();
@@ -35,6 +38,13 @@ const Runcitruncated24Cell = ({
     lines.push(ids);
     ids += 1;
   }
+
+  useMemo(() => {
+    if (+dimensionOfFigure === 2) {
+      polygons = [[0,1,2,3, 4,5,6,7]]
+    }
+
+  }, [dimensionOfFigure]);
 
   return (
     <svg
@@ -67,26 +77,37 @@ const Runcitruncated24Cell = ({
             />
           );
         })}
-
+      {displayFaces && +dimensionOfFigure >= 2
+        ? polygons.map((arr, index) => (
+          <polygon
+            data-points={JSON.stringify(arr)}
+            key={index}
+            points="0 0, 0 0, 0 0, 0 0"
+            fill={`rgba(255,255, 255, 0.3)`}
+            className="polygon"
+            data-type={arr.length}
+          />
+        ))
+        : null}
       {displayVertices
         ? verticesArray.map((item, index) => (
-            <circle
-              onClick={() => {
-                console.log(verticesArray[index], index);
-              }}
-              key={index}
-              cx="300"
-              cy="200"
-              r="2"
-              fill="white"
-              id={`circle${index}`}
-              className="circle"
-              onContextMenu={(e) => {
-                e.preventDefault();
-                e.target.style.display = "none";
-              }}
-            />
-          ))
+          <circle
+            onClick={() => {
+              console.log(verticesArray[index], index);
+            }}
+            key={index}
+            cx="300"
+            cy="200"
+            r="2"
+            fill="white"
+            id={`circle${index}`}
+            className="circle"
+            onContextMenu={(e) => {
+              e.preventDefault();
+              e.target.style.display = "none";
+            }}
+          />
+        ))
         : null}
     </svg>
   );
