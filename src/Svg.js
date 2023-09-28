@@ -414,6 +414,7 @@ const Svg = ({
         onWheel={onWheel}
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -994,6 +995,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1009,6 +1011,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1040,6 +1043,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1055,6 +1059,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -1070,6 +1075,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
