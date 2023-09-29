@@ -828,24 +828,11 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
 
-  if (figure === "4D Bitruncated 5-cell") {
-    return (
-      <Bitruncated5Cell
-        verticesArray={originalVerticesArray}
-        dimensionOfFigure={dimensionOfFigure}
-        displayEdges={displayEdges}
-        displayVertices={displayVertices}
-        onWheel={onWheel}
-        onMouseOver={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        segments={segments}
-      />
-    );
-  }
 
   if (figure === "4D Runcinated 5-cell") {
     return (
@@ -858,6 +845,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -873,6 +861,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -903,6 +892,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -918,6 +908,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
@@ -933,6 +924,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }
