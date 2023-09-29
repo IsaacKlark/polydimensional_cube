@@ -297,13 +297,13 @@ const CubeAntiprism = ({
             fill={`rgba(255,255, 255, 0.3)`}
             className="polygon"
             data-type={arr.length}
-            onClick={() => {
-              const newArr = [...testPolygons, arr];
-              setTestPolygons(newArr)
-              polygons = polygons.map((el, index2) => index2 !== index ? el : []);
-              console.clear();
-              console.log(newArr)
-            }}
+            // onClick={() => {
+            //   const newArr = [...testPolygons, arr];
+            //   setTestPolygons(newArr)
+            //   polygons = polygons.map((el, index2) => index2 !== index ? el : []);
+            //   console.clear();
+            //   console.log(newArr)
+            // }}
           />
         ))
         : null}
