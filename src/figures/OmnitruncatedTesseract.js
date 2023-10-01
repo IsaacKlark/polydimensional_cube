@@ -12,7 +12,6 @@ const OmnitruncatedTesseract = ({
   onMouseLeave,
   displayFaces
 }) => {
-  const [testPolygons, setTestPolygons] = useState([]);
 
   let linesArray = [];
   const test = new Set();

@@ -1256,6 +1256,7 @@ const Svg = ({
         onMouseOver={onMouseEnter}
         onMouseLeave={onMouseLeave}
         segments={segments}
+        displayFaces={displayFaces}
       />
     );
   }

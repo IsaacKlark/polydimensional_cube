@@ -18099,7 +18099,7 @@ const Runcitruncated16Cell = ({
         ]
       ]
     }
-    
+
   }, [dimensionOfFigure]);
 
   return (
