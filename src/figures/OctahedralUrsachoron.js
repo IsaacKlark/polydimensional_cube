@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+let polygons = [];
 
 const OctahedralUrsachoron = ({
   verticesArray,
@@ -8,6 +10,7 @@ const OctahedralUrsachoron = ({
   onWheel,
   onMouseOver,
   onMouseLeave,
+  displayFaces
 }) => {
   let linesArray = [];
 
@@ -34,6 +37,349 @@ const OctahedralUrsachoron = ({
     lines.push(ids);
     ids += 1;
   }
+
+  useMemo(() => {
+    polygons = [
+      [
+        0,
+        2,
+        4
+      ],
+      [
+        0,
+        2,
+        5
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        0,
+        3,
+        5
+      ],
+      [
+        1,
+        2,
+        4
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        3,
+        4
+      ],
+      [
+        1,
+        3,
+        5
+      ],
+      [
+        6,
+        16,
+        20
+      ],
+      [
+        6,
+        16,
+        23
+      ],
+      [
+        6,
+        19,
+        20
+      ],
+      [
+        6,
+        19,
+        23
+      ],
+      [
+        7,
+        17,
+        21
+      ],
+      [
+        7,
+        17,
+        22
+      ],
+      [
+        7,
+        18,
+        21
+      ],
+      [
+        7,
+        18,
+        22
+      ],
+      [
+        8,
+        12,
+        20
+      ],
+      [
+        8,
+        12,
+        22
+      ],
+      [
+        8,
+        15,
+        20
+      ],
+      [
+        8,
+        15,
+        22
+      ],
+      [
+        9,
+        13,
+        21
+      ],
+      [
+        9,
+        13,
+        23
+      ],
+      [
+        9,
+        14,
+        21
+      ],
+      [
+        9,
+        14,
+        23
+      ],
+      [
+        10,
+        12,
+        16
+      ],
+      [
+        10,
+        12,
+        18
+      ],
+      [
+        10,
+        14,
+        16
+      ],
+      [
+        10,
+        14,
+        18
+      ],
+      [
+        11,
+        13,
+        17
+      ],
+      [
+        11,
+        13,
+        19
+      ],
+      [
+        11,
+        15,
+        17
+      ],
+      [
+        11,
+        15,
+        19
+      ],
+      [
+        12,
+        16,
+        20
+      ],
+      [
+        12,
+        18,
+        22
+      ],
+      [
+        13,
+        17,
+        21
+      ],
+      [
+        13,
+        19,
+        23
+      ],
+      [
+        14,
+        16,
+        23
+      ],
+      [
+        14,
+        18,
+        21
+      ],
+      [
+        15,
+        17,
+        22
+      ],
+      [
+        15,
+        19,
+        20
+      ],
+      [
+        0,
+        2,
+        1,
+        3
+      ],
+      [
+        0,
+        4,
+        1,
+        5
+      ],
+      [
+        2,
+        4,
+        3,
+        5
+      ],
+      [
+        12,
+        16,
+        14,
+        18
+      ],
+      [
+        12,
+        20,
+        15,
+        22
+      ],
+      [
+        13,
+        17,
+        15,
+        19
+      ],
+      [
+        13,
+        21,
+        14,
+        23
+      ],
+      [
+        16,
+        20,
+        19,
+        23
+      ],
+      [
+        17,
+        21,
+        18,
+        22
+      ],
+      [
+        0,
+        2,
+        8,
+        20,
+        6
+      ],
+      [
+        0,
+        3,
+        9,
+        23,
+        6
+      ],
+      [
+        0,
+        4,
+        10,
+        16,
+        6
+      ],
+      [
+        0,
+        5,
+        11,
+        19,
+        6
+      ],
+      [
+        1,
+        2,
+        8,
+        22,
+        7
+      ],
+      [
+        1,
+        3,
+        9,
+        21,
+        7
+      ],
+      [
+        1,
+        4,
+        10,
+        18,
+        7
+      ],
+      [
+        1,
+        5,
+        11,
+        17,
+        7
+      ],
+      [
+        2,
+        4,
+        10,
+        12,
+        8
+      ],
+      [
+        2,
+        5,
+        11,
+        15,
+        8
+      ],
+      [
+        3,
+        4,
+        10,
+        14,
+        9
+      ],
+      [
+        3,
+        5,
+        11,
+        13,
+        9
+      ]
+    ]
+  }, []);
 
   return (
     <svg
@@ -67,25 +413,45 @@ const OctahedralUrsachoron = ({
           );
         })}
 
+      {displayFaces && +dimensionOfFigure >= 2
+        ? polygons.map((arr, index) => (
+          <polygon
+            data-points={JSON.stringify(arr)}
+            key={index}
+            points="0 0, 0 0, 0 0, 0 0"
+            fill={`rgba(255,255, 255, 0.3)`}
+            className="polygon"
+            data-type={arr.length}
+          // onClick={() => {
+          //   const newArr = [...testPolygons, arr];
+          //   setTestPolygons(newArr)
+          //   polygons = polygons.map((el, index2) => index2 !== index ? el : []);
+          //   console.clear();
+          //   console.log(newArr)
+          // }}
+          />
+        ))
+        : null}
+
       {displayVertices
         ? verticesArray.map((item, index) => (
-            <circle
-              onClick={() => {
-                console.log(verticesArray[index], index);
-              }}
-              key={index}
-              cx="300"
-              cy="200"
-              r="2"
-              fill="white"
-              id={`circle${index}`}
-              className="circle"
-              onContextMenu={(e) => {
-                e.preventDefault();
-                e.target.style.display = "none";
-              }}
-            />
-          ))
+          <circle
+            onClick={() => {
+              console.log(verticesArray[index], index);
+            }}
+            key={index}
+            cx="300"
+            cy="200"
+            r="2"
+            fill="white"
+            id={`circle${index}`}
+            className="circle"
+            onContextMenu={(e) => {
+              e.preventDefault();
+              e.target.style.display = "none";
+            }}
+          />
+        ))
         : null}
     </svg>
   );
