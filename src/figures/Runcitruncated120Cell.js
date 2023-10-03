@@ -140794,7 +140794,7 @@ const Runcitruncated120Cell = ({
       ]
     ]
 
-    if (true) {
+    if (false) {
       function get3FacesArray(verticesArray, linesArray) {
         const facesArray = [];
         const vertexCount = verticesArray.length;
@@ -141271,8 +141271,8 @@ const Runcitruncated120Cell = ({
 
     //   return res;
     // }
-    // polygons = [...polygons3, ...polygons4, ...polygons6]
-    console.log(polygons)
+    polygons = [...polygons3, ...polygons4, ...polygons6]
+    // console.log(polygons)
 
   }, []);
 
