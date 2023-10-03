@@ -34898,7 +34898,6 @@ const Bitruncated120Cell = ({
         3599
       ]
     ]
-   
   }, [])
 
   return (
