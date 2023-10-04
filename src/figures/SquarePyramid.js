@@ -49,6 +49,8 @@ const SquarePyramid = ({
     ids += 1;
   }
 
+  const linesAmount = lines.length;
+
   useMemo(() => {
     function get3FacesArray(verticesArray, linesArray) {
       const facesArray = [];
@@ -91,11 +93,6 @@ const SquarePyramid = ({
       }
     }
 
-
-   
-    
-
-
     const clearRepeats = (arr) => {
       const res = [];
       const test = []
@@ -119,7 +116,7 @@ const SquarePyramid = ({
 
 
     polygons = [...polygons3]
-  }, [dimensionOfFigure, dimension, linesArray])
+  }, [dimensionOfFigure, linesAmount])
 
   return (
     <svg
