@@ -58,206 +58,208 @@ const PentagonalPyramid = ({
 
   const linesAmount = linesArray.length;
   useMemo(() => {
-    if (+dimensionOfFigure === 2) {
-      polygons = [
-        [
-          0,
-          1,
-          5
-        ],
-        [
-          0,
-          4,
-          5
-        ],
-        [
-          1,
-          2,
-          5
-        ],
-        [
-          2,
-          3,
-          5
-        ],
-        [
-          3,
-          4,
-          5
-        ]
-      ];
-    }
-    if (+dimensionOfFigure === 3) {
-      polygons = [
-        [
-          0,
-          1,
-          5
-        ],
-        [
-          0,
-          4,
-          5
-        ],
-        [
-          1,
-          2,
-          5
-        ],
-        [
-          2,
-          3,
-          5
-        ],
-        [
-          3,
-          4,
-          5
-        ]
-      ];
-    }
+    if (displayFaces) {
+      if (+dimensionOfFigure === 2) {
+        polygons = [
+          [
+            0,
+            1,
+            5
+          ],
+          [
+            0,
+            4,
+            5
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            3,
+            4,
+            5
+          ]
+        ];
+      }
+      if (+dimensionOfFigure === 3) {
+        polygons = [
+          [
+            0,
+            1,
+            5
+          ],
+          [
+            0,
+            4,
+            5
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            5
+          ],
+          [
+            3,
+            4,
+            5
+          ]
+        ];
+      }
 
 
-    if (+dimensionOfFigure > 3) {
-      function get3FacesArray(verticesArray, linesArray) {
-        const facesArray = [];
-        const vertexCount = verticesArray.length;
-  
-        // Создаем индекс для быстрого поиска связей вершин
-        const vertexConnections = {};
-        for (const [a, b] of linesArray) {
-          if (!vertexConnections[a]) vertexConnections[a] = [];
-          if (!vertexConnections[b]) vertexConnections[b] = [];
-          vertexConnections[a].push(b);
-          vertexConnections[b].push(a);
-        }
-  
-        let percent = 0;
-  
-  
-        for (let i = 0; i < vertexCount; i++) {
-          percent += (100 / verticesArray.length);
-          console.clear();
-          console.log(percent + "% - 3")
-          for (let j = i + 1; j < vertexCount; j++) {
-            if (hasEdge(i, j)) {
-              for (let k = i + 1; k < vertexCount; k++) {
-                if (
-                  hasEdge(j, k) &&
-                  hasEdge(k, i)
-                ) {
-                  facesArray.push([i, j, k]);
+      if (+dimensionOfFigure > 3) {
+        function get3FacesArray(verticesArray, linesArray) {
+          const facesArray = [];
+          const vertexCount = verticesArray.length;
+
+          // Создаем индекс для быстрого поиска связей вершин
+          const vertexConnections = {};
+          for (const [a, b] of linesArray) {
+            if (!vertexConnections[a]) vertexConnections[a] = [];
+            if (!vertexConnections[b]) vertexConnections[b] = [];
+            vertexConnections[a].push(b);
+            vertexConnections[b].push(a);
+          }
+
+          let percent = 0;
+
+
+          for (let i = 0; i < vertexCount; i++) {
+            percent += (100 / verticesArray.length);
+            console.clear();
+            console.log(percent + "% - 3")
+            for (let j = i + 1; j < vertexCount; j++) {
+              if (hasEdge(i, j)) {
+                for (let k = i + 1; k < vertexCount; k++) {
+                  if (
+                    hasEdge(j, k) &&
+                    hasEdge(k, i)
+                  ) {
+                    facesArray.push([i, j, k]);
+                  }
                 }
               }
             }
           }
+
+          return facesArray;
+
+          function hasEdge(a, b) {
+            return vertexConnections[a]?.includes(b) && vertexConnections[b]?.includes(a);
+          }
         }
-  
-        return facesArray;
-  
-        function hasEdge(a, b) {
-          return vertexConnections[a].includes(b) && vertexConnections[b].includes(a);
-        }
-      }
-  
-  
-      function get4FacesArray(verticesArray, linesArray) {
-        const facesArray = [];
-        const vertexCount = verticesArray.length;
-  
-        // Создаем индекс для быстрого поиска связей вершин
-        const vertexConnections = {};
-        for (const [a, b] of linesArray) {
-          if (!vertexConnections[a]) vertexConnections[a] = [];
-          if (!vertexConnections[b]) vertexConnections[b] = [];
-          vertexConnections[a].push(b);
-          vertexConnections[b].push(a);
-        }
-  
-        let percent = 0;
-  
-  
-        // Перебираем все возможные комбинации пяти вершин
-        for (let i = 0; i < vertexCount; i++) {
-          percent += (100 / verticesArray.length);
-          console.clear();
-          console.log(percent + "% - 4")
-          for (let j = i + 1; j < vertexCount; j++) {
-            if (hasEdge(i, j)) {
-              for (let k = i + 1; k < vertexCount; k++) {
-                if (hasEdge(j, k)) {
-                  for (let l = i + 1; l < vertexCount; l++) {
-  
-                    // Проверяем, что все пары вершин связаны в сети
-                    if (
-                      hasEdge(k, l) &&
-                      hasEdge(l, i)
-                    ) {
-                      facesArray.push([i, j, k, l]);
+
+
+        function get4FacesArray(verticesArray, linesArray) {
+          const facesArray = [];
+          const vertexCount = verticesArray.length;
+
+          // Создаем индекс для быстрого поиска связей вершин
+          const vertexConnections = {};
+          for (const [a, b] of linesArray) {
+            if (!vertexConnections[a]) vertexConnections[a] = [];
+            if (!vertexConnections[b]) vertexConnections[b] = [];
+            vertexConnections[a].push(b);
+            vertexConnections[b].push(a);
+          }
+
+          let percent = 0;
+
+
+          // Перебираем все возможные комбинации пяти вершин
+          for (let i = 0; i < vertexCount; i++) {
+            percent += (100 / verticesArray.length);
+            console.clear();
+            console.log(percent + "% - 4")
+            for (let j = i + 1; j < vertexCount; j++) {
+              if (hasEdge(i, j)) {
+                for (let k = i + 1; k < vertexCount; k++) {
+                  if (hasEdge(j, k)) {
+                    for (let l = i + 1; l < vertexCount; l++) {
+
+                      // Проверяем, что все пары вершин связаны в сети
+                      if (
+                        hasEdge(k, l) &&
+                        hasEdge(l, i)
+                      ) {
+                        facesArray.push([i, j, k, l]);
+                      }
                     }
                   }
                 }
               }
             }
           }
-        }
-  
-        return facesArray;
-  
-        // Функция для проверки наличия ребра между двумя вершинами
-        function hasEdge(a, b) {
-          return vertexConnections[a].includes(b) && vertexConnections[b].includes(a);
-        }
-      }
-  
-  
-      const clearRepeats = (arr) => {
-        const res = [];
-        const test = []
-        arr.forEach(element => {
-          const copyElement = [...element]
-          if (!test.includes(JSON.stringify(copyElement.sort((a, b) => a - b)))) {
-            let uniq = true;
-            element.forEach(el => {
-              if (element.indexOf(el) !== element.lastIndexOf(el)) uniq = false;
-            })
-            if (uniq) {
-              res.push(element);
-              test.push(JSON.stringify(copyElement));
-            }
+
+          return facesArray;
+
+          // Функция для проверки наличия ребра между двумя вершинами
+          function hasEdge(a, b) {
+            return vertexConnections[a]?.includes(b) && vertexConnections[b]?.includes(a);
           }
-        });
-        return res;
-      };
-  
-      let polygons3 = clearRepeats(get3FacesArray(verticesArray, linesArray));
-      let polygons4 = clearRepeats(get4FacesArray(verticesArray, linesArray));
-  
-  
-      const clearExtra = () => {
-        let progress = 0;
-        const res = polygons4.filter((el, index) => {
-          progress += (100 / polygons4.length);
-          console.clear();
-          console.log(progress + "%")
-          let status = true;
-          for (let i = 0; i < polygons3.length; i++) {
-            if (el.includes(polygons3[i][0]) && el.includes(polygons3[i][1]) && el.includes(polygons3[i][2])) {
-              status = false;
-              break;
+        }
+
+
+        const clearRepeats = (arr) => {
+          const res = [];
+          const test = []
+          arr.forEach(element => {
+            const copyElement = [...element]
+            if (!test.includes(JSON.stringify(copyElement.sort((a, b) => a - b)))) {
+              let uniq = true;
+              element.forEach(el => {
+                if (element.indexOf(el) !== element.lastIndexOf(el)) uniq = false;
+              })
+              if (uniq) {
+                res.push(element);
+                test.push(JSON.stringify(copyElement));
+              }
             }
-          }
-  
-  
-          return status;
-        })
-  
-        return res;
+          });
+          return res;
+        };
+
+        let polygons3 = clearRepeats(get3FacesArray(verticesArray, linesArray));
+        let polygons4 = clearRepeats(get4FacesArray(verticesArray, linesArray));
+
+
+        const clearExtra = () => {
+          let progress = 0;
+          const res = polygons4.filter((el, index) => {
+            progress += (100 / polygons4.length);
+            console.clear();
+            console.log(progress + "%")
+            let status = true;
+            for (let i = 0; i < polygons3.length; i++) {
+              if (el.includes(polygons3[i][0]) && el.includes(polygons3[i][1]) && el.includes(polygons3[i][2])) {
+                status = false;
+                break;
+              }
+            }
+
+
+            return status;
+          })
+
+          return res;
+        }
+
+        polygons = [...polygons3, ...clearExtra()]
       }
-  
-      polygons = [...polygons3, ...clearExtra()]
     }
-  }, [dimensionOfFigure, linesAmount])
+  }, [dimensionOfFigure, linesAmount, displayFaces])
 
   return (
     <svg

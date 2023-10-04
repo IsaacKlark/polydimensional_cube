@@ -52,71 +52,73 @@ const SquarePyramid = ({
   const linesAmount = lines.length;
 
   useMemo(() => {
-    function get3FacesArray(verticesArray, linesArray) {
-      const facesArray = [];
-      const vertexCount = verticesArray.length;
+    if (displayFaces) {
+      function get3FacesArray(verticesArray, linesArray) {
+        const facesArray = [];
+        const vertexCount = verticesArray.length;
 
-      // Создаем индекс для быстрого поиска связей вершин
-      const vertexConnections = {};
-      for (const [a, b] of linesArray) {
-        if (!vertexConnections[a]) vertexConnections[a] = [];
-        if (!vertexConnections[b]) vertexConnections[b] = [];
-        vertexConnections[a].push(b);
-        vertexConnections[b].push(a);
-      }
+        // Создаем индекс для быстрого поиска связей вершин
+        const vertexConnections = {};
+        for (const [a, b] of linesArray) {
+          if (!vertexConnections[a]) vertexConnections[a] = [];
+          if (!vertexConnections[b]) vertexConnections[b] = [];
+          vertexConnections[a].push(b);
+          vertexConnections[b].push(a);
+        }
 
-      let percent = 0;
+        let percent = 0;
 
 
-      for (let i = 0; i < vertexCount; i++) {
-        percent += (100 / verticesArray.length);
-        console.clear();
-        console.log(percent + "% - 3")
-        for (let j = i + 1; j < vertexCount; j++) {
-          if (hasEdge(i, j)) {
-            for (let k = i + 1; k < vertexCount; k++) {
-              if (
-                hasEdge(j, k) &&
-                hasEdge(k, i)
-              ) {
-                facesArray.push([i, j, k]);
+        for (let i = 0; i < vertexCount; i++) {
+          percent += (100 / verticesArray.length);
+          console.clear();
+          console.log(percent + "% - 3")
+          for (let j = i + 1; j < vertexCount; j++) {
+            if (hasEdge(i, j)) {
+              for (let k = i + 1; k < vertexCount; k++) {
+                if (
+                  hasEdge(j, k) &&
+                  hasEdge(k, i)
+                ) {
+                  facesArray.push([i, j, k]);
+                }
               }
             }
           }
         }
-      }
 
-      return facesArray;
+        return facesArray;
 
-      function hasEdge(a, b) {
-        return vertexConnections[a].includes(b) && vertexConnections[b].includes(a);
-      }
-    }
-
-    const clearRepeats = (arr) => {
-      const res = [];
-      const test = []
-      arr.forEach(element => {
-        const copyElement = [...element]
-        if (!test.includes(JSON.stringify(copyElement.sort((a, b) => a - b)))) {
-          let uniq = true;
-          element.forEach(el => {
-            if (element.indexOf(el) !== element.lastIndexOf(el)) uniq = false;
-          })
-          if (uniq) {
-            res.push(element);
-            test.push(JSON.stringify(copyElement));
-          }
+        function hasEdge(a, b) {
+          return vertexConnections[a].includes(b) && vertexConnections[b].includes(a);
         }
-      });
-      return res;
-    };
+      }
 
-    let polygons3 = clearRepeats(get3FacesArray(verticesArray, linesArray));
+      const clearRepeats = (arr) => {
+        const res = [];
+        const test = []
+        arr.forEach(element => {
+          const copyElement = [...element]
+          if (!test.includes(JSON.stringify(copyElement.sort((a, b) => a - b)))) {
+            let uniq = true;
+            element.forEach(el => {
+              if (element.indexOf(el) !== element.lastIndexOf(el)) uniq = false;
+            })
+            if (uniq) {
+              res.push(element);
+              test.push(JSON.stringify(copyElement));
+            }
+          }
+        });
+        return res;
+      };
+
+      let polygons3 = clearRepeats(get3FacesArray(verticesArray, linesArray));
 
 
-    polygons = [...polygons3]
-  }, [dimensionOfFigure, linesAmount])
+      polygons = [...polygons3]
+    }
+  }, [dimensionOfFigure, linesAmount, displayFaces])
 
   return (
     <svg
