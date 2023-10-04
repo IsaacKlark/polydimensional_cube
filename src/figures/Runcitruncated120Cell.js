@@ -140950,7 +140950,6 @@ const Runcitruncated120Cell = ({
         const facesArray = [];
         const vertexCount = verticesArray.length;
 
-        // Создаем индекс для быстрого поиска связей вершин
         const vertexConnections = {};
         for (const [a, b] of linesArray) {
           if (!vertexConnections[a]) vertexConnections[a] = [];
@@ -140962,7 +140961,6 @@ const Runcitruncated120Cell = ({
         let percent = 0;
 
 
-        // Перебираем все возможные комбинации пяти вершин
         for (let i = 0; i < vertexCount; i++) {
           percent += (100 / verticesArray.length);
           console.clear();
