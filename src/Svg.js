@@ -1366,6 +1366,7 @@ const Svg = ({
         onMouseLeave={onMouseLeave}
         segments={segments}
         displayFaces={displayFaces}
+        dimension={dimension}
       />
     );
   }
