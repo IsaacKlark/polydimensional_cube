@@ -22,7 +22,8 @@ const Cubinder = ({
   dimension,
 }) => {
   if (!modified) {
-    let linesArray = [];
+  let linesArray = [];
+
     for (let i = 0; i < verticesArray.length; i++) {
       const step = Math.ceil(i / segments);
 
@@ -94,146 +95,61 @@ const Cubinder = ({
           polygonsNGons.push(points);
         }
 
-        for (let j = 0; j < circlesAmount / 2; j++) {
-          for (let i = 0; i < segments - 1; i++) {
-            let points = [i, i + 1, segments + 1 + i, segments + i].map(
-              (el) => el + segments * 2 * j
-            );
+      }
 
-            polygons.push(points);
-          }
+      function get4FacesArray(verticesArray, linesArray) {
+        const facesArray = [];
+        const vertexCount = verticesArray.length;
 
-          let points = [0, segments - 1, segments * 2 - 1, segments].map(
-            (el) => el + segments * 2 * j
-          );
-
-          polygons.push(points);
+        // Создаем индекс для быстрого поиска связей вершин
+        const vertexConnections = {};
+        for (const [a, b] of linesArray) {
+          if (!vertexConnections[a]) vertexConnections[a] = [];
+          if (!vertexConnections[b]) vertexConnections[b] = [];
+          vertexConnections[a].push(b);
+          vertexConnections[b].push(a);
         }
 
-        let iteration = 2;
+        let percent = 0;
 
-        for (let i = 4; i < +dimension; i++) {
-          iteration *= 2;
-        }
 
-        if (+dimension >= 4) {
-          for (let j = 0; j < circlesAmount / 2; j++) {
-            for (let i = 0; i < segments - 1; i++) {
-              let points = [
-                i,
-                i + 1,
-                segments * iteration + 1 + i,
-                segments * iteration + i,
-              ].map((el) => el + segments * j);
+        // Перебираем все возможные комбинации пяти вершин
+        for (let i = 0; i < vertexCount; i++) {
+          percent += (100 / verticesArray.length);
+          console.clear();
+          console.log(percent + "% - 4")
+          for (let j = i + 1; j < vertexCount; j++) {
+            if (hasEdge(i, j)) {
+              for (let k = i + 1; k < vertexCount; k++) {
+                if (hasEdge(j, k)) {
+                  for (let l = i + 1; l < vertexCount; l++) {
 
-              polygons.push(points);
+                    // Проверяем, что все пары вершин связаны в сети
+                    if (
+                      hasEdge(k, l) &&
+                      hasEdge(l, i)
+                    ) {
+                      facesArray.push([i, j, k, l]);
+                    }
+                  }
+                }
+              }
             }
-
-            let points = [
-              0,
-              segments - 1,
-              segments * (iteration + 1) - 1,
-              segments * iteration,
-            ].map((el) => el + segments * j);
-
-            polygons.push(points);
-          }
-
-          let iteration2 = 2;
-
-          for (let j = 0; j < dimension - 3; j++) {
-            for (let i = 0; i < segments - 1; i++) {
-              let points = [
-                i,
-                i + segments * iteration2,
-                segments * (iteration2 + 1) + i,
-                segments + i,
-              ];
-
-              polygons.push(points);
-            }
-
-            iteration2 *= 2;
           }
         }
 
-        if (+dimension === 5) {
-          for (let j = 0; j < iteration / 2; j++) {
-            for (let i = 0; i < segments - 1; i++) {
-              let points = [
-                i + segments * iteration,
-                i + segments * iteration + 1,
-                segments * (iteration + 2) + 1 + i,
-                segments * (iteration + 2) + i,
-              ].map((el) => el + segments * j);
-              polygons.push(points);
-            }
+        return facesArray;
 
-            let points = [
-              segments * iteration,
-              segments * (iteration + 2),
-              segments * (iteration + 3) - 1,
-              segments * (iteration + 1) - 1,
-            ].map((el) => el + segments * j);
-            polygons.push(points);
-          }
-
-          for (let i = 0; i < segments - 1; i++) {
-            let points = [
-              i + segments * 2,
-              i + segments * 3,
-              segments * 7 + i,
-              segments * 6 + i,
-            ];
-            polygons.push(points);
-          }
-
-          for (let i = 0; i < segments - 1; i++) {
-            let points = [i, i + 1, segments * 2 + i + 1, segments * 2 + i];
-            polygons.push(points);
-          }
-
-          for (let i = 0; i < segments - 1; i++) {
-            let points = [
-              i + segments * 5,
-              i + segments * 5 + 1,
-              segments * 7 + 1 + i,
-              segments * 7 + i,
-            ];
-            polygons.push(points);
-          }
-
-          for (let i = 0; i < segments - 1; i++) {
-            let points = [
-              i + segments,
-              i + segments * 3,
-              segments * 7 + i,
-              segments * 5 + i,
-            ];
-            polygons.push(points);
-          }
-
-          for (let i = 0; i < segments - 1; i++) {
-            let points = [
-              i + segments * 5,
-              i + segments * 7,
-              segments * 6 + i,
-              segments * 4 + i,
-            ];
-            polygons.push(points);
-          }
-
-          for (let i = 0; i < segments - 1; i++) {
-            let points = [
-              i + segments * 4,
-              i + segments * 6,
-              segments * 2 + i,
-              i,
-            ];
-            polygons.push(points);
-          }
+        // Функция для проверки наличия ребра между двумя вершинами
+        function hasEdge(a, b) {
+          return vertexConnections[a]?.includes(b) && vertexConnections[b]?.includes(a);
         }
       }
+
+      if (!modified) {
+        polygons = get4FacesArray(verticesArray, _linesArray);
+      }
+      
       setPolygonsArray([...polygons, ...polygonsNGons]);
     }
   }, [
