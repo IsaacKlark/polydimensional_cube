@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const PentagonalPyramid = ({
@@ -12,52 +18,56 @@ const PentagonalPyramid = ({
   onMouseLeave,
   displayFaces
 }) => {
-  let linesArray = [];
-  const edgeLength = 138;
-  const test = new Set();
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        test.add(length);
-        if (length === edgeLength || length === 139) {
-          linesArray.push([i, j]);
+  if (!modified) {
+    let linesArray = [];
+    const edgeLength = 138;
+    const test = new Set();
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+          }
+          length = Math.round(length ** (1 / 2));
+          test.add(length);
+          if (length === edgeLength || length === 139) {
+            linesArray.push([i, j]);
+          }
         }
       }
-    }
-    const step = Math.ceil(i / 5);
+      const step = Math.ceil(i / 5);
 
-    for (let j = 0; j < dimensionOfFigure; j++) {
-      if (i === step * 5 - 1) {
-        linesArray.push([i, step * 5 - 5]);
+      for (let j = 0; j < dimensionOfFigure; j++) {
+        if (i === step * 5 - 1) {
+          linesArray.push([i, step * 5 - 5]);
+        }
+
+        if (i + 1 < step * 5 && i + 1 < verticesArray.length) {
+          linesArray.push([i, i + 1]);
+        }
       }
 
-      if (i + 1 < step * 5 && i + 1 < verticesArray.length) {
+      if (i % 5 === 0 && i + 1 < verticesArray.length) {
         linesArray.push([i, i + 1]);
       }
+      linesArray.push([i, verticesArray.length - 1]);
     }
 
-    if (i % 5 === 0 && i + 1 < verticesArray.length) {
-      linesArray.push([i, i + 1]);
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
+
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
     }
-    linesArray.push([i, verticesArray.length - 1]);
+    setLinesArray(linesArray)
   }
-
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
-
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
-  }
-
-  const linesAmount = linesArray.length;
+  const linesAmount = _linesArray.length;
   useMemo(() => {
+    if (!modified) {
+
     if (displayFaces) {
       if (+dimensionOfFigure === 2) {
         polygons = [
@@ -231,8 +241,8 @@ const PentagonalPyramid = ({
           return res;
         };
 
-        let polygons3 = clearRepeats(get3FacesArray(verticesArray, linesArray));
-        let polygons4 = clearRepeats(get4FacesArray(verticesArray, linesArray));
+        let polygons3 = clearRepeats(get3FacesArray(verticesArray, _linesArray));
+        let polygons4 = clearRepeats(get4FacesArray(verticesArray, _linesArray));
 
 
         const clearExtra = () => {
@@ -259,7 +269,9 @@ const PentagonalPyramid = ({
         polygons = [...polygons3, ...clearExtra()]
       }
     }
-  }, [dimensionOfFigure, linesAmount, displayFaces])
+    setPolygonsArray(polygons)
+  }
+  }, [dimensionOfFigure, linesAmount, displayFaces, modified])
 
   return (
     <svg
@@ -271,12 +283,12 @@ const PentagonalPyramid = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -294,7 +306,7 @@ const PentagonalPyramid = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

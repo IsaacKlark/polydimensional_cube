@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const TrianglePrism = ({
@@ -12,6 +18,7 @@ const TrianglePrism = ({
   onMouseLeave,
   displayFaces
 }) => {
+  if (!modified) {
   let linesArray = [];
   const edgeLength = 138;
   const test = new Set();
@@ -39,10 +46,13 @@ const TrianglePrism = ({
     lines.push(ids);
     ids += 1;
   }
-
-  const linesAmount = lines.length;
+  setLinesArray(linesArray)
+  }
+  const linesAmount = _linesArray.length;
 
   useMemo(() => {
+    if (!modified) {
+
     if (displayFaces) {
       if (+dimensionOfFigure === 2) {
         polygons = [
@@ -165,8 +175,8 @@ const TrianglePrism = ({
           return res;
         };
 
-        let polygons3 = clearRepeats(get3FacesArray(verticesArray, linesArray));
-        let polygons4 = clearRepeats(get4FacesArray(verticesArray, linesArray));
+        let polygons3 = clearRepeats(get3FacesArray(verticesArray, _linesArray));
+        let polygons4 = clearRepeats(get4FacesArray(verticesArray, _linesArray));
 
 
         const clearExtra = () => {
@@ -193,7 +203,9 @@ const TrianglePrism = ({
         polygons = [...polygons3, ...clearExtra()]
       }
     }
-  }, [dimensionOfFigure, linesAmount, displayFaces])
+    setPolygonsArray(polygons)
+  }
+  }, [dimensionOfFigure, linesAmount, displayFaces, modified])
 
   return (
     <svg
@@ -205,12 +217,12 @@ const TrianglePrism = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -228,7 +240,7 @@ const TrianglePrism = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const Bitruncated5Cell = ({
@@ -12,306 +18,312 @@ const Bitruncated5Cell = ({
   onMouseLeave,
   displayFaces
 }) => {
-  let linesArray = [];
-  const edgeLength = 80;
-  const test = new Set();
+  if (!modified) {
+    let linesArray = [];
+    const edgeLength = 80;
+    const test = new Set();
 
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        test.add(length)
-        if (+dimensionOfFigure > 2) {
-          if (length === edgeLength || length === edgeLength - 1) {
-            linesArray.push([i, j]);
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
           }
-        } else if (+dimensionOfFigure === 2) {
-          if (length === 94 || length === 98) {
-            linesArray.push([i, j]);
+          length = Math.round(length ** (1 / 2));
+          test.add(length)
+          if (+dimensionOfFigure > 2) {
+            if (length === edgeLength || length === edgeLength - 1) {
+              linesArray.push([i, j]);
+            }
+          } else if (+dimensionOfFigure === 2) {
+            if (length === 94 || length === 98) {
+              linesArray.push([i, j]);
+            }
           }
         }
       }
     }
-  }
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
 
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+    setLinesArray(linesArray)
   }
 
   useMemo(() => {
-    polygons = [
-      [
-        0,
-        6,
-        12
-      ],
-      [
-        0,
-        26,
-        28
-      ],
-      [
-        1,
-        7,
-        13
-      ],
-      [
-        1,
-        23,
-        25
-      ],
-      [
-        2,
-        8,
-        14
-      ],
-      [
-        2,
-        20,
-        27
-      ],
-      [
-        3,
-        9,
-        15
-      ],
-      [
-        3,
-        21,
-        29
-      ],
-      [
-        4,
-        10,
-        16
-      ],
-      [
-        4,
-        18,
-        22
-      ],
-      [
-        5,
-        11,
-        17
-      ],
-      [
-        5,
-        19,
-        24
-      ],
-      [
-        6,
-        22,
-        24
-      ],
-      [
-        7,
-        27,
-        29
-      ],
-      [
-        8,
-        18,
-        23
-      ],
-      [
-        9,
-        19,
-        25
-      ],
-      [
-        10,
-        20,
-        26
-      ],
-      [
-        11,
-        21,
-        28
-      ],
-      [
-        12,
-        14,
-        15
-      ],
-      [
-        13,
-        16,
-        17
-      ],
-      [
-        0,
-        6,
-        22,
-        4,
-        10,
-        26
-      ],
-      [
-        0,
-        6,
-        24,
-        5,
-        11,
-        28
-      ],
-      [
-        0,
-        12,
-        14,
-        2,
-        20,
-        26
-      ],
-      [
-        0,
-        12,
-        15,
-        3,
-        21,
-        28
-      ],
-      [
-        1,
-        7,
-        27,
-        2,
-        8,
-        23
-      ],
-      [
-        1,
-        7,
-        29,
-        3,
-        9,
-        25
-      ],
-      [
-        1,
-        13,
-        16,
-        4,
-        18,
-        23
-      ],
-      [
-        1,
-        13,
-        17,
-        5,
-        19,
-        25
-      ],
-      [
-        2,
-        8,
-        18,
-        4,
-        10,
-        20
-      ],
-      [
-        2,
-        14,
-        15,
-        3,
-        29,
-        27
-      ],
-      [
-        3,
-        9,
-        19,
-        5,
-        11,
-        21
-      ],
-      [
-        4,
-        16,
-        17,
-        5,
-        24,
-        22
-      ],
-      [
-        6,
-        12,
-        14,
-        8,
-        18,
-        22
-      ],
-      [
-        6,
-        12,
-        15,
-        9,
-        19,
-        24
-      ],
-      [
-        7,
-        13,
-        16,
-        10,
-        20,
-        27
-      ],
-      [
-        7,
-        13,
-        17,
-        11,
-        21,
-        29
-      ],
-      [
-        8,
-        14,
-        15,
-        9,
-        25,
-        23
-      ],
-      [
-        10,
-        16,
-        17,
-        11,
-        28,
-        26
-      ],
-      [
-        18,
-        22,
-        24,
-        19,
-        25,
-        23
-      ],
-      [
-        20,
-        26,
-        28,
-        21,
-        29,
-        27
-      ]
-    ]
+    if (!modified) {
 
-  }, [])
+      polygons = [
+        [
+          0,
+          6,
+          12
+        ],
+        [
+          0,
+          26,
+          28
+        ],
+        [
+          1,
+          7,
+          13
+        ],
+        [
+          1,
+          23,
+          25
+        ],
+        [
+          2,
+          8,
+          14
+        ],
+        [
+          2,
+          20,
+          27
+        ],
+        [
+          3,
+          9,
+          15
+        ],
+        [
+          3,
+          21,
+          29
+        ],
+        [
+          4,
+          10,
+          16
+        ],
+        [
+          4,
+          18,
+          22
+        ],
+        [
+          5,
+          11,
+          17
+        ],
+        [
+          5,
+          19,
+          24
+        ],
+        [
+          6,
+          22,
+          24
+        ],
+        [
+          7,
+          27,
+          29
+        ],
+        [
+          8,
+          18,
+          23
+        ],
+        [
+          9,
+          19,
+          25
+        ],
+        [
+          10,
+          20,
+          26
+        ],
+        [
+          11,
+          21,
+          28
+        ],
+        [
+          12,
+          14,
+          15
+        ],
+        [
+          13,
+          16,
+          17
+        ],
+        [
+          0,
+          6,
+          22,
+          4,
+          10,
+          26
+        ],
+        [
+          0,
+          6,
+          24,
+          5,
+          11,
+          28
+        ],
+        [
+          0,
+          12,
+          14,
+          2,
+          20,
+          26
+        ],
+        [
+          0,
+          12,
+          15,
+          3,
+          21,
+          28
+        ],
+        [
+          1,
+          7,
+          27,
+          2,
+          8,
+          23
+        ],
+        [
+          1,
+          7,
+          29,
+          3,
+          9,
+          25
+        ],
+        [
+          1,
+          13,
+          16,
+          4,
+          18,
+          23
+        ],
+        [
+          1,
+          13,
+          17,
+          5,
+          19,
+          25
+        ],
+        [
+          2,
+          8,
+          18,
+          4,
+          10,
+          20
+        ],
+        [
+          2,
+          14,
+          15,
+          3,
+          29,
+          27
+        ],
+        [
+          3,
+          9,
+          19,
+          5,
+          11,
+          21
+        ],
+        [
+          4,
+          16,
+          17,
+          5,
+          24,
+          22
+        ],
+        [
+          6,
+          12,
+          14,
+          8,
+          18,
+          22
+        ],
+        [
+          6,
+          12,
+          15,
+          9,
+          19,
+          24
+        ],
+        [
+          7,
+          13,
+          16,
+          10,
+          20,
+          27
+        ],
+        [
+          7,
+          13,
+          17,
+          11,
+          21,
+          29
+        ],
+        [
+          8,
+          14,
+          15,
+          9,
+          25,
+          23
+        ],
+        [
+          10,
+          16,
+          17,
+          11,
+          28,
+          26
+        ],
+        [
+          18,
+          22,
+          24,
+          19,
+          25,
+          23
+        ],
+        [
+          20,
+          26,
+          28,
+          21,
+          29,
+          27
+        ]
+      ]
+      setPolygonsArray(polygons)
+    }
+  }, [modified])
 
   return (
     <svg
@@ -323,12 +335,12 @@ const Bitruncated5Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -346,7 +358,7 @@ const Bitruncated5Cell = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

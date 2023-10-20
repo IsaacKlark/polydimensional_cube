@@ -1,5 +1,11 @@
 import React from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 const Cantellated600Cell = ({
   verticesArray,
   dimensionOfFigure,
@@ -9,38 +15,41 @@ const Cantellated600Cell = ({
   onMouseOver,
   onMouseLeave,
 }) => {
-  let linesArray = [];
-  const test = new Set();
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        test.add(length);
-        if (
-          length === 23 ||
-          length === 26 ||
-          length === 27 ||
-          length === 28 ||
-          length === 32 ||
-          length === 38   
-        ) {
-          linesArray.push([i, j]);
+  if (!modified) {
+    let linesArray = [];
+    const test = new Set();
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+          }
+          length = Math.round(length ** (1 / 2));
+          test.add(length);
+          if (
+            length === 23 ||
+            length === 26 ||
+            length === 27 ||
+            length === 28 ||
+            length === 32 ||
+            length === 38
+          ) {
+            linesArray.push([i, j]);
+          }
         }
       }
     }
-  }
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
 
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+    setLinesArray(linesArray)
   }
 
   return (
@@ -53,12 +62,12 @@ const Cantellated600Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -77,23 +86,23 @@ const Cantellated600Cell = ({
 
       {displayVertices
         ? verticesArray.map((item, index) => (
-            <circle
-              onClick={() => {
-                console.log(verticesArray[index], index);
-              }}
-              key={index}
-              cx="300"
-              cy="200"
-              r="2"
-              fill="white"
-              id={`circle${index}`}
-              className="circle"
-              onContextMenu={(e) => {
-                e.preventDefault();
-                e.target.style.display = "none";
-              }}
-            />
-          ))
+          <circle
+            onClick={() => {
+              console.log(verticesArray[index], index);
+            }}
+            key={index}
+            cx="300"
+            cy="200"
+            r="2"
+            fill="white"
+            id={`circle${index}`}
+            className="circle"
+            onContextMenu={(e) => {
+              e.preventDefault();
+              e.target.style.display = "none";
+            }}
+          />
+        ))
         : null}
     </svg>
   );

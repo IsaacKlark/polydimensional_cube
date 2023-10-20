@@ -1,5 +1,11 @@
 import React from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 const Runcitruncated600Cell = ({
   verticesArray,
   dimensionOfFigure,
@@ -9,6 +15,7 @@ const Runcitruncated600Cell = ({
   onMouseOver,
   onMouseLeave,
 }) => {
+  if (!modified) {
   let linesArray = [];
   const test = new Set();
   for (let i = 0; i < verticesArray.length; i++) {
@@ -42,7 +49,8 @@ const Runcitruncated600Cell = ({
     lines.push(ids);
     ids += 1;
   }
-
+  setLinesArray(linesArray)
+  }
   return (
     <svg
       width="600"
@@ -53,12 +61,12 @@ const Runcitruncated600Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}

@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = []
 
 const Cantellated24Cell = ({
@@ -12,41 +18,45 @@ const Cantellated24Cell = ({
   onMouseLeave,
   displayFaces
 }) => {
+  if (!modified) {
+    let linesArray = [];
+    const test = new Set();
 
-  let linesArray = [];
-  const test = new Set();
-
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        test.add(length)
-        if (+dimensionOfFigure > 2) {
-          if (length === 60 || length === 52 || length === 67) {
-            linesArray.push([i, j]);
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
           }
-        } else {
-          if (length === 60 || length === 120) {
-            linesArray.push([i, j]);
+          length = Math.round(length ** (1 / 2));
+          test.add(length)
+          if (+dimensionOfFigure > 2) {
+            if (length === 60 || length === 52 || length === 67) {
+              linesArray.push([i, j]);
+            }
+          } else {
+            if (length === 60 || length === 120) {
+              linesArray.push([i, j]);
+            }
           }
         }
       }
     }
-  }
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
 
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+    setLinesArray(linesArray)
   }
 
   useMemo(() => {
+    if (!modified) {
+
     if (+dimensionOfFigure === 2) {
       polygons = [
         [
@@ -34464,7 +34474,9 @@ const Cantellated24Cell = ({
         ]
       ]
     }
-  }, [dimensionOfFigure])
+    setPolygonsArray(polygons)
+  }
+  }, [dimensionOfFigure, modified])
 
   return (
     <svg
@@ -34476,12 +34488,12 @@ const Cantellated24Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -34499,7 +34511,7 @@ const Cantellated24Cell = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}
@@ -34507,13 +34519,13 @@ const Cantellated24Cell = ({
             fill={`rgba(255,255, 255, 0.3)`}
             className="polygon"
             data-type={arr.length}
-            // onClick={() => {
-            //   const newArr = [...testPolygons, arr];
-            //   setTestPolygons(newArr)
-            //   polygons = polygons.map((el, index2) => index2 !== index ? el : []);
-            //   console.clear();
-            //   console.log(newArr)
-            // }}
+          // onClick={() => {
+          //   const newArr = [...testPolygons, arr];
+          //   setTestPolygons(newArr)
+          //   polygons = polygons.map((el, index2) => index2 !== index ? el : []);
+          //   console.clear();
+          //   console.log(newArr)
+          // }}
           />
         ))
         : null}

@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const SquarePyramid = ({
@@ -13,45 +19,49 @@ const SquarePyramid = ({
   displayFaces,
   dimension
 }) => {
-  let linesArray = [];
+  if (!modified) {
+    let linesArray = [];
 
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        if (+dimensionOfFigure > 2) {
-          if (length === Math.trunc(160)) {
-            linesArray.push([i, j]);
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
           }
-        } else {
-          if (
-            length === Math.trunc(160) ||
-            length === Math.trunc(180)
-          ) {
-            linesArray.push([i, j]);
+          length = Math.round(length ** (1 / 2));
+          if (+dimensionOfFigure > 2) {
+            if (length === Math.trunc(160)) {
+              linesArray.push([i, j]);
+            }
+          } else {
+            if (
+              length === Math.trunc(160) ||
+              length === Math.trunc(180)
+            ) {
+              linesArray.push([i, j]);
+            }
           }
         }
       }
+      linesArray.push([i, verticesArray.length - 1]);
     }
-    linesArray.push([i, verticesArray.length - 1]);
+
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
+
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+    setLinesArray(linesArray)
   }
-
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
-
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
-  }
-
-  const linesAmount = lines.length;
+  const linesAmount = _linesArray.length;
 
   useMemo(() => {
+    if (!modified) {
+
     if (displayFaces) {
       function get3FacesArray(verticesArray, linesArray) {
         const facesArray = [];
@@ -113,12 +123,14 @@ const SquarePyramid = ({
         return res;
       };
 
-      let polygons3 = clearRepeats(get3FacesArray(verticesArray, linesArray));
+      let polygons3 = clearRepeats(get3FacesArray(verticesArray, _linesArray));
 
 
       polygons = [...polygons3]
     }
-  }, [dimensionOfFigure, linesAmount, displayFaces])
+    setPolygonsArray(polygons)
+  }
+  }, [dimensionOfFigure, linesAmount, displayFaces, modified])
 
   return (
     <svg
@@ -130,12 +142,12 @@ const SquarePyramid = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -153,7 +165,7 @@ const SquarePyramid = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

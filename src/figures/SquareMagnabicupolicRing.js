@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const SquareMagnabicupolicRing = ({
@@ -12,6 +18,7 @@ const SquareMagnabicupolicRing = ({
   onMouseLeave,
   displayFaces
 }) => {
+  if (!modified) {
   let linesArray = [];
 
   for (let i = 0; i < verticesArray.length; i++) {
@@ -38,8 +45,11 @@ const SquareMagnabicupolicRing = ({
     lines.push(ids);
     ids += 1;
   }
-
+  setLinesArray(linesArray)
+  }
   useMemo(() => {
+    if (!modified) {
+
     polygons = [
       [
         0,
@@ -218,7 +228,9 @@ const SquareMagnabicupolicRing = ({
         19
       ],
     ]
-  }, [])
+    setPolygonsArray(polygons)
+  }
+  }, [modified])
 
   return (
     <svg
@@ -230,12 +242,12 @@ const SquareMagnabicupolicRing = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -253,7 +265,7 @@ const SquareMagnabicupolicRing = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

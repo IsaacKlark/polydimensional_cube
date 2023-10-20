@@ -1,5 +1,11 @@
 import React from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 const KleinBottle = ({
   verticesArray,
   dimensionOfFigure,

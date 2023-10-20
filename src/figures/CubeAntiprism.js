@@ -1,5 +1,13 @@
 import React, { useMemo, useState } from "react";
 import { polygons3D, polygons4D, polygons5D, polygons6D, polygons7D, polygons8D, polygons9D, polygons10D } from "./CubeAntiprismPolygons";
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
+
 let polygons = [];
 
 const CubeAntiprism = ({
@@ -12,7 +20,7 @@ const CubeAntiprism = ({
   onMouseLeave,
   displayFaces
 }) => {
-  const [testPolygons, setTestPolygons] = useState([])
+  if (!modified) {
   let linesArray = [];
 
   for (let i = 0; i < verticesArray.length; i++) {
@@ -54,8 +62,12 @@ const CubeAntiprism = ({
     lines.push(ids);
     ids += 1;
   }
+  setLinesArray(linesArray)
+}
 
   useMemo(() => {
+    if (!modified) {
+
     if (+dimensionOfFigure === 3) {
       polygons = polygons3D
     }
@@ -91,8 +103,9 @@ const CubeAntiprism = ({
     if (+dimensionOfFigure > 10) {
       polygons = []
     }
-    
-  }, [dimensionOfFigure])
+    setPolygonsArray(polygons)
+    }
+  }, [dimensionOfFigure, modified])
 
   return (
     <svg
@@ -104,12 +117,12 @@ const CubeAntiprism = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -127,7 +140,7 @@ const CubeAntiprism = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}
@@ -135,13 +148,13 @@ const CubeAntiprism = ({
             fill={`rgba(255,255, 255, 0.3)`}
             className="polygon"
             data-type={arr.length}
-            // onClick={() => {
-            //   const newArr = [...testPolygons, arr];
-            //   setTestPolygons(newArr)
-            //   polygons = polygons.map((el, index2) => index2 !== index ? el : []);
-            //   console.clear();
-            //   console.log(newArr)
-            // }}
+          // onClick={() => {
+          //   const newArr = [...testPolygons, arr];
+          //   setTestPolygons(newArr)
+          //   polygons = polygons.map((el, index2) => index2 !== index ? el : []);
+          //   console.clear();
+          //   console.log(newArr)
+          // }}
           />
         ))
         : null}

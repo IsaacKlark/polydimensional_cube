@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = []
 const TetrahedralUrsachoron = ({
   verticesArray,
@@ -11,6 +17,7 @@ const TetrahedralUrsachoron = ({
   onMouseLeave,
   displayFaces
 }) => {
+  if (!modified) {
   let linesArray = [];
 
   for (let i = 0; i < verticesArray.length; i++) {
@@ -36,8 +43,12 @@ const TetrahedralUrsachoron = ({
     lines.push(ids);
     ids += 1;
   }
+  setLinesArray(linesArray)
+}
 
   useMemo(() => {
+    if (!modified) {
+
     polygons = [
       [
         0,
@@ -220,8 +231,9 @@ const TetrahedralUrsachoron = ({
         6
       ]
     ]
-
-  }, []);
+    setPolygonsArray(polygons)
+    }
+  }, [modified]);
 
   return (
     <svg
@@ -233,12 +245,12 @@ const TetrahedralUrsachoron = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}

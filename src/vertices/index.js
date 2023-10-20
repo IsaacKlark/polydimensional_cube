@@ -86,6 +86,7 @@ import TetrahedralUrsachoronVertices from "./TetrahedralUrsachoronVertices";
 import OctahedralUrsachoronVertices from "./OctahedralUrsachoronVertices";
 import TetrahedralMagnaursachoronVertices from "./TetrahedralMagnaursachoronVertices";
 import KleinBottleVertices from "./KleinBottleVertices";
+import RandomShape from "./RandomShape"
 
 export let verticesArray = [];
 export let polygonsArray = [];
@@ -1018,6 +1019,17 @@ const vertices = (
 
   if (figure === "4D Klein bottle") {
     KleinBottleVertices(
+      dimensions,
+      DimensionOfFigure,
+      setVerticesArray,
+      scale,
+      setOriginalVerticesArray,
+      segments
+    );
+  }
+
+  if (figure === "Random shape") {
+    RandomShape(
       dimensions,
       DimensionOfFigure,
       setVerticesArray,

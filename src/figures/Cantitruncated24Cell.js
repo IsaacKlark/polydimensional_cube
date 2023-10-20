@@ -1,5 +1,11 @@
 import React, { useMemo, useState } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const Cantitruncated24Cell = ({
@@ -12,7 +18,7 @@ const Cantitruncated24Cell = ({
   onMouseLeave,
   displayFaces
 }) => {
-
+  if (!modified) {
   let linesArray = [];
   const test = new Set();
 
@@ -40,10 +46,14 @@ const Cantitruncated24Cell = ({
     lines.push(ids);
     ids += 1;
   }
-
-  const linesAmount = lines.length
+  setLinesArray(linesArray)
+  }
+  const linesAmount = _linesArray.length
+  
 
   useMemo(() => {
+    if (!modified) {
+
     if (+dimensionOfFigure === 2) {
       polygons = [
         [
@@ -61958,7 +61968,9 @@ const Cantitruncated24Cell = ({
         ]
       ]
     }
-  }, [dimensionOfFigure, linesAmount])
+    setPolygonsArray(polygons)
+  }
+  }, [dimensionOfFigure, linesAmount, modified])
 
   return (
     <svg
@@ -61970,12 +61982,12 @@ const Cantitruncated24Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -61993,7 +62005,7 @@ const Cantitruncated24Cell = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

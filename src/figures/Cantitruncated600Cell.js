@@ -1,5 +1,11 @@
 import React from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 const Cantitruncated600Cell = ({
   verticesArray,
   dimensionOfFigure,
@@ -9,36 +15,39 @@ const Cantitruncated600Cell = ({
   onMouseOver,
   onMouseLeave,
 }) => {
-  let linesArray = [];
-  const test = new Set();
+  if (!modified) {
+    let linesArray = [];
+    const test = new Set();
 
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = length ** (1 / 2);
-        if (length > 17 && length < 25) {
-          test.add(length);
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+          }
+          length = length ** (1 / 2);
+          if (length > 17 && length < 25) {
+            test.add(length);
 
-          linesArray.push([i, j]);
+            linesArray.push([i, j]);
+          }
         }
       }
     }
-  }
 
-  console.log(linesArray.length);
-  console.log(Array.from(test).sort((a, b) => a - b));
+    console.log(linesArray.length);
+    console.log(Array.from(test).sort((a, b) => a - b));
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
 
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+    setLinesArray(linesArray)
   }
 
   return (
@@ -51,12 +60,12 @@ const Cantitruncated600Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -75,23 +84,23 @@ const Cantitruncated600Cell = ({
 
       {displayVertices
         ? verticesArray.map((item, index) => (
-            <circle
-              onClick={() => {
-                console.log(verticesArray[index], index);
-              }}
-              key={index}
-              cx="300"
-              cy="200"
-              r="2"
-              fill="white"
-              id={`circle${index}`}
-              className="circle"
-              onContextMenu={(e) => {
-                e.preventDefault();
-                e.target.style.display = "none";
-              }}
-            />
-          ))
+          <circle
+            onClick={() => {
+              console.log(verticesArray[index], index);
+            }}
+            key={index}
+            cx="300"
+            cy="200"
+            r="2"
+            fill="white"
+            id={`circle${index}`}
+            className="circle"
+            onContextMenu={(e) => {
+              e.preventDefault();
+              e.target.style.display = "none";
+            }}
+          />
+        ))
         : null}
     </svg>
   );

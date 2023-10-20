@@ -110,6 +110,7 @@ const baseFigures = [
   "Pentagonal pyramid",
   "Axes",
   "Cube Antiprism",
+  "Random shape"
 ];
 
 const segmentedFigures = [

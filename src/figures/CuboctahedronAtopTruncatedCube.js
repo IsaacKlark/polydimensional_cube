@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = []
 
 const CuboctahedronAtopTruncatedCube = ({
@@ -12,34 +18,39 @@ const CuboctahedronAtopTruncatedCube = ({
   onMouseLeave,
   displayFaces
 }) => {
-  let linesArray = [];
+  if (!modified) {
+    let linesArray = [];
 
-  for (let i = 0; i < verticesArray.length; i++) {
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
+    for (let i = 0; i < verticesArray.length; i++) {
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+          }
+          length = Math.round(length ** (1 / 2));
 
-        if (length === 100) {
-          linesArray.push([i, j]);
+          if (length === 100) {
+            linesArray.push([i, j]);
+          }
         }
       }
     }
-  }
 
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
 
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
+    }
+    setLinesArray(linesArray)
   }
 
   useMemo(() => {
+    if (!modified) {
+
     polygons = [
       [
         0,
@@ -362,7 +373,9 @@ const CuboctahedronAtopTruncatedCube = ({
         23
       ]
     ]
-  }, [])
+    setPolygonsArray(polygons)
+  }
+  }, [modified])
 
   return (
     <svg
@@ -374,12 +387,12 @@ const CuboctahedronAtopTruncatedCube = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -397,7 +410,7 @@ const CuboctahedronAtopTruncatedCube = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

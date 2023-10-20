@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const Runcinated24Cell = ({
@@ -12,6 +18,7 @@ const Runcinated24Cell = ({
   onMouseLeave,
   displayFaces
 }) => {
+  if (!modified) {
   let linesArray = [];
   const test = new Set();
 
@@ -45,8 +52,12 @@ const Runcinated24Cell = ({
     lines.push(ids);
     ids += 1;
   }
+  setLinesArray(linesArray)
+  }
 
   useMemo(() => {
+    if (!modified) {
+
     if (+dimensionOfFigure === 2) {
       polygons = [
         [
@@ -44092,7 +44103,9 @@ const Runcinated24Cell = ({
         ]
       ];
     }
-  }, [dimensionOfFigure])
+    setPolygonsArray(polygons)
+  }
+  }, [dimensionOfFigure, modified])
 
   return (
     <svg
@@ -44104,12 +44117,12 @@ const Runcinated24Cell = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -44127,7 +44140,7 @@ const Runcinated24Cell = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}

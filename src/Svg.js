@@ -1,9 +1,10 @@
 import generateFigureOrthography from "./generateFigureOrthography";
 import React, { useEffect, useCallback, useRef } from "react";
 import generateFigure from "./generateFigure";
-import { setModified, setPolygonsArray, setVerticesArray, verticesArray } from "./vertices";
+import { setVerticesArray, verticesArray } from "./vertices";
 import Cube from "./figures/Cube";
 import Symplex from "./figures/Symplex";
+import RandomShape from "./figures/RandomShape";
 import Octahedron from "./figures/Octahedron";
 import Cell24Analog from "./figures/Cell24Analog";
 import Cell120Analog from "./figures/Cell120Analog";
@@ -1374,6 +1375,22 @@ const Svg = ({
   if (figure === "Pentagonal pyramid") {
     return (
       <PentagonalPyramid
+        verticesArray={originalVerticesArray}
+        dimensionOfFigure={dimensionOfFigure}
+        displayEdges={displayEdges}
+        displayVertices={displayVertices}
+        onWheel={onWheel}
+        onMouseOver={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        segments={segments}
+        displayFaces={displayFaces}
+      />
+    );
+  }
+
+  if (figure === "Random shape") {
+    return (
+      <RandomShape
         verticesArray={originalVerticesArray}
         dimensionOfFigure={dimensionOfFigure}
         displayEdges={displayEdges}

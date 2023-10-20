@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-
+import {
+  linesArray as _linesArray,
+  setLinesArray,
+  modified,
+  polygonsArray,
+  setPolygonsArray,
+} from "../vertices";
 let polygons = [];
 
 const DecagonalPrism = ({
@@ -12,145 +18,151 @@ const DecagonalPrism = ({
   onMouseLeave,
   displayFaces
 }) => {
+
   const segments = 10;
-  let linesArray = [];
-  for (let i = 0; i < verticesArray.length; i++) {
-    const step = Math.ceil(i / segments);
+  if (!modified) {
+    let linesArray = [];
+    for (let i = 0; i < verticesArray.length; i++) {
+      const step = Math.ceil(i / segments);
 
-    for (let j = i; j < verticesArray.length; j++) {
-      if (i !== j) {
-        let length = 0;
-        for (let k = 0; k < dimensionOfFigure; k++) {
-          length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
-        }
-        length = Math.round(length ** (1 / 2));
-        if (length === 100) {
-          linesArray.push([i, j]);
+      for (let j = i; j < verticesArray.length; j++) {
+        if (i !== j) {
+          let length = 0;
+          for (let k = 0; k < dimensionOfFigure; k++) {
+            length += (verticesArray[j][k] - verticesArray[i][k]) ** 2;
+          }
+          length = Math.round(length ** (1 / 2));
+          if (length === 100) {
+            linesArray.push([i, j]);
+          }
         }
       }
-    }
 
-    for (let j = 0; j < dimensionOfFigure; j++) {
-      if (i === step * segments - 1) {
-        linesArray.push([i, step * segments - segments]);
+      for (let j = 0; j < dimensionOfFigure; j++) {
+        if (i === step * segments - 1) {
+          linesArray.push([i, step * segments - segments]);
+        }
+
+        if (
+          i + 1 < step * segments &&
+          i + 1 < verticesArray.length
+        ) {
+          linesArray.push([i, i + 1]);
+        }
       }
 
-      if (
-        i + 1 < step * segments &&
-        i + 1 < verticesArray.length
-      ) {
+      if (i % segments === 0 && i + 1 < verticesArray.length) {
         linesArray.push([i, i + 1]);
       }
     }
 
-    if (i % segments === 0 && i + 1 < verticesArray.length) {
-      linesArray.push([i, i + 1]);
+    const amountOfLines = linesArray.length;
+    let ids = 0;
+    const lines = [];
+
+    for (let i = 0; i < amountOfLines; i++) {
+      lines.push(ids);
+      ids += 1;
     }
+    setLinesArray(linesArray)
   }
-
-  const amountOfLines = linesArray.length;
-  let ids = 0;
-  const lines = [];
-
-  for (let i = 0; i < amountOfLines; i++) {
-    lines.push(ids);
-    ids += 1;
-  }
-
-  const linesAmount = lines.length;
+  const linesAmount = _linesArray.length;
 
   useMemo(() => {
-    let decagons = [];
-    let decagon = [];
-    for (let i = 0; i < verticesArray.length; i++) {
-      decagon.push(i);
-      if (decagon.length === 10) {
-        decagons.push(decagon);
-        decagon = [];
-      }
-    }
+    if (!modified) {
 
-    if (+dimensionOfFigure === 2) {
-      polygons = decagons;
-    }
-
-    if (+dimensionOfFigure >= 3) {
-
-
-      function get4FacesArray(verticesArray, linesArray) {
-        const facesArray = [];
-        const vertexCount = verticesArray.length;
-
-        // Создаем индекс для быстрого поиска связей вершин
-        const vertexConnections = {};
-        for (const [a, b] of linesArray) {
-          if (!vertexConnections[a]) vertexConnections[a] = [];
-          if (!vertexConnections[b]) vertexConnections[b] = [];
-          vertexConnections[a].push(b);
-          vertexConnections[b].push(a);
+      let decagons = [];
+      let decagon = [];
+      for (let i = 0; i < verticesArray.length; i++) {
+        decagon.push(i);
+        if (decagon.length === 10) {
+          decagons.push(decagon);
+          decagon = [];
         }
+      }
 
-        let percent = 0;
+      if (+dimensionOfFigure === 2) {
+        polygons = decagons;
+      }
+
+      if (+dimensionOfFigure >= 3) {
 
 
-        // Перебираем все возможные комбинации пяти вершин
-        for (let i = 0; i < vertexCount; i++) {
-          percent += (100 / verticesArray.length);
-          console.clear();
-          console.log(percent + "% - 4")
-          for (let j = i + 1; j < vertexCount; j++) {
-            if (hasEdge(i, j)) {
-              for (let k = i + 1; k < vertexCount; k++) {
-                if (hasEdge(j, k)) {
-                  for (let l = i + 1; l < vertexCount; l++) {
+        function get4FacesArray(verticesArray, linesArray) {
+          const facesArray = [];
+          const vertexCount = verticesArray.length;
 
-                    // Проверяем, что все пары вершин связаны в сети
-                    if (
-                      hasEdge(k, l) &&
-                      hasEdge(l, i)
-                    ) {
-                      facesArray.push([i, j, k, l]);
+          // Создаем индекс для быстрого поиска связей вершин
+          const vertexConnections = {};
+          for (const [a, b] of linesArray) {
+            if (!vertexConnections[a]) vertexConnections[a] = [];
+            if (!vertexConnections[b]) vertexConnections[b] = [];
+            vertexConnections[a].push(b);
+            vertexConnections[b].push(a);
+          }
+
+          let percent = 0;
+
+
+          // Перебираем все возможные комбинации пяти вершин
+          for (let i = 0; i < vertexCount; i++) {
+            percent += (100 / verticesArray.length);
+            console.clear();
+            console.log(percent + "% - 4")
+            for (let j = i + 1; j < vertexCount; j++) {
+              if (hasEdge(i, j)) {
+                for (let k = i + 1; k < vertexCount; k++) {
+                  if (hasEdge(j, k)) {
+                    for (let l = i + 1; l < vertexCount; l++) {
+
+                      // Проверяем, что все пары вершин связаны в сети
+                      if (
+                        hasEdge(k, l) &&
+                        hasEdge(l, i)
+                      ) {
+                        facesArray.push([i, j, k, l]);
+                      }
                     }
                   }
                 }
               }
             }
           }
-        }
 
-        return facesArray;
+          return facesArray;
 
-        // Функция для проверки наличия ребра между двумя вершинами
-        function hasEdge(a, b) {
-          return vertexConnections[a]?.includes(b) && vertexConnections[b]?.includes(a);
-        }
-      }
-
-
-      const clearRepeats = (arr) => {
-        const res = [];
-        const test = []
-        arr.forEach(element => {
-          const copyElement = [...element]
-          if (!test.includes(JSON.stringify(copyElement.sort((a, b) => a - b)))) {
-            let uniq = true;
-            element.forEach(el => {
-              if (element.indexOf(el) !== element.lastIndexOf(el)) uniq = false;
-            })
-            if (uniq) {
-              res.push(element);
-              test.push(JSON.stringify(copyElement));
-            }
+          // Функция для проверки наличия ребра между двумя вершинами
+          function hasEdge(a, b) {
+            return vertexConnections[a]?.includes(b) && vertexConnections[b]?.includes(a);
           }
-        });
-        return res;
-      };
+        }
 
-      let polygons4 = clearRepeats(get4FacesArray(verticesArray, linesArray));
-      polygons = [...polygons4, ...decagons]
+
+        const clearRepeats = (arr) => {
+          const res = [];
+          const test = []
+          arr.forEach(element => {
+            const copyElement = [...element]
+            if (!test.includes(JSON.stringify(copyElement.sort((a, b) => a - b)))) {
+              let uniq = true;
+              element.forEach(el => {
+                if (element.indexOf(el) !== element.lastIndexOf(el)) uniq = false;
+              })
+              if (uniq) {
+                res.push(element);
+                test.push(JSON.stringify(copyElement));
+              }
+            }
+          });
+          return res;
+        };
+
+        let polygons4 = clearRepeats(get4FacesArray(verticesArray, _linesArray));
+        polygons = [...polygons4, ...decagons]
+      }
+      setPolygonsArray(polygons)
     }
-
-  }, [dimensionOfFigure, linesAmount])
+  }, [dimensionOfFigure, linesAmount, modified])
 
   return (
     <svg
@@ -162,12 +174,12 @@ const DecagonalPrism = ({
       onMouseLeave={onMouseLeave}
     >
       {displayEdges &&
-        lines.map((id, index) => {
+        _linesArray.map((id, index) => {
           let vertex1 = 0;
           let vertex2 = 0;
 
-          vertex1 = linesArray[index][0];
-          vertex2 = linesArray[index][1];
+          vertex1 = _linesArray[index][0];
+          vertex2 = _linesArray[index][1];
           return (
             <line
               key={id}
@@ -185,7 +197,7 @@ const DecagonalPrism = ({
         })}
 
       {displayFaces && +dimensionOfFigure >= 2
-        ? polygons.map((arr, index) => (
+        ? polygonsArray.map((arr, index) => (
           <polygon
             data-points={JSON.stringify(arr)}
             key={index}
